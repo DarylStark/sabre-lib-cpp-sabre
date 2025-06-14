@@ -1,0 +1,19 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 20
+    },
+    "configurePresets": [
+        {
+            "name": "ninja-debug-with-tests",
+            "displayName": "Debug - With tests",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/debug-with-tests",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_TESTING": "yes"
+            }
+        }
+    ]
+}

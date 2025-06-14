@@ -1,0 +1,10 @@
+{
+    "name": "Sabre",
+    "image": "dast1986/slough-dev-dc-cpp:latest",
+    "remoteEnv": {
+        "PROMPTNAME": "Sabre"
+    },
+    "mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ]
+}
