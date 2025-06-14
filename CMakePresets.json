@@ -11,8 +11,7 @@
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/debug-with-tests",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "ENABLE_TESTING": "yes"
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         }
     ]

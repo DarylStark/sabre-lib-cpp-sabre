@@ -6,6 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 
 enable_testing()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message(STATUS "Enabling coverage flags")
+    add_compile_options(--coverage)
+    add_link_options(--coverage)
+endif()
+
 # Application source
 add_subdirectory(src)
 
