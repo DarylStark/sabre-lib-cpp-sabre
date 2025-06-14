@@ -1,8 +1,9 @@
 #!/bin/bash
 
+CURRENT_DIR=${PWD}
 BUILD_DIR=${1:-build}
-LCOV_FILE="../coverage.info"
-HTML_DIR="../htmlcov"
+LCOV_FILE="${CURRENT_DIR}/coverage.info"
+HTML_DIR="${CURRENT_DIR}/htmlcov"
 
 cmake --build $BUILD_DIR || exit
 cd $BUILD_DIR
