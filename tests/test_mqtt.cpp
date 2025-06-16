@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include <sstream>
 #include <string>
 
 // Hack to be able to read the subscriptions.
