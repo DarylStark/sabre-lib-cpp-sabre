@@ -1,5 +1,3 @@
-add_subdirectory(../external/googletest googletest-build)
-
 file(GLOB SOURCES test_*.cpp)
 add_executable(sabre_tests ${SOURCES})
 
