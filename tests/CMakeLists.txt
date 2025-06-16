@@ -1,6 +1,14 @@
 file(GLOB SOURCES test_*.cpp)
 add_executable(sabre_tests ${SOURCES})
 
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+  DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_MakeAvailable(googletest)
+
 add_subdirectory(./sabre_testing)
 
 target_link_libraries(sabre_tests PRIVATE sabre sabre_testing gtest gtest_main)

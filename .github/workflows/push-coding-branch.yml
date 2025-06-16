@@ -1,0 +1,20 @@
+---
+on:
+  push:
+
+jobs:
+  unit-testing:
+    name: Unit Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install cmake
+        run: sudo apt install cmake
+      - name: Build project
+        run: |
+          cmake -S . -B build/ -DBUILD_TESTS=ON
+          cmake --build build/
+      - name: Run tests
+        run: |
+          cd build
+          ctest
