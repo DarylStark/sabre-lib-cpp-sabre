@@ -23,7 +23,10 @@ namespace sabre
         if (c != traits_type::eof())
         {
             if (pptr() >= epptr())
+            {
                 sync();
+                _uart->flush();
+            }
             *pptr() = c;
             pbump(1);
         }
