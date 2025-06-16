@@ -11,10 +11,10 @@ jobs:
       - name: Install cmake
         run: sudo apt install cmake
       - name: Build project
-        run: >
+        run: |
           cmake -S . -B build/
           cmake --build build/
       - name: Run tests
-        run: >
+        run: |
           cd build
           ctest
