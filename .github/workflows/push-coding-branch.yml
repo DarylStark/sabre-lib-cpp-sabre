@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build Project
-        uses: threeal/cmake-action@v2.1.0
+      - name: Install cmake
+        run: sudo apt install cmake
+      - name: Build project
+        run: >
+          cmake -S . -B build/
+          cmake --build build/
       - name: Run tests
         run: >
           cd build
