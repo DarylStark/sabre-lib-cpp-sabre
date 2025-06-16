@@ -13,7 +13,7 @@ TEST(UARTStreamBuf, UseAsOStreamObject)
     auto oldbuf = std::cout.rdbuf(&buffer);
     std::cout << "Testtext" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u->_buf.compare("Testtext"), 0);
+    ASSERT_EQ(u->_buf, "Testtext");
 }
 
 TEST(UARTStreamBuf, OverflowBuffer)
@@ -25,5 +25,5 @@ TEST(UARTStreamBuf, OverflowBuffer)
     auto oldbuf = std::cout.rdbuf(&buffer);
     std::cout << "Testtext123456" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u->_buf.compare("3456"), 0);
+    ASSERT_EQ(u->_buf, "3456");
 }

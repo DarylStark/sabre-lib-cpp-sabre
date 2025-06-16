@@ -6,7 +6,7 @@ target_link_options(sabre_testing PRIVATE --coverage)
 
 target_include_directories(
     sabre_testing
-    PRIVATE
+    PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src
 )
