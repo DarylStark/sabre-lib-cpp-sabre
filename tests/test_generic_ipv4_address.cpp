@@ -42,12 +42,7 @@ TEST(IPv4Address, UInt32Conversion)
 TEST(IPv4Address, OStreamOperator)
 {
     std::stringstream oss;
-    std::streambuf *old_cout = std::cout.rdbuf(oss.rdbuf());
     sabre::IPv4Address add(3232242231);
-
-    std::cout << add;
-
-    std::cout.rdbuf(old_cout);
-
+    oss << add;
     ASSERT_EQ(oss.str(), "192.168.26.55");
 }
