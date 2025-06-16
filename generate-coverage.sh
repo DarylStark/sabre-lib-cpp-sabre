@@ -13,7 +13,7 @@ ctest
 lcov --directory . --capture --output-file "$LCOV_FILE" || exit
 
 # Optionally, remove coverage data for system and test files
-lcov --remove "$LCOV_FILE" '/usr/*' '*/tests/*' '*/external/googletest/*' --output-file "$LCOV_FILE" || exit
+lcov --remove "$LCOV_FILE" '/usr/*' '*/tests/*' '*/googletest/*' --output-file "$LCOV_FILE" || exit
 
 # Generate HTML report
 genhtml "$LCOV_FILE" --output-directory "$HTML_DIR" || exit
