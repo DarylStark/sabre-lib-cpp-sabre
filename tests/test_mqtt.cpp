@@ -1,11 +1,6 @@
+#include "sabre_testing/clients/mqtt.h"
 #include <gtest/gtest.h>
 #include <string>
-
-// Hack to be able to read the subscriptions.
-#define private public
-#define protected public
-
-#include "sabre_testing/clients/mqtt.h"
 
 TEST(MQTTTopic, PublishingExplicitValues)
 {
@@ -116,7 +111,12 @@ TEST(MQTTTopic, Subscribe)
     sabre::MQTTTopicSharedPtr topic1 = client.get_topic("sabre/testing/topic1");
     sabre::MQTTCallback callback = [&callcount](const sabre::MQTTEvent)
     { ++callcount; };
+
     topic1->subscribe(callback);
-    client._subscriptions["sabre/testing/topic1"](sabre::MQTTEvent());
+
+    client.process_received({"sabre/testing/topic1", "test",
+                             sabre::MQTTQoS::AT_LEAST_ONCE,
+                             sabre::MQTTRetain::RETAIN});
+
     ASSERT_EQ(callcount, 1);
 }

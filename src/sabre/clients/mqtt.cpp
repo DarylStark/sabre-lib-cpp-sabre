@@ -50,4 +50,10 @@ namespace sabre
     {
         return std::make_unique<MQTTTopic>(*this, topic_name);
     }
+
+    void MQTTClient::process_received(MQTTEvent event)
+    {
+        if (_subscriptions.find(event.topic) != _subscriptions.end())
+            _subscriptions[event.topic](event);
+    }
 } // namespace sabre
