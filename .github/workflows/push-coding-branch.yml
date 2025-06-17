@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install cmake
-        run: sudo apt install cmake
-      - name: Install Ninja
-        run: sudo apt install ninja-build
+      - name: Install build tools
+        run: sudo apt install cmake ninja-build
       - name: Build project
         run: |
           cmake --preset ninja-release-with-tests
