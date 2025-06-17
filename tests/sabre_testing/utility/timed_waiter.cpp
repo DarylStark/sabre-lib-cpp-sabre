@@ -3,7 +3,7 @@
 #include <thread>
 
 // All times in this implementation are in microseconds to get the tests to
-// finish quickly. In a _real_ implementation, they should be in miliseconds!
+// finish quickly. In a _real_ implementation, they should be in milliseconds!
 
 namespace sabre::testing
 {
