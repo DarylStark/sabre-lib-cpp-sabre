@@ -137,3 +137,26 @@ TEST(MQTTTopic, DontReceiveForNoneSubscription)
 
     ASSERT_EQ(callcount, 0);
 }
+
+TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
+{
+    int callcount = 0;
+    sabre::testing::MQTTClient client;
+    sabre::MQTTCallback default_handler = [&callcount](const sabre::MQTTEvent)
+    { ++callcount; };
+    client.set_default_handler(default_handler);
+
+    client.process_received({"unspecified/topic", "test",
+                             sabre::MQTTQoS::AT_LEAST_ONCE,
+                             sabre::MQTTRetain::RETAIN});
+
+    ASSERT_EQ(callcount, 1);
+}
+
+TEST(MQTTTopic, NoDefaultHandlerSet)
+{
+    sabre::testing::MQTTClient client;
+    ASSERT_NO_THROW(client.process_received({"unspecified/topic", "test",
+                                             sabre::MQTTQoS::AT_LEAST_ONCE,
+                                             sabre::MQTTRetain::RETAIN}););
+}

@@ -64,6 +64,7 @@ namespace sabre
     {
     private:
         std::unordered_map<std::string, MQTTCallback> _subscriptions;
+        MQTTCallback _default_handler;
 
     public:
         virtual void connect(const std::string &hostname,
@@ -79,6 +80,7 @@ namespace sabre
                              MQTTRetain retain) = 0;
         virtual void subscribe(const std::string &topic, MQTTCallback fn,
                                MQTTQoS qos = MQTTQoS::UNDEFINED);
+        virtual void set_default_handler(MQTTCallback handler);
         void process_received(MQTTEvent event);
         MQTTTopicUniquePtr get_topic(const std::string &topic_name);
     };

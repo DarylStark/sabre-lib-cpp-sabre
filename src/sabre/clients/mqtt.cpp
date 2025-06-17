@@ -55,5 +55,13 @@ namespace sabre
     {
         if (_subscriptions.find(event.topic) != _subscriptions.end())
             _subscriptions[event.topic](event);
+        else if (_default_handler != nullptr)
+            _default_handler(event);
     }
+
+    void MQTTClient::set_default_handler(MQTTCallback handler)
+    {
+        _default_handler = handler;
+    }
+
 } // namespace sabre
