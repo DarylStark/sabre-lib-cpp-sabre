@@ -1,7 +1,7 @@
 #ifndef SABRE_TESTING_CLIENTS_MQTT_H
 #define SABRE_TESTING_CLIENTS_MQTT_H
 
-#include <sabre/clients/mqtt.h>
+#include <sabre/clients/mqtt.hpp>
 #include <vector>
 
 namespace sabre::testing

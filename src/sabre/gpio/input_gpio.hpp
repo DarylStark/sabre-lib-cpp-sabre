@@ -1,7 +1,7 @@
 #ifndef SABRE_INPUT_GPIO_H
 #define SABRE_INPUT_GPIO_H
 
-#include "gpio.h"
+#include "gpio.hpp"
 #include <functional>
 #include <memory>
 

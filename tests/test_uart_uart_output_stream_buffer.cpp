@@ -1,7 +1,7 @@
-#include "sabre_testing/uart/uart.h"
+#include "sabre_testing/uart/uart.hpp"
 #include <gtest/gtest.h>
-#include <sabre/uart/uart.h>
-#include <sabre/uart/uart_output_stream_buffer.h>
+#include <sabre/uart/uart.hpp>
+#include <sabre/uart/uart_output_stream_buffer.hpp>
 #include <string>
 
 TEST(UARTStreamBuf, UseAsOStreamObject)

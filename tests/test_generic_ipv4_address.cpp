@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <sabre/generic/ipv4_address.h>
+#include <sabre/generic/ipv4_address.hpp>
 #include <sstream>
 #include <string>
 

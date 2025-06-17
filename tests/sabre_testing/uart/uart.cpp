@@ -1,6 +1,6 @@
-#include "uart.h"
-#include <sabre/uart/uart.h>
-#include <sabre/uart/uart_output_stream_buffer.h>
+#include "uart.hpp"
+#include <sabre/uart/uart.hpp>
+#include <sabre/uart/uart_output_stream_buffer.hpp>
 #include <string>
 
 namespace sabre::testing
