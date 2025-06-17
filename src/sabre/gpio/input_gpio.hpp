@@ -30,10 +30,11 @@ namespace sabre
     {
     protected:
         bool _inverse_level = false;
+        virtual bool _get_level() const = 0;
 
     public:
         // Input GPIOs
-        virtual bool get_level() const = 0;
+        virtual bool get_level() const;
         virtual void set_inverse_level();
         virtual void set_original_level();
         virtual bool get_inverse_level() const;

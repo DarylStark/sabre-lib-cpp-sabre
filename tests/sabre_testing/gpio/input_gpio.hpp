@@ -7,14 +7,18 @@ namespace sabre::testing
 {
     class InputGPIO : public sabre::InputGPIO
     {
+    protected:
+        bool _get_level() const;
+
     public:
-        bool get_level() const;
         void enable_pullup();
         void enable_pulldown();
         void disable_pullup();
         void disable_pulldown();
         void add_interrupt_handler(ISRHandler, ISRTrigger);
         void reset();
+
+        bool level = true;
     };
 } // namespace sabre::testing
 

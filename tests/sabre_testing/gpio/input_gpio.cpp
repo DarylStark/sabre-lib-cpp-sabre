@@ -2,9 +2,9 @@
 
 namespace sabre::testing
 {
-    bool InputGPIO::get_level() const
+    bool InputGPIO::_get_level() const
     {
-        return true;
+        return level;
     }
 
     void InputGPIO::enable_pullup() {}
