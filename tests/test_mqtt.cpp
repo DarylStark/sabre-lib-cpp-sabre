@@ -104,7 +104,7 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
     client._published_messages.pop_back();
 }
 
-TEST(MQTTTopic, Subscribe)
+TEST(MQTTTopic, ReceiveForSubscription)
 {
     int callcount = 0;
     sabre::testing::MQTTClient client;
@@ -119,4 +119,21 @@ TEST(MQTTTopic, Subscribe)
                              sabre::MQTTRetain::RETAIN});
 
     ASSERT_EQ(callcount, 1);
+}
+
+TEST(MQTTTopic, DontReceiveForNoneSubscription)
+{
+    int callcount = 0;
+    sabre::testing::MQTTClient client;
+    sabre::MQTTTopicSharedPtr topic1 = client.get_topic("sabre/testing/topic1");
+    sabre::MQTTCallback callback = [&callcount](const sabre::MQTTEvent)
+    { ++callcount; };
+
+    topic1->subscribe(callback);
+
+    client.process_received({"sabre/testing/topic2", "test",
+                             sabre::MQTTQoS::AT_LEAST_ONCE,
+                             sabre::MQTTRetain::RETAIN});
+
+    ASSERT_EQ(callcount, 0);
 }
