@@ -8,15 +8,15 @@ namespace sabre::testing
     class InputGPIO : public sabre::InputGPIO
     {
     protected:
-        bool _get_level() const;
+        bool _get_level() const override;
 
     public:
-        void enable_pullup();
-        void enable_pulldown();
-        void disable_pullup();
-        void disable_pulldown();
-        void add_interrupt_handler(ISRHandler, ISRTrigger);
-        void reset();
+        void enable_pullup() override;
+        void enable_pulldown() override;
+        void disable_pullup() override;
+        void disable_pulldown() override;
+        void add_interrupt_handler(ISRHandler, ISRTrigger) override;
+        void reset() override;
 
         bool level = true;
     };
