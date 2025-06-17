@@ -35,8 +35,7 @@ namespace sabre
     public:
         // Input GPIOs
         virtual bool get_level() const;
-        virtual void set_inverse_level();
-        virtual void set_original_level();
+        virtual void set_inverse_level(bool level = false);
         virtual bool get_inverse_level() const;
         virtual void enable_pullup() = 0;
         virtual void enable_pulldown() = 0;

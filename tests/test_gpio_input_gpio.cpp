@@ -10,14 +10,14 @@ TEST(InputGPIO, DefaultInverseLevel)
 TEST(InputGPIO, SetInverseLevelTrue)
 {
     sabre::testing::InputGPIO gpio;
-    gpio.set_inverse_level();
+    gpio.set_inverse_level(true);
     ASSERT_TRUE(gpio.get_inverse_level());
 }
 
 TEST(InputGPIO, SetInverseLevelFalse)
 {
     sabre::testing::InputGPIO gpio;
-    gpio.set_original_level();
+    gpio.set_inverse_level(false);
     ASSERT_FALSE(gpio.get_inverse_level());
 }
 
@@ -25,7 +25,7 @@ TEST(InputGPIO, CheckLevelInversionFalseTrue)
 {
     sabre::testing::InputGPIO gpio;
     gpio.level = false;
-    gpio.set_inverse_level();
+    gpio.set_inverse_level(true);
     ASSERT_TRUE(gpio.get_level());
 }
 
@@ -33,7 +33,7 @@ TEST(InputGPIO, CheckLevelInversionFalseFalse)
 {
     sabre::testing::InputGPIO gpio;
     gpio.level = false;
-    gpio.set_original_level();
+    gpio.set_inverse_level(false);
     ASSERT_FALSE(gpio.get_level());
 }
 
@@ -41,7 +41,7 @@ TEST(InputGPIO, CheckLevelInversionTrueFalse)
 {
     sabre::testing::InputGPIO gpio;
     gpio.level = true;
-    gpio.set_original_level();
+    gpio.set_inverse_level(false);
     ASSERT_TRUE(gpio.get_level());
 }
 
@@ -49,6 +49,6 @@ TEST(InputGPIO, CheckLevelInversionTrueTrue)
 {
     sabre::testing::InputGPIO gpio;
     gpio.level = true;
-    gpio.set_inverse_level();
+    gpio.set_inverse_level(true);
     ASSERT_FALSE(gpio.get_level());
 }

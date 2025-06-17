@@ -7,14 +7,9 @@ namespace sabre
         return _get_level() == !_inverse_level;
     }
 
-    void InputGPIO::set_inverse_level()
+    void InputGPIO::set_inverse_level(bool level)
     {
-        _inverse_level = true;
-    }
-
-    void InputGPIO::set_original_level()
-    {
-        _inverse_level = false;
+        _inverse_level = level;
     }
 
     bool InputGPIO::get_inverse_level() const
