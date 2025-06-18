@@ -3,6 +3,8 @@
 #include <sabre/logging/log_handlers.hpp>
 #include <sabre/uart/uart_output_stream_buffer.hpp>
 
+#include <iostream>
+
 TEST(OStreamLogHandler, Logging)
 {
     std::shared_ptr<sabre::testing::TestUART> u =
@@ -17,6 +19,8 @@ TEST(OStreamLogHandler, Logging)
     sabre::Logging::add_handler(handler);
 
     sabre::Logging::log(sabre::LoggingLevel::INFO, "TestLogger", "Testmessage");
+
+    sabre::Logging::remove_handler(handler);
 
     ASSERT_TRUE(u->_buf.contains("TestLogger"));
     ASSERT_TRUE(u->_buf.contains("Testmessage"));
