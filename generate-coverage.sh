@@ -15,7 +15,7 @@ mkdir -p "$HTML_DIR"
 
 # Generate HTML and XML coverage reports using gcovr
 gcovr \
-    --root ${CURRENT_DIR} \
+    --root "${CURRENT_DIR}" \
     --exclude-directories 'tests' \
     --exclude '.*googletest.*' \
     --html="${COVERAGE_HTML_INDEX}" --html-details -o "$COVERAGE_HTML_INDEX" \
