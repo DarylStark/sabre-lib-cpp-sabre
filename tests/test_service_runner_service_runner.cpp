@@ -6,4 +6,5 @@ TEST(ServiceRunner, Functor)
     sabre::testing::ServiceRunner runner;
     runner();
     ASSERT_TRUE(runner.is_running());
+    ASSERT_EQ(runner.value, 1);
 }

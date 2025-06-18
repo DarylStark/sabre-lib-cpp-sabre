@@ -11,10 +11,15 @@ namespace sabre::testing
     private:
         bool _is_runner = false;
 
+    protected:
+        void _service() override;
+
     public:
-        void start();
-        void stop();
-        bool is_running() const;
+        void start() override;
+        void stop() override;
+        bool is_running() const override;
+
+        int value = 0;
     };
 } // namespace sabre::testing
 

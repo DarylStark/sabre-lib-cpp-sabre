@@ -2,8 +2,14 @@
 
 namespace sabre::testing
 {
+    void ServiceRunner::_service()
+    {
+        ++value;
+    }
+
     void ServiceRunner::start()
     {
+        _service();
         _is_runner = true;
     }
 
