@@ -2,18 +2,22 @@
 
 CURRENT_DIR=${PWD}
 BUILD_DIR=${1:-build}
-LCOV_FILE="${CURRENT_DIR}/coverage.info"
 HTML_DIR="${CURRENT_DIR}/htmlcov"
+COVERAGE_XML="${CURRENT_DIR}/coverage.xml"
+COVERAGE_HTML_INDEX="${HTML_DIR}/index.html"
 
 cmake --build $BUILD_DIR || exit
 cd $BUILD_DIR
 ctest
 
-# Capture coverage data
-lcov --directory . --capture --output-file "$LCOV_FILE" || exit
+# Ensure the HTML output directory exists
+mkdir -p "$HTML_DIR"
 
-# Optionally, remove coverage data for system and test files
-lcov --remove "$LCOV_FILE" '/usr/*' '*/tests/*' '*/googletest/*' --output-file "$LCOV_FILE" || exit
-
-# Generate HTML report
-genhtml "$LCOV_FILE" --output-directory "$HTML_DIR" || exit
+# Generate HTML and XML coverage reports using gcovr
+gcovr \
+    --root ${CURRENT_DIR} \
+    --exclude-directories 'tests' \
+    --exclude '.*googletest.*' \
+    --html="${COVERAGE_HTML_INDEX}" --html-details -o "$COVERAGE_HTML_INDEX" \
+    --xml -o "$COVERAGE_XML" \
+    --print-summary
