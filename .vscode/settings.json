@@ -59,6 +59,12 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "chrono": "cpp",
+        "csignal": "cpp",
+        "cstring": "cpp",
+        "unordered_set": "cpp",
+        "fstream": "cpp",
+        "span": "cpp"
     }
 }
