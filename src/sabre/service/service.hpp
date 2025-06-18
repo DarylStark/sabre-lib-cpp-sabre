@@ -21,4 +21,4 @@ namespace sabre
     using ServiceSharedPtr = std::shared_ptr<Service>;
 } // namespace sabre
 
-#endif // SABRE_SERVICE_RUNNER_H
+#endif // SABRE_SERVICE_H
