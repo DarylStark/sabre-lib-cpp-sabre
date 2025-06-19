@@ -14,21 +14,103 @@
 
 namespace sabre
 {
+    /**
+     * @brief Abstract factory for object creation.
+     *
+     * Creates objects for a specific implementation. The methods of
+     * this factory return shared pointers to the real implemented objects. This
+     * should be overriden by implementations to return the correct object
+     * for the specific implementation.
+     */
     class Factory
     {
     public:
+        /**
+         * Create a `UART` object.
+         *
+         * @param uart_number the UART number to configure the object with.
+         * @param baud_rate the baud rate for the serial interface.
+         * @param tx_pin transmit pin.
+         * @param rx_pin receive pin.
+         *
+         * @returns `UARTSharedPtr` a shared pointer to a `UART` object.
+         */
         virtual UARTSharedPtr create_uart_object(uint32_t uart_number,
                                                  int32_t baud_rate,
                                                  int32_t tx_pin,
                                                  int32_t rx_pin) const = 0;
+
+        /**
+         * Create a `UARTStreamBuf` object.
+         *
+         * @param uart_number the UART number to configure the object with.
+         * @param baud_rate the baud rate for the serial interface.
+         * @param tx_pin transmit pin.
+         * @param rx_pin receive pin.
+         * @param buffer_size the size of the buffer in bytes.
+         *
+         * @returns `UARTStreamBufSharedPtr` a shared pointer to a
+         * `UARTStreamBuf` object.
+         */
         virtual UARTStreamBufSharedPtr create_uart_output_stream_buffer(
             uint32_t uart_number, int32_t baud_rate, int32_t tx_pin,
             int32_t rx_pin, size_t buffer_size) const;
+
+        /**
+         * Create a `InputGPIO` object.
+         *
+         * @param pin the pin number for the GPIO.
+         *
+         * @returns `InputGPIOSharedPtr` a shared pointer to a `InputGPIO`
+         * object.
+         */
         virtual InputGPIOSharedPtr create_input_gpio(int32_t pin) const = 0;
+
+        /**
+         * Create a `OutputGPIO` object.
+         *
+         * @param pin the pin number for the GPIO.
+         *
+         * @returns `OutputGPIOSharedPtr` a shared pointer to a `OutputGPIO`
+         * object.
+         */
         virtual OutputGPIOSharedPtr create_output_gpio(int32_t pin) const = 0;
+
+        /**
+         * Create a `WifiStation` object.
+         *
+         * @returns `WifiStationSharedPtr` a shared pointer to a `WifiStation`
+         * object.
+         */
         virtual WifiStationSharedPtr create_wifi_station() const = 0;
+
+        /**
+         * Create a `WifiSoftAP` object.
+         *
+         * @returns `WifiSoftAPSharedPtr` a shared pointer to a `WifiSoftAP`
+         * object.
+         */
         virtual WifiSoftAPSharedPtr create_wifi_soft_ap() const = 0;
+
+        /**
+         * Create a `MQTTClient` object.
+         *
+         * @returns `MQTTClientSharedPtr` a shared pointer to a `MQTTClient`
+         * object.
+         */
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
+
+        /**
+         * Create a `TimedWaiter` object.
+         *
+         * @param fn the function to run in the TimedWaiter.
+         * @param timeout_in_ms the maximum runtime in ms of the function.
+         * @param sleep_time how much time (in ms) to sleep between each
+         * iteration
+         *
+         * @returns `TimedWaiterSharedPtr` a shared pointer to a `TimedWaiter`
+         * object.
+         */
         virtual TimedWaiterSharedPtr
         create_timed_waiter(TimedWaiterPred fn, uint64_t timeout_in_ms,
                             uint64_t sleep_time) const = 0;
