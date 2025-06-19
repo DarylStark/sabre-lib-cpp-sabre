@@ -26,7 +26,7 @@ namespace sabre
     {
     public:
         /**
-         * Create a `UART` object.
+         * @brief Create a `UART` object.
          *
          * @param uart_number the UART number to configure the object with.
          * @param baud_rate the baud rate for the serial interface.
@@ -41,7 +41,7 @@ namespace sabre
                                                  int32_t rx_pin) const = 0;
 
         /**
-         * Create a `UARTStreamBuf` object.
+         * @brief Create a `UARTStreamBuf` object.
          *
          * @param uart_number the UART number to configure the object with.
          * @param baud_rate the baud rate for the serial interface.
@@ -57,7 +57,7 @@ namespace sabre
             int32_t rx_pin, size_t buffer_size) const;
 
         /**
-         * Create a `InputGPIO` object.
+         * @brief Create a `InputGPIO` object.
          *
          * @param pin the pin number for the GPIO.
          *
@@ -67,7 +67,7 @@ namespace sabre
         virtual InputGPIOSharedPtr create_input_gpio(int32_t pin) const = 0;
 
         /**
-         * Create a `OutputGPIO` object.
+         * @brief Create a `OutputGPIO` object.
          *
          * @param pin the pin number for the GPIO.
          *
@@ -77,7 +77,7 @@ namespace sabre
         virtual OutputGPIOSharedPtr create_output_gpio(int32_t pin) const = 0;
 
         /**
-         * Create a `WifiStation` object.
+         * @brief Create a `WifiStation` object.
          *
          * @returns `WifiStationSharedPtr` a shared pointer to a `WifiStation`
          * object.
@@ -85,7 +85,7 @@ namespace sabre
         virtual WifiStationSharedPtr create_wifi_station() const = 0;
 
         /**
-         * Create a `WifiSoftAP` object.
+         * @brief Create a `WifiSoftAP` object.
          *
          * @returns `WifiSoftAPSharedPtr` a shared pointer to a `WifiSoftAP`
          * object.
@@ -93,7 +93,7 @@ namespace sabre
         virtual WifiSoftAPSharedPtr create_wifi_soft_ap() const = 0;
 
         /**
-         * Create a `MQTTClient` object.
+         * @brief Create a `MQTTClient` object.
          *
          * @returns `MQTTClientSharedPtr` a shared pointer to a `MQTTClient`
          * object.
@@ -101,7 +101,7 @@ namespace sabre
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
 
         /**
-         * Create a `TimedWaiter` object.
+         * @brief Create a `TimedWaiter` object.
          *
          * @param fn the function to run in the TimedWaiter.
          * @param timeout_in_ms the maximum runtime in ms of the function.
