@@ -91,7 +91,7 @@ namespace sabre
                              MQTTRetain retain = MQTTRetain::UNDEFINED);
 
         /**
-         * @brief subscribe to the MQTT topic.
+         * @brief Subscribe to the MQTT topic.
          *
          * @param fn the callback for the subscription.
          * @param qos the QoS for the subscription. If set the `UNDEFINED`, it
@@ -101,7 +101,7 @@ namespace sabre
                                MQTTQoS qos = MQTTQoS::UNDEFINED);
 
         /**
-         * @brief set the default QoS for outgoing messages.
+         * @brief Set the default QoS for outgoing messages.
          *
          * @param qos the default QoS for the outgoing messages. If set the
          * `UNDEFINED`, it will be set to `FIRE_AND_FORGET`.
@@ -109,7 +109,7 @@ namespace sabre
         void set_default_qos(MQTTQoS qos);
 
         /**
-         * @brief set the dfeault retain value for outgoing messages.
+         * @brief Set the dfeault retain value for outgoing messages.
          *
          * @param retain the default retain value for the outgoing messages. If
          * set the `UNDEFINED`, it will be set to `DONT_RETAIN`.
@@ -134,7 +134,7 @@ namespace sabre
 
     public:
         /**
-         * @brief connect to a specific MQTT broker.
+         * @brief Connect to a specific MQTT broker.
          *
          * @param hostname the hostname for the MQTT broker.
          * @param client_id the client_id for the connection.
@@ -147,24 +147,24 @@ namespace sabre
                              const std::string &password) = 0;
 
         /**
-         * @brief disconnect the client.
+         * @brief Disconnect the client.
          */
         virtual void disconnect() = 0;
 
         /**
-         * @brief stop the MQTT client.
+         * @brief Stop the MQTT client.
          */
         virtual void stop() = 0;
 
         /**
-         * @brief return if the client is connected.
+         * @brief Return if the client is connected.
          *
          * @returns `true` if it is connected, otherwise `false`.
          */
         virtual bool is_connected() const = 0;
 
         /**
-         * @brief publich a message to a topic.
+         * @brief Publich a message to a topic.
          *
          * @param topic the MQTT topic to publish to.
          * @param message the message to publish.
@@ -178,7 +178,7 @@ namespace sabre
                              MQTTRetain retain) = 0;
 
         /**
-         * @brief subscribe to the MQTT topic.
+         * @brief Subscribe to the MQTT topic.
          *
          * @param topic the MQTT topic to subscribe to.
          * @param fn the callback for the subscription.
@@ -189,7 +189,7 @@ namespace sabre
                                MQTTQoS qos = MQTTQoS::UNDEFINED);
 
         /**
-         * @brief set a default handler for receiving message.
+         * @brief Set a default handler for receiving message.
          *
          * This will be used when the client receives a message that is not
          * explicitly subscriben to. This will also be called when the client
@@ -200,14 +200,14 @@ namespace sabre
         virtual void set_default_handler(MQTTCallback handler);
 
         /**
-         * @brief method to process a received message.
+         * @brief Method to process a received message.
          *
          * @param event the event that is raised.
          */
         void process_received(MQTTEvent event);
 
         /**
-         * @brief get a Topic object from this client for a MQTT topic.
+         * @brief Get a Topic object from this client for a MQTT topic.
          *
          * @param topic_name the topic for the MQTTTopic object.
          *
