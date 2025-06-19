@@ -16,6 +16,8 @@ mkdir -p "$HTML_DIR"
 
 # Generate HTML and XML coverage reports using gcovr
 gcovr \
+    --exclude-unreachable-branches \
+    --exclude-throw-branches \
     --root ${CURRENT_DIR} \
     --exclude-directories 'tests' \
     --exclude '.*googletest.*' \
