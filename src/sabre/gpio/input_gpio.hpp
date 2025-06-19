@@ -84,22 +84,22 @@ namespace sabre
         virtual bool get_inverse_level() const;
 
         /**
-         * @brief Enable pull up resister for the GPIO pin.
+         * @brief Enable pull up resistor for the GPIO pin.
          */
         virtual void enable_pullup() = 0;
 
         /**
-         * @brief Enable pull down resister for the GPIO pin.
+         * @brief Enable pull down resistor for the GPIO pin.
          */
         virtual void enable_pulldown() = 0;
 
         /**
-         * @brief Disable pull up resister for the GPIO pin.
+         * @brief Disable pull up resistor for the GPIO pin.
          */
         virtual void disable_pullup() = 0;
 
         /**
-         * @brief Disable pull down resister for the GPIO pin.
+         * @brief Disable pull down resistor for the GPIO pin.
          */
         virtual void disable_pulldown() = 0;
 
