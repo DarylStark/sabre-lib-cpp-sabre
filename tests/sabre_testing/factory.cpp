@@ -43,9 +43,9 @@ namespace sabre::testing
         return nullptr;
     }
 
-    TimedWaiterSharedPtr Factory::create_timed_waiter(TimedWaiterPred fn,
-                                                      uint64_t timeout_in_ms,
-                                                      uint64_t sleep_time) const
+    WaitForSharedPtr Factory::create_wait_for(WaitForPred fn,
+                                              uint64_t timeout_in_ms,
+                                              uint64_t sleep_time) const
     {
         return nullptr;
     }
