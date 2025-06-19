@@ -1,4 +1,4 @@
-#include "timed_waiter.hpp"
+#include "wait_for.hpp"
 #include <chrono>
 #include <thread>
 
@@ -7,20 +7,20 @@
 
 namespace sabre::testing
 {
-    uint64_t TimedWaiter::_get_current_time() const
+    uint64_t WaitFor::_get_current_time() const
     {
         return std::chrono::duration_cast<std::chrono::microseconds>(
                    std::chrono::steady_clock::now().time_since_epoch())
             .count();
     }
 
-    TimedWaiter::TimedWaiter(TimedWaiterPred fn, uint64_t timeout_in_ms,
-                             uint64_t sleep_time)
-        : sabre::TimedWaiter(fn, timeout_in_ms, sleep_time)
+    WaitFor::WaitFor(WaitForPred fn, uint64_t timeout_in_ms,
+                     uint64_t sleep_time)
+        : sabre::WaitFor(fn, timeout_in_ms, sleep_time)
     {
     }
 
-    void TimedWaiter::_sleep() const
+    void WaitFor::_sleep() const
     {
         std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time));
     }

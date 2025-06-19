@@ -6,7 +6,7 @@
 #include "gpio/output_gpio.hpp"
 #include "uart/uart.hpp"
 #include "uart/uart_output_stream_buffer.hpp"
-#include "utility/timed_waiter.hpp"
+#include "utility/wait_for.hpp"
 #include "wifi/wifi_soft_ap.hpp"
 #include "wifi/wifi_station.hpp"
 #include <memory>
@@ -101,19 +101,19 @@ namespace sabre
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
 
         /**
-         * @brief Create a `TimedWaiter` object.
+         * @brief Create a `WaitFor` object.
          *
-         * @param fn the function to run in the TimedWaiter.
+         * @param fn the function to run in the WaitFor.
          * @param timeout_in_ms the maximum runtime in ms of the function.
          * @param sleep_time how much time (in ms) to sleep between each
          * iteration.
          *
-         * @returns A `TimedWaiterSharedPtr` shared pointer to a `TimedWaiter`
+         * @returns A `WaitForSharedPtr` shared pointer to a `WaitFor`
          * object.
          */
-        virtual TimedWaiterSharedPtr
-        create_timed_waiter(TimedWaiterPred fn, uint64_t timeout_in_ms,
-                            uint64_t sleep_time) const = 0;
+        virtual WaitForSharedPtr create_wait_for(WaitForPred fn,
+                                                 uint64_t timeout_in_ms,
+                                                 uint64_t sleep_time) const = 0;
     };
     using FactoryPtr = Factory *;
     using FactorySharedPtr = std::shared_ptr<Factory>;

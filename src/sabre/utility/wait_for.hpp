@@ -1,5 +1,5 @@
-#ifndef SABRE_TIMED_WAITER_H
-#define SABRE_TIMED_WAITER_H
+#ifndef SABRE_WAIT_FOR_H
+#define SABRE_WAIT_FOR_H
 
 #include <cstdint>
 #include <functional>
@@ -7,15 +7,15 @@
 
 namespace sabre
 {
-    using TimedWaiterPred = std::function<bool()>;
-    class TimedWaiter
+    using WaitForPred = std::function<bool()>;
+    class WaitFor
     {
     private:
         bool _done(bool result, uint64_t total_runtime);
 
     protected:
         uint64_t _timeout_in_ms;
-        TimedWaiterPred _fn;
+        WaitForPred _fn;
         uint64_t _sleep_time = 0;
 
         bool _result = false;
@@ -25,14 +25,13 @@ namespace sabre
         virtual void _sleep() const = 0;
 
     public:
-        TimedWaiter(TimedWaiterPred fn, uint64_t timeout_in_ms,
-                    uint64_t sleep_time);
+        WaitFor(WaitForPred fn, uint64_t timeout_in_ms, uint64_t sleep_time);
         bool operator()();
         bool get_result() const;
         uint64_t get_result_runtime() const;
     };
-    using TimedWaiterPtr = TimedWaiter *;
-    using TimedWaiterSharedPtr = std::shared_ptr<TimedWaiter>;
+    using WaitForPtr = WaitFor *;
+    using WaitForSharedPtr = std::shared_ptr<WaitFor>;
 }; // namespace sabre
 
-#endif // SABRE_TIMED_WAITER_H
+#endif // SABRE_WAIT_FOR_H

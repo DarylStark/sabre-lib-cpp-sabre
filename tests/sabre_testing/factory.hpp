@@ -21,9 +21,8 @@ namespace sabre::testing
         WifiStationSharedPtr create_wifi_station() const;
         WifiSoftAPSharedPtr create_wifi_soft_ap() const;
         MQTTClientSharedPtr create_mqtt_client() const;
-        TimedWaiterSharedPtr create_timed_waiter(TimedWaiterPred fn,
-                                                 uint64_t timeout_in_ms,
-                                                 uint64_t sleep_time) const;
+        WaitForSharedPtr create_wait_for(WaitForPred fn, uint64_t timeout_in_ms,
+                                         uint64_t sleep_time) const;
     };
 } // namespace sabre::testing
 
