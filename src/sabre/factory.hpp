@@ -33,7 +33,7 @@ namespace sabre
          * @param tx_pin transmit pin.
          * @param rx_pin receive pin.
          *
-         * @returns `UARTSharedPtr` a shared pointer to a `UART` object.
+         * @returns A `UARTSharedPtr` shared pointer to a `UART` object.
          */
         virtual UARTSharedPtr create_uart_object(uint32_t uart_number,
                                                  int32_t baud_rate,
@@ -49,7 +49,7 @@ namespace sabre
          * @param rx_pin receive pin.
          * @param buffer_size the size of the buffer in bytes.
          *
-         * @returns `UARTStreamBufSharedPtr` a shared pointer to a
+         * @returns A `UARTStreamBufSharedPtr` shared pointer to a
          * `UARTStreamBuf` object.
          */
         virtual UARTStreamBufSharedPtr create_uart_output_stream_buffer(
@@ -61,7 +61,7 @@ namespace sabre
          *
          * @param pin the pin number for the GPIO.
          *
-         * @returns `InputGPIOSharedPtr` a shared pointer to a `InputGPIO`
+         * @returns A `InputGPIOSharedPtr` shared pointer to a `InputGPIO`
          * object.
          */
         virtual InputGPIOSharedPtr create_input_gpio(int32_t pin) const = 0;
@@ -71,7 +71,7 @@ namespace sabre
          *
          * @param pin the pin number for the GPIO.
          *
-         * @returns `OutputGPIOSharedPtr` a shared pointer to a `OutputGPIO`
+         * @returns A `OutputGPIOSharedPtr` shared pointer to a `OutputGPIO`
          * object.
          */
         virtual OutputGPIOSharedPtr create_output_gpio(int32_t pin) const = 0;
@@ -79,7 +79,7 @@ namespace sabre
         /**
          * @brief Create a `WifiStation` object.
          *
-         * @returns `WifiStationSharedPtr` a shared pointer to a `WifiStation`
+         * @returns A `WifiStationSharedPtr` shared pointer to a `WifiStation`
          * object.
          */
         virtual WifiStationSharedPtr create_wifi_station() const = 0;
@@ -87,7 +87,7 @@ namespace sabre
         /**
          * @brief Create a `WifiSoftAP` object.
          *
-         * @returns `WifiSoftAPSharedPtr` a shared pointer to a `WifiSoftAP`
+         * @returns A `WifiSoftAPSharedPtr` shared pointer to a `WifiSoftAP`
          * object.
          */
         virtual WifiSoftAPSharedPtr create_wifi_soft_ap() const = 0;
@@ -95,7 +95,7 @@ namespace sabre
         /**
          * @brief Create a `MQTTClient` object.
          *
-         * @returns `MQTTClientSharedPtr` a shared pointer to a `MQTTClient`
+         * @returns A `MQTTClientSharedPtr` shared pointer to a `MQTTClient`
          * object.
          */
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
@@ -106,9 +106,9 @@ namespace sabre
          * @param fn the function to run in the TimedWaiter.
          * @param timeout_in_ms the maximum runtime in ms of the function.
          * @param sleep_time how much time (in ms) to sleep between each
-         * iteration
+         * iteration.
          *
-         * @returns `TimedWaiterSharedPtr` a shared pointer to a `TimedWaiter`
+         * @returns A `TimedWaiterSharedPtr` shared pointer to a `TimedWaiter`
          * object.
          */
         virtual TimedWaiterSharedPtr
