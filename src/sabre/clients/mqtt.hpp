@@ -109,7 +109,7 @@ namespace sabre
         void set_default_qos(MQTTQoS qos);
 
         /**
-         * @brief Set the dfeault retain value for outgoing messages.
+         * @brief Set the default retain value for outgoing messages.
          *
          * @param retain the default retain value for the outgoing messages. If
          * set the `UNDEFINED`, it will be set to `DONT_RETAIN`.
