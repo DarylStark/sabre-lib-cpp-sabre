@@ -164,7 +164,7 @@ namespace sabre
         virtual bool is_connected() const = 0;
 
         /**
-         * @brief Publich a message to a topic.
+         * @brief Publish a message to a topic.
          *
          * @param topic the MQTT topic to publish to.
          * @param message the message to publish.
@@ -192,7 +192,7 @@ namespace sabre
          * @brief Set a default handler for receiving message.
          *
          * This will be used when the client receives a message that is not
-         * explicitly subscriben to. This will also be called when the client
+         * explicitly subscribed to. This will also be called when the client
          * subscribes to a wildcard topic (`my_topic/#/etc` for instance.)
          *
          * @param handler the callback for the subscription.
@@ -211,7 +211,7 @@ namespace sabre
          *
          * @param topic_name the topic for the MQTTTopic object.
          *
-         * @returns A `MQTTTopicUniquePtr` shared pointer to a `MQTTTopic`
+         * @returns A `MQTTTopicUniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
         MQTTTopicUniquePtr get_topic(const std::string &topic_name);
