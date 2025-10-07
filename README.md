@@ -13,6 +13,7 @@ To build the framework, you have to use `cmake`. **Note:** CMake 3.19 or newer i
 To build the project, use the following commands (replace the preset name if your configuration differs):
 
 > **Note:** The example below uses the `ninja-release-with-tests` preset, which requires [Ninja](https://ninja-build.org/) to be installed. If you do not have Ninja or wish to use a different generator, use the appropriate preset for your setup.
+
 ```bash
 cmake --preset ninja-release-with-tests
 cmake --build build/release-with-tests
@@ -25,4 +26,4 @@ cd build/release-with-tests
 ctest
 ```
 
-> Note: This only tests the implementation in this repository. It does not test any platform-specific implementations. Platform-specific frameworks should provide and test their own code.
+> **Note**: This only tests the implementation in this repository. It does not test any platform-specific implementations. Platform-specific frameworks should provide and test their own code.
