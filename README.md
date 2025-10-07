@@ -4,7 +4,7 @@ Sabre is a platform-independent framework for programming microcontrollers in a 
 
 ## Building and testing
 
-To build the framework, you have to use `cmake`. There are three CMake presets defined:
+To build the framework, you have to use `cmake`. **Note:** CMake 3.19 or newer is required to use CMake presets. There are three CMake presets defined:
 
 -   Debug - with tests
 -   Release - with tests
