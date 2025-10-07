@@ -4,6 +4,7 @@
 #include "clients/mqtt.hpp"
 #include "gpio/input_gpio.hpp"
 #include "gpio/output_gpio.hpp"
+#include "service/service.hpp"
 #include "uart/uart.hpp"
 #include "uart/uart_output_stream_buffer.hpp"
 #include "utility/wait_for.hpp"
@@ -114,6 +115,16 @@ namespace sabre
         virtual WaitForSharedPtr create_wait_for(WaitForPred fn,
                                                  uint64_t timeout_in_ms,
                                                  uint64_t sleep_time) const = 0;
+
+        /**
+         * @brief Create a `Service` object.
+         *
+         * @param fn the function to run as the service.
+         *
+         * @return A `ServiceSharedPtr` shared pointer to a `Service`
+         * object.
+         */
+        virtual ServiceSharedPtr create_service(ServiceHandler fn) const = 0;
     };
     using FactoryPtr = Factory *;
     using FactorySharedPtr = std::shared_ptr<Factory>;

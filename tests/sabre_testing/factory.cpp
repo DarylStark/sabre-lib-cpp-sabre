@@ -49,4 +49,9 @@ namespace sabre::testing
     {
         return nullptr;
     }
+
+    ServiceSharedPtr Factory::create_service(ServiceHandler fn) const
+    {
+        return nullptr;
+    }
 } // namespace sabre::testing
