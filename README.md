@@ -12,6 +12,7 @@ To build the framework, you have to use `cmake`. There are three CMake presets d
 
 To build the project, use the following commands (replace the preset name if your configuration differs):
 
+> **Note:** The example below uses the `ninja-release-with-tests` preset, which requires [Ninja](https://ninja-build.org/) to be installed. If you do not have Ninja or wish to use a different generator, use the appropriate preset for your setup.
 ```bash
 cmake --preset ninja-release-with-tests
 cmake --build build/release-with-tests
