@@ -58,4 +58,9 @@ namespace sabre::testing
     {
         return nullptr;
     }
+
+    WallClockSharedPtr Factory::create_wall_clock() const
+    {
+        return nullptr;
+    }
 } // namespace sabre::testing

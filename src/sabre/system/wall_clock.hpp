@@ -34,6 +34,8 @@ namespace sabre
          */
         virtual void set_now_ms(uint64_t time_in_ms) = 0;
     };
+    using WallClockPtr = WallClock *;
+    using WallClockSharedPtr = std::shared_ptr<WallClock>;
 } // namespace sabre
 
 #endif // SABRE_WALL_CLOCK_HPP

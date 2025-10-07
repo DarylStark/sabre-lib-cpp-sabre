@@ -6,11 +6,13 @@
 #include "gpio/input_gpio.hpp"
 #include "gpio/output_gpio.hpp"
 #include "service/service.hpp"
+#include "system/wall_clock.hpp"
 #include "uart/uart.hpp"
 #include "uart/uart_output_stream_buffer.hpp"
 #include "utility/wait_for.hpp"
 #include "wifi/wifi_soft_ap.hpp"
 #include "wifi/wifi_station.hpp"
+
 #include <memory>
 #include <ostream>
 
@@ -100,6 +102,14 @@ namespace sabre
          * @return A `MQTTClientSharedPtr` shared pointer to a `MQTTClient`
          * object.
          */
+
+        /**
+         * @brief Create a `WallClock` object.
+         *
+         * @return A `WallClockSharedPtr` shared pointer to a `WallClock`
+         * object.
+         */
+        virtual WallClockSharedPtr create_wall_clock() const = 0;
 
         /**
          * @brief Create a `NTPClient` object.
