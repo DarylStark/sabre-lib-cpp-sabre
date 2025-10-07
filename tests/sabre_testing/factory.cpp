@@ -54,4 +54,8 @@ namespace sabre::testing
     {
         return nullptr;
     }
+    NTPClientSharedPtr Factory::create_ntp_client() const
+    {
+        return nullptr;
+    }
 } // namespace sabre::testing

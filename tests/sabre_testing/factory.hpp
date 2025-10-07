@@ -24,6 +24,8 @@ namespace sabre::testing
         WaitForSharedPtr create_wait_for(WaitForPred fn, uint64_t timeout_in_ms,
                                          uint64_t sleep_time) const;
         ServiceSharedPtr create_service(ServiceHandler fn) const;
+
+        NTPClientSharedPtr create_ntp_client() const override;
     };
 } // namespace sabre::testing
 

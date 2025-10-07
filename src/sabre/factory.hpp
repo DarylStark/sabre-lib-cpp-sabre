@@ -2,6 +2,7 @@
 #define SABRE_FACTORY_H
 
 #include "clients/mqtt.hpp"
+#include "clients/ntp.hpp"
 #include "gpio/input_gpio.hpp"
 #include "gpio/output_gpio.hpp"
 #include "service/service.hpp"
@@ -99,6 +100,15 @@ namespace sabre
          * @return A `MQTTClientSharedPtr` shared pointer to a `MQTTClient`
          * object.
          */
+
+        /**
+         * @brief Create a `NTPClient` object.
+         *
+         * @return A `NTPClientSharedPtr` shared pointer to a `NTPClient`
+         * object.
+         */
+        virtual NTPClientSharedPtr create_ntp_client() const = 0;
+
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
 
         /**
