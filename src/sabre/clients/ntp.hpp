@@ -1,6 +1,8 @@
 #ifndef SABRE_CLIENTS_NTP_HPP
 #define SABRE_CLIENTS_NTP_HPP
 
+#include <memory>
+
 namespace sabre
 {
     class NTPClient

@@ -2,6 +2,7 @@
 #define SABRE_WALL_CLOCK_HPP
 
 #include <cstdint>
+#include <memory>
 
 namespace sabre
 {
