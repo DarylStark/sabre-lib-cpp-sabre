@@ -1,8 +1,10 @@
 file(GLOB SOURCES *.cpp ./**/*.cpp)
-add_library(sabre_testing SHARED ${SOURCES})
+add_library(sabre_testing STATIC ${SOURCES})
 
 target_compile_options(sabre_testing PRIVATE --coverage)
 target_link_options(sabre_testing PRIVATE --coverage)
+
+target_link_libraries(sabre_testing PRIVATE sabre)
 
 target_include_directories(
     sabre_testing
