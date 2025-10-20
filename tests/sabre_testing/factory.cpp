@@ -54,7 +54,8 @@ namespace sabre::testing
     {
         return nullptr;
     }
-    NTPClientSharedPtr Factory::create_ntp_client() const
+    NTPClientSharedPtr Factory::create_ntp_client(
+        const std::string& server) const
     {
         return nullptr;
     }

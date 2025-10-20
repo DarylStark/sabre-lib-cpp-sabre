@@ -114,10 +114,13 @@ namespace sabre
         /**
          * @brief Create a `NTPClient` object.
          *
+         * @param server the NTP server address to synchronize with.
+         *
          * @return A `NTPClientSharedPtr` shared pointer to a `NTPClient`
          * object.
          */
-        virtual NTPClientSharedPtr create_ntp_client() const = 0;
+        virtual NTPClientSharedPtr create_ntp_client(
+            const std::string& server) const = 0;
 
         virtual MQTTClientSharedPtr create_mqtt_client() const = 0;
 
