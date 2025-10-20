@@ -25,7 +25,8 @@ namespace sabre::testing
                                          uint64_t sleep_time) const;
         ServiceSharedPtr create_service(ServiceHandler fn) const;
 
-        NTPClientSharedPtr create_ntp_client() const override;
+        NTPClientSharedPtr create_ntp_client(
+            const std::string& server) const override;
         WallClockSharedPtr create_wall_clock() const override;
     };
 } // namespace sabre::testing
