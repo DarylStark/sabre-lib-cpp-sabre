@@ -12,6 +12,7 @@ namespace sabre::testing
     public:
         int write_byte(char data) const;
         void flush();
+        void deinitialize();
 
         mutable std::string _buf;
     };

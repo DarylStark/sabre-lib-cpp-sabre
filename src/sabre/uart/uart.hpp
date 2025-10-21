@@ -37,6 +37,15 @@ namespace sabre
          * multiple bytes to ensure that they are transmitted.
          */
         virtual void flush() = 0;
+
+        /**
+         * @brief Deinitialize the UART device.
+         *
+         * This method is used to deinitialize the UART device, releasing any
+         * resources and cleaning up. It should be called when the UART device
+         * is no longer needed.
+         */
+        virtual void deinitialize() = 0;
     };
     using UARTPtr = UART *;
     using UARTSharedPtr = std::shared_ptr<UART>;
