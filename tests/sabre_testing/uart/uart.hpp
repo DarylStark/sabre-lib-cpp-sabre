@@ -10,6 +10,7 @@ namespace sabre::testing
     class TestUART : public sabre::UART
     {
     public:
+        void initialize();
         int write_byte(char data) const;
         void flush();
         void deinitialize();

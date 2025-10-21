@@ -5,6 +5,11 @@
 
 namespace sabre::testing
 {
+    void TestUART::initialize()
+    {
+        // No-op for test implementation
+    }
+
     int TestUART::write_byte(char data) const
     {
         _buf.push_back(data);

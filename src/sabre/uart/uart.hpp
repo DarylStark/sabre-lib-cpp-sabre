@@ -18,6 +18,15 @@ namespace sabre
     {
     public:
         /**
+         * @brief Initialize the UART device.
+         *
+         * This method is used to initialize the UART device, setting up any
+         * necessary resources and configuration. It should be called before
+         * any communication operations are performed.
+         */
+        virtual void initialize() = 0;
+
+        /**
          * @brief Write a byte to the UART device.
          *
          * This method is used to send a single byte of data over the UART
