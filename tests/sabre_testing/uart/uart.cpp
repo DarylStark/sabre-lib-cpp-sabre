@@ -15,4 +15,9 @@ namespace sabre::testing
     {
         _buf.clear();
     }
+
+    void TestUART::deinitialize()
+    {
+        // No-op for test implementation
+    }
 } // namespace sabre::testing
