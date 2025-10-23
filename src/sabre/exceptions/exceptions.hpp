@@ -21,10 +21,7 @@ namespace sabre
          *
          * This constructor initializes the exception with a default message.
          */
-        explicit SabreException(const std::string &message)
-            : std::runtime_error(message)
-        {
-        }
+        explicit SabreException(const std::string &message);
     };
 
     /**
@@ -44,7 +41,7 @@ namespace sabre
          *
          * @param msg The error message to be associated with the exception.
          */
-        APIError(const std::string &msg) : SabreException(msg) {}
+        APIError(const std::string &msg);
 
     public:
         /**
@@ -53,7 +50,7 @@ namespace sabre
          * This constructor initializes the exception with a default message
          * indicating an unknown API error.
          */
-        APIError() : SabreException("Unknown API error") {}
+        APIError();
     };
 } // namespace sabre
 
