@@ -1,4 +1,4 @@
-file(GLOB SOURCES test_*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS test_*.cpp)
 add_executable(sabre_tests ${SOURCES})
 
 include(FetchContent)

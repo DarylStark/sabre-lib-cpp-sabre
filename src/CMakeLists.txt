@@ -1,4 +1,4 @@
-file(GLOB SOURCES sabre/**/*.cpp sabre/*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS sabre/**/*.cpp sabre/*.cpp)
 add_library(sabre STATIC ${SOURCES})
 
 if(SABRE_BUILD_TESTS STREQUAL "ON")
