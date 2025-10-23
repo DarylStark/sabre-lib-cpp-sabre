@@ -37,7 +37,9 @@ namespace sabre
          * @brief Constructor for APIError with a custom message.
          *
          * This constructor initializes the exception with a specific error
-         * message.
+         * message. This is meant for derived classes to provide more
+         * context-specific error messages. It should not be used to initialize
+         * APIError instances directly.
          *
          * @param msg The error message to be associated with the exception.
          */
