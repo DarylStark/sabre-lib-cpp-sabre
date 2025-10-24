@@ -71,6 +71,7 @@ namespace sabre
         ~UARTStreamBuf();
     };
     using UARTStreamBufPtr = UARTStreamBuf *;
+    using UARTStreamBufSharedPtr = std::shared_ptr<UARTStreamBuf>;
     using UARTStreamBufUniquePtr = std::unique_ptr<UARTStreamBuf>;
 } // namespace sabre
 

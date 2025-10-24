@@ -31,6 +31,7 @@ namespace sabre
         virtual bool is_synchronized() const = 0;
     };
     using NTPClientPtr = NTPClient *;
+    using NTPClientSharedPtr = std::shared_ptr<sabre::NTPClient>;
     using NTPClientUniquePtr = std::unique_ptr<sabre::NTPClient>;
 } // namespace sabre
 

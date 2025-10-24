@@ -150,6 +150,7 @@ namespace sabre
         virtual ServiceUniquePtr create_service(ServiceHandler fn) const = 0;
     };
     using FactoryPtr = Factory *;
+    using FactorySharedPtr = std::shared_ptr<Factory>;
     using FactoryUniquePtr = std::unique_ptr<Factory>;
 } // namespace sabre
 

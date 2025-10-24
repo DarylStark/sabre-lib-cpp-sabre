@@ -25,6 +25,7 @@ namespace sabre
         virtual void reset() = 0;
     };
     using GPIOOPtr = GPIO *;
+    using GPIOOSharedPtr = std::shared_ptr<GPIO>;
     using GPIOOUniquePtr = std::unique_ptr<GPIO>;
 }; // namespace sabre
 

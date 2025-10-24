@@ -21,6 +21,7 @@ namespace sabre
         int gpio;
     };
     using ISRConfigPtr = ISRConfig *;
+    using ISRConfigSharedPtr = std::shared_ptr<ISRConfig>;
     using ISRConfigUniquePtr = std::unique_ptr<ISRConfig>;
 
     /**
@@ -116,6 +117,7 @@ namespace sabre
         virtual void add_interrupt_handler(ISRHandler, ISRTrigger) = 0;
     };
     using InputGPIOPtr = InputGPIO *;
+    using InputGPIOSharedPtr = std::shared_ptr<InputGPIO>;
     using InputGPIOUniquePtr = std::unique_ptr<InputGPIO>;
 }; // namespace sabre
 

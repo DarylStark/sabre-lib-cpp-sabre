@@ -91,6 +91,7 @@ namespace sabre
         uint64_t get_result_runtime() const;
     };
     using WaitForPtr = WaitFor *;
+    using WaitForSharedPtr = std::shared_ptr<WaitFor>;
     using WaitForUniquePtr = std::unique_ptr<WaitFor>;
 }; // namespace sabre
 

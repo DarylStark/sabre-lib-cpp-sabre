@@ -57,6 +57,7 @@ namespace sabre
         virtual void deinitialize() = 0;
     };
     using UARTPtr = UART *;
+    using UARTSharedPtr = std::shared_ptr<UART>;
     using UARTUniquePtr = std::unique_ptr<UART>;
 } // namespace sabre
 
