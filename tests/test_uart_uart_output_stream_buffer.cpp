@@ -6,24 +6,26 @@
 
 TEST(UARTStreamBuf, UseAsOStreamObject)
 {
-    std::shared_ptr<sabre::testing::TestUART> u =
-        std::make_shared<sabre::testing::TestUART>();
-    sabre::UARTStreamBuf buffer(u, 128);
+    std::unique_ptr<sabre::testing::TestUART> u =
+        std::make_unique<sabre::testing::TestUART>();
+    auto* u_ptr = u.get();
+    sabre::UARTStreamBuf buffer(std::move(u), 128);
 
     auto oldbuf = std::cout.rdbuf(&buffer);
     std::cout << "Testtext" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u->_buf, "Testtext");
+    ASSERT_EQ(u_ptr->_buf, "Testtext");
 }
 
 TEST(UARTStreamBuf, OverflowBuffer)
 {
-    std::shared_ptr<sabre::testing::TestUART> u =
-        std::make_shared<sabre::testing::TestUART>();
-    sabre::UARTStreamBuf buffer(u, 10);
+    std::unique_ptr<sabre::testing::TestUART> u =
+        std::make_unique<sabre::testing::TestUART>();
+    auto* u_ptr = u.get();
+    sabre::UARTStreamBuf buffer(std::move(u), 10);
 
     auto oldbuf = std::cout.rdbuf(&buffer);
     std::cout << "Testtext123456" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u->_buf, "3456");
+    ASSERT_EQ(u_ptr->_buf, "3456");
 }

@@ -217,7 +217,7 @@ namespace sabre
         MQTTTopicUniquePtr get_topic(const std::string &topic_name);
     };
     using MQTTClientPtr = MQTTClient *;
-    using MQTTClientSharedPtr = std::shared_ptr<MQTTClient>;
+    using MQTTClientUniquePtr = std::unique_ptr<MQTTClient>;
 }; // namespace sabre
 
 #endif // SABRE_CLIENTS_MQTT_H

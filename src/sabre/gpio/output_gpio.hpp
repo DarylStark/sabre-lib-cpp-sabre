@@ -32,7 +32,7 @@ namespace sabre
         virtual void set_level(bool level) = 0;
     };
     using OutputGPIOPtr = OutputGPIO *;
-    using OutputGPIOSharedPtr = std::shared_ptr<OutputGPIO>;
+    using OutputGPIOUniquePtr = std::unique_ptr<OutputGPIO>;
 }; // namespace sabre
 
 #endif // SABRE_OUTPUT_GPIO_H

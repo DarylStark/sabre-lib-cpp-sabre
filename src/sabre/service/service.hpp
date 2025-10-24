@@ -48,7 +48,7 @@ namespace sabre
         virtual void stop() = 0;
     };
     using ServicePtr = Service *;
-    using ServiceSharedPtr = std::shared_ptr<Service>;
+    using ServiceUniquePtr = std::unique_ptr<Service>;
 } // namespace sabre
 
 #endif // SABRE_SERVICE_H

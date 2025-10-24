@@ -9,58 +9,58 @@ namespace sabre::testing
     {
     }
 
-    UARTSharedPtr Factory::create_uart_object(uint32_t uart_number,
+    UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
                                               int32_t baud_rate, int32_t tx_pin,
                                               int32_t rx_pin) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
-        return std::make_shared<TestUART>();
+        return std::make_unique<TestUART>();
     }
 
-    InputGPIOSharedPtr Factory::create_input_gpio(int32_t pin) const
+    InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    OutputGPIOSharedPtr Factory::create_output_gpio(int32_t pin) const
+    OutputGPIOUniquePtr Factory::create_output_gpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    WifiStationSharedPtr Factory::create_wifi_station() const
+    WifiStationUniquePtr Factory::create_wifi_station() const
     {
         return nullptr;
     }
 
-    WifiSoftAPSharedPtr Factory::create_wifi_soft_ap() const
+    WifiSoftAPUniquePtr Factory::create_wifi_soft_ap() const
     {
         return nullptr;
     }
 
-    MQTTClientSharedPtr Factory::create_mqtt_client() const
+    MQTTClientUniquePtr Factory::create_mqtt_client() const
     {
         return nullptr;
     }
 
-    WaitForSharedPtr Factory::create_wait_for(WaitForPred fn,
+    WaitForUniquePtr Factory::create_wait_for(WaitForPred fn,
                                               uint64_t timeout_in_ms,
                                               uint64_t sleep_time) const
     {
         return nullptr;
     }
 
-    ServiceSharedPtr Factory::create_service(ServiceHandler fn) const
+    ServiceUniquePtr Factory::create_service(ServiceHandler fn) const
     {
         return nullptr;
     }
-    NTPClientSharedPtr Factory::create_ntp_client(
+    NTPClientUniquePtr Factory::create_ntp_client(
         const std::string& server) const
     {
         return nullptr;
     }
 
-    WallClockSharedPtr Factory::create_wall_clock() const
+    WallClockUniquePtr Factory::create_wall_clock() const
     {
         return nullptr;
     }
