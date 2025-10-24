@@ -58,6 +58,7 @@ namespace sabre
     };
     using UARTPtr = UART *;
     using UARTSharedPtr = std::shared_ptr<UART>;
+    using UARTUniquePtr = std::unique_ptr<UART>;
 } // namespace sabre
 
 #endif /* SABRE_UART_H */

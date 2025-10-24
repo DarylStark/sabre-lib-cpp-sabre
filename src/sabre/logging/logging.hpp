@@ -108,6 +108,7 @@ namespace sabre
     };
     using LoggerPtr = Logger *;
     using LoggerSharedPtr = std::shared_ptr<Logger>;
+    using LoggerUniquePtr = std::unique_ptr<Logger>;
 
     /**
      * @brief Abstract base class for log handlers.
@@ -131,6 +132,7 @@ namespace sabre
     };
     using LogHandlerPtr = LogHandler *;
     using LogHandlerSharedPtr = std::shared_ptr<LogHandler>;
+    using LogHandlerUniquePtr = std::unique_ptr<LogHandler>;
 
     /**
      * @brief Class for managing logging across the application.

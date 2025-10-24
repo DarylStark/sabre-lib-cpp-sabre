@@ -7,9 +7,10 @@
 
 TEST(OStreamLogHandler, Logging)
 {
-    std::shared_ptr<sabre::testing::TestUART> u =
-        std::make_shared<sabre::testing::TestUART>();
-    sabre::UARTStreamBuf buffer(u, 128);
+    std::unique_ptr<sabre::testing::TestUART> u =
+        std::make_unique<sabre::testing::TestUART>();
+    auto* u_ptr = u.get();
+    sabre::UARTStreamBuf buffer(std::move(u), 128);
     std::ostream stream(&buffer);
 
     sabre::Logging::set_level(sabre::LoggingLevel::DEBUG);
@@ -22,8 +23,8 @@ TEST(OStreamLogHandler, Logging)
 
     sabre::Logging::remove_handler(handler);
 
-    ASSERT_TRUE(u->_buf.contains("TestLogger"));
-    ASSERT_TRUE(u->_buf.contains("Testmessage"));
+    ASSERT_TRUE(u_ptr->_buf.contains("TestLogger"));
+    ASSERT_TRUE(u_ptr->_buf.contains("Testmessage"));
 }
 
 TEST(LogBufferHandler, Logging)

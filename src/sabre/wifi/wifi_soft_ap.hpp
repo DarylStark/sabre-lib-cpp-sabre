@@ -40,6 +40,7 @@ namespace sabre
     };
     using WifiSoftAPPtr = WifiSoftAP *;
     using WifiSoftAPSharedPtr = std::shared_ptr<WifiSoftAP>;
+    using WifiSoftAPUniquePtr = std::unique_ptr<WifiSoftAP>;
 }; // namespace sabre
 
 #endif // SABRE_WIFI_SOFT_AP_H

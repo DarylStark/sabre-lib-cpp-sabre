@@ -19,7 +19,7 @@ namespace sabre
         using int_type = std::streambuf::traits_type::int_type;
 
     private:
-        UARTSharedPtr _uart;
+        UARTUniquePtr _uart;
         char *_buffer;
         size_t _buffer_size;
 
@@ -60,7 +60,7 @@ namespace sabre
          * @param uart The UART device to use for output operations.
          * @param buffer_size The size of the internal buffer (default is 512).
          */
-        UARTStreamBuf(UARTSharedPtr uart, size_t buffer_size = 512);
+        UARTStreamBuf(UARTUniquePtr uart, size_t buffer_size = 512);
 
         /**
          * @brief Destructor for the UARTStreamBuf class.
@@ -72,6 +72,7 @@ namespace sabre
     };
     using UARTStreamBufPtr = UARTStreamBuf *;
     using UARTStreamBufSharedPtr = std::shared_ptr<UARTStreamBuf>;
+    using UARTStreamBufUniquePtr = std::unique_ptr<UARTStreamBuf>;
 } // namespace sabre
 
 #endif // SABRE_UART_OUTPUT_STREAM_BUFFER_H

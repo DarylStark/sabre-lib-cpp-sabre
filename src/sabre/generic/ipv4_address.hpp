@@ -62,6 +62,7 @@ namespace sabre
     };
     using IPv4AddressPtr = IPv4Address *;
     using IPv4AddressSharedPtr = std::shared_ptr<IPv4Address>;
+    using IPv4AddressUniquePtr = std::unique_ptr<IPv4Address>;
 
     std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
 }; // namespace sabre

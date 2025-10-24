@@ -26,6 +26,7 @@ namespace sabre
     };
     using GPIOOPtr = GPIO *;
     using GPIOOSharedPtr = std::shared_ptr<GPIO>;
+    using GPIOOUniquePtr = std::unique_ptr<GPIO>;
 }; // namespace sabre
 
 #endif // SABRE_GPIO_H

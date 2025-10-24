@@ -49,6 +49,7 @@ namespace sabre
     };
     using MQTTEventPtr = MQTTEvent *;
     using MQTTEventSharedPtr = std::shared_ptr<MQTTEvent>;
+    using MQTTEventUniquePtr = std::unique_ptr<MQTTEvent>;
 
     class MQTTClient;
 
@@ -218,6 +219,7 @@ namespace sabre
     };
     using MQTTClientPtr = MQTTClient *;
     using MQTTClientSharedPtr = std::shared_ptr<MQTTClient>;
+    using MQTTClientUniquePtr = std::unique_ptr<MQTTClient>;
 }; // namespace sabre
 
 #endif // SABRE_CLIENTS_MQTT_H

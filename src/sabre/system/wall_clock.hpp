@@ -37,6 +37,7 @@ namespace sabre
     };
     using WallClockPtr = WallClock *;
     using WallClockSharedPtr = std::shared_ptr<WallClock>;
+    using WallClockUniquePtr = std::unique_ptr<WallClock>;
 } // namespace sabre
 
 #endif // SABRE_WALL_CLOCK_HPP
