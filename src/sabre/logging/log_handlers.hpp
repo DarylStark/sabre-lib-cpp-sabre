@@ -21,6 +21,7 @@ namespace sabre
     };
     using OStreamLogHandlerPtr = OStreamLogHandler *;
     using OStreamLogHandlerSharedPtr = std::shared_ptr<OStreamLogHandler>;
+    using OStreamLogHandlerUniquePtr = std::unique_ptr<OStreamLogHandler>;
 
     using LogBufferHandlerBuffer = std::deque<std::string>;
     class LogBufferHandler : public LogHandler
@@ -38,6 +39,7 @@ namespace sabre
     };
     using LogBufferHandlerPtr = LogBufferHandler *;
     using LogBufferHandlerSharedPtr = std::shared_ptr<LogBufferHandler>;
+    using LogBufferHandlerUniquePtr = std::unique_ptr<LogBufferHandler>;
 } // namespace sabre
 
 #endif // SABRE_LOG_HANDLERS_H
