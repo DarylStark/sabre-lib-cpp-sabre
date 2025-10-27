@@ -19,7 +19,7 @@ target_link_options(sabre_tests PRIVATE --coverage)
 target_include_directories(
     sabre_tests
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/../src
+        ${CMAKE_CURRENT_SOURCE_DIR}/../src/sabre
 )
 
 include(GoogleTest)

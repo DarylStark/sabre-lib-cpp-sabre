@@ -12,7 +12,8 @@
             "binaryDir": "${sourceDir}/build/debug-with-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "SABRE_BUILD_TESTS": "ON"
+                "SABRE_BUILD_TESTS": "ON",
+                "SABRE_BUILD_PILOT": "ON"
             }
         },
         {
@@ -22,7 +23,8 @@
             "binaryDir": "${sourceDir}/build/release-with-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "SABRE_BUILD_TESTS": "ON"
+                "SABRE_BUILD_TESTS": "ON",
+                "SABRE_BUILD_PILOT": "ON"
             }
         },
         {

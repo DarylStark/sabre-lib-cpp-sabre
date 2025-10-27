@@ -1,0 +1,14 @@
+file(GLOB SOURCES CONFIGURE_DEPENDS sabre/*.cpp sabre/**/*.cpp)
+add_library(sabre STATIC ${SOURCES})
+
+if(SABRE_BUILD_TESTS STREQUAL "ON")
+    target_compile_options(sabre PRIVATE --coverage)
+    target_link_options(sabre PRIVATE --coverage)
+endif()
+
+target_include_directories(
+    sabre
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/
+)
+

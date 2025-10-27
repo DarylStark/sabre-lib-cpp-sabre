@@ -10,6 +10,6 @@ target_include_directories(
     sabre_testing
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/
-        ${CMAKE_CURRENT_SOURCE_DIR}/../../src
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../src/sabre
 )
 
