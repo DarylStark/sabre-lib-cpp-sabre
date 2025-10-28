@@ -11,10 +11,6 @@ namespace sabre::pilot
 
     void MCU::start()
     {
-        std::cout << "GPIO Size: " << _config.gpio_count << std::endl;
-        // TODO: Custom exception
-        if (_app->get_factory())
-            throw std::runtime_error("Factory is already set in App.");
         _app->set_factory(std::make_unique<Factory>(this));
         _app->start();
     }
