@@ -205,10 +205,38 @@ namespace sabre::pilot
                     sim_mcu.mcu->set_gpio_state(input_gpio.number,
                                                 !input_gpio.state);
                 }
+                // Right mouse button DOWN handler
+                if (ImGui::IsItemHovered() &&
+                    ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+                {
+                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
+                                                !input_gpio.state);
+                }
+
+                // Right mouse button UP handler
+                if (ImGui::IsItemHovered() &&
+                    ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+                {
+                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
+                                                !input_gpio.state);
+                }
                 ImGui::SameLine(
                     ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x -
                     ImGui::CalcTextSize(input_gpio.state ? "HIGH" : "LOW").x);
-                ImGui::Text(input_gpio.state ? "HIGH" : "LOW");
+                if (input_gpio.state)
+                {
+                    ImGui::PushStyleColor(ImGuiCol_Text,
+                                          IM_COL32(0, 200, 0, 255)); // Green
+                    ImGui::Text("HIGH");
+                    ImGui::PopStyleColor();
+                }
+                else
+                {
+                    ImGui::PushStyleColor(ImGuiCol_Text,
+                                          IM_COL32(200, 0, 0, 255)); // Red
+                    ImGui::Text("LOW");
+                    ImGui::PopStyleColor();
+                }
             }
 
         if (ImGui::CollapsingHeader("Output GPIOs",
