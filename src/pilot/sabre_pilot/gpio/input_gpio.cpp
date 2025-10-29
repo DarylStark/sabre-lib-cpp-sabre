@@ -4,13 +4,13 @@ namespace sabre::pilot
 {
     InputGPIO::InputGPIO(MCU *mcu, uint32_t pin) : _mcu(mcu), _pin(pin)
     {
-        mcu->set_gpio_type(pin, GPIOType::INPUT);
+        _mcu->set_gpio_type(pin, GPIOType::INPUT);
     }
 
     bool InputGPIO::_get_level() const
     {
         // Implementation specific code to get the GPIO level
-        return false; // Placeholder
+        return _mcu->get_gpio(_pin).state > 0;
     }
 
     void InputGPIO::reset()

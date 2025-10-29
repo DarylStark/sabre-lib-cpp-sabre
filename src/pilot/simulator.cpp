@@ -194,11 +194,34 @@ namespace sabre::pilot
 
         if (ImGui::CollapsingHeader("Input GPIOs",
                                     ImGuiTreeNodeFlags_DefaultOpen))
-            ImGui::Text("Here come the Input GPIOs");
+            for (const auto &input_gpio :
+                 sim_mcu.mcu->get_gpios(GPIOType::INPUT))
+            {
+                char label[32];
+                snprintf(label, sizeof(label), "GPIO %d", input_gpio.number);
+                if (ImGui::Selectable(label, false,
+                                      ImGuiSelectableFlags_SpanAllColumns))
+                {
+                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
+                                                !input_gpio.state);
+                }
+                ImGui::SameLine(
+                    ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x -
+                    ImGui::CalcTextSize(input_gpio.state ? "HIGH" : "LOW").x);
+                ImGui::Text(input_gpio.state ? "HIGH" : "LOW");
+            }
 
         if (ImGui::CollapsingHeader("Output GPIOs",
                                     ImGuiTreeNodeFlags_DefaultOpen))
-            ImGui::Text("Here come the Output GPIOs");
+            for (const auto &output_gpio :
+                 sim_mcu.mcu->get_gpios(GPIOType::OUTPUT))
+            {
+                ImGui::Text("GPIO %d", output_gpio.number);
+                ImGui::SameLine(
+                    ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x -
+                    ImGui::CalcTextSize(output_gpio.state ? "HIGH" : "LOW").x);
+                ImGui::Text(output_gpio.state ? "HIGH" : "LOW");
+            }
         ImGui::EndChild();
 
         // Restoring spacing

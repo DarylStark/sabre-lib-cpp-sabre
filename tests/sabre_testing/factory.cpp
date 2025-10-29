@@ -1,4 +1,5 @@
 #include "factory.hpp"
+#include "gpio/input_gpio.hpp"
 #include "uart/uart.hpp"
 
 namespace sabre::testing
@@ -54,8 +55,8 @@ namespace sabre::testing
     {
         return nullptr;
     }
-    NTPClientUniquePtr Factory::create_ntp_client(
-        const std::string& server) const
+    NTPClientUniquePtr
+    Factory::create_ntp_client(const std::string &server) const
     {
         return nullptr;
     }

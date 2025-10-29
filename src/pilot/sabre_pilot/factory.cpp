@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "gpio/input_gpio.hpp"
+#include "gpio/output_gpio.hpp"
 
 namespace sabre::pilot
 {
@@ -27,8 +28,9 @@ namespace sabre::pilot
 
     OutputGPIOUniquePtr Factory::create_output_gpio(int32_t pin) const
     {
-        // Implementation specific code to create an OutputGPIO object
-        return nullptr; // Placeholder
+        std::cout << "Creating OutputGPIO on pin " << pin << " for MCU at "
+                  << _mcu << std::endl;
+        return std::make_unique<OutputGPIO>(_mcu, pin);
     }
 
     WifiStationUniquePtr Factory::create_wifi_station() const

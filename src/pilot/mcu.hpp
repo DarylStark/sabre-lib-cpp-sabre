@@ -14,6 +14,7 @@ namespace sabre::pilot
     };
     struct MCUGPIO
     {
+        uint32_t number;
         GPIOType type;
         uint32_t state = 0;
     };
@@ -41,5 +42,7 @@ namespace sabre::pilot
         MCUGPIO &get_gpio(size_t index);
         void set_gpio_type(size_t index, GPIOType type);
         void reset_gpio(size_t index);
+        void set_gpio_state(size_t index, uint32_t state);
+        GPIOVector get_gpios(GPIOType type) const;
     };
 } // namespace sabre::pilot
