@@ -51,4 +51,41 @@ namespace sabre::pilot
                      [&type](MCUGPIO gpio) { return gpio.type == type; });
         return gpios;
     }
+
+    bool MCU::initialize_uart(uint32_t uart_number)
+    {
+        if (uart_number >= _config.uart_count)
+            return false;
+
+        if (_uart_map.find(uart_number) != _uart_map.end())
+            return false; // UART already initialized
+
+        _uart_map[uart_number] = std::string();
+        return true;
+    }
+
+    bool MCU::deinitialize_uart(uint32_t uart_number)
+    {
+        auto it = _uart_map.find(uart_number);
+        if (it == _uart_map.end())
+            return false; // UART not initialized
+
+        _uart_map.erase(it);
+        return true;
+    }
+
+    bool MCU::write_uart_data(uint32_t uart_number, char data)
+    {
+        auto it = _uart_map.find(uart_number);
+        if (it == _uart_map.end())
+            return false; // UART not initialized
+
+        it->second.push_back(data);
+        return true;
+    }
+
+    const UARTMap &MCU::get_uart_map() const
+    {
+        return _uart_map;
+    }
 } // namespace sabre::pilot

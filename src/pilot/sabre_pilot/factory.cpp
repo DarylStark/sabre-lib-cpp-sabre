@@ -3,6 +3,7 @@
 
 #include "gpio/input_gpio.hpp"
 #include "gpio/output_gpio.hpp"
+#include "uart/uart.hpp"
 
 namespace sabre::pilot
 {
@@ -16,7 +17,7 @@ namespace sabre::pilot
                                               int32_t rx_pin) const
     {
         // Implementation specific code to create a UART object
-        return nullptr; // Placeholder
+        return std::make_unique<UART>(_mcu, uart_number);
     }
 
     InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const

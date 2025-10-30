@@ -4,6 +4,7 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <imgui.h>
 #include <iostream>
+#include <sstream>
 
 namespace sabre::pilot
 {
@@ -168,15 +169,15 @@ namespace sabre::pilot
         style.WindowPadding.y = 0.0f;
 
         ImGui::BeginChild("LeftPane", ImVec2(left_width, window_height), true);
-        if (ImGui::CollapsingHeader("USB", ImGuiTreeNodeFlags_DefaultOpen))
+        for (const auto &[uart_number, uart_data] : sim_mcu.mcu->get_uart_map())
         {
+            std::stringstream header;
+            header << "UART " << uart_number;
+            if (ImGui::CollapsingHeader(header.str().c_str(),
+                                        ImGuiTreeNodeFlags_DefaultOpen))
+                ImGui::TextUnformatted(uart_data.c_str());
         }
-        if (ImGui::CollapsingHeader("UART0", ImGuiTreeNodeFlags_DefaultOpen))
-        {
-        }
-        if (ImGui::CollapsingHeader("UART1", ImGuiTreeNodeFlags_DefaultOpen))
-        {
-        }
+
         if (ImGui::CollapsingHeader("API logging",
                                     ImGuiTreeNodeFlags_DefaultOpen))
         {
