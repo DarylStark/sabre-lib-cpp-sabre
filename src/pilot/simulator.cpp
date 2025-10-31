@@ -175,7 +175,14 @@ namespace sabre::pilot
             header << "UART " << uart_number;
             if (ImGui::CollapsingHeader(header.str().c_str(),
                                         ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                std::string child_id =
+                    "UARTChild" + std::to_string(uart_number);
+                ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
+                                  ImGuiWindowFlags_HorizontalScrollbar);
                 ImGui::TextUnformatted(uart_data.c_str());
+                ImGui::EndChild();
+            }
         }
 
         if (ImGui::CollapsingHeader("API logging",
