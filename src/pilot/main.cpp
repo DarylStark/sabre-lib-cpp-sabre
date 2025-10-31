@@ -48,7 +48,7 @@ public:
         {
             std::this_thread::sleep_for(std::chrono::milliseconds(_timeout));
             if (_button_gpio_1->get_level())
-                _uart0_out << _character << std::flush;
+                _uart0_out << _character << std::endl;
             if (_button_gpio_2->get_level())
                 _led_gpio->set_level(index++ % 2 == 0);
             if (_button_gpio_3->get_level())
@@ -75,11 +75,12 @@ int main()
 
     Simulator simulator;
     simulator.add_mcu("ESP32-S3", config_mcu0,
-                      std::make_unique<MyApp>(250, '!'));
-    simulator.add_mcu("Pico W", config_mcu1, std::make_unique<MyApp>(320, '.'));
-    simulator.add_mcu("STM32", config_mcu1, std::make_unique<MyApp>(500, '.'));
+                      std::make_unique<MyApp>(10, '!'));
+    // simulator.add_mcu("Pico W", config_mcu1, std::make_unique<MyApp>(320,
+    // '.')); simulator.add_mcu("STM32", config_mcu1,
+    // std::make_unique<MyApp>(500, '.'));
     simulator.start_mcu("ESP32-S3");
-    simulator.start_mcu("Pico W");
+    // simulator.start_mcu("Pico W");
     simulator.start();
 
     return 0;

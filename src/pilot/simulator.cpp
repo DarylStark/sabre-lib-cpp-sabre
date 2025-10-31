@@ -172,10 +172,20 @@ namespace sabre::pilot
         for (const auto &[uart_number, uart_data] : sim_mcu.mcu->get_uart_map())
         {
             std::stringstream header;
-            header << "UART " << uart_number;
+            header << "UART " << uart_number << " output";
             if (ImGui::CollapsingHeader(header.str().c_str(),
                                         ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                std::string child_id =
+                    "UARTOutputChild" + std::to_string(uart_number);
+                ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
+                                  ImGuiWindowFlags_HorizontalScrollbar);
                 ImGui::TextUnformatted(uart_data.c_str());
+                // Auto-scroll to bottom if already at bottom
+                if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+                    ImGui::SetScrollHereY(1.0f);
+                ImGui::EndChild();
+            }
         }
 
         if (ImGui::CollapsingHeader("API logging",
