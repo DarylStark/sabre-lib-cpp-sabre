@@ -40,7 +40,7 @@ namespace sabre::pilot
         void _ui_mcu(const std::string &name, SimulatorMCU &sim_mcu);
 
     public:
-        void add_mcu(const std::string &name, const MCUConfig &config,
+        MCU *add_mcu(const std::string &name, const MCUConfig &config,
                      sabre::AppUniquePtr &&app);
         void start_mcu(const std::string &name);
 

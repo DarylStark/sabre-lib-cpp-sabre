@@ -20,6 +20,14 @@ namespace sabre::pilot
         uint32_t state = 0;
     };
 
+    struct UARTBuffers
+    {
+        std::string output_data = "";
+        std::string input_buffer = "";
+        std::string input_data_consumed = "";
+        size_t input_buffer_max_size = 0;
+    };
+
     struct MCUConfig
     {
         size_t gpio_count = 0;
@@ -27,7 +35,7 @@ namespace sabre::pilot
     };
 
     using GPIOVector = std::vector<MCUGPIO>;
-    using UARTMap = std::map<uint32_t, std::string>;
+    using UARTMap = std::map<uint32_t, UARTBuffers>;
 
     class MCU
     {
@@ -43,17 +51,21 @@ namespace sabre::pilot
         // MCU control
         void start();
 
-        // GPIO configuration
+        // GPIO management
         MCUGPIO &get_gpio(size_t index);
         void set_gpio_type(size_t index, GPIOType type);
         void reset_gpio(size_t index);
         void set_gpio_state(size_t index, uint32_t state);
         GPIOVector get_gpios(GPIOType type) const;
 
-        // UART configuration
-        bool initialize_uart(uint32_t uart_number);
+        // UART management
+        bool initialize_uart(uint32_t uart_number, size_t input_buffer_size);
         bool deinitialize_uart(uint32_t uart_number);
         bool write_uart_data(uint32_t uart_number, char data);
+        std::string read_uart_data(uint32_t uart_number, size_t max_bytes,
+                                   uint32_t timeout_ms);
+        void add_to_input_uart_buffer(uint32_t uart_number,
+                                      const std::string &data);
         const UARTMap &get_uart_map() const;
     };
 } // namespace sabre::pilot

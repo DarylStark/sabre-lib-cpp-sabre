@@ -15,7 +15,8 @@ namespace sabre::testing
         Factory(bool uart_should_be_nullptr = false);
         UARTUniquePtr create_uart_object(uint32_t uart_number,
                                          int32_t baud_rate, int32_t tx_pin,
-                                         int32_t rx_pin) const;
+                                         int32_t rx_pin,
+                                         size_t buffer_size) const;
         InputGPIOUniquePtr create_input_gpio(int32_t pin) const;
         OutputGPIOUniquePtr create_output_gpio(int32_t pin) const;
         WifiStationUniquePtr create_wifi_station() const;
@@ -25,8 +26,8 @@ namespace sabre::testing
                                          uint64_t sleep_time) const;
         ServiceUniquePtr create_service(ServiceHandler fn) const;
 
-        NTPClientUniquePtr create_ntp_client(
-            const std::string& server) const override;
+        NTPClientUniquePtr
+        create_ntp_client(const std::string &server) const override;
         WallClockUniquePtr create_wall_clock() const override;
     };
 } // namespace sabre::testing

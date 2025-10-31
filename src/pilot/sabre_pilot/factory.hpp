@@ -15,7 +15,8 @@ namespace sabre::pilot
         Factory(MCU *mcu);
         UARTUniquePtr create_uart_object(uint32_t uart_number,
                                          int32_t baud_rate, int32_t tx_pin,
-                                         int32_t rx_pin) const;
+                                         int32_t rx_pin,
+                                         size_t buffer_size) const;
         InputGPIOUniquePtr create_input_gpio(int32_t pin) const;
         OutputGPIOUniquePtr create_output_gpio(int32_t pin) const;
         WifiStationUniquePtr create_wifi_station() const;

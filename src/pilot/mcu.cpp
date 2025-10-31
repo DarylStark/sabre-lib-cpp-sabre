@@ -52,7 +52,7 @@ namespace sabre::pilot
         return gpios;
     }
 
-    bool MCU::initialize_uart(uint32_t uart_number)
+    bool MCU::initialize_uart(uint32_t uart_number, size_t input_buffer_size)
     {
         if (uart_number >= _config.uart_count)
             return false;
@@ -60,7 +60,8 @@ namespace sabre::pilot
         if (_uart_map.find(uart_number) != _uart_map.end())
             return false; // UART already initialized
 
-        _uart_map[uart_number] = std::string();
+        _uart_map[uart_number] =
+            UARTBuffers{.input_buffer_max_size = input_buffer_size};
         return true;
     }
 
@@ -80,8 +81,44 @@ namespace sabre::pilot
         if (it == _uart_map.end())
             return false; // UART not initialized
 
-        it->second.push_back(data);
+        it->second.output_data.push_back(data);
         return true;
+    }
+
+    std::string MCU::read_uart_data(uint32_t uart_number, size_t max_bytes,
+                                    uint32_t timeout_ms)
+    {
+        auto it = _uart_map.find(uart_number);
+        if (it == _uart_map.end())
+            return ""; // UART not initialized
+
+        std::string &input_buffer = it->second.input_buffer;
+        std::string result = input_buffer.substr(0, max_bytes);
+        it->second.input_data_consumed += result;
+        input_buffer.erase(0, result.size());
+        return result;
+    }
+
+    void MCU::add_to_input_uart_buffer(uint32_t uart_number,
+                                       const std::string &data)
+    {
+        auto it = _uart_map.find(uart_number);
+        if (it == _uart_map.end())
+            return; // UART not initialized
+
+        // Make sure the input buffer does not exceed max size
+        size_t max_size = it->second.input_buffer_max_size;
+        if (it->second.input_buffer.size() + data.size() > max_size)
+        {
+            size_t excess_size =
+                (it->second.input_buffer.size() + data.size()) - max_size;
+            std::string to_add = data.substr(excess_size);
+            it->second.input_buffer += to_add;
+        }
+        else
+        {
+            it->second.input_buffer += data;
+        }
     }
 
     const UARTMap &MCU::get_uart_map() const

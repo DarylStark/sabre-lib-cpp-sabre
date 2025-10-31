@@ -14,10 +14,11 @@ namespace sabre::pilot
 
     UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
                                               int32_t baud_rate, int32_t tx_pin,
-                                              int32_t rx_pin) const
+                                              int32_t rx_pin,
+                                              size_t buffer_size) const
     {
         // Implementation specific code to create a UART object
-        return std::make_unique<UART>(_mcu, uart_number);
+        return std::make_unique<UART>(_mcu, uart_number, buffer_size);
     }
 
     InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const

@@ -39,6 +39,22 @@ namespace sabre
         virtual int write_byte(char data) const = 0;
 
         /**
+         * @brief Read input data from the UART device.
+         *
+         * This method is used to read incoming data from the UART interface. If
+         * no data is available within the specified timeout, an empty string is
+         * returned. If only partial data is available during the timeout
+         * period, it will be returned.
+         *
+         * @param max_bytes The maximum number of bytes to read.
+         * @param timeout_ms The timeout in milliseconds.
+         *
+         * @return A string containing the received data.
+         */
+        virtual std::string read_bytes(size_t max_bytes,
+                                       uint32_t timeout_ms) = 0;
+
+        /**
          * @brief Flush the output buffer of the UART device.
          *
          * This method is used to ensure that all data in the output buffer is

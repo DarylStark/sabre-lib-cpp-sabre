@@ -36,13 +36,17 @@ namespace sabre
          * @param baud_rate the baud rate for the serial interface.
          * @param tx_pin transmit pin.
          * @param rx_pin receive pin.
+         * @param buffer_size the size of the input buffer in bytes. The
+         * specific implementation may choose to use this value to allocate
+         * internal buffers. If the hardware does not support input buffering,
+         * this value may be ignored.
          *
          * @return A `UARTUniquePtr` unique pointer to a `UART` object.
          */
         virtual UARTUniquePtr create_uart_object(uint32_t uart_number,
                                                  int32_t baud_rate,
-                                                 int32_t tx_pin,
-                                                 int32_t rx_pin) const = 0;
+                                                 int32_t tx_pin, int32_t rx_pin,
+                                                 size_t buffer_size) const = 0;
 
         /**
          * @brief Create a `UARTStreamBuf` object.
@@ -119,8 +123,8 @@ namespace sabre
          * @return A `NTPClientUniquePtr` unique pointer to a `NTPClient`
          * object.
          */
-        virtual NTPClientUniquePtr create_ntp_client(
-            const std::string& server) const = 0;
+        virtual NTPClientUniquePtr
+        create_ntp_client(const std::string &server) const = 0;
 
         virtual MQTTClientUniquePtr create_mqtt_client() const = 0;
 

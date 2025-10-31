@@ -16,6 +16,14 @@ namespace sabre::testing
         return static_cast<int>(data);
     }
 
+    std::string TestUART::read_bytes(size_t max_bytes, uint32_t timeout_ms)
+    {
+        // For testing purposes, return up to max_bytes from the buffer
+        std::string result = _buf.substr(0, max_bytes);
+        _buf.erase(0, result.size());
+        return result;
+    }
+
     void TestUART::flush()
     {
         _buf.clear();

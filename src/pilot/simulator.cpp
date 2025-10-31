@@ -8,7 +8,7 @@
 
 namespace sabre::pilot
 {
-    void Simulator::add_mcu(const std::string &name, const MCUConfig &config,
+    MCU *Simulator::add_mcu(const std::string &name, const MCUConfig &config,
                             sabre::AppUniquePtr &&app)
     {
         SimulatorMCU mcu{.mcu = std::make_unique<MCU>(config, std::move(app))};
@@ -19,6 +19,7 @@ namespace sabre::pilot
                                      "' already exists");
         }
         _mcus[name] = std::move(mcu);
+        return _mcus[name].mcu.get();
     }
 
     void Simulator::_start_mcu(SimulatorMCU &sim_mcu)
@@ -171,16 +172,48 @@ namespace sabre::pilot
         ImGui::BeginChild("LeftPane", ImVec2(left_width, window_height), true);
         for (const auto &[uart_number, uart_data] : sim_mcu.mcu->get_uart_map())
         {
-            std::stringstream header;
-            header << "UART " << uart_number << " output";
-            if (ImGui::CollapsingHeader(header.str().c_str(),
+            std::string header_output =
+                "UART " + std::to_string(uart_number) + " output";
+            if (ImGui::CollapsingHeader(header_output.c_str(),
                                         ImGuiTreeNodeFlags_DefaultOpen))
             {
                 std::string child_id =
                     "UARTOutputChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextUnformatted(uart_data.c_str());
+                ImGui::TextUnformatted(uart_data.output_data.c_str());
+                // Auto-scroll to bottom if already at bottom
+                if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+                    ImGui::SetScrollHereY(1.0f);
+                ImGui::EndChild();
+            }
+
+            std::string header_input =
+                "UART " + std::to_string(uart_number) + " input :: buffer";
+            if (ImGui::CollapsingHeader(header_input.c_str(),
+                                        ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                std::string child_id =
+                    "UARTInputChild" + std::to_string(uart_number);
+                ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
+                                  ImGuiWindowFlags_HorizontalScrollbar);
+                ImGui::TextUnformatted(uart_data.input_buffer.c_str());
+                // Auto-scroll to bottom if already at bottom
+                if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+                    ImGui::SetScrollHereY(1.0f);
+                ImGui::EndChild();
+            }
+
+            std::string header_input_consumed =
+                "UART " + std::to_string(uart_number) + " input :: consumed";
+            if (ImGui::CollapsingHeader(header_input_consumed.c_str(),
+                                        ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                std::string child_id =
+                    "UARTInputConsumedChild" + std::to_string(uart_number);
+                ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
+                                  ImGuiWindowFlags_HorizontalScrollbar);
+                ImGui::TextUnformatted(uart_data.input_data_consumed.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
