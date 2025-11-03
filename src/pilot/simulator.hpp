@@ -39,6 +39,14 @@ namespace sabre::pilot
 
         void _ui_mcu(const std::string &name, SimulatorMCU &sim_mcu);
 
+        void _ui_create_window();
+        void _ui_create_imgui_context();
+        void _ui_loop();
+        void _ui_destroy_window();
+
+        void _ui_debug_window();
+        void _ui_mcu_windows();
+
     public:
         MCU *add_mcu(const std::string &name, const MCUConfig &config,
                      sabre::AppUniquePtr &&app);

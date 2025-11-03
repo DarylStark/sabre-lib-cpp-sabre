@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <imgui.h>
 #include <iostream>
 #include <sstream>
 
@@ -26,7 +25,7 @@ namespace sabre::pilot
     {
         if (sim_mcu.thread == nullptr)
         {
-            std::cout << "Starting MCU in new thread..." << std::endl;
+            std::clog << "Starting MCU in new thread..." << std::endl;
             sim_mcu.thread = std::make_unique<std::jthread>(
                 &Simulator::_thread_mcu_start, this, std::ref(sim_mcu.mcu));
             sim_mcu.thread->detach();
@@ -306,11 +305,10 @@ namespace sabre::pilot
         ImGui::PopStyleVar();
     }
 
-    void Simulator::start_gui()
+    void Simulator::_ui_create_window()
     {
-        std::cout << "Starting GUI..." << std::endl;
-        const auto retval = glfwInit();
-        if (retval != GLFW_TRUE)
+        std::clog << "Creating GLFW window..." << std::endl;
+        if (glfwInit() != GLFW_TRUE)
             return;
         _window = glfwCreateWindow(1024, 768, "Sabre Pilot", NULL, NULL);
         if (!_window)
@@ -320,53 +318,85 @@ namespace sabre::pilot
             return;
         }
         glfwMakeContextCurrent(_window);
+    }
+
+    void Simulator::_ui_create_imgui_context()
+    {
+        std::clog << "Creating ImGui context..." << std::endl;
 
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO &io = ImGui::GetIO();
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-
         glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
         ImGui_ImplGlfw_InitForOpenGL(_window, true);
         ImGui_ImplOpenGL3_Init("#version 130");
+    }
 
-        _ui_set_scale_to_auto();
+    void Simulator::_ui_destroy_window()
+    {
+        std::clog << "Destroying GLFW window..." << std::endl;
+        if (_window)
+        {
+            glfwDestroyWindow(_window);
+            _window = nullptr;
+        }
+        glfwTerminate();
+    }
 
+    void Simulator::_ui_debug_window()
+    {
+        if (!_show_debug)
+            return;
+
+        ImGuiIO &io = ImGui::GetIO();
+        ImGui::Begin("Debug", &_show_debug);
+        ImGui::Text("Frame rate: %.1f", io.Framerate);
+        ImGui::End();
+    }
+
+    void Simulator::_ui_mcu_windows()
+    {
+        for (auto &mcu : _mcus)
+            _ui_mcu(mcu.first, mcu.second);
+    }
+
+    void Simulator::_ui_loop()
+    {
+        std::clog << "Starting Loop..." << std::endl;
+        ImGuiIO &io = ImGui::GetIO();
         while (!glfwWindowShouldClose(_window))
         {
             glfwPollEvents();
 
-            io.FontGlobalScale = _ui_scale;
-
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
-
             ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 
             _ui_handle_key_events();
             _ui_setup_menubar();
 
-            for (auto &mcu : _mcus)
-                _ui_mcu(mcu.first, mcu.second);
+            _ui_mcu_windows();
 
-            if (_show_debug)
-            {
-                ImGui::Begin("Debug", &_show_debug);
-                ImGui::Text("Frame rate: %.1f", io.Framerate);
-                ImGui::End();
-            }
+            _ui_debug_window();
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
             glfwSwapBuffers(_window);
         }
+    }
 
-        glfwDestroyWindow(_window);
-        glfwTerminate();
+    void Simulator::start_gui()
+    {
+        std::clog << "Starting GUI..." << std::endl;
+
+        _ui_create_window();
+        _ui_create_imgui_context();
+        _ui_set_scale_to_auto();
+        _ui_loop();
+        _ui_destroy_window();
     }
 
     void Simulator::_ui_set_scale_to_auto()
@@ -384,6 +414,8 @@ namespace sabre::pilot
         float current_scale = _ui_scale;
         _ui_scale = scale;
         ImGui::GetStyle().ScaleAllSizes(_ui_scale / current_scale);
+        ImGuiIO &io = ImGui::GetIO();
+        io.FontGlobalScale = _ui_scale;
         _auto_ui_scale = false;
     }
 

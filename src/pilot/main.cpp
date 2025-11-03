@@ -90,11 +90,10 @@ int main()
     Simulator simulator;
     auto mcu = simulator.add_mcu("ESP32-S3", config_mcu0,
                                  std::make_unique<MyApp>(500, '!'));
-    // simulator.add_mcu("Pico W", config_mcu1, std::make_unique<MyApp>(320,
-    // '.')); simulator.add_mcu("STM32", config_mcu1,
-    // std::make_unique<MyApp>(500, '.'));
+    simulator.add_mcu("Pico W", config_mcu1, std::make_unique<MyApp>(320, '.'));
+    simulator.add_mcu("STM32", config_mcu1, std::make_unique<MyApp>(500, '.'));
     simulator.start_mcu("ESP32-S3");
-    // simulator.start_mcu("Pico W");
+    simulator.start_mcu("Pico W");
 
     std::thread uart_adder(
         [&stop, mcu]()
