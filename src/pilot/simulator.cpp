@@ -7,6 +7,8 @@
 
 namespace sabre::pilot
 {
+    Simulator::Simulator() {}
+
     MCU *Simulator::add_mcu(const std::string &name, const MCUConfig &config,
                             sabre::AppUniquePtr &&app)
     {

@@ -1,3 +1,4 @@
+#include "presenters/imgui_presenter.hpp"
 #include "sabre/app/app.hpp"
 #include "simulator.hpp"
 #include <thread>
@@ -88,6 +89,8 @@ int main()
     bool stop = false;
 
     Simulator simulator;
+    ImGuiPresenter presenter(simulator);
+
     auto mcu = simulator.add_mcu("ESP32-S3", config_mcu0,
                                  std::make_unique<MyApp>(500, '!'));
     simulator.add_mcu("Pico W", config_mcu1, std::make_unique<MyApp>(320, '.'));
@@ -116,8 +119,11 @@ int main()
             }
         });
 
-    simulator.start();
     stop = true;
+
+    presenter.start();
+
+    simulator.start();
     uart_adder.join();
 
     return 0;

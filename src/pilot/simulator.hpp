@@ -15,10 +15,12 @@ namespace sabre::pilot
         bool show = true;
     };
 
+    using MCUList = std::map<std::string, SimulatorMCU>;
+
     class Simulator
     {
     private:
-        std::map<std::string, SimulatorMCU> _mcus;
+        MCUList _mcus;
 
         void _thread_mcu_start(std::unique_ptr<MCU> &mcu);
         void _start_mcu(SimulatorMCU &sim_mcu);
@@ -48,6 +50,8 @@ namespace sabre::pilot
         void _ui_mcu_windows();
 
     public:
+        Simulator();
+
         MCU *add_mcu(const std::string &name, const MCUConfig &config,
                      sabre::AppUniquePtr &&app);
         void start_mcu(const std::string &name);
