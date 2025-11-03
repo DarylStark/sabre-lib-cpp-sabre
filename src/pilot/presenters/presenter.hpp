@@ -1,6 +1,6 @@
 #pragma once
 
-#include "simulator.hpp"
+#include "../simulator/simulator.hpp"
 
 namespace sabre::pilot
 {

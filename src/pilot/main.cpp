@@ -1,6 +1,6 @@
 #include "presenters/imgui_presenter.hpp"
 #include "sabre/app/app.hpp"
-#include "simulator.hpp"
+#include "simulator/simulator.hpp"
 #include <thread>
 
 class MyApp : public sabre::App
@@ -122,8 +122,6 @@ int main()
     stop = true;
 
     presenter.start();
-
-    simulator.start();
     uart_adder.join();
 
     return 0;

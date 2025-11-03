@@ -1,5 +1,5 @@
 #include "mcu.hpp"
-#include "sabre_pilot/factory.hpp"
+#include "../sabre_pilot/factory.hpp"
 #include <iostream>
 
 namespace sabre::pilot

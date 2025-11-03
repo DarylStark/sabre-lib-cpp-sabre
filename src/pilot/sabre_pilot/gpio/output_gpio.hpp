@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../mcu.hpp"
+#include "../../simulator/mcu.hpp"
 #include <sabre/gpio/output_gpio.hpp>
 
 namespace sabre::pilot
