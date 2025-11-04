@@ -22,6 +22,7 @@ namespace sabre::pilot
         void _ui_main_menu();
         void _ui_main_menu_file();
         void _ui_main_menu_view();
+        void _ui_main_menu_view_scale();
         void _ui_main_menu_debug();
 
         void _ui_mcu(const std::string &name, SimulatorMCU &sim_mcu);

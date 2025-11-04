@@ -49,47 +49,6 @@ namespace sabre::pilot
     {
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::BeginMenu("Scale"))
-            {
-                if (ImGui::MenuItem("Auto", "Ctrl + 0", _auto_ui_scale))
-                    _ui_set_scale_to_auto();
-                ImGui::Separator();
-                if (ImGui::MenuItem("Zoom in", "Ctrl + =", false,
-                                    _ui_scale != 5.0f))
-                    _ui_zoom_in();
-                if (ImGui::MenuItem("Zoom out", "Ctrl + -", false,
-                                    _ui_scale != 1.0f))
-                    _ui_zoom_out();
-                ImGui::Separator();
-                if (ImGui::MenuItem("100%", nullptr,
-                                    _ui_scale == 1.0f && !_auto_ui_scale))
-                    _ui_set_scale(1.0f);
-                if (ImGui::MenuItem("150%", nullptr,
-                                    _ui_scale == 1.5f && !_auto_ui_scale))
-                    _ui_set_scale(1.5f);
-                if (ImGui::MenuItem("200%", nullptr,
-                                    _ui_scale == 2.0f && !_auto_ui_scale))
-                    _ui_set_scale(2.0f);
-                if (ImGui::MenuItem("250%", nullptr,
-                                    _ui_scale == 2.5f && !_auto_ui_scale))
-                    _ui_set_scale(2.5f);
-                if (ImGui::MenuItem("300%", nullptr,
-                                    _ui_scale == 3.0f && !_auto_ui_scale))
-                    _ui_set_scale(3.0f);
-                if (ImGui::MenuItem("350%", nullptr,
-                                    _ui_scale == 3.5f && !_auto_ui_scale))
-                    _ui_set_scale(3.5f);
-                if (ImGui::MenuItem("400%", nullptr,
-                                    _ui_scale == 4.0f && !_auto_ui_scale))
-                    _ui_set_scale(4.0f);
-                if (ImGui::MenuItem("450%", nullptr,
-                                    _ui_scale == 4.5f && !_auto_ui_scale))
-                    _ui_set_scale(4.5f);
-                if (ImGui::MenuItem("500%", nullptr,
-                                    _ui_scale == 5.0f && !_auto_ui_scale))
-                    _ui_set_scale(5.0f);
-                ImGui::EndMenu();
-            }
             if (ImGui::BeginMenu("MCU"))
             {
                 for (auto &mcu : _simulator.get_mcu_list())
@@ -97,6 +56,33 @@ namespace sabre::pilot
                                         mcu.second.show))
                         mcu.second.show = !mcu.second.show;
                 ImGui::EndMenu();
+            }
+            _ui_main_menu_view_scale();
+            ImGui::EndMenu();
+        }
+    }
+
+    void ImGuiPresenter::_ui_main_menu_view_scale()
+    {
+        if (ImGui::BeginMenu("Scale"))
+        {
+            if (ImGui::MenuItem("Auto", "Ctrl + 0", _auto_ui_scale))
+                _ui_set_scale_to_auto();
+            ImGui::Separator();
+            if (ImGui::MenuItem("Zoom in", "Ctrl + =", false,
+                                _ui_scale != 5.0f))
+                _ui_zoom_in();
+            if (ImGui::MenuItem("Zoom out", "Ctrl + -", false,
+                                _ui_scale != 1.0f))
+                _ui_zoom_out();
+            ImGui::Separator();
+            for (float scale = 1; scale <= 5; scale += 0.5f)
+            {
+                std::string label =
+                    std::to_string(static_cast<int>(scale * 100)) + "%";
+                if (ImGui::MenuItem(label.c_str(), nullptr,
+                                    _ui_scale == scale && !_auto_ui_scale))
+                    _ui_set_scale(scale);
             }
             ImGui::EndMenu();
         }
