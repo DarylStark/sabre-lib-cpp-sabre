@@ -49,16 +49,21 @@ namespace sabre::pilot
     {
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::BeginMenu("MCU"))
-            {
-                for (auto &mcu : _simulator.get_mcu_list())
-                    if (ImGui::MenuItem(mcu.first.c_str(), nullptr,
-                                        mcu.second.show))
-                        mcu.second.show = !mcu.second.show;
-                ImGui::EndMenu();
-            }
+            _main_menu_view_mcu_list();
             _main_menu_view_scale();
             _main_menu_view_theme();
+            ImGui::EndMenu();
+        }
+    }
+
+    void ImGuiPresenter::_main_menu_view_mcu_list()
+    {
+        if (ImGui::BeginMenu("MCU"))
+        {
+            for (auto &mcu : _simulator.get_mcu_list())
+                if (ImGui::MenuItem(mcu.first.c_str(), nullptr,
+                                    mcu.second.show))
+                    mcu.second.show = !mcu.second.show;
             ImGui::EndMenu();
         }
     }

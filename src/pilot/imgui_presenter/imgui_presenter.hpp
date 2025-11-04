@@ -41,6 +41,7 @@ namespace sabre::pilot
         void _main_menu();
         void _main_menu_file();
         void _main_menu_view();
+        void _main_menu_view_mcu_list();
         void _main_menu_view_scale();
         void _main_menu_view_theme();
         void _main_menu_debug();
