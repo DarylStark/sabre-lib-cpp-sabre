@@ -24,73 +24,92 @@ namespace sabre::pilot
             _ui_set_scale_to_auto();
     }
 
-    void ImGuiPresenter::_ui_setup_menubar()
+    void ImGuiPresenter::_ui_main_menu()
     {
         if (ImGui::BeginMainMenuBar())
         {
-            if (ImGui::BeginMenu("File"))
-            {
-                if (ImGui::MenuItem("Exit"))
-                    glfwSetWindowShouldClose(_window, GLFW_TRUE);
-                ImGui::EndMenu();
-            }
-
-            if (ImGui::BeginMenu("View"))
-            {
-                if (ImGui::BeginMenu("Scale"))
-                {
-                    if (ImGui::MenuItem("Auto", "Ctrl + 0", _auto_ui_scale))
-                        _ui_set_scale_to_auto();
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Zoom in", "Ctrl + =", false,
-                                        _ui_scale != 5.0f))
-                        _ui_zoom_in();
-                    if (ImGui::MenuItem("Zoom out", "Ctrl + -", false,
-                                        _ui_scale != 1.0f))
-                        _ui_zoom_out();
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("100%", nullptr,
-                                        _ui_scale == 1.0f && !_auto_ui_scale))
-                        _ui_set_scale(1.0f);
-                    if (ImGui::MenuItem("150%", nullptr,
-                                        _ui_scale == 1.5f && !_auto_ui_scale))
-                        _ui_set_scale(1.5f);
-                    if (ImGui::MenuItem("200%", nullptr,
-                                        _ui_scale == 2.0f && !_auto_ui_scale))
-                        _ui_set_scale(2.0f);
-                    if (ImGui::MenuItem("250%", nullptr,
-                                        _ui_scale == 2.5f && !_auto_ui_scale))
-                        _ui_set_scale(2.5f);
-                    if (ImGui::MenuItem("300%", nullptr,
-                                        _ui_scale == 3.0f && !_auto_ui_scale))
-                        _ui_set_scale(3.0f);
-                    if (ImGui::MenuItem("350%", nullptr,
-                                        _ui_scale == 3.5f && !_auto_ui_scale))
-                        _ui_set_scale(3.5f);
-                    if (ImGui::MenuItem("400%", nullptr,
-                                        _ui_scale == 4.0f && !_auto_ui_scale))
-                        _ui_set_scale(4.0f);
-                    if (ImGui::MenuItem("450%", nullptr,
-                                        _ui_scale == 4.5f && !_auto_ui_scale))
-                        _ui_set_scale(4.5f);
-                    if (ImGui::MenuItem("500%", nullptr,
-                                        _ui_scale == 5.0f && !_auto_ui_scale))
-                        _ui_set_scale(5.0f);
-                    ImGui::EndMenu();
-                }
-                if (ImGui::BeginMenu("MCU"))
-                {
-                    for (auto &mcu : _simulator.get_mcu_list())
-                        if (ImGui::MenuItem(mcu.first.c_str(), nullptr,
-                                            mcu.second.show))
-                            mcu.second.show = !mcu.second.show;
-                    ImGui::EndMenu();
-                }
-                if (ImGui::MenuItem("Debug window", nullptr, _show_debug))
-                    _show_debug = !_show_debug;
-                ImGui::EndMenu();
-            }
+            _ui_main_menu_file();
+            _ui_main_menu_view();
+            _ui_main_menu_debug();
             ImGui::EndMainMenuBar();
+        }
+    }
+
+    void ImGuiPresenter::_ui_main_menu_file()
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Exit"))
+                glfwSetWindowShouldClose(_window, GLFW_TRUE);
+            ImGui::EndMenu();
+        }
+    }
+
+    void ImGuiPresenter::_ui_main_menu_view()
+    {
+        if (ImGui::BeginMenu("View"))
+        {
+            if (ImGui::BeginMenu("Scale"))
+            {
+                if (ImGui::MenuItem("Auto", "Ctrl + 0", _auto_ui_scale))
+                    _ui_set_scale_to_auto();
+                ImGui::Separator();
+                if (ImGui::MenuItem("Zoom in", "Ctrl + =", false,
+                                    _ui_scale != 5.0f))
+                    _ui_zoom_in();
+                if (ImGui::MenuItem("Zoom out", "Ctrl + -", false,
+                                    _ui_scale != 1.0f))
+                    _ui_zoom_out();
+                ImGui::Separator();
+                if (ImGui::MenuItem("100%", nullptr,
+                                    _ui_scale == 1.0f && !_auto_ui_scale))
+                    _ui_set_scale(1.0f);
+                if (ImGui::MenuItem("150%", nullptr,
+                                    _ui_scale == 1.5f && !_auto_ui_scale))
+                    _ui_set_scale(1.5f);
+                if (ImGui::MenuItem("200%", nullptr,
+                                    _ui_scale == 2.0f && !_auto_ui_scale))
+                    _ui_set_scale(2.0f);
+                if (ImGui::MenuItem("250%", nullptr,
+                                    _ui_scale == 2.5f && !_auto_ui_scale))
+                    _ui_set_scale(2.5f);
+                if (ImGui::MenuItem("300%", nullptr,
+                                    _ui_scale == 3.0f && !_auto_ui_scale))
+                    _ui_set_scale(3.0f);
+                if (ImGui::MenuItem("350%", nullptr,
+                                    _ui_scale == 3.5f && !_auto_ui_scale))
+                    _ui_set_scale(3.5f);
+                if (ImGui::MenuItem("400%", nullptr,
+                                    _ui_scale == 4.0f && !_auto_ui_scale))
+                    _ui_set_scale(4.0f);
+                if (ImGui::MenuItem("450%", nullptr,
+                                    _ui_scale == 4.5f && !_auto_ui_scale))
+                    _ui_set_scale(4.5f);
+                if (ImGui::MenuItem("500%", nullptr,
+                                    _ui_scale == 5.0f && !_auto_ui_scale))
+                    _ui_set_scale(5.0f);
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("MCU"))
+            {
+                for (auto &mcu : _simulator.get_mcu_list())
+                    if (ImGui::MenuItem(mcu.first.c_str(), nullptr,
+                                        mcu.second.show))
+                        mcu.second.show = !mcu.second.show;
+                ImGui::EndMenu();
+            }
+            ImGui::EndMenu();
+        }
+    }
+
+    void ImGuiPresenter::_ui_main_menu_debug()
+    {
+        if (ImGui::BeginMenu("Debug"))
+        {
+            ImGui::MenuItem("ImGui Demo Window", nullptr, &_show_imgui_demo);
+            ImGui::MenuItem("ImGui Metric Window", nullptr,
+                            &_show_imgui_metrics);
+            ImGui::EndMenu();
         }
     }
 
@@ -296,21 +315,24 @@ namespace sabre::pilot
         glfwTerminate();
     }
 
-    void ImGuiPresenter::_ui_debug_window()
+    void ImGuiPresenter::_ui_imgui_demo_window()
     {
-        if (!_show_debug)
+        if (!_show_imgui_demo)
             return;
-
-        ImGuiIO &io = ImGui::GetIO();
-        ImGui::Begin("Debug", &_show_debug);
-        ImGui::Text("Frame rate: %.1f", io.Framerate);
-        ImGui::End();
+        ImGui::ShowDemoWindow(&_show_imgui_demo);
     }
 
     void ImGuiPresenter::_ui_mcu_windows()
     {
         for (auto &mcu : _simulator.get_mcu_list())
             _ui_mcu(mcu.first, mcu.second);
+    }
+
+    void ImGuiPresenter::_ui_imgui_metrics_window()
+    {
+        if (!_show_imgui_metrics)
+            return;
+        ImGui::ShowMetricsWindow(&_show_imgui_metrics);
     }
 
     void ImGuiPresenter::_ui_loop()
@@ -327,11 +349,10 @@ namespace sabre::pilot
             ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 
             _ui_handle_key_events();
-            _ui_setup_menubar();
-
+            _ui_main_menu();
             _ui_mcu_windows();
-
-            _ui_debug_window();
+            _ui_imgui_demo_window();
+            _ui_imgui_metrics_window();
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
