@@ -58,6 +58,7 @@ namespace sabre::pilot
                 ImGui::EndMenu();
             }
             _main_menu_view_scale();
+            _main_menu_view_theme();
             ImGui::EndMenu();
         }
     }
@@ -82,6 +83,23 @@ namespace sabre::pilot
                                     _scale == scale && !_auto_scale))
                     _set_scale(scale);
             }
+            ImGui::EndMenu();
+        }
+    }
+
+    void ImGuiPresenter::_main_menu_view_theme()
+    {
+        if (ImGui::BeginMenu("Theme"))
+        {
+            if (ImGui::MenuItem("Light", nullptr,
+                                _current_theme == ImGuiTheme::LIGHT))
+                _current_theme = ImGuiTheme::LIGHT;
+            if (ImGui::MenuItem("Dark", nullptr,
+                                _current_theme == ImGuiTheme::DARK))
+                _current_theme = ImGuiTheme::DARK;
+            if (ImGui::MenuItem("Classic", nullptr,
+                                _current_theme == ImGuiTheme::CLASSIC))
+                _current_theme = ImGuiTheme::CLASSIC;
             ImGui::EndMenu();
         }
     }
@@ -331,6 +349,13 @@ namespace sabre::pilot
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
             ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+
+            if (_current_theme == ImGuiTheme::DARK)
+                ImGui::StyleColorsDark();
+            else if (_current_theme == ImGuiTheme::LIGHT)
+                ImGui::StyleColorsLight();
+            else if (_current_theme == ImGuiTheme::CLASSIC)
+                ImGui::StyleColorsClassic();
 
             _handle_key_events();
             _main_menu();
