@@ -12,7 +12,7 @@ namespace sabre::pilot
     {
         std::unique_ptr<MCU> mcu;
         std::unique_ptr<std::jthread> thread = nullptr;
-        bool show = true;
+        bool show = true; // TODO: Move to ImGuiPresenter?
     };
 
     using MCUList = std::map<std::string, SimulatorMCU>;
