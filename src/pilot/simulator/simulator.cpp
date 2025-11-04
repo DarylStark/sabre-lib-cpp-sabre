@@ -10,7 +10,7 @@ namespace sabre::pilot
     MCU *Simulator::add_mcu(const std::string &name, const MCUConfig &config,
                             sabre::AppUniquePtr &&app)
     {
-        SimulatorMCU mcu{.mcu = std::make_unique<MCU>(config, std::move(app))};
+        SimulatorMCU mcu{.mcu = std::make_shared<MCU>(config, std::move(app))};
         if (_mcus.find(name) != _mcus.end())
         {
             // TODO: Custom exception
@@ -27,7 +27,7 @@ namespace sabre::pilot
         {
             std::clog << "Starting MCU in new thread..." << std::endl;
             sim_mcu.thread = std::make_unique<std::jthread>(
-                &Simulator::_thread_mcu_start, this, std::ref(sim_mcu.mcu));
+                &Simulator::_thread_mcu_start, this, sim_mcu.mcu);
             sim_mcu.thread->detach();
         }
     }
@@ -43,7 +43,7 @@ namespace sabre::pilot
         _start_mcu(it->second);
     }
 
-    void Simulator::_thread_mcu_start(std::unique_ptr<MCU> &mcu)
+    void Simulator::_thread_mcu_start(std::shared_ptr<MCU> mcu)
     {
         while (true)
             mcu->start();

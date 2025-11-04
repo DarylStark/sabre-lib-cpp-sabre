@@ -10,7 +10,7 @@ namespace sabre::pilot
 {
     struct SimulatorMCU
     {
-        std::unique_ptr<MCU> mcu;
+        std::shared_ptr<MCU> mcu;
         std::unique_ptr<std::jthread> thread = nullptr;
         bool show = true; // TODO: Move to ImGuiPresenter?
     };
@@ -22,7 +22,7 @@ namespace sabre::pilot
     private:
         MCUList _mcus;
 
-        void _thread_mcu_start(std::unique_ptr<MCU> &mcu);
+        void _thread_mcu_start(std::shared_ptr<MCU> mcu);
         void _start_mcu(SimulatorMCU &sim_mcu);
         void _start_all_mcus();
 

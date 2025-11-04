@@ -157,7 +157,7 @@ namespace sabre::pilot
                     "UARTOutputChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextUnformatted(uart_data.output_data.c_str());
+                ImGui::TextWrapped(uart_data.output_data.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
@@ -173,7 +173,7 @@ namespace sabre::pilot
                     "UARTInputChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextUnformatted(uart_data.input_buffer.c_str());
+                ImGui::TextWrapped(uart_data.input_buffer.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
@@ -189,7 +189,7 @@ namespace sabre::pilot
                     "UARTInputConsumedChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextUnformatted(uart_data.input_data_consumed.c_str());
+                ImGui::TextWrapped(uart_data.input_data_consumed.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
