@@ -19,7 +19,10 @@ gcovr \
     --exclude-unreachable-branches \
     --exclude-throw-branches \
     --root ${CURRENT_DIR} \
+    --filter "${CURRENT_DIR}/src/sabre" \
     --exclude '.*tests/.*' \
+    --exclude '.*build/.*' \
+    --exclude '.*_deps/.*' \
     --exclude '.*\.hpp$' \
     --exclude '.*googletest.*' \
     --html="${COVERAGE_HTML_INDEX}" --html-details -o "$COVERAGE_HTML_DETAILS" \
