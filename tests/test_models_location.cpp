@@ -216,5 +216,5 @@ TEST(ModelsLocation, PositionDistance)
     Position statue_of_liberty({40, 42, 51.0, CoordinatesDirection::NORTH},
                                {74, 0, 21.0, CoordinatesDirection::WEST});
     Distance distance = eiffel_tower.get_distance(statue_of_liberty);
-    ASSERT_EQ(distance, 5833145690);
+    ASSERT_EQ(distance, 5833145381);
 }

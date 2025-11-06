@@ -56,7 +56,7 @@ namespace sabre
         class Coordinate
         {
         private:
-            float _coordinate;
+            double _coordinate;
             CoordinateType _type;
 
         public:
@@ -65,14 +65,14 @@ namespace sabre
                        CoordinatesDirection direction);
             Coordinate(uint16_t degrees, float minutes,
                        CoordinatesDirection direction);
-            Coordinate(float coordinate, CoordinateType type);
+            Coordinate(double coordinate, CoordinateType type);
 
-            float get_dd() const;
+            double get_dd() const;
             CoordinateType get_type() const;
             CoordinatesDirection get_direction() const;
             uint16_t get_degrees() const;
             uint16_t get_minutes() const;
-            float get_seconds() const;
+            double get_seconds() const;
         };
 
         class Distance

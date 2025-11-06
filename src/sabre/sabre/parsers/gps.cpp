@@ -7,6 +7,7 @@ namespace sabre
 {
     namespace models
     {
+
         Coordinate::Coordinate()
             : _coordinate(0), _type(CoordinateType::LATITUDE)
         {
@@ -15,8 +16,8 @@ namespace sabre
         Coordinate::Coordinate(uint16_t degrees, uint16_t minutes,
                                double seconds, CoordinatesDirection direction)
         {
-            _coordinate = degrees + (static_cast<double>(minutes) / 60) +
-                          (seconds / 3600);
+            _coordinate = degrees + (static_cast<double>(minutes) / 60.0) +
+                          (seconds / 3600.0);
             if (direction == CoordinatesDirection::SOUTH ||
                 direction == CoordinatesDirection::WEST)
                 _coordinate = -_coordinate;
@@ -30,7 +31,7 @@ namespace sabre
         Coordinate::Coordinate(uint16_t degrees, float minutes,
                                CoordinatesDirection direction)
         {
-            _coordinate = degrees + (minutes / 60.0f);
+            _coordinate = degrees + (static_cast<double>(minutes) / 60.0);
             if (direction == CoordinatesDirection::SOUTH ||
                 direction == CoordinatesDirection::WEST)
                 _coordinate = -_coordinate;
@@ -41,12 +42,12 @@ namespace sabre
                 _type = CoordinateType::LATITUDE;
         }
 
-        Coordinate::Coordinate(float coordinate, CoordinateType type)
+        Coordinate::Coordinate(double coordinate, CoordinateType type)
             : _coordinate(coordinate), _type(type)
         {
         }
 
-        float Coordinate::get_dd() const
+        double Coordinate::get_dd() const
         {
             return _coordinate;
         }
@@ -78,13 +79,14 @@ namespace sabre
             return static_cast<uint16_t>(std::floor(fractional * 60.0));
         }
 
-        float Coordinate::get_seconds() const
+        double Coordinate::get_seconds() const
         {
             double abs_coord = std::abs(_coordinate);
             double fractional = abs_coord - std::floor(abs_coord);
             double minutes = fractional * 60.0;
             double min_fractional = minutes - std::floor(minutes);
-            return static_cast<float>(min_fractional * 60.0);
+            // Round to nearest millisecond for higher precision
+            return std::round(min_fractional * 60.0 * 1000.0) / 1000.0;
         }
 
         Position::Position() : _latitude(), _longitude() {}
