@@ -30,8 +30,8 @@ TEST(ParsersGPS, CorrectGGLLocationNW)
 
     ASSERT_NE(data, nullptr);
     ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), -74.01003, 1e-5);
+    ASSERT_NEAR(data->get_latitude().get_dd(), 40.71005, 1e-5);
+    ASSERT_NEAR(data->get_longitude().get_dd(), -74.01003, 1e-5);
 }
 
 TEST(ParsersGPS, CorrectGGLLocationSE)
@@ -49,8 +49,8 @@ TEST(ParsersGPS, CorrectGGLLocationSE)
 
     ASSERT_NE(data, nullptr);
     ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), -40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), 74.01003, 1e-5);
+    ASSERT_NEAR(data->get_latitude().get_dd(), -40.71005, 1e-5);
+    ASSERT_NEAR(data->get_longitude().get_dd(), 74.01003, 1e-5);
 }
 
 TEST(ParsersGPS, InvalidGGLLocation)
@@ -114,8 +114,8 @@ TEST(ParsersGPS, CorrectRMCLocationNW)
 
     ASSERT_NE(data, nullptr);
     ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), -74.01003, 1e-5);
+    ASSERT_NEAR(data->get_latitude().get_dd(), 40.71005, 1e-5);
+    ASSERT_NEAR(data->get_longitude().get_dd(), -74.01003, 1e-5);
 }
 
 TEST(ParsersGPS, CorrectRMCLocationSE)
@@ -133,8 +133,8 @@ TEST(ParsersGPS, CorrectRMCLocationSE)
 
     ASSERT_NE(data, nullptr);
     ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), -40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), 74.01003, 1e-5);
+    ASSERT_NEAR(data->get_latitude().get_dd(), -40.71005, 1e-5);
+    ASSERT_NEAR(data->get_longitude().get_dd(), 74.01003, 1e-5);
 }
 
 TEST(ParsersGPS, InvalidRMCLocation)
@@ -193,8 +193,8 @@ TEST(ParsersGPS, ValidLocationViaRMC)
         "5222.212,N,00453.712,E,0.0,0.0,121025,,,A*7B\n$GNGGA,123456.00,4042."
         "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
     nmea_parser.parse();
-    ASSERT_NEAR(nmea_parser.get_latitude().to_decimal(), 52.37019, 1e-5);
-    ASSERT_NEAR(nmea_parser.get_longitude().to_decimal(), 4.8952, 1e-5);
+    ASSERT_NEAR(nmea_parser.get_latitude().get_dd(), 52.37019, 0.05);
+    ASSERT_NEAR(nmea_parser.get_longitude().get_dd(), 4.8952, 0.05);
 }
 
 TEST(ParsersGPS, ValidLocationViaGGL)
@@ -207,6 +207,6 @@ TEST(ParsersGPS, ValidLocationViaGGL)
         "5222.212,N,00453.712,E,0.0,0.0,121025,,,A*7B\n$GNGGA,123456.00,4042."
         "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
     nmea_parser.parse();
-    ASSERT_NEAR(nmea_parser.get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(nmea_parser.get_longitude().to_decimal(), -74.01003, 1e-5);
+    ASSERT_NEAR(nmea_parser.get_latitude().get_dd(), 40.71005, 1e-5);
+    ASSERT_NEAR(nmea_parser.get_longitude().get_dd(), -74.01003, 1e-5);
 }

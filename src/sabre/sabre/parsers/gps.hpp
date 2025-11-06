@@ -35,127 +35,114 @@ $GNZDA,174506.000,12,10,2025,00,00*4E
 $GPTXT,01,01,01,ANTENNA OK*35
 */
 
-namespace sabre::models
+namespace sabre
 {
-    enum class CoordinatesDirection
+    namespace models
     {
-        NORTH,
-        SOUTH,
-        EAST,
-        WEST
-    };
+        enum class CoordinatesDirection
+        {
+            NORTH,
+            SOUTH,
+            EAST,
+            WEST
+        };
 
-    enum class CoordinateType
+        enum class CoordinateType
+        {
+            LATITUDE,
+            LONGITUDE
+        };
+
+        class Coordinate
+        {
+        private:
+            float _coordinate;
+            CoordinateType _type;
+
+        public:
+            Coordinate();
+            Coordinate(uint16_t degrees, uint16_t minutes, double seconds,
+                       CoordinatesDirection direction);
+            Coordinate(uint16_t degrees, float minutes,
+                       CoordinatesDirection direction);
+            Coordinate(float coordinate, CoordinateType type);
+
+            float get_dd() const;
+            CoordinateType get_type() const;
+            CoordinatesDirection get_direction() const;
+            uint16_t get_degrees() const;
+            uint16_t get_minutes() const;
+            float get_seconds() const;
+        };
+    } // namespace models
+
+    namespace parsers
     {
-        LATITUDE,
-        LONGITUDE
-    };
+        using sabre::models::Coordinate;
+        using sabre::models::CoordinatesDirection;
 
-    class Coordinate
-    {
-    private:
-        float _coordinate;
-        CoordinateType _type;
+        class GGLData
+        {
+        private:
+            bool valid;
+            Coordinate latitude;
+            Coordinate longitude;
 
-    public:
-        Coordinate();
-        Coordinate(uint16_t degrees, uint16_t minutes, double seconds,
-                   CoordinatesDirection direction);
-        Coordinate(uint16_t degrees, float minutes,
-                   CoordinatesDirection direction);
-        Coordinate(float coordinate, CoordinateType type);
+        public:
+            GGLData(bool valid, Coordinate latitude, Coordinate longitude);
 
-        float get_dd() const;
-        CoordinateType get_type() const;
-        CoordinatesDirection get_direction() const;
-        uint16_t get_degrees() const;
-        uint16_t get_minutes() const;
-        float get_seconds() const;
-    };
+            bool is_valid() const;
+            Coordinate get_latitude() const;
+            Coordinate get_longitude() const;
+        };
 
-    // TODO: Remove when `Coordinate` is done
-    class Coordinates
-    {
-        uint16_t _degrees;
-        double _minutes;
-        double _seconds;
-        CoordinatesDirection _direction;
+        class RMCData
+        {
+        private:
+            bool valid;
+            Coordinate latitude;
+            Coordinate longitude;
 
-    public:
-        Coordinates(
-            uint16_t degrees, double minutes,
-            CoordinatesDirection direction = CoordinatesDirection::NORTH);
-        double to_decimal() const;
-    };
-} // namespace sabre::models
+        public:
+            RMCData(bool valid, Coordinate latitude, Coordinate longitude);
 
-namespace sabre::parsers
-{
-    using sabre::models::Coordinates;
-    using sabre::models::CoordinatesDirection;
+            bool is_valid() const;
+            Coordinate get_latitude() const;
+            Coordinate get_longitude() const;
+        };
 
-    class GGLData
-    {
-    private:
-        bool valid;
-        Coordinates latitude;
-        Coordinates longitude;
+        class GPSData
+        {
+        public:
+            std::shared_ptr<GGLData> ggl;
+            std::shared_ptr<RMCData> rmc;
 
-    public:
-        GGLData(bool valid, Coordinates latitude, Coordinates longitude);
+            GPSData();
+            bool is_valid() const;
+        };
 
-        bool is_valid() const;
-        Coordinates get_latitude() const;
-        Coordinates get_longitude() const;
-    };
+        class NMEA
+        {
+        private:
+            std::string _last_data;
+            bool _is_parsed;
+            GPSData _data;
 
-    class RMCData
-    {
-    private:
-        bool valid;
-        Coordinates latitude;
-        Coordinates longitude;
+            std::shared_ptr<GGLData> _parse_ggl();
+            std::shared_ptr<RMCData> _parse_rmc();
 
-    public:
-        RMCData(bool valid, Coordinates latitude, Coordinates longitude);
+        public:
+            NMEA();
+            void set_data(const std::string data);
+            bool is_valid_data() const;
+            void parse();
 
-        bool is_valid() const;
-        Coordinates get_latitude() const;
-        Coordinates get_longitude() const;
-    };
+            std::shared_ptr<GGLData> get_ggl() const;
+            std::shared_ptr<RMCData> get_rmc() const;
 
-    class GPSData
-    {
-    public:
-        std::shared_ptr<GGLData> ggl;
-        std::shared_ptr<RMCData> rmc;
-
-        GPSData();
-        bool is_valid() const;
-    };
-
-    class NMEA
-    {
-    private:
-        std::string _last_data;
-        bool _is_parsed;
-        GPSData _data;
-
-        std::shared_ptr<GGLData> _parse_ggl();
-        std::shared_ptr<RMCData> _parse_rmc();
-
-    public:
-        NMEA();
-        void set_data(const std::string data);
-        bool is_valid_data() const;
-        void parse();
-
-        std::shared_ptr<GGLData> get_ggl() const;
-        std::shared_ptr<RMCData> get_rmc() const;
-
-        Coordinates get_latitude() const;
-        Coordinates get_longitude() const;
-    };
-} // namespace sabre::parsers
-
+            Coordinate get_latitude() const;
+            Coordinate get_longitude() const;
+        };
+    } // namespace parsers
+} // namespace sabre
 #endif

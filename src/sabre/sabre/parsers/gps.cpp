@@ -86,29 +86,11 @@ namespace sabre
             double min_fractional = minutes - std::floor(minutes);
             return static_cast<float>(min_fractional * 60.0);
         }
-
-        // TODO: Remove when `Coordinate` is done
-        Coordinates::Coordinates(uint16_t degrees, double minutes,
-                                 CoordinatesDirection direction)
-            : _degrees(degrees), _minutes(minutes), _direction(direction)
-        {
-        }
-
-        double Coordinates::to_decimal() const
-        {
-            double decimal = _degrees + (_minutes / 60.0f);
-            if (_direction == CoordinatesDirection::SOUTH ||
-                _direction == CoordinatesDirection::WEST)
-                decimal = -decimal;
-            return decimal;
-        }
     } // namespace models
 
     namespace parsers
     {
-
-        GGLData::GGLData(bool valid, Coordinates latitude,
-                         Coordinates longitude)
+        GGLData::GGLData(bool valid, Coordinate latitude, Coordinate longitude)
             : valid(valid), latitude(latitude), longitude(longitude)
         {
         }
@@ -118,17 +100,16 @@ namespace sabre
             return valid;
         }
 
-        Coordinates GGLData::get_latitude() const
+        Coordinate GGLData::get_latitude() const
         {
             return latitude;
         }
-        Coordinates GGLData::get_longitude() const
+        Coordinate GGLData::get_longitude() const
         {
             return longitude;
         }
 
-        RMCData::RMCData(bool valid, Coordinates latitude,
-                         Coordinates longitude)
+        RMCData::RMCData(bool valid, Coordinate latitude, Coordinate longitude)
             : valid(valid), latitude(latitude), longitude(longitude)
         {
         }
@@ -138,12 +119,12 @@ namespace sabre
             return valid;
         }
 
-        Coordinates RMCData::get_latitude() const
+        Coordinate RMCData::get_latitude() const
         {
             return latitude;
         }
 
-        Coordinates RMCData::get_longitude() const
+        Coordinate RMCData::get_longitude() const
         {
             return longitude;
         }
@@ -168,8 +149,8 @@ namespace sabre
             // Find the complete GGL sentence
             size_t start = _last_data.find("$GNGLL");
             if (start == std::string::npos)
-                return std::make_shared<GGLData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<GGLData>(false, Coordinate(),
+                                                 Coordinate());
 
             size_t end = _last_data.find("\n", start);
             if (end == std::string::npos)
@@ -188,35 +169,34 @@ namespace sabre
             fields.push_back(ggl_sentence);
 
             if (fields.size() < 7)
-                return std::make_shared<GGLData>(
-                    false, Coordinates(0, 0.0f, CoordinatesDirection::NORTH),
-                    Coordinates(0, 0.0f, CoordinatesDirection::WEST));
+                return std::make_shared<GGLData>(false, Coordinate(),
+                                                 Coordinate());
 
             // Latitude
             std::string lat_str = fields[1];
             char lat_dir = fields[2][0];
             if (lat_str.length() < 4)
-                return std::make_shared<GGLData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<GGLData>(false, Coordinate(),
+                                                 Coordinate());
             uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
-            double lat_min = std::stod(lat_str.substr(2));
-            Coordinates latitude =
-                Coordinates(lat_deg, lat_min,
-                            lat_dir == 'N' ? CoordinatesDirection::NORTH
-                                           : CoordinatesDirection::SOUTH);
+            float lat_min = std::stof(lat_str.substr(2));
+            Coordinate latitude =
+                Coordinate(lat_deg, lat_min,
+                           lat_dir == 'N' ? CoordinatesDirection::NORTH
+                                          : CoordinatesDirection::SOUTH);
 
             // Longitude
             std::string lon_str = fields[3];
             char lon_dir = fields[4][0];
             if (lon_str.length() < 5)
-                return std::make_shared<GGLData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<GGLData>(false, Coordinate(),
+                                                 Coordinate());
             uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
-            double lon_min = std::stod(lon_str.substr(3));
-            Coordinates longitude =
-                Coordinates(lon_deg, lon_min,
-                            lon_dir == 'E' ? CoordinatesDirection::EAST
-                                           : CoordinatesDirection::WEST);
+            float lon_min = std::stof(lon_str.substr(3));
+            Coordinate longitude =
+                Coordinate(lon_deg, lon_min,
+                           lon_dir == 'E' ? CoordinatesDirection::EAST
+                                          : CoordinatesDirection::WEST);
 
             // Create new object
             return std::make_shared<GGLData>(fields[6] == "A", latitude,
@@ -228,8 +208,8 @@ namespace sabre
             // Find the complete RMC sentence
             size_t start = _last_data.find("$GNRMC");
             if (start == std::string::npos)
-                return std::make_shared<RMCData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<RMCData>(false, Coordinate(),
+                                                 Coordinate());
 
             size_t end = _last_data.find("\n", start);
             if (end == std::string::npos)
@@ -246,34 +226,34 @@ namespace sabre
             fields.push_back(rmc_sentence);
 
             if (fields.size() < 12)
-                return std::make_shared<RMCData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<RMCData>(false, Coordinate(),
+                                                 Coordinate());
 
             // Latitude
             std::string lat_str = fields[3];
             char lat_dir = fields[4][0];
             if (lat_str.length() < 4)
-                return std::make_shared<RMCData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<RMCData>(false, Coordinate(),
+                                                 Coordinate());
             uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
             double lat_min = std::stod(lat_str.substr(2));
-            Coordinates latitude =
-                Coordinates(lat_deg, lat_min,
-                            lat_dir == 'N' ? CoordinatesDirection::NORTH
-                                           : CoordinatesDirection::SOUTH);
+            Coordinate latitude =
+                Coordinate(lat_deg, lat_min,
+                           lat_dir == 'N' ? CoordinatesDirection::NORTH
+                                          : CoordinatesDirection::SOUTH);
 
             // Longitude
             std::string lon_str = fields[5];
             char lon_dir = fields[6][0];
             if (lon_str.length() < 5)
-                return std::make_shared<RMCData>(false, Coordinates(0, 0.0f),
-                                                 Coordinates(0, 0.0f));
+                return std::make_shared<RMCData>(false, Coordinate(),
+                                                 Coordinate());
             uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
             double lon_min = std::stod(lon_str.substr(3));
-            Coordinates longitude =
-                Coordinates(lon_deg, lon_min,
-                            lon_dir == 'E' ? CoordinatesDirection::EAST
-                                           : CoordinatesDirection::WEST);
+            Coordinate longitude =
+                Coordinate(lon_deg, lon_min,
+                           lon_dir == 'E' ? CoordinatesDirection::EAST
+                                          : CoordinatesDirection::WEST);
 
             // Create new object
             return std::make_shared<RMCData>(fields[2] == "A", latitude,
@@ -315,22 +295,22 @@ namespace sabre
             return _data.rmc;
         }
 
-        Coordinates NMEA::get_latitude() const
+        Coordinate NMEA::get_latitude() const
         {
             if (_data.rmc != nullptr && _data.rmc->is_valid())
                 return _data.rmc->get_latitude();
             if (_data.ggl != nullptr && _data.ggl->is_valid())
                 return _data.ggl->get_latitude();
-            return Coordinates(0, 0.0f);
+            return Coordinate();
         }
 
-        Coordinates NMEA::get_longitude() const
+        Coordinate NMEA::get_longitude() const
         {
             if (_data.rmc != nullptr && _data.rmc->is_valid())
                 return _data.rmc->get_longitude();
             if (_data.ggl != nullptr && _data.ggl->is_valid())
                 return _data.ggl->get_longitude();
-            return Coordinates(0, 0.0f);
+            return Coordinate();
         }
     } // namespace parsers
 } // namespace sabre
