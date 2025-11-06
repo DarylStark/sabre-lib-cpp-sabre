@@ -159,7 +159,7 @@ namespace sabre
         }
     } // namespace models
 
-    namespace new_parsers
+    namespace parsers
     {
         NMEA_Parser::NMEA_Parser() : _last_position() {}
 
@@ -333,5 +333,5 @@ namespace sabre
         {
             return _scentences.size();
         }
-    } // namespace new_parsers
+    } // namespace parsers
 } // namespace sabre

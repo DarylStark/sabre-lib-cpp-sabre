@@ -110,7 +110,7 @@ namespace sabre
         };
     } // namespace models
 
-    namespace new_parsers
+    namespace parsers
     {
         using namespace sabre::models;
 
@@ -138,6 +138,6 @@ namespace sabre
 
             size_t get_scentence_count() const;
         };
-    } // namespace new_parsers
+    } // namespace parsers
 } // namespace sabre
 #endif
