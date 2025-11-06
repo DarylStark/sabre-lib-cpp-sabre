@@ -1,8 +1,10 @@
 #ifndef GPS_HPP
 #define GPS_HPP
 
+#include <map>
 #include <memory>
 #include <string>
+#include <vector>
 
 /*
 Fields:
@@ -108,6 +110,7 @@ namespace sabre
         };
     } // namespace models
 
+    // TODO: Remove this
     namespace parsers
     {
         using sabre::models::Coordinate;
@@ -153,7 +156,7 @@ namespace sabre
             bool is_valid() const;
         };
 
-        class NMEA
+        class Old_NMEA
         {
         private:
             std::string _last_data;
@@ -164,7 +167,7 @@ namespace sabre
             std::shared_ptr<RMCData> _parse_rmc();
 
         public:
-            NMEA();
+            Old_NMEA();
             void set_data(const std::string data);
             bool is_valid_data() const;
             void parse();
@@ -176,5 +179,35 @@ namespace sabre
             Coordinate get_longitude() const;
         };
     } // namespace parsers
+
+    namespace new_parsers
+    {
+        using namespace sabre::models;
+
+        class NMEA_Parser
+        {
+        private:
+            Position _last_position;
+            std::map<std::string, std::string> _scentences;
+
+            std::string _get_type(std::string scentence) const;
+            std::string _get_talker(std::string scentence) const;
+
+            bool _parse_rmc(std::string scentence);
+            bool _parse_ggl(std::string scentence);
+            bool _parse_gga(std::string scentence);
+
+            std::vector<std::string> _get_fields(std::string scentence) const;
+
+        public:
+            NMEA_Parser();
+            void add_scentence(const std::string &scentence);
+            void parse();
+
+            Position get_last_position();
+
+            size_t get_scentence_count() const;
+        };
+    } // namespace new_parsers
 } // namespace sabre
 #endif

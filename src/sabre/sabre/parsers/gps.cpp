@@ -1,4 +1,5 @@
 #include "gps.hpp"
+#include <algorithm>
 #include <cmath>
 #include <string>
 #include <vector>
@@ -206,15 +207,15 @@ namespace sabre
             return ggl != nullptr && (rmc->is_valid() || ggl->is_valid());
         }
 
-        NMEA::NMEA() : _is_parsed(false), _last_data("") {}
+        Old_NMEA::Old_NMEA() : _is_parsed(false), _last_data("") {}
 
-        void NMEA::set_data(const std::string data)
+        void Old_NMEA::set_data(const std::string data)
         {
             _last_data = data;
             _is_parsed = false;
         }
 
-        std::shared_ptr<GGLData> NMEA::_parse_ggl()
+        std::shared_ptr<GGLData> Old_NMEA::_parse_ggl()
         {
             // Find the complete GGL sentence
             size_t start = _last_data.find("$GNGLL");
@@ -273,7 +274,7 @@ namespace sabre
                                              longitude);
         }
 
-        std::shared_ptr<RMCData> NMEA::_parse_rmc()
+        std::shared_ptr<RMCData> Old_NMEA::_parse_rmc()
         {
             // Find the complete RMC sentence
             size_t start = _last_data.find("$GNRMC");
@@ -330,7 +331,7 @@ namespace sabre
                                              longitude);
         }
 
-        void NMEA::parse()
+        void Old_NMEA::parse()
         {
             if (_is_parsed)
                 return;
@@ -346,26 +347,26 @@ namespace sabre
             _is_parsed = true;
         }
 
-        bool NMEA::is_valid_data() const
+        bool Old_NMEA::is_valid_data() const
         {
             return _is_parsed && _data.is_valid();
         }
 
-        std::shared_ptr<GGLData> NMEA::get_ggl() const
+        std::shared_ptr<GGLData> Old_NMEA::get_ggl() const
         {
             if (!_is_parsed)
                 return nullptr;
             return _data.ggl;
         }
 
-        std::shared_ptr<RMCData> NMEA::get_rmc() const
+        std::shared_ptr<RMCData> Old_NMEA::get_rmc() const
         {
             if (!_is_parsed)
                 return nullptr;
             return _data.rmc;
         }
 
-        Coordinate NMEA::get_latitude() const
+        Coordinate Old_NMEA::get_latitude() const
         {
             if (_data.rmc != nullptr && _data.rmc->is_valid())
                 return _data.rmc->get_latitude();
@@ -374,7 +375,7 @@ namespace sabre
             return Coordinate();
         }
 
-        Coordinate NMEA::get_longitude() const
+        Coordinate Old_NMEA::get_longitude() const
         {
             if (_data.rmc != nullptr && _data.rmc->is_valid())
                 return _data.rmc->get_longitude();
@@ -382,5 +383,182 @@ namespace sabre
                 return _data.ggl->get_longitude();
             return Coordinate();
         }
+
     } // namespace parsers
+
+    namespace new_parsers
+    {
+        NMEA_Parser::NMEA_Parser() : _last_position() {}
+
+        std::string NMEA_Parser::_get_type(std::string scentence) const
+        {
+            return std::string(scentence.substr(3, 3));
+        }
+
+        std::string NMEA_Parser::_get_talker(std::string scentence) const
+        {
+            return std::string(scentence.substr(1, 2));
+        }
+
+        std::vector<std::string>
+        NMEA_Parser::_get_fields(std::string scentence) const
+        {
+            std::vector<std::string> fields;
+            size_t start = 0;
+            size_t end = scentence.find(',');
+
+            while (end != std::string::npos)
+            {
+                fields.push_back(scentence.substr(start, end - start));
+                start = end + 1;
+                end = scentence.find(',', start);
+            }
+            fields.push_back(scentence.substr(start));
+
+            return fields;
+        }
+
+        bool NMEA_Parser::_parse_rmc(std::string scentence)
+        {
+            // Get the longitude and latitude from the RMC sentence
+            auto fields = _get_fields(scentence);
+
+            if (fields.size() < 7 || fields[2] != "A")
+                return false;
+
+            // Map with directions
+            std::map<char, models::CoordinatesDirection> dir_map = {
+                {'N', models::CoordinatesDirection::NORTH},
+                {'S', models::CoordinatesDirection::SOUTH},
+                {'E', models::CoordinatesDirection::EAST},
+                {'W', models::CoordinatesDirection::WEST}};
+
+            // Get the latitude
+            std::string lat_str = fields[3];
+            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
+            double lat_min = std::stod(lat_str.substr(2));
+            char lat_dir = fields[4][0];
+
+            // Get the longitude
+            std::string lon_str = fields[5];
+            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
+            double lon_min = std::stod(lon_str.substr(3));
+            char lon_dir = fields[6][0];
+
+            // Set the last position
+            _last_position = models::Position(
+                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
+                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
+
+            return true;
+        }
+
+        bool NMEA_Parser::_parse_ggl(std::string scentence)
+        {
+            // Get the longitude and latitude from the GGL sentence
+            auto fields = _get_fields(scentence);
+
+            if (fields.size() < 8 || fields[6] != "A")
+                return false;
+
+            // Map with directions
+            std::map<char, models::CoordinatesDirection> dir_map = {
+                {'N', models::CoordinatesDirection::NORTH},
+                {'S', models::CoordinatesDirection::SOUTH},
+                {'E', models::CoordinatesDirection::EAST},
+                {'W', models::CoordinatesDirection::WEST}};
+
+            // Get the latitude
+            std::string lat_str = fields[1];
+            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
+            double lat_min = std::stod(lat_str.substr(2));
+            char lat_dir = fields[2][0];
+
+            // Get the longitude
+            std::string lon_str = fields[3];
+            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
+            double lon_min = std::stod(lon_str.substr(3));
+            char lon_dir = fields[4][0];
+
+            // Set the last position
+            _last_position = models::Position(
+                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
+                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
+
+            return true;
+        }
+
+        bool NMEA_Parser::_parse_gga(std::string scentence)
+        {
+            // Get the longitude and latitude from the GGA sentence
+            auto fields = _get_fields(scentence);
+
+            if (fields.size() < 15 || fields[6] == "0")
+                return false;
+
+            // Map with directions
+            std::map<char, models::CoordinatesDirection> dir_map = {
+                {'N', models::CoordinatesDirection::NORTH},
+                {'S', models::CoordinatesDirection::SOUTH},
+                {'E', models::CoordinatesDirection::EAST},
+                {'W', models::CoordinatesDirection::WEST}};
+
+            // Get the latitude
+            std::string lat_str = fields[2];
+            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
+            double lat_min = std::stod(lat_str.substr(2));
+            char lat_dir = fields[3][0];
+
+            // Get the longitude
+            std::string lon_str = fields[4];
+            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
+            double lon_min = std::stod(lon_str.substr(3));
+            char lon_dir = fields[5][0];
+
+            // Set the last position
+            _last_position = models::Position(
+                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
+                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
+
+            return true;
+        }
+
+        void NMEA_Parser::add_scentence(const std::string &scentence)
+        {
+            std::string type = _get_type(scentence);
+            std::string talker = _get_talker(scentence);
+            std::string full_type = talker + type;
+
+            if (_scentences.find(full_type) != _scentences.end())
+                parse();
+
+            _scentences[full_type] = scentence;
+
+            if (type == "RMC")
+                parse();
+        }
+
+        void NMEA_Parser::parse()
+        {
+            bool valid = false;
+            if (_scentences.find("GNRMC") != _scentences.end())
+                valid = _parse_rmc(_scentences["GNRMC"]);
+            if (!valid && _scentences.find("GNGLL") != _scentences.end())
+                valid = _parse_ggl(_scentences["GNGLL"]);
+            if (!valid && _scentences.find("GNGGA") != _scentences.end())
+                valid = _parse_gga(_scentences["GNGGA"]);
+
+            _scentences.clear();
+        }
+
+        Position NMEA_Parser::get_last_position()
+        {
+            return _last_position;
+        }
+
+        size_t NMEA_Parser::get_scentence_count() const
+        {
+            return _scentences.size();
+        }
+    } // namespace new_parsers
 } // namespace sabre
