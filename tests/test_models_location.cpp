@@ -22,7 +22,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMS_North)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::NORTH);
     ASSERT_EQ(c.get_degrees(), 48);
     ASSERT_EQ(c.get_minutes(), 51);
-    ASSERT_EQ(c.get_seconds(), 30.24);
+    ASSERT_NEAR(c.get_seconds(), 30.24, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMS_South)
@@ -33,7 +33,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMS_South)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::SOUTH);
     ASSERT_EQ(c.get_degrees(), 48);
     ASSERT_EQ(c.get_minutes(), 51);
-    ASSERT_EQ(c.get_seconds(), 30.24);
+    ASSERT_NEAR(c.get_seconds(), 30.24, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMS_East)
@@ -44,7 +44,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMS_East)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::EAST);
     ASSERT_EQ(c.get_degrees(), 2);
     ASSERT_EQ(c.get_minutes(), 17);
-    ASSERT_EQ(c.get_seconds(), 40.2);
+    ASSERT_NEAR(c.get_seconds(), 40.2, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMS_West)
@@ -55,7 +55,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMS_West)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::WEST);
     ASSERT_EQ(c.get_degrees(), 2);
     ASSERT_EQ(c.get_minutes(), 17);
-    ASSERT_EQ(c.get_seconds(), 40.2);
+    ASSERT_NEAR(c.get_seconds(), 40.2, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_North)
@@ -66,7 +66,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_North)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::NORTH);
     ASSERT_EQ(c.get_degrees(), 40);
     ASSERT_EQ(c.get_minutes(), 42);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_NEAR(c.get_seconds(), 36.17523, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_South)
@@ -77,7 +77,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_South)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::SOUTH);
     ASSERT_EQ(c.get_degrees(), 40);
     ASSERT_EQ(c.get_minutes(), 42);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_NEAR(c.get_seconds(), 36.17523, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_East)
@@ -88,7 +88,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_East)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::EAST);
     ASSERT_EQ(c.get_degrees(), 74);
     ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_NEAR(c.get_seconds(), 36.11755, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_West)
@@ -99,7 +99,7 @@ TEST(ModelsLocation, CoordinateConstructUsingDMSNoSec_West)
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::WEST);
     ASSERT_EQ(c.get_degrees(), 74);
     ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_NEAR(c.get_seconds(), 36.11755, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingFloat_North)
@@ -109,8 +109,8 @@ TEST(ModelsLocation, CoordinateConstructUsingFloat_North)
     ASSERT_EQ(c.get_type(), CoordinateType::LATITUDE);
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::NORTH);
     ASSERT_EQ(c.get_degrees(), 48);
-    ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_EQ(c.get_minutes(), 51);
+    ASSERT_NEAR(c.get_seconds(), 30.24, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingFloat_South)
@@ -120,8 +120,8 @@ TEST(ModelsLocation, CoordinateConstructUsingFloat_South)
     ASSERT_EQ(c.get_type(), CoordinateType::LATITUDE);
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::SOUTH);
     ASSERT_EQ(c.get_degrees(), 48);
-    ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_EQ(c.get_minutes(), 51);
+    ASSERT_NEAR(c.get_seconds(), 0, 30.24);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingFloat_East)
@@ -131,8 +131,8 @@ TEST(ModelsLocation, CoordinateConstructUsingFloat_East)
     ASSERT_EQ(c.get_type(), CoordinateType::LONGITUDE);
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::EAST);
     ASSERT_EQ(c.get_degrees(), 2);
-    ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_EQ(c.get_minutes(), 17);
+    ASSERT_NEAR(c.get_seconds(), 40.2, 0.01);
 }
 
 TEST(ModelsLocation, CoordinateConstructUsingFloat_West)
@@ -142,6 +142,6 @@ TEST(ModelsLocation, CoordinateConstructUsingFloat_West)
     ASSERT_EQ(c.get_type(), CoordinateType::LONGITUDE);
     ASSERT_EQ(c.get_direction(), CoordinatesDirection::WEST);
     ASSERT_EQ(c.get_degrees(), 2);
-    ASSERT_EQ(c.get_minutes(), 0);
-    ASSERT_EQ(c.get_seconds(), 0);
+    ASSERT_EQ(c.get_minutes(), 17);
+    ASSERT_NEAR(c.get_seconds(), 40.2, 0.01);
 }

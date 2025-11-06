@@ -1,4 +1,5 @@
 #include "gps.hpp"
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -64,19 +65,23 @@ namespace sabre::models
 
     uint16_t Coordinate::get_degrees() const
     {
-        return abs(int(_coordinate));
+        return static_cast<uint16_t>(std::floor(std::abs(_coordinate)));
     }
 
     uint16_t Coordinate::get_minutes() const
     {
-        return (_coordinate - get_degrees()) * 60;
+        double abs_coord = std::abs(_coordinate);
+        double fractional = abs_coord - std::floor(abs_coord);
+        return static_cast<uint16_t>(std::floor(fractional * 60.0));
     }
 
     float Coordinate::get_seconds() const
     {
-        float min = (_coordinate - static_cast<float>(get_degrees())) * 60;
-        float sec = min - get_minutes();
-        return sec * 3600;
+        double abs_coord = std::abs(_coordinate);
+        double fractional = abs_coord - std::floor(abs_coord);
+        double minutes = fractional * 60.0;
+        double min_fractional = minutes - std::floor(minutes);
+        return static_cast<float>(min_fractional * 60.0);
     }
 
     // TODO: Remove when `Coordinate` is done
