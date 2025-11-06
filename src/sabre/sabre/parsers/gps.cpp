@@ -191,108 +191,74 @@ namespace sabre
             return fields;
         }
 
-        bool NMEA_Parser::_parse_rmc(std::string scentence)
+        // Helper to parse coordinates from NMEA fields
+        bool NMEA_Parser::_extract_position_from_fields(
+            const std::vector<std::string> &fields, size_t lat_idx,
+            size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
+            models::Position &out_position) const
         {
-            // Get the longitude and latitude from the RMC sentence
-            auto fields = _get_fields(scentence);
+            static const std::map<char, models::CoordinatesDirection> dir_map =
+                {{'N', models::CoordinatesDirection::NORTH},
+                 {'S', models::CoordinatesDirection::SOUTH},
+                 {'E', models::CoordinatesDirection::EAST},
+                 {'W', models::CoordinatesDirection::WEST}};
 
-            if (fields.size() < 13 || fields[2] != "A")
+            if (fields.size() <=
+                std::max({lat_idx, lat_dir_idx, lon_idx, lon_dir_idx}))
                 return false;
 
-            // Map with directions
-            std::map<char, models::CoordinatesDirection> dir_map = {
-                {'N', models::CoordinatesDirection::NORTH},
-                {'S', models::CoordinatesDirection::SOUTH},
-                {'E', models::CoordinatesDirection::EAST},
-                {'W', models::CoordinatesDirection::WEST}};
+            const std::string &lat_str = fields[lat_idx];
+            const std::string &lon_str = fields[lon_idx];
+            if (lat_str.empty() || lon_str.empty())
+                return false;
 
-            // Get the latitude
-            std::string lat_str = fields[3];
             uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
             double lat_min = std::stod(lat_str.substr(2));
-            char lat_dir = fields[4][0];
+            char lat_dir = fields[lat_dir_idx][0];
 
-            // Get the longitude
-            std::string lon_str = fields[5];
             uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
             double lon_min = std::stod(lon_str.substr(3));
-            char lon_dir = fields[6][0];
+            char lon_dir = fields[lon_dir_idx][0];
 
-            // Set the last position
-            _last_position = models::Position(
-                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
-                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
+            out_position = models::Position(
+                models::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
+                models::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
+            return true;
+        }
 
+        bool NMEA_Parser::_parse_rmc(std::string scentence)
+        {
+            auto fields = _get_fields(scentence);
+            if (fields.size() < 13 || fields[2] != "A")
+                return false;
+            models::Position pos;
+            if (!_extract_position_from_fields(fields, 3, 4, 5, 6, pos))
+                return false;
+            _last_position = pos;
             return true;
         }
 
         bool NMEA_Parser::_parse_gll(std::string scentence)
         {
-            // Get the longitude and latitude from the GLL sentence
             auto fields = _get_fields(scentence);
-
             if (fields.size() < 8 || fields[6] != "A")
                 return false;
-
-            // Map with directions
-            std::map<char, models::CoordinatesDirection> dir_map = {
-                {'N', models::CoordinatesDirection::NORTH},
-                {'S', models::CoordinatesDirection::SOUTH},
-                {'E', models::CoordinatesDirection::EAST},
-                {'W', models::CoordinatesDirection::WEST}};
-
-            // Get the latitude
-            std::string lat_str = fields[1];
-            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
-            double lat_min = std::stod(lat_str.substr(2));
-            char lat_dir = fields[2][0];
-
-            // Get the longitude
-            std::string lon_str = fields[3];
-            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
-            double lon_min = std::stod(lon_str.substr(3));
-            char lon_dir = fields[4][0];
-
-            // Set the last position
-            _last_position = models::Position(
-                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
-                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
-
+            models::Position pos;
+            if (!_extract_position_from_fields(fields, 1, 2, 3, 4, pos))
+                return false;
+            _last_position = pos;
             return true;
         }
 
         bool NMEA_Parser::_parse_gga(std::string scentence)
         {
-            // Get the longitude and latitude from the GGA sentence
             auto fields = _get_fields(scentence);
-
             if (fields.size() < 15 || fields[6] == "0")
                 return false;
-
-            // Map with directions
-            std::map<char, models::CoordinatesDirection> dir_map = {
-                {'N', models::CoordinatesDirection::NORTH},
-                {'S', models::CoordinatesDirection::SOUTH},
-                {'E', models::CoordinatesDirection::EAST},
-                {'W', models::CoordinatesDirection::WEST}};
-
-            // Get the latitude
-            std::string lat_str = fields[2];
-            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
-            double lat_min = std::stod(lat_str.substr(2));
-            char lat_dir = fields[3][0];
-
-            // Get the longitude
-            std::string lon_str = fields[4];
-            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
-            double lon_min = std::stod(lon_str.substr(3));
-            char lon_dir = fields[5][0];
-
-            // Set the last position
-            _last_position = models::Position(
-                models::Coordinate(lat_deg, lat_min, dir_map[lat_dir]),
-                models::Coordinate(lon_deg, lon_min, dir_map[lon_dir]));
-
+            models::Position pos;
+            if (!_extract_position_from_fields(fields, 2, 3, 4, 5, pos))
+                return false;
+            _last_position = pos;
             return true;
         }
 
@@ -313,18 +279,42 @@ namespace sabre
 
         void NMEA_Parser::parse()
         {
+            using ParseFunc = bool (NMEA_Parser::*)(std::string);
+            // Priority list: pair of sentence type and member function pointer
+
+            static const std::vector<std::pair<std::string, ParseFunc>>
+                priorities = {{"GNRMC", &NMEA_Parser::_parse_rmc},
+                              {"GNGLL", &NMEA_Parser::_parse_gll},
+                              {"GNGGA", &NMEA_Parser::_parse_gga},
+                              {"GPRMC", &NMEA_Parser::_parse_rmc},
+                              {"GPGLL", &NMEA_Parser::_parse_gll},
+                              {"GPGGA", &NMEA_Parser::_parse_gga},
+                              {"BDRMC", &NMEA_Parser::_parse_rmc},
+                              {"BDGLL", &NMEA_Parser::_parse_gll},
+                              {"BDGGA", &NMEA_Parser::_parse_gga},
+                              {"GLRMC", &NMEA_Parser::_parse_rmc},
+                              {"GLGLL", &NMEA_Parser::_parse_gll},
+                              {"GLGGA", &NMEA_Parser::_parse_gga},
+                              {"GARMC", &NMEA_Parser::_parse_rmc},
+                              {"GAGLL", &NMEA_Parser::_parse_gll},
+                              {"GAGGA", &NMEA_Parser::_parse_gga}};
+
             bool valid = false;
-            if (_scentences.find("GNRMC") != _scentences.end())
-                valid = _parse_rmc(_scentences["GNRMC"]);
-            if (!valid && _scentences.find("GNGLL") != _scentences.end())
-                valid = _parse_gll(_scentences["GNGLL"]);
-            if (!valid && _scentences.find("GNGGA") != _scentences.end())
-                valid = _parse_gga(_scentences["GNGGA"]);
+            for (const auto &[type, func] : priorities)
+            {
+                auto it = _scentences.find(type);
+                if (it != _scentences.end())
+                {
+                    valid = (this->*func)(it->second);
+                    if (valid)
+                        break;
+                }
+            }
 
             _scentences.clear();
         }
 
-        Position NMEA_Parser::get_last_position()
+        Position NMEA_Parser::get_last_position() const
         {
             return _last_position;
         }

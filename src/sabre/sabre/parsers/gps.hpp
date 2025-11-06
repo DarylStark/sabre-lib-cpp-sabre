@@ -6,37 +6,6 @@
 #include <string>
 #include <vector>
 
-/*
-Fields:
-
-First byte   = $ = Start of scentece
-Byte 2 and 3 = talker_id = who is giving you the data
-- GP = GPS
-- BD = BeiDou (Chinese)
-- GN = Generic
-- GL = Glonass (Russian)
-- GA = Galileo (European)
-Byte 4 and 5 = scentence = What data is it
-- GLL = Geographic Position = Latitude / Longitude
-- GSA = NGSS DOP and Active Satellites
-- GSV = GNSS Satellites in View
-- RMC = Recommended Minimum Specific GNSS Data
-- VTG = Course over Ground and Ground Speed
-- ZDA = Date and Time
-- TXT = Text Transmission
-
-$GNGGA,174506.000,,,,,0,00,25.5,,,,,,*7B
-$GNGLL,,,,,174506.000,V,M*66
-$GNGSA,A,1,,,,,,,,,,,,,25.5,25.5,25.5,1*01
-$GNGSA,A,1,,,,,,,,,,,,,25.5,25.5,25.5,4*04
-$GPGSV,1,1,02,25,64,265,24,29,19,196,31,0*6A
-$BDGSV,1,1,00,0*74
-$GNRMC,174506.000,V,,,,,,,121025,,,M,V*2E
-$GNVTG,,,,,,,,,M*2D
-$GNZDA,174506.000,12,10,2025,00,00*4E
-$GPTXT,01,01,01,ANTENNA OK*35
-*/
-
 namespace sabre
 {
     namespace models
@@ -129,12 +98,18 @@ namespace sabre
 
             std::vector<std::string> _get_fields(std::string scentence) const;
 
+            // Helper to extract coordinates from fields
+            bool _extract_position_from_fields(
+                const std::vector<std::string> &fields, size_t lat_idx,
+                size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
+                Position &out_position) const;
+
         public:
             NMEA_Parser();
             void add_scentence(const std::string &scentence);
             void parse();
 
-            Position get_last_position();
+            Position get_last_position() const;
 
             size_t get_scentence_count() const;
         };
