@@ -74,6 +74,38 @@ namespace sabre
             uint16_t get_minutes() const;
             float get_seconds() const;
         };
+
+        class Distance
+        {
+        private:
+            uint64_t _distance_in_mm;
+
+        public:
+            Distance();
+            Distance(uint64_t distance_in_mm);
+
+            uint64_t millimeters() const;
+            float centimeters() const;
+            float meters() const;
+            float kilometers() const;
+
+            operator uint64_t() const;
+        };
+
+        class Position
+        {
+        private:
+            Coordinate _latitude;
+            Coordinate _longitude;
+
+        public:
+            Position();
+            Position(Coordinate latitude, Coordinate longitude);
+            Coordinate get_latitude() const;
+            Coordinate get_longitude() const;
+
+            Distance get_distance(const Position &other) const;
+        };
     } // namespace models
 
     namespace parsers

@@ -86,6 +86,74 @@ namespace sabre
             double min_fractional = minutes - std::floor(minutes);
             return static_cast<float>(min_fractional * 60.0);
         }
+
+        Position::Position() : _latitude(), _longitude() {}
+
+        Position::Position(Coordinate latitude, Coordinate longitude)
+            : _latitude(latitude), _longitude(longitude)
+        {
+        }
+
+        Coordinate Position::get_latitude() const
+        {
+            return _latitude;
+        }
+
+        Coordinate Position::get_longitude() const
+        {
+            return _longitude;
+        }
+
+        Distance::Distance() : _distance_in_mm(0) {}
+
+        Distance::Distance(uint64_t distance_in_mm)
+            : _distance_in_mm(distance_in_mm)
+        {
+        }
+
+        uint64_t Distance::millimeters() const
+        {
+            return _distance_in_mm;
+        }
+
+        float Distance::centimeters() const
+        {
+            return static_cast<float>(_distance_in_mm) / 10.0f;
+        }
+
+        float Distance::meters() const
+        {
+            return static_cast<float>(_distance_in_mm) / 1000.0f;
+        }
+
+        float Distance::kilometers() const
+        {
+            return static_cast<float>(_distance_in_mm) / 1'000'000.0f;
+        }
+
+        Distance::operator uint64_t() const
+        {
+            return _distance_in_mm;
+        }
+
+        Distance Position::get_distance(const Position &other) const
+        {
+            const double R = 6371000; // Radius of the Earth in meters
+            double lat1_rad = _latitude.get_dd() * M_PI / 180.0;
+            double lat2_rad = other._latitude.get_dd() * M_PI / 180.0;
+            double delta_lat =
+                (other._latitude.get_dd() - _latitude.get_dd()) * M_PI / 180.0;
+            double delta_lon =
+                (other._longitude.get_dd() - _longitude.get_dd()) * M_PI /
+                180.0;
+
+            double a = std::sin(delta_lat / 2) * std::sin(delta_lat / 2) +
+                       std::cos(lat1_rad) * std::cos(lat2_rad) *
+                           std::sin(delta_lon / 2) * std::sin(delta_lon / 2);
+            double c = 2 * std::atan2(std::sqrt(a), std::sqrt(1 - a));
+
+            return Distance(static_cast<uint64_t>(R * c * 100.0 * 10.0));
+        }
     } // namespace models
 
     namespace parsers
