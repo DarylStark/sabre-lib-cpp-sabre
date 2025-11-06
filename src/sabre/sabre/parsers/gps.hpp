@@ -35,7 +35,7 @@ $GNZDA,174506.000,12,10,2025,00,00*4E
 $GPTXT,01,01,01,ANTENNA OK*35
 */
 
-namespace sabre::parsers
+namespace sabre::models
 {
     enum class CoordinatesDirection
     {
@@ -45,10 +45,40 @@ namespace sabre::parsers
         WEST
     };
 
+    enum class CoordinateType
+    {
+        LATITUDE,
+        LONGITUDE
+    };
+
+    class Coordinate
+    {
+    private:
+        float _coordinate;
+        CoordinateType _type;
+
+    public:
+        Coordinate();
+        Coordinate(uint16_t degrees, uint16_t minutes, double seconds,
+                   CoordinatesDirection direction);
+        Coordinate(uint16_t degrees, float minutes,
+                   CoordinatesDirection direction);
+        Coordinate(float coordinate, CoordinateType type);
+
+        float get_dd() const;
+        CoordinateType get_type() const;
+        CoordinatesDirection get_direction() const;
+        uint16_t get_degrees() const;
+        uint16_t get_minutes() const;
+        float get_seconds() const;
+    };
+
+    // TODO: Remove when `Coordinate` is done
     class Coordinates
     {
         uint16_t _degrees;
         double _minutes;
+        double _seconds;
         CoordinatesDirection _direction;
 
     public:
@@ -57,6 +87,12 @@ namespace sabre::parsers
             CoordinatesDirection direction = CoordinatesDirection::NORTH);
         double to_decimal() const;
     };
+} // namespace sabre::models
+
+namespace sabre::parsers
+{
+    using sabre::models::Coordinates;
+    using sabre::models::CoordinatesDirection;
 
     class GGLData
     {

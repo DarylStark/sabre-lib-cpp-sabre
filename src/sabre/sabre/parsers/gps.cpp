@@ -2,8 +2,84 @@
 #include <string>
 #include <vector>
 
-namespace sabre::parsers
+namespace sabre::models
 {
+    Coordinate::Coordinate() : _coordinate(0), _type(CoordinateType::LATITUDE)
+    {
+    }
+
+    Coordinate::Coordinate(uint16_t degrees, uint16_t minutes, double seconds,
+                           CoordinatesDirection direction)
+    {
+        _coordinate =
+            degrees + (static_cast<double>(minutes) / 60) + (seconds / 3600);
+        if (direction == CoordinatesDirection::SOUTH ||
+            direction == CoordinatesDirection::WEST)
+            _coordinate = -_coordinate;
+
+        _type = CoordinateType::LONGITUDE;
+        if (direction == CoordinatesDirection::NORTH ||
+            direction == CoordinatesDirection::SOUTH)
+            _type = CoordinateType::LATITUDE;
+    }
+
+    Coordinate::Coordinate(uint16_t degrees, float minutes,
+                           CoordinatesDirection direction)
+    {
+        _coordinate = degrees + (minutes / 60.0f);
+        if (direction == CoordinatesDirection::SOUTH ||
+            direction == CoordinatesDirection::WEST)
+            _coordinate = -_coordinate;
+
+        _type = CoordinateType::LONGITUDE;
+        if (direction == CoordinatesDirection::NORTH ||
+            direction == CoordinatesDirection::SOUTH)
+            _type = CoordinateType::LATITUDE;
+    }
+
+    Coordinate::Coordinate(float coordinate, CoordinateType type)
+        : _coordinate(coordinate), _type(type)
+    {
+    }
+
+    float Coordinate::get_dd() const
+    {
+        return _coordinate;
+    }
+
+    CoordinateType Coordinate::get_type() const
+    {
+        return _type;
+    }
+
+    CoordinatesDirection Coordinate::get_direction() const
+    {
+
+        if (_type == CoordinateType::LONGITUDE)
+            return _coordinate >= 0 ? CoordinatesDirection::EAST
+                                    : CoordinatesDirection::WEST;
+        return _coordinate >= 0 ? CoordinatesDirection::NORTH
+                                : CoordinatesDirection::SOUTH;
+    }
+
+    uint16_t Coordinate::get_degrees() const
+    {
+        return abs(int(_coordinate));
+    }
+
+    uint16_t Coordinate::get_minutes() const
+    {
+        return (_coordinate - get_degrees()) * 60;
+    }
+
+    float Coordinate::get_seconds() const
+    {
+        float min = (_coordinate - static_cast<float>(get_degrees())) * 60;
+        float sec = min - get_minutes();
+        return sec * 3600;
+    }
+
+    // TODO: Remove when `Coordinate` is done
     Coordinates::Coordinates(uint16_t degrees, double minutes,
                              CoordinatesDirection direction)
         : _degrees(degrees), _minutes(minutes), _direction(direction)
@@ -18,6 +94,10 @@ namespace sabre::parsers
             decimal = -decimal;
         return decimal;
     }
+} // namespace sabre::models
+
+namespace sabre::parsers
+{
 
     GGLData::GGLData(bool valid, Coordinates latitude, Coordinates longitude)
         : valid(valid), latitude(latitude), longitude(longitude)
