@@ -110,76 +110,6 @@ namespace sabre
         };
     } // namespace models
 
-    // TODO: Remove this
-    namespace parsers
-    {
-        using sabre::models::Coordinate;
-        using sabre::models::CoordinatesDirection;
-
-        class GGLData
-        {
-        private:
-            bool valid;
-            Coordinate latitude;
-            Coordinate longitude;
-
-        public:
-            GGLData(bool valid, Coordinate latitude, Coordinate longitude);
-
-            bool is_valid() const;
-            Coordinate get_latitude() const;
-            Coordinate get_longitude() const;
-        };
-
-        class RMCData
-        {
-        private:
-            bool valid;
-            Coordinate latitude;
-            Coordinate longitude;
-
-        public:
-            RMCData(bool valid, Coordinate latitude, Coordinate longitude);
-
-            bool is_valid() const;
-            Coordinate get_latitude() const;
-            Coordinate get_longitude() const;
-        };
-
-        class GPSData
-        {
-        public:
-            std::shared_ptr<GGLData> ggl;
-            std::shared_ptr<RMCData> rmc;
-
-            GPSData();
-            bool is_valid() const;
-        };
-
-        class Old_NMEA
-        {
-        private:
-            std::string _last_data;
-            bool _is_parsed;
-            GPSData _data;
-
-            std::shared_ptr<GGLData> _parse_ggl();
-            std::shared_ptr<RMCData> _parse_rmc();
-
-        public:
-            Old_NMEA();
-            void set_data(const std::string data);
-            bool is_valid_data() const;
-            void parse();
-
-            std::shared_ptr<GGLData> get_ggl() const;
-            std::shared_ptr<RMCData> get_rmc() const;
-
-            Coordinate get_latitude() const;
-            Coordinate get_longitude() const;
-        };
-    } // namespace parsers
-
     namespace new_parsers
     {
         using namespace sabre::models;
@@ -194,7 +124,7 @@ namespace sabre
             std::string _get_talker(std::string scentence) const;
 
             bool _parse_rmc(std::string scentence);
-            bool _parse_ggl(std::string scentence);
+            bool _parse_gll(std::string scentence);
             bool _parse_gga(std::string scentence);
 
             std::vector<std::string> _get_fields(std::string scentence) const;

@@ -159,233 +159,6 @@ namespace sabre
         }
     } // namespace models
 
-    namespace parsers
-    {
-        GGLData::GGLData(bool valid, Coordinate latitude, Coordinate longitude)
-            : valid(valid), latitude(latitude), longitude(longitude)
-        {
-        }
-
-        bool GGLData::is_valid() const
-        {
-            return valid;
-        }
-
-        Coordinate GGLData::get_latitude() const
-        {
-            return latitude;
-        }
-        Coordinate GGLData::get_longitude() const
-        {
-            return longitude;
-        }
-
-        RMCData::RMCData(bool valid, Coordinate latitude, Coordinate longitude)
-            : valid(valid), latitude(latitude), longitude(longitude)
-        {
-        }
-
-        bool RMCData::is_valid() const
-        {
-            return valid;
-        }
-
-        Coordinate RMCData::get_latitude() const
-        {
-            return latitude;
-        }
-
-        Coordinate RMCData::get_longitude() const
-        {
-            return longitude;
-        }
-
-        GPSData::GPSData() : ggl(nullptr) {}
-
-        bool GPSData::is_valid() const
-        {
-            return ggl != nullptr && (rmc->is_valid() || ggl->is_valid());
-        }
-
-        Old_NMEA::Old_NMEA() : _is_parsed(false), _last_data("") {}
-
-        void Old_NMEA::set_data(const std::string data)
-        {
-            _last_data = data;
-            _is_parsed = false;
-        }
-
-        std::shared_ptr<GGLData> Old_NMEA::_parse_ggl()
-        {
-            // Find the complete GGL sentence
-            size_t start = _last_data.find("$GNGLL");
-            if (start == std::string::npos)
-                return std::make_shared<GGLData>(false, Coordinate(),
-                                                 Coordinate());
-
-            size_t end = _last_data.find("\n", start);
-            if (end == std::string::npos)
-                end = _last_data.length();
-
-            std::string ggl_sentence = _last_data.substr(start, end - start);
-            // Parse the GGL sentence
-            // Example: $GPGGL,4916.45,N,12311.12,W,225444,A,*1D
-            std::vector<std::string> fields;
-            size_t pos = 0;
-            while ((pos = ggl_sentence.find(',')) != std::string::npos)
-            {
-                fields.push_back(ggl_sentence.substr(0, pos));
-                ggl_sentence.erase(0, pos + 1);
-            }
-            fields.push_back(ggl_sentence);
-
-            if (fields.size() < 7)
-                return std::make_shared<GGLData>(false, Coordinate(),
-                                                 Coordinate());
-
-            // Latitude
-            std::string lat_str = fields[1];
-            char lat_dir = fields[2][0];
-            if (lat_str.length() < 4)
-                return std::make_shared<GGLData>(false, Coordinate(),
-                                                 Coordinate());
-            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
-            float lat_min = std::stof(lat_str.substr(2));
-            Coordinate latitude =
-                Coordinate(lat_deg, lat_min,
-                           lat_dir == 'N' ? CoordinatesDirection::NORTH
-                                          : CoordinatesDirection::SOUTH);
-
-            // Longitude
-            std::string lon_str = fields[3];
-            char lon_dir = fields[4][0];
-            if (lon_str.length() < 5)
-                return std::make_shared<GGLData>(false, Coordinate(),
-                                                 Coordinate());
-            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
-            float lon_min = std::stof(lon_str.substr(3));
-            Coordinate longitude =
-                Coordinate(lon_deg, lon_min,
-                           lon_dir == 'E' ? CoordinatesDirection::EAST
-                                          : CoordinatesDirection::WEST);
-
-            // Create new object
-            return std::make_shared<GGLData>(fields[6] == "A", latitude,
-                                             longitude);
-        }
-
-        std::shared_ptr<RMCData> Old_NMEA::_parse_rmc()
-        {
-            // Find the complete RMC sentence
-            size_t start = _last_data.find("$GNRMC");
-            if (start == std::string::npos)
-                return std::make_shared<RMCData>(false, Coordinate(),
-                                                 Coordinate());
-
-            size_t end = _last_data.find("\n", start);
-            if (end == std::string::npos)
-                end = _last_data.length();
-
-            std::string rmc_sentence = _last_data.substr(start, end - start);
-            std::vector<std::string> fields;
-            size_t pos = 0;
-            while ((pos = rmc_sentence.find(',')) != std::string::npos)
-            {
-                fields.push_back(rmc_sentence.substr(0, pos));
-                rmc_sentence.erase(0, pos + 1);
-            }
-            fields.push_back(rmc_sentence);
-
-            if (fields.size() < 12)
-                return std::make_shared<RMCData>(false, Coordinate(),
-                                                 Coordinate());
-
-            // Latitude
-            std::string lat_str = fields[3];
-            char lat_dir = fields[4][0];
-            if (lat_str.length() < 4)
-                return std::make_shared<RMCData>(false, Coordinate(),
-                                                 Coordinate());
-            uint16_t lat_deg = std::stoi(lat_str.substr(0, 2));
-            double lat_min = std::stod(lat_str.substr(2));
-            Coordinate latitude =
-                Coordinate(lat_deg, lat_min,
-                           lat_dir == 'N' ? CoordinatesDirection::NORTH
-                                          : CoordinatesDirection::SOUTH);
-
-            // Longitude
-            std::string lon_str = fields[5];
-            char lon_dir = fields[6][0];
-            if (lon_str.length() < 5)
-                return std::make_shared<RMCData>(false, Coordinate(),
-                                                 Coordinate());
-            uint16_t lon_deg = std::stoi(lon_str.substr(0, 3));
-            double lon_min = std::stod(lon_str.substr(3));
-            Coordinate longitude =
-                Coordinate(lon_deg, lon_min,
-                           lon_dir == 'E' ? CoordinatesDirection::EAST
-                                          : CoordinatesDirection::WEST);
-
-            // Create new object
-            return std::make_shared<RMCData>(fields[2] == "A", latitude,
-                                             longitude);
-        }
-
-        void Old_NMEA::parse()
-        {
-            if (_is_parsed)
-                return;
-
-            if (_last_data.empty())
-            {
-                _is_parsed = false;
-                return;
-            }
-
-            _data.ggl = _parse_ggl();
-            _data.rmc = _parse_rmc();
-            _is_parsed = true;
-        }
-
-        bool Old_NMEA::is_valid_data() const
-        {
-            return _is_parsed && _data.is_valid();
-        }
-
-        std::shared_ptr<GGLData> Old_NMEA::get_ggl() const
-        {
-            if (!_is_parsed)
-                return nullptr;
-            return _data.ggl;
-        }
-
-        std::shared_ptr<RMCData> Old_NMEA::get_rmc() const
-        {
-            if (!_is_parsed)
-                return nullptr;
-            return _data.rmc;
-        }
-
-        Coordinate Old_NMEA::get_latitude() const
-        {
-            if (_data.rmc != nullptr && _data.rmc->is_valid())
-                return _data.rmc->get_latitude();
-            if (_data.ggl != nullptr && _data.ggl->is_valid())
-                return _data.ggl->get_latitude();
-            return Coordinate();
-        }
-
-        Coordinate Old_NMEA::get_longitude() const
-        {
-            if (_data.rmc != nullptr && _data.rmc->is_valid())
-                return _data.rmc->get_longitude();
-            if (_data.ggl != nullptr && _data.ggl->is_valid())
-                return _data.ggl->get_longitude();
-            return Coordinate();
-        }
-
-    } // namespace parsers
-
     namespace new_parsers
     {
         NMEA_Parser::NMEA_Parser() : _last_position() {}
@@ -423,7 +196,7 @@ namespace sabre
             // Get the longitude and latitude from the RMC sentence
             auto fields = _get_fields(scentence);
 
-            if (fields.size() < 7 || fields[2] != "A")
+            if (fields.size() < 13 || fields[2] != "A")
                 return false;
 
             // Map with directions
@@ -453,9 +226,9 @@ namespace sabre
             return true;
         }
 
-        bool NMEA_Parser::_parse_ggl(std::string scentence)
+        bool NMEA_Parser::_parse_gll(std::string scentence)
         {
-            // Get the longitude and latitude from the GGL sentence
+            // Get the longitude and latitude from the GLL sentence
             auto fields = _get_fields(scentence);
 
             if (fields.size() < 8 || fields[6] != "A")
@@ -544,7 +317,7 @@ namespace sabre
             if (_scentences.find("GNRMC") != _scentences.end())
                 valid = _parse_rmc(_scentences["GNRMC"]);
             if (!valid && _scentences.find("GNGLL") != _scentences.end())
-                valid = _parse_ggl(_scentences["GNGLL"]);
+                valid = _parse_gll(_scentences["GNGLL"]);
             if (!valid && _scentences.find("GNGGA") != _scentences.end())
                 valid = _parse_gga(_scentences["GNGGA"]);
 
