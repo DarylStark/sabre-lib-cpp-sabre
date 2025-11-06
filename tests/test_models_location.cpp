@@ -209,7 +209,7 @@ TEST(ModelsLocation, PositionConstructWithLocation)
     ASSERT_NEAR(pos.get_longitude().get_dd(), 2.2945, 1e-5);
 }
 
-TEST(ModelsLocation, PositionDistance)
+TEST(ModelsLocation, PositionDistanceParisNewYork)
 {
     Position eiffel_tower({48, 51, 30.24, CoordinatesDirection::NORTH},
                           {2, 17, 40.2, CoordinatesDirection::EAST});
@@ -217,4 +217,24 @@ TEST(ModelsLocation, PositionDistance)
                                {74, 0, 21.0, CoordinatesDirection::WEST});
     Distance distance = eiffel_tower.get_distance(statue_of_liberty);
     ASSERT_EQ(distance, 5833145381);
+}
+
+TEST(ModelsLocation, PositionDistanceZero)
+{
+    Position point1({10, 0, 0.0, CoordinatesDirection::NORTH},
+                    {20, 0, 0.0, CoordinatesDirection::EAST});
+    Position point2({10, 0, 0.0, CoordinatesDirection::NORTH},
+                    {20, 0, 0.0, CoordinatesDirection::EAST});
+    Distance distance = point1.get_distance(point2);
+    ASSERT_EQ(distance, 0);
+}
+
+TEST(ModelsLocation, PositionDistanceSabreDunderMifflin)
+{
+    Position sabre_office({34.1554188, CoordinateType::LATITUDE},
+                          {-118.8188163, CoordinateType::LONGITUDE});
+    Position dm_office({34.21092250221861, CoordinateType::LATITUDE},
+                       {-118.4363868768214, CoordinateType::LONGITUDE});
+    Distance distance = sabre_office.get_distance(dm_office);
+    ASSERT_NEAR(distance.kilometers(), 35.71523, 0.00001);
 }
