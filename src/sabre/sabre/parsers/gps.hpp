@@ -200,6 +200,8 @@ namespace sabre
              * @return Distance between positions.
              */
             Distance get_distance(const Position &other) const;
+
+            bool is_valid() const;
         };
     } // namespace models
 

@@ -157,6 +157,11 @@ namespace sabre
 
             return Distance(static_cast<uint64_t>(R * c * 100.0 * 10.0));
         }
+
+        bool Position::is_valid() const
+        {
+            return _latitude.get_dd() != 0.0 || _longitude.get_dd() != 0.0;
+        }
     } // namespace models
 
     namespace parsers
