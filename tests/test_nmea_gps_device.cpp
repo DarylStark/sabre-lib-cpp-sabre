@@ -15,7 +15,7 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART)
     // Set up UART
     sabre::UARTUniquePtr uart = std::make_unique<sabre::testing::TestUART>();
     for (char c : "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
-                  "061125,,,A\r\n")
+                  "061125,,,A*64\r\n")
         uart->write_byte(c);
 
     // Read the data
@@ -37,7 +37,7 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MultipleScentences)
     for (char c :
          "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
          "061125,,,A\r\n$GNRMC,120000.000,A,3509.3251,N,11949.1290,W,0.00,0.00,"
-         "061125,,,A\r\n")
+         "061125,,,A*64\r\n")
         uart->write_byte(c);
 
     // Read the data
@@ -59,7 +59,7 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MidSentence)
     for (char c :
          ".9999,N,11249.1290,W,0.00,0.00,"
          "061125,,,A\r\n$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
-         "061125,,,A\r\n")
+         "061125,,,A*64\r\n")
         uart->write_byte(c);
 
     // Read the data
@@ -81,7 +81,7 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MidSentenceStop)
     for (char c :
          ".9999,N,11249.1290,W,0.00,0.00,"
          "061125,,,A\r\n$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
-         "061125,,,A\r\n$GNRMC,120000.000,A,3509.3251,N,11949.1290,W,")
+         "061125,,,A*64\r\n$GNRMC,120000.000,A,3509.3251,N,11949.1290,W,")
         uart->write_byte(c);
 
     // Read the data
@@ -116,7 +116,7 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_UARTError)
     for (char c : "$GNRMC,120000.000,A,3609.3251,N,11949.1290,W,0.00,0.00,"
                   "061125,,,A\r\n$GNRMC,120000.000,A,3409.$GNRMC,120000.000,A,"
                   "3409.3251,N,11849.1290,W,0.00,0.00,"
-                  "061125,,,A\r\n")
+                  "061125,,,A*64\r\n")
         uart->write_byte(c);
 
     // Read the data
@@ -135,7 +135,7 @@ TEST(SerialNmeaGpsDeviceTest, SwitchUARTPtr)
     // Set up UART-1
     sabre::UARTUniquePtr uart = std::make_unique<sabre::testing::TestUART>();
     for (char c : "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
-                  "061125,,,A\r\n")
+                  "061125,,,A*64\r\n")
         uart->write_byte(c);
 
     // Read the data from UART-1
@@ -152,7 +152,7 @@ TEST(SerialNmeaGpsDeviceTest, SwitchUARTPtr)
     // Set up UART-2
     sabre::UARTUniquePtr uart2 = std::make_unique<sabre::testing::TestUART>();
     for (char c : "$GNRMC,120000.000,A,3609.3251,N,12049.1290,W,0.00,0.00,"
-                  "061125,,,A\r\n")
+                  "061125,,,A*6D\r\n")
         uart2->write_byte(c);
 
     // Switch to UART-2 and read data

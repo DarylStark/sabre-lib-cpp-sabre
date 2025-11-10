@@ -233,6 +233,8 @@ namespace sabre
              */
             std::string _get_talker(std::string scentence) const;
 
+            bool _is_valid_checksum(const std::string &scentence) const;
+
             /**
              * @brief Parse RMC sentence.
              * @param scentence The NMEA sentence.

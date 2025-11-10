@@ -178,6 +178,28 @@ namespace sabre
             return std::string(scentence.substr(1, 2));
         }
 
+        bool NMEA_Parser::_is_valid_checksum(const std::string &scentence) const
+        {
+            uint32_t total_xor = 0;
+
+            size_t asterisk_pos = scentence.find('*');
+            if (asterisk_pos == std::string::npos ||
+                asterisk_pos + 2 >= scentence.size())
+                return false;
+
+            size_t dollar_pos = scentence.find('$');
+            if (dollar_pos == std::string::npos ||
+                dollar_pos + 1 >= asterisk_pos)
+                return false;
+
+            for (size_t pos = dollar_pos + 1; pos < asterisk_pos; ++pos)
+                total_xor ^= static_cast<uint8_t>(scentence[pos]);
+
+            std::string checksum_str = scentence.substr(asterisk_pos + 1, 2);
+            uint32_t sentence_checksum = std::stoul(checksum_str, nullptr, 16);
+            return total_xor == sentence_checksum;
+        }
+
         std::vector<std::string>
         NMEA_Parser::_get_fields(std::string scentence) const
         {
@@ -272,6 +294,9 @@ namespace sabre
             std::string type = _get_type(scentence);
             std::string talker = _get_talker(scentence);
             std::string full_type = talker + type;
+
+            if (!_is_valid_checksum(scentence))
+                return;
 
             if (_scentences.find(full_type) != _scentences.end())
                 parse();
