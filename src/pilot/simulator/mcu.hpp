@@ -1,11 +1,15 @@
 #pragma once
 
+#include <list>
 #include <map>
 #include <sabre/app/app.hpp>
+#include <unordered_map>
 #include <vector>
 
 namespace sabre::pilot
 {
+    class MCU;
+
     enum class GPIOType
     {
         GENERIC,
@@ -34,8 +38,38 @@ namespace sabre::pilot
         size_t uart_count = 1;
     };
 
+    enum class DeviceEventType
+    {
+        UART_DATA_SEND
+    };
+
+    class DeviceEventData
+    {
+    public:
+        virtual ~DeviceEventData() = 0;
+    };
+
+    class UartEventData : public DeviceEventData
+    {
+    public:
+        uint32_t uart_number;
+        char data;
+
+        UartEventData(uint32_t uart_number, char data);
+    };
+
+    struct DeviceEvent
+    {
+        DeviceEventType type;
+        MCU *device;
+        std::unique_ptr<DeviceEventData> data;
+    };
+
     using GPIOVector = std::vector<MCUGPIO>;
     using UARTMap = std::map<uint32_t, UARTBuffers>;
+    using DeviceEventCallback = void (*)(DeviceEvent event);
+    using EventCallbacks =
+        std::unordered_multimap<DeviceEventType, DeviceEventCallback>;
 
     class MCU
     {
@@ -44,12 +78,20 @@ namespace sabre::pilot
         sabre::AppUniquePtr _app;
         GPIOVector _gpios;
         UARTMap _uart_map;
+        EventCallbacks _event_callbacks;
+
+        void _raise_event(DeviceEventType type,
+                          std::unique_ptr<DeviceEventData> data);
 
     public:
         MCU(MCUConfig config, sabre::AppUniquePtr &&app);
 
         // MCU control
         void start();
+
+        // Event control
+        void register_event_callback(DeviceEventType type,
+                                     DeviceEventCallback callback);
 
         // GPIO management
         MCUGPIO &get_gpio(size_t index);

@@ -4,6 +4,13 @@
 
 namespace sabre::pilot
 {
+    DeviceEventData::~DeviceEventData() {}
+
+    UartEventData::UartEventData(uint32_t uart_number, char data)
+        : uart_number(uart_number), data(data)
+    {
+    }
+
     MCU::MCU(MCUConfig config, sabre::AppUniquePtr &&app)
         : _config(config), _app(std::move(app)), _gpios(config.gpio_count)
     {
@@ -13,10 +20,28 @@ namespace sabre::pilot
         asm("nop");
     }
 
+    void MCU::_raise_event(DeviceEventType type,
+                           std::unique_ptr<DeviceEventData> data)
+    {
+        auto range = _event_callbacks.equal_range(type);
+        for (auto it = range.first; it != range.second; ++it)
+        {
+            DeviceEventCallback callback = it->second;
+            if (callback)
+                callback({type, this, std::move(data)});
+        }
+    }
+
     void MCU::start()
     {
         _app->set_factory(std::make_unique<Factory>(this));
         _app->start();
+    }
+
+    void MCU::register_event_callback(DeviceEventType type,
+                                      DeviceEventCallback callback)
+    {
+        _event_callbacks.emplace(type, callback);
     }
 
     MCUGPIO &MCU::get_gpio(size_t index)
@@ -82,6 +107,10 @@ namespace sabre::pilot
             return false; // UART not initialized
 
         it->second.output_data.push_back(data);
+        // TODO: only on flush.
+        _raise_event(DeviceEventType::UART_DATA_SEND,
+                     std::make_unique<UartEventData>(uart_number, data));
+
         return true;
     }
 

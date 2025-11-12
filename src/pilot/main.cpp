@@ -71,7 +71,7 @@ int main()
     ImGuiPresenter presenter(simulator);
 
     simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>(100));
-    simulator.add_mcu("GPS", config_mcu, std::make_unique<MyGpsApp>());
+    simulator.add_mcu("GPS", config_gps, std::make_unique<MyGpsApp>());
     simulator.start_mcu("ESP32-S3");
     simulator.start_mcu("GPS");
 
