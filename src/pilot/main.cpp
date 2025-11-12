@@ -38,21 +38,42 @@ public:
     }
 };
 
+class MyGpsApp : public sabre::App
+{
+public:
+    void start() override
+    {
+        // Simulate GPS data output
+        auto uart1 = _factory->create_uart_object(0, 9600, 0, 1, 512);
+        uart1->initialize();
+        while (true)
+        {
+            std::string nmea_sentence = "$GPGGA,123519,4807.038,N,01131.000,E,"
+                                        "1,08,0.9,545.4,M,46.9,M,,*47\n";
+            for (const char &p : nmea_sentence)
+            {
+                uart1->write_byte(p);
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+};
+
 int main()
 {
     using namespace sabre::pilot;
 
-    MCUConfig config_mcu0{.gpio_count = 32, .uart_count = 2};
-    MCUConfig config_mcu1{.gpio_count = 24, .uart_count = 2};
-    bool stop = false;
+    MCUConfig config_mcu{.gpio_count = 32, .uart_count = 2};
+    MCUConfig config_gps{.gpio_count = 2, .uart_count = 1};
 
     Simulator simulator;
     ImGuiPresenter presenter(simulator);
 
-    simulator.add_mcu("ESP32-S3", config_mcu0, std::make_unique<MyApp>(100));
+    simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>(100));
+    simulator.add_mcu("GPS", config_mcu, std::make_unique<MyGpsApp>());
     simulator.start_mcu("ESP32-S3");
-
-    stop = true;
+    simulator.start_mcu("GPS");
 
     presenter.start();
 
