@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <list>
 #include <map>
 #include <sabre/app/app.hpp>
@@ -67,7 +68,7 @@ namespace sabre::pilot
 
     using GPIOVector = std::vector<MCUGPIO>;
     using UARTMap = std::map<uint32_t, UARTBuffers>;
-    using DeviceEventCallback = void (*)(DeviceEvent event);
+    using DeviceEventCallback = std::function<void(const DeviceEvent &)>;
     using EventCallbacks =
         std::unordered_multimap<DeviceEventType, DeviceEventCallback>;
 

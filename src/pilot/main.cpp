@@ -1,5 +1,6 @@
 #include "imgui_presenter/imgui_presenter.hpp"
 #include "sabre/app/app.hpp"
+#include "simulator/device_connector.hpp"
 #include "simulator/simulator.hpp"
 #include <iostream>
 #include <thread>
@@ -8,32 +9,22 @@ class MyApp : public sabre::App
 {
 private:
     sabre::UARTUniquePtr _uart0;
-    std::ostream _uart0_out;
-    uint32_t _timeout = 0;
     bool _stop = false;
 
 public:
-    MyApp(uint32_t timeout) : _timeout(timeout), _uart0_out(0) {}
-
-    ~MyApp()
-    {
-        _stop = true;
-        auto streambuf = _uart0_out.rdbuf();
-        delete streambuf;
-    }
+    MyApp() {}
 
     void start() override
     {
-        auto streambuf =
-            _factory->create_uart_output_stream_buffer(0, 115200, 1, 3, 1024);
-        _uart0_out.rdbuf(streambuf.get());
-        _uart0_out << this << " - App starting!" << std::endl;
-        _uart0_out << this << " - App started" << std::endl;
+        _uart0 = _factory->create_uart_object(0, 9600, 1, 2, 512);
+        _uart0->initialize();
 
-        while (!_stop)
+        while (true)
         {
-            _uart0_out << "Dit is text. " << std::flush;
-            std::this_thread::sleep_for(std::chrono::milliseconds(_timeout));
+            std::string received_data = _uart0->read_bytes(1, 16);
+            for (const auto &b : received_data)
+                _uart0->write_byte(b);
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 };
@@ -70,8 +61,12 @@ int main()
     Simulator simulator;
     ImGuiPresenter presenter(simulator);
 
-    simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>(100));
-    simulator.add_mcu("GPS", config_gps, std::make_unique<MyGpsApp>());
+    auto mcu =
+        simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>());
+    auto gps =
+        simulator.add_mcu("GPS", config_gps, std::make_unique<MyGpsApp>());
+    UartConnector uart_connector(*gps, 0, *mcu, 0);
+
     simulator.start_mcu("ESP32-S3");
     simulator.start_mcu("GPS");
 
