@@ -1,4 +1,5 @@
 #include "log_handlers.hpp"
+#include <iomanip>
 
 namespace sabre
 {
@@ -10,8 +11,9 @@ namespace sabre
                                        const std::string &logger_name,
                                        const std::string &message)
     {
-        _stream << "[" << logger_name << "] - " << LoggingLevelToString(level)
-                << " - " << message << std::endl;
+        _stream << "[" << logger_name << "] - " << std::left << std::setw(10)
+                << std::setfill('.') << LoggingLevelToString(level) << " - "
+                << message << std::endl;
     }
 
     LogBufferHandler::LogBufferHandler(size_t size)
