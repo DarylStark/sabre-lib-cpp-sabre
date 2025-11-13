@@ -10,7 +10,7 @@ namespace sabre
                                        const std::string &logger_name,
                                        const std::string &message)
     {
-        _stream << "[" << logger_name << "] - " << static_cast<int>(level)
+        _stream << "[" << logger_name << "] - " << LoggingLevelToString(level)
                 << " - " << message << std::endl;
     }
 
