@@ -166,3 +166,21 @@ TEST(SerialNmeaGpsDeviceTest, SwitchUARTPtr)
     ASSERT_NEAR(device.get_last_position().get_longitude().get_dd(),
                 -120.8188167, 1e-7);
 }
+
+TEST(SerialNmeaGpsDeviceTest, WriteToUart)
+{
+    std::string gnrmc =
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,"
+        "061125,,,A*64\r\n";
+    sabre::UARTUniquePtr uart = std::make_unique<sabre::testing::TestUART>();
+    for (char c : gnrmc)
+        uart->write_byte(c);
+
+    sabre::UARTUniquePtr out_uart =
+        std::make_unique<sabre::testing::TestUART>();
+    sabre::devices::SerialNmeaGpsDevice device(uart.get());
+    device.set_output_uart_ptr(out_uart.get());
+    while (device.read())
+        ;
+    ASSERT_EQ(out_uart->read_bytes(gnrmc.length(), 100), gnrmc);
+}

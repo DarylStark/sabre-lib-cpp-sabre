@@ -2,15 +2,24 @@
 
 namespace sabre::devices
 {
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice() : _uart(nullptr) {}
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice()
+        : _uart(nullptr), _output_uart(nullptr)
+    {
+    }
 
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice(sabre::UARTPtr uart) : _uart(uart)
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice(sabre::UARTPtr uart)
+        : _uart(uart), _output_uart(nullptr)
     {
     }
 
     void SerialNmeaGpsDevice::set_uart_ptr(sabre::UARTPtr uart)
     {
         _uart = uart;
+    }
+
+    void SerialNmeaGpsDevice::set_output_uart_ptr(sabre::UARTPtr uart)
+    {
+        _output_uart = uart;
     }
 
     sabre::models::Position SerialNmeaGpsDevice::get_last_position() const
@@ -31,6 +40,10 @@ namespace sabre::devices
         std::string x = _uart->read_bytes(1, 50);
         if (!x.empty())
         {
+            if (_output_uart)
+                for (const auto &byte : x)
+                    _output_uart->write_byte(byte);
+
             for (const auto &c : x)
             {
                 _nmea_validator.add_character(c);

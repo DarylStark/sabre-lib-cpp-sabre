@@ -10,6 +10,7 @@ namespace sabre::devices
     {
     private:
         sabre::UARTPtr _uart;
+        sabre::UARTPtr _output_uart;
         sabre::parsers::NMEAValidator _nmea_validator;
         sabre::parsers::NMEA_Parser _nmea_parser;
 
@@ -18,6 +19,7 @@ namespace sabre::devices
         SerialNmeaGpsDevice(sabre::UARTPtr uart);
 
         void set_uart_ptr(sabre::UARTPtr uart);
+        void set_output_uart_ptr(sabre::UARTPtr uart);
 
         sabre::models::Position get_last_position() const override;
         bool is_valid_position() const override;
