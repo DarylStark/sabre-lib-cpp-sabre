@@ -164,3 +164,25 @@ TEST(ParsersNMEA, InvalidChecksum)
     parser.parse();
     ASSERT_FALSE(parser.get_last_position().is_valid());
 }
+
+TEST(ParsersNMEA, AddMultipleScentencesIncreasedVersion)
+{
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11949.1290,W,0.00,0.00,061125,,,A*65");
+    ASSERT_EQ(parser.get_last_position().get_version(), 2);
+}
+
+TEST(ParsersNMEA, AddMultipleSameScentencesDontIncreaseVersion)
+{
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
+}

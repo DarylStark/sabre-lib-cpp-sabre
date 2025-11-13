@@ -48,6 +48,11 @@ namespace sabre
         {
         }
 
+        bool Coordinate::operator==(const Coordinate &other) const
+        {
+            return other._coordinate == _coordinate && other._type == _type;
+        }
+
         double Coordinate::get_dd() const
         {
             return _coordinate;
@@ -90,11 +95,17 @@ namespace sabre
             return std::round(min_fractional * 60.0 * 1000.0) / 1000.0;
         }
 
-        Position::Position() : _latitude(), _longitude() {}
+        Position::Position() : _latitude(), _longitude(), _version(0) {}
 
         Position::Position(Coordinate latitude, Coordinate longitude)
-            : _latitude(latitude), _longitude(longitude)
+            : _latitude(latitude), _longitude(longitude), _version(0)
         {
+        }
+
+        bool Position::operator==(const Position &other) const
+        {
+            return other._latitude == _latitude &&
+                   other._longitude == _longitude;
         }
 
         Coordinate Position::get_latitude() const
@@ -161,6 +172,16 @@ namespace sabre
         bool Position::is_valid() const
         {
             return _latitude.get_dd() != 0.0 || _longitude.get_dd() != 0.0;
+        }
+
+        uint32_t Position::get_version() const
+        {
+            return _version;
+        }
+
+        void Position::set_version(uint32_t version)
+        {
+            _version = version;
         }
     } // namespace models
 
@@ -253,6 +274,16 @@ namespace sabre
             return true;
         }
 
+        void NMEA_Parser::_update_last_position(Position &new_position)
+        {
+            if (new_position == _last_position)
+                return;
+
+            uint32_t version = _last_position.get_version();
+            _last_position = new_position;
+            _last_position.set_version(version + 1);
+        }
+
         bool NMEA_Parser::_parse_rmc(std::string scentence)
         {
             auto fields = _get_fields(scentence);
@@ -261,7 +292,7 @@ namespace sabre
             models::Position pos;
             if (!_extract_position_from_fields(fields, 3, 4, 5, 6, pos))
                 return false; // LCOV_EXCL_LINE
-            _last_position = pos;
+            _update_last_position(pos);
             return true;
         }
 
@@ -273,7 +304,7 @@ namespace sabre
             models::Position pos;
             if (!_extract_position_from_fields(fields, 1, 2, 3, 4, pos))
                 return false; // LCOV_EXCL_LINE
-            _last_position = pos;
+            _update_last_position(pos);
             return true;
         }
 
@@ -285,7 +316,7 @@ namespace sabre
             models::Position pos;
             if (!_extract_position_from_fields(fields, 2, 3, 4, 5, pos))
                 return false; // LCOV_EXCL_LINE
-            _last_position = pos;
+            _update_last_position(pos);
             return true;
         }
 

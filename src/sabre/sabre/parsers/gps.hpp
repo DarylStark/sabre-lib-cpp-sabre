@@ -72,6 +72,8 @@ namespace sabre
              */
             Coordinate(double coordinate, CoordinateType type);
 
+            bool operator==(const Coordinate &other) const;
+
             /**
              * @brief Get decimal degrees value.
              * @return Decimal degrees.
@@ -168,6 +170,7 @@ namespace sabre
         private:
             Coordinate _latitude;  /**< Latitude coordinate. */
             Coordinate _longitude; /**< Longitude coordinate. */
+            uint32_t _version;
 
         public:
             /**
@@ -181,6 +184,8 @@ namespace sabre
              * @param longitude Longitude coordinate.
              */
             Position(Coordinate latitude, Coordinate longitude);
+
+            bool operator==(const Position &other) const;
 
             /**
              * @brief Get latitude coordinate.
@@ -202,6 +207,9 @@ namespace sabre
             Distance get_distance(const Position &other) const;
 
             bool is_valid() const;
+
+            uint32_t get_version() const;
+            void set_version(uint32_t version);
         };
     } // namespace models
 
@@ -277,6 +285,8 @@ namespace sabre
                 const std::vector<std::string> &fields, size_t lat_idx,
                 size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
                 Position &out_position) const;
+
+            void _update_last_position(Position &new_position);
 
         public:
             /**

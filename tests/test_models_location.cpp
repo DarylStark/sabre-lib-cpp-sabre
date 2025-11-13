@@ -238,3 +238,49 @@ TEST(ModelsLocation, PositionDistanceSabreDunderMifflin)
     Distance distance = sabre_office.get_distance(dm_office);
     ASSERT_NEAR(distance.kilometers(), 35.71523, 0.00001);
 }
+
+TEST(ModelsLocation, CoordinateEqualOperator_EqualCoordinates)
+{
+    Coordinate x(34.1554188, CoordinateType::LATITUDE);
+    Coordinate y(34.1554188, CoordinateType::LATITUDE);
+    ASSERT_TRUE(x == y);
+}
+
+TEST(ModelsLocation, CoordinateEqualOperator_InequalCoordinates)
+{
+    Coordinate x(34.1554188, CoordinateType::LATITUDE);
+    Coordinate y(35.1554188, CoordinateType::LATITUDE);
+    ASSERT_FALSE(x == y);
+}
+
+TEST(ModelsLocation, CoordinateEqualOperator_InequalTypes)
+{
+    Coordinate x(34.1554188, CoordinateType::LATITUDE);
+    Coordinate y(34.1554188, CoordinateType::LONGITUDE);
+    ASSERT_FALSE(x == y);
+}
+
+TEST(ModelsLocation, CoordinateEqualOperator_InequalTypesAndCoordinate)
+{
+    Coordinate x(34.1554188, CoordinateType::LATITUDE);
+    Coordinate y(35.1554188, CoordinateType::LONGITUDE);
+    ASSERT_FALSE(x == y);
+}
+
+TEST(ModelsLocation, PositionEqualOperator_EqualPositions)
+{
+    Position x({34.1554188, CoordinateType::LATITUDE},
+               {35.1554188, CoordinateType::LONGITUDE});
+    Position y({34.1554188, CoordinateType::LATITUDE},
+               {35.1554188, CoordinateType::LONGITUDE});
+    ASSERT_TRUE(x == y);
+}
+
+TEST(ModelsLocation, PositionEqualOperator_InequalCoordinates)
+{
+    Position x({34.1554188, CoordinateType::LATITUDE},
+               {35.1554188, CoordinateType::LONGITUDE});
+    Position y({34.1554188, CoordinateType::LATITUDE},
+               {36.1554188, CoordinateType::LONGITUDE});
+    ASSERT_FALSE(x == y);
+}
