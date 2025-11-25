@@ -1,5 +1,6 @@
 #include "simulator.hpp"
 
+#include "mcu.hpp"
 #include <iostream>
 #include <sstream>
 
@@ -7,12 +8,12 @@ namespace sabre::pilot
 {
     Simulator::Simulator() {}
 
-    Device *Simulator::add_device(const std::string &name,
-                                  const DeviceConfig &config,
-                                  sabre::AppUniquePtr &&app)
+    Device *Simulator::add_mcu(const std::string &name,
+                               const DeviceConfig &config,
+                               sabre::AppUniquePtr &&app)
     {
         SimulatorDevice device{
-            .device = std::make_shared<Device>(config, std::move(app))};
+            .device = std::make_shared<Mcu>(config, std::move(app))};
         if (_devices.find(name) != _devices.end())
         {
             // TODO: Custom exception

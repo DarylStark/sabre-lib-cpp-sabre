@@ -1,4 +1,5 @@
 #include "imgui_presenter/imgui_presenter.hpp"
+#include "mcu.hpp"
 #include "sabre/app/app.hpp"
 #include "simulator/device_connector.hpp"
 #include "simulator/simulator.hpp"
@@ -62,9 +63,9 @@ int main()
     ImGuiPresenter presenter(simulator);
 
     auto mcu =
-        simulator.add_device("ESP32-S3", config_mcu, std::make_unique<MyApp>());
+        simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>());
     auto gps =
-        simulator.add_device("GPS", config_gps, std::make_unique<MyGpsApp>());
+        simulator.add_mcu("GPS", config_gps, std::make_unique<MyGpsApp>());
     UartConnector uart_connector(*gps, 0, *mcu, 0);
 
     simulator.start_device("ESP32-S3");

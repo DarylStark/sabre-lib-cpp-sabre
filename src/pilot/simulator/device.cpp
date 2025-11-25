@@ -154,9 +154,4 @@ namespace sabre::pilot
     {
         return _uart_map;
     }
-
-    void Device::visit(DeviceVisitor &visitor)
-    {
-        visitor.visit_device(*this);
-    }
 } // namespace sabre::pilot
