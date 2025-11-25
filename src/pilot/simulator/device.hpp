@@ -1,5 +1,6 @@
 #pragma once
 
+#include "device_visitor.hpp"
 #include <functional>
 #include <list>
 #include <map>
@@ -9,7 +10,7 @@
 
 namespace sabre::pilot
 {
-    class MCU;
+    class Device;
 
     enum class GPIOType
     {
@@ -18,14 +19,14 @@ namespace sabre::pilot
         OUTPUT
     };
 
-    struct MCUGPIO
+    struct DeviceGPIO
     {
         uint32_t number;
         GPIOType type;
         uint32_t state = 0;
     };
 
-    struct UARTBuffers
+    struct UartBuffers
     {
         std::string output_data = "";
         std::string input_buffer = "";
@@ -33,7 +34,7 @@ namespace sabre::pilot
         size_t input_buffer_max_size = 0;
     };
 
-    struct MCUConfig
+    struct DeviceConfig
     {
         size_t gpio_count = 0;
         size_t uart_count = 1;
@@ -62,20 +63,20 @@ namespace sabre::pilot
     struct DeviceEvent
     {
         DeviceEventType type;
-        MCU *device;
+        Device *device;
         std::unique_ptr<DeviceEventData> data;
     };
 
-    using GPIOVector = std::vector<MCUGPIO>;
-    using UARTMap = std::map<uint32_t, UARTBuffers>;
+    using GPIOVector = std::vector<DeviceGPIO>;
+    using UARTMap = std::map<uint32_t, UartBuffers>;
     using DeviceEventCallback = std::function<void(const DeviceEvent &)>;
     using EventCallbacks =
         std::unordered_multimap<DeviceEventType, DeviceEventCallback>;
 
-    class MCU
+    class Device
     {
     private:
-        MCUConfig _config;
+        DeviceConfig _config;
         sabre::AppUniquePtr _app;
         GPIOVector _gpios;
         UARTMap _uart_map;
@@ -85,9 +86,9 @@ namespace sabre::pilot
                           std::unique_ptr<DeviceEventData> data);
 
     public:
-        MCU(MCUConfig config, sabre::AppUniquePtr &&app);
+        Device(DeviceConfig config, sabre::AppUniquePtr &&app);
 
-        // MCU control
+        // Device control
         void start();
 
         // Event control
@@ -95,7 +96,7 @@ namespace sabre::pilot
                                      DeviceEventCallback callback);
 
         // GPIO management
-        MCUGPIO &get_gpio(size_t index);
+        DeviceGPIO &get_gpio(size_t index);
         void set_gpio_type(size_t index, GPIOType type);
         void reset_gpio(size_t index);
         void set_gpio_state(size_t index, uint32_t state);
@@ -110,5 +111,8 @@ namespace sabre::pilot
         void add_to_input_uart_buffer(uint32_t uart_number,
                                       const std::string &data);
         const UARTMap &get_uart_map() const;
+
+        // Visitor
+        virtual void visit(DeviceVisitor &visitor);
     };
 } // namespace sabre::pilot

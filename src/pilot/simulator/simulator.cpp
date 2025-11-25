@@ -7,57 +7,60 @@ namespace sabre::pilot
 {
     Simulator::Simulator() {}
 
-    MCU *Simulator::add_mcu(const std::string &name, const MCUConfig &config,
-                            sabre::AppUniquePtr &&app)
+    Device *Simulator::add_device(const std::string &name,
+                                  const DeviceConfig &config,
+                                  sabre::AppUniquePtr &&app)
     {
-        SimulatorMCU mcu{.mcu = std::make_shared<MCU>(config, std::move(app))};
-        if (_mcus.find(name) != _mcus.end())
+        SimulatorDevice device{
+            .device = std::make_shared<Device>(config, std::move(app))};
+        if (_devices.find(name) != _devices.end())
         {
             // TODO: Custom exception
-            throw std::runtime_error("MCU with name '" + name +
+            throw std::runtime_error("Device with name '" + name +
                                      "' already exists");
         }
-        _mcus[name] = std::move(mcu);
-        return _mcus[name].mcu.get();
+        _devices[name] = std::move(device);
+        return _devices[name].device.get();
     }
 
-    void Simulator::_start_mcu(SimulatorMCU &sim_mcu)
+    void Simulator::_start_device(SimulatorDevice &sim_device)
     {
-        if (sim_mcu.thread == nullptr)
+        if (sim_device.thread == nullptr)
         {
-            std::clog << "Starting MCU in new thread..." << std::endl;
-            sim_mcu.thread = std::make_unique<std::jthread>(
-                &Simulator::_thread_mcu_start, this, sim_mcu.mcu);
-            sim_mcu.thread->detach();
+            std::clog << "Starting device in new thread..." << std::endl;
+            sim_device.thread = std::make_unique<std::jthread>(
+                &Simulator::_thread_device_start, this, sim_device.device);
+            sim_device.thread->detach();
         }
     }
 
-    void Simulator::start_mcu(const std::string &name)
+    void Simulator::start_device(const std::string &name)
     {
-        auto it = _mcus.find(name);
-        if (it == _mcus.end())
+        auto it = _devices.find(name);
+        if (it == _devices.end())
         {
             // TODO: Custom exception
-            throw std::runtime_error("MCU with name '" + name + "' not found");
+            throw std::runtime_error("Device with name '" + name +
+                                     "' not found");
         }
-        _start_mcu(it->second);
+        _start_device(it->second);
     }
 
-    void Simulator::_thread_mcu_start(std::shared_ptr<MCU> mcu)
+    void Simulator::_thread_device_start(std::shared_ptr<Device> device)
     {
         while (true)
-            mcu->start();
+            device->start();
     }
 
-    void Simulator::_start_all_mcus()
+    void Simulator::_start_all_devices()
     {
-        for (auto &sim_mcu : _mcus)
-            _start_mcu(sim_mcu.second);
+        for (auto &sim_device : _devices)
+            _start_device(sim_device.second);
     }
 
-    MCUList &Simulator::get_mcu_list()
+    DeviceList &Simulator::get_device_list()
     {
-        return _mcus;
+        return _devices;
     }
 
 } // namespace sabre::pilot

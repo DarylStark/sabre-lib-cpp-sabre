@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../simulator/mcu.hpp"
+#include "../../simulator/device.hpp"
 #include <sabre/uart/uart.hpp>
 
 namespace sabre::pilot
@@ -8,12 +8,12 @@ namespace sabre::pilot
     class UART : public sabre::UART
     {
     private:
-        MCU *_mcu;
+        Device *_device;
         uint32_t _uart_number;
         size_t _buffer_size;
 
     public:
-        UART(MCU *mcu, uint32_t number, size_t buffer_size);
+        UART(Device *device, uint32_t number, size_t buffer_size);
         void initialize() override;
         int write_byte(char data) const override;
         std::string read_bytes(size_t max_bytes, uint32_t timeout_ms) override;

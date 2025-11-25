@@ -2,21 +2,22 @@
 
 namespace sabre::pilot
 {
-    InputGPIO::InputGPIO(MCU *mcu, uint32_t pin) : _mcu(mcu), _pin(pin)
+    InputGPIO::InputGPIO(Device *device, uint32_t pin)
+        : _device(device), _pin(pin)
     {
-        _mcu->set_gpio_type(pin, GPIOType::INPUT);
+        _device->set_gpio_type(pin, GPIOType::INPUT);
     }
 
     bool InputGPIO::_get_level() const
     {
         // Implementation specific code to get the GPIO level
-        return _mcu->get_gpio(_pin).state > 0;
+        return _device->get_gpio(_pin).state > 0;
     }
 
     void InputGPIO::reset()
     {
         // Implementation specific code to reset the GPIO
-        _mcu->reset_gpio(_pin);
+        _device->reset_gpio(_pin);
     }
 
     void InputGPIO::enable_pullup()

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mcu.hpp"
+#include "device.hpp"
 #include <GLFW/glfw3.h>
 #include <map>
 #include <thread>
@@ -8,31 +8,31 @@
 
 namespace sabre::pilot
 {
-    struct SimulatorMCU
+    struct SimulatorDevice
     {
-        std::shared_ptr<MCU> mcu;
+        std::shared_ptr<Device> device;
         std::unique_ptr<std::jthread> thread = nullptr;
         bool show = true; // TODO: Move to ImGuiPresenter?
     };
 
-    using MCUList = std::map<std::string, SimulatorMCU>;
+    using DeviceList = std::map<std::string, SimulatorDevice>;
 
     class Simulator
     {
     private:
-        MCUList _mcus;
+        DeviceList _devices;
 
-        void _thread_mcu_start(std::shared_ptr<MCU> mcu);
-        void _start_mcu(SimulatorMCU &sim_mcu);
-        void _start_all_mcus();
+        void _thread_device_start(std::shared_ptr<Device> device);
+        void _start_device(SimulatorDevice &sim_device);
+        void _start_all_devices();
 
     public:
         Simulator();
 
-        MCU *add_mcu(const std::string &name, const MCUConfig &config,
-                     sabre::AppUniquePtr &&app);
-        void start_mcu(const std::string &name);
+        Device *add_device(const std::string &name, const DeviceConfig &config,
+                           sabre::AppUniquePtr &&app);
+        void start_device(const std::string &name);
 
-        MCUList &get_mcu_list();
+        DeviceList &get_device_list();
     };
 } // namespace sabre::pilot

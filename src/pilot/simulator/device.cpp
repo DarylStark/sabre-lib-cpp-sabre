@@ -1,4 +1,4 @@
-#include "mcu.hpp"
+#include "device.hpp"
 #include "../sabre_pilot/factory.hpp"
 #include <iostream>
 
@@ -11,7 +11,7 @@ namespace sabre::pilot
     {
     }
 
-    MCU::MCU(MCUConfig config, sabre::AppUniquePtr &&app)
+    Device::Device(DeviceConfig config, sabre::AppUniquePtr &&app)
         : _config(config), _app(std::move(app)), _gpios(config.gpio_count)
     {
         uint32_t gpio_index = 0;
@@ -20,8 +20,8 @@ namespace sabre::pilot
         asm("nop");
     }
 
-    void MCU::_raise_event(DeviceEventType type,
-                           std::unique_ptr<DeviceEventData> data)
+    void Device::_raise_event(DeviceEventType type,
+                              std::unique_ptr<DeviceEventData> data)
     {
         auto range = _event_callbacks.equal_range(type);
         for (auto it = range.first; it != range.second; ++it)
@@ -32,52 +32,52 @@ namespace sabre::pilot
         }
     }
 
-    void MCU::start()
+    void Device::start()
     {
         _app->set_factory(std::make_unique<Factory>(this));
         _app->start();
     }
 
-    void MCU::register_event_callback(DeviceEventType type,
-                                      DeviceEventCallback callback)
+    void Device::register_event_callback(DeviceEventType type,
+                                         DeviceEventCallback callback)
     {
         _event_callbacks.emplace(type, callback);
     }
 
-    MCUGPIO &MCU::get_gpio(size_t index)
+    DeviceGPIO &Device::get_gpio(size_t index)
     {
         if (index >= _gpios.size())
             throw std::out_of_range("GPIO index out of range");
         return _gpios[index];
     }
 
-    void MCU::set_gpio_type(size_t index, GPIOType type)
+    void Device::set_gpio_type(size_t index, GPIOType type)
     {
         get_gpio(index).type = type;
     }
 
-    void MCU::reset_gpio(size_t index)
+    void Device::reset_gpio(size_t index)
     {
         auto &gpio = get_gpio(index);
         gpio.type = GPIOType::GENERIC;
         gpio.state = 0;
     }
 
-    void MCU::set_gpio_state(size_t index, uint32_t state)
+    void Device::set_gpio_state(size_t index, uint32_t state)
     {
         get_gpio(index).state = state;
         // TODO: Call ISR if this is a Input GPIO
     }
 
-    GPIOVector MCU::get_gpios(GPIOType type) const
+    GPIOVector Device::get_gpios(GPIOType type) const
     {
         GPIOVector gpios;
         std::copy_if(_gpios.begin(), _gpios.end(), std::back_inserter(gpios),
-                     [&type](MCUGPIO gpio) { return gpio.type == type; });
+                     [&type](DeviceGPIO gpio) { return gpio.type == type; });
         return gpios;
     }
 
-    bool MCU::initialize_uart(uint32_t uart_number, size_t input_buffer_size)
+    bool Device::initialize_uart(uint32_t uart_number, size_t input_buffer_size)
     {
         if (uart_number >= _config.uart_count)
             return false;
@@ -86,11 +86,11 @@ namespace sabre::pilot
             return false; // UART already initialized
 
         _uart_map[uart_number] =
-            UARTBuffers{.input_buffer_max_size = input_buffer_size};
+            UartBuffers{.input_buffer_max_size = input_buffer_size};
         return true;
     }
 
-    bool MCU::deinitialize_uart(uint32_t uart_number)
+    bool Device::deinitialize_uart(uint32_t uart_number)
     {
         auto it = _uart_map.find(uart_number);
         if (it == _uart_map.end())
@@ -100,7 +100,7 @@ namespace sabre::pilot
         return true;
     }
 
-    bool MCU::write_uart_data(uint32_t uart_number, char data)
+    bool Device::write_uart_data(uint32_t uart_number, char data)
     {
         auto it = _uart_map.find(uart_number);
         if (it == _uart_map.end())
@@ -114,8 +114,8 @@ namespace sabre::pilot
         return true;
     }
 
-    std::string MCU::read_uart_data(uint32_t uart_number, size_t max_bytes,
-                                    uint32_t timeout_ms)
+    std::string Device::read_uart_data(uint32_t uart_number, size_t max_bytes,
+                                       uint32_t timeout_ms)
     {
         auto it = _uart_map.find(uart_number);
         if (it == _uart_map.end())
@@ -128,8 +128,8 @@ namespace sabre::pilot
         return result;
     }
 
-    void MCU::add_to_input_uart_buffer(uint32_t uart_number,
-                                       const std::string &data)
+    void Device::add_to_input_uart_buffer(uint32_t uart_number,
+                                          const std::string &data)
     {
         auto it = _uart_map.find(uart_number);
         if (it == _uart_map.end())
@@ -150,8 +150,13 @@ namespace sabre::pilot
         }
     }
 
-    const UARTMap &MCU::get_uart_map() const
+    const UARTMap &Device::get_uart_map() const
     {
         return _uart_map;
+    }
+
+    void Device::visit(DeviceVisitor &visitor)
+    {
+        visitor.visit_device(*this);
     }
 } // namespace sabre::pilot

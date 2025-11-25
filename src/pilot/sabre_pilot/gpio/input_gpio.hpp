@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../simulator/mcu.hpp"
+#include "../../simulator/device.hpp"
 #include <sabre/gpio/input_gpio.hpp>
 
 namespace sabre::pilot
@@ -8,14 +8,14 @@ namespace sabre::pilot
     class InputGPIO : public sabre::InputGPIO
     {
     private:
-        MCU *_mcu;
+        Device *_device;
         uint32_t _pin;
 
     protected:
         bool _get_level() const override;
 
     public:
-        InputGPIO(MCU *mcu, uint32_t pin);
+        InputGPIO(Device *device, uint32_t pin);
 
         void reset() override;
         void enable_pullup() override;

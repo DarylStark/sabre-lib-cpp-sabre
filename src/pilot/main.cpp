@@ -55,20 +55,20 @@ int main()
 {
     using namespace sabre::pilot;
 
-    MCUConfig config_mcu{.gpio_count = 32, .uart_count = 2};
-    MCUConfig config_gps{.gpio_count = 2, .uart_count = 1};
+    DeviceConfig config_mcu{.gpio_count = 32, .uart_count = 2};
+    DeviceConfig config_gps{.gpio_count = 2, .uart_count = 1};
 
     Simulator simulator;
     ImGuiPresenter presenter(simulator);
 
     auto mcu =
-        simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>());
+        simulator.add_device("ESP32-S3", config_mcu, std::make_unique<MyApp>());
     auto gps =
-        simulator.add_mcu("GPS", config_gps, std::make_unique<MyGpsApp>());
+        simulator.add_device("GPS", config_gps, std::make_unique<MyGpsApp>());
     UartConnector uart_connector(*gps, 0, *mcu, 0);
 
-    simulator.start_mcu("ESP32-S3");
-    simulator.start_mcu("GPS");
+    simulator.start_device("ESP32-S3");
+    simulator.start_device("GPS");
 
     presenter.start();
 

@@ -1,19 +1,19 @@
 #pragma once
 
-#include "mcu.hpp"
+#include "device.hpp"
 
 namespace sabre::pilot
 {
     class UartConnector
     {
     private:
-        MCU &_mcu_a;
+        Device &_device_a;
         uint32_t _uart_number_a;
-        MCU &_mcu_b;
+        Device &_device_b;
         uint32_t _uart_number_b;
 
     public:
-        UartConnector(MCU &mcu_a, uint32_t uart_number_a, MCU &mcu_b,
-                      uint32_t uart_number_b);
+        UartConnector(Device &device_a, uint32_t uart_number_a,
+                      Device &device_b, uint32_t uart_number_b);
     };
 } // namespace sabre::pilot

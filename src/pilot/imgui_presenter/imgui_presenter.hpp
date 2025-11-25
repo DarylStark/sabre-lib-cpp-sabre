@@ -41,14 +41,14 @@ namespace sabre::pilot
         void _main_menu();
         void _main_menu_file();
         void _main_menu_view();
-        void _main_menu_view_mcu_list();
+        void _main_menu_view_device_list();
         void _main_menu_view_scale();
         void _main_menu_view_theme();
         void _main_menu_debug();
 
         // Windows
-        void _mcu(const std::string &name, SimulatorMCU &sim_mcu);
-        void _mcu_windows();
+        void _device(const std::string &name, SimulatorDevice &sim_device);
+        void _device_windows();
         void _imgui_demo_window();
         void _imgui_metrics_window();
 

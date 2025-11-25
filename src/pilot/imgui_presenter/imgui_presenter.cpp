@@ -49,21 +49,21 @@ namespace sabre::pilot
     {
         if (ImGui::BeginMenu("View"))
         {
-            _main_menu_view_mcu_list();
+            _main_menu_view_device_list();
             _main_menu_view_scale();
             _main_menu_view_theme();
             ImGui::EndMenu();
         }
     }
 
-    void ImGuiPresenter::_main_menu_view_mcu_list()
+    void ImGuiPresenter::_main_menu_view_device_list()
     {
-        if (ImGui::BeginMenu("MCU"))
+        if (ImGui::BeginMenu("Device"))
         {
-            for (auto &mcu : _simulator.get_mcu_list())
-                if (ImGui::MenuItem(mcu.first.c_str(), nullptr,
-                                    mcu.second.show))
-                    mcu.second.show = !mcu.second.show;
+            for (auto &device : _simulator.get_device_list())
+                if (ImGui::MenuItem(device.first.c_str(), nullptr,
+                                    device.second.show))
+                    device.second.show = !device.second.show;
             ImGui::EndMenu();
         }
     }
@@ -120,13 +120,14 @@ namespace sabre::pilot
         }
     }
 
-    void ImGuiPresenter::_mcu(const std::string &name, SimulatorMCU &sim_mcu)
+    void ImGuiPresenter::_device(const std::string &name,
+                                 SimulatorDevice &sim_device)
     {
-        if (!sim_mcu.show)
+        if (!sim_device.show)
             return;
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-        ImGui::Begin(name.c_str(), &sim_mcu.show);
+        ImGui::Begin(name.c_str(), &sim_device.show);
 
         // Calculate split
         float window_width = ImGui::GetContentRegionAvail().x;
@@ -146,7 +147,8 @@ namespace sabre::pilot
         style.WindowPadding.y = 0.0f;
 
         ImGui::BeginChild("LeftPane", ImVec2(left_width, window_height), true);
-        for (const auto &[uart_number, uart_data] : sim_mcu.mcu->get_uart_map())
+        for (const auto &[uart_number, uart_data] :
+             sim_device.device->get_uart_map())
         {
             std::string header_output =
                 "UART " + std::to_string(uart_number) + " output";
@@ -215,30 +217,30 @@ namespace sabre::pilot
         if (ImGui::CollapsingHeader("Input GPIOs",
                                     ImGuiTreeNodeFlags_DefaultOpen))
             for (const auto &input_gpio :
-                 sim_mcu.mcu->get_gpios(GPIOType::INPUT))
+                 sim_device.device->get_gpios(GPIOType::INPUT))
             {
                 char label[32];
                 snprintf(label, sizeof(label), "GPIO %d", input_gpio.number);
                 if (ImGui::Selectable(label, false,
                                       ImGuiSelectableFlags_SpanAllColumns))
                 {
-                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
-                                                !input_gpio.state);
+                    sim_device.device->set_gpio_state(input_gpio.number,
+                                                      !input_gpio.state);
                 }
                 // Right mouse button DOWN handler
                 if (ImGui::IsItemHovered() &&
                     ImGui::IsMouseClicked(ImGuiMouseButton_Right))
                 {
-                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
-                                                !input_gpio.state);
+                    sim_device.device->set_gpio_state(input_gpio.number,
+                                                      !input_gpio.state);
                 }
 
                 // Right mouse button UP handler
                 if (ImGui::IsItemHovered() &&
                     ImGui::IsMouseReleased(ImGuiMouseButton_Right))
                 {
-                    sim_mcu.mcu->set_gpio_state(input_gpio.number,
-                                                !input_gpio.state);
+                    sim_device.device->set_gpio_state(input_gpio.number,
+                                                      !input_gpio.state);
                 }
                 ImGui::SameLine(
                     ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x -
@@ -262,7 +264,7 @@ namespace sabre::pilot
         if (ImGui::CollapsingHeader("Output GPIOs",
                                     ImGuiTreeNodeFlags_DefaultOpen))
             for (const auto &output_gpio :
-                 sim_mcu.mcu->get_gpios(GPIOType::OUTPUT))
+                 sim_device.device->get_gpios(GPIOType::OUTPUT))
             {
                 ImGui::Text("GPIO %d", output_gpio.number);
                 ImGui::SameLine(
@@ -329,10 +331,10 @@ namespace sabre::pilot
         ImGui::ShowDemoWindow(&_show_imgui_demo);
     }
 
-    void ImGuiPresenter::_mcu_windows()
+    void ImGuiPresenter::_device_windows()
     {
-        for (auto &mcu : _simulator.get_mcu_list())
-            _mcu(mcu.first, mcu.second);
+        for (auto &device : _simulator.get_device_list())
+            _device(device.first, device.second);
     }
 
     void ImGuiPresenter::_imgui_metrics_window()
@@ -364,7 +366,7 @@ namespace sabre::pilot
 
             _handle_key_events();
             _main_menu();
-            _mcu_windows();
+            _device_windows();
             _imgui_demo_window();
             _imgui_metrics_window();
 

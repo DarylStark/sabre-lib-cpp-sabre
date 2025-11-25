@@ -7,9 +7,9 @@
 
 namespace sabre::pilot
 {
-    Factory::Factory(MCU *mcu) : _mcu(mcu)
+    Factory::Factory(Device *device) : _device(device)
     {
-        std::cout << "Factory created for MCU at " << mcu << std::endl;
+        std::cout << "Factory created for device at " << device << std::endl;
     }
 
     UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
@@ -18,21 +18,21 @@ namespace sabre::pilot
                                               size_t buffer_size) const
     {
         // Implementation specific code to create a UART object
-        return std::make_unique<UART>(_mcu, uart_number, buffer_size);
+        return std::make_unique<UART>(_device, uart_number, buffer_size);
     }
 
     InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const
     {
-        std::cout << "Creating InputGPIO on pin " << pin << " for MCU at "
-                  << _mcu << std::endl;
-        return std::make_unique<InputGPIO>(_mcu, pin);
+        std::cout << "Creating InputGPIO on pin " << pin << " for device at "
+                  << _device << std::endl;
+        return std::make_unique<InputGPIO>(_device, pin);
     }
 
     OutputGPIOUniquePtr Factory::create_output_gpio(int32_t pin) const
     {
-        std::cout << "Creating OutputGPIO on pin " << pin << " for MCU at "
-                  << _mcu << std::endl;
-        return std::make_unique<OutputGPIO>(_mcu, pin);
+        std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
+                  << _device << std::endl;
+        return std::make_unique<OutputGPIO>(_device, pin);
     }
 
     WifiStationUniquePtr Factory::create_wifi_station() const
