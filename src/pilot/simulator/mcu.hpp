@@ -1,6 +1,7 @@
 #pragma once
 
 #include "device.hpp"
+#include "simulator.hpp"
 
 namespace sabre::pilot
 {
@@ -8,6 +9,7 @@ namespace sabre::pilot
     {
     public:
         Mcu(DeviceConfig config, sabre::AppUniquePtr &&app);
-        void visit(DeviceVisitor &visitor) override;
+        void visit(DeviceVisitor &visitor,
+                   SimulatorDevice &simulator_device) override;
     };
 } // namespace sabre::pilot

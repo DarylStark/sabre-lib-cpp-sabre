@@ -13,6 +13,7 @@ namespace sabre::pilot
                                sabre::AppUniquePtr &&app)
     {
         SimulatorDevice device{
+            .name = name,
             .device = std::make_shared<Mcu>(config, std::move(app))};
         if (_devices.find(name) != _devices.end())
         {

@@ -113,6 +113,7 @@ namespace sabre::pilot
         const UARTMap &get_uart_map() const;
 
         // Visitor. Pure virtual method
-        virtual void visit(DeviceVisitor &visitor) = 0;
+        virtual void visit(DeviceVisitor &visitor,
+                           class SimulatorDevice &simulator_device) = 0;
     };
 } // namespace sabre::pilot

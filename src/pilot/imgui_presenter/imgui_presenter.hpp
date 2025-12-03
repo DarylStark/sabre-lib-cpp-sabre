@@ -1,5 +1,6 @@
 #pragma once
 
+#include "imgui_visitor.hpp"
 #include <presenter.hpp>
 
 namespace sabre::pilot
@@ -16,6 +17,9 @@ namespace sabre::pilot
     private:
         // Essential ImGui variables
         GLFWwindow *_window = nullptr;
+
+        // Concrete visitor for devices
+        ImGuiVisitor _imgui_visitor;
 
         // Scaling variables
         float _scale = 1.0f;

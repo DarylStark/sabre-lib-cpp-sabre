@@ -1,4 +1,5 @@
 #include "mcu.hpp"
+#include "simulator.hpp"
 
 namespace sabre::pilot
 {
@@ -6,8 +7,9 @@ namespace sabre::pilot
         : Device(std::move(config), std::move(app))
     {
     }
-    void Mcu::visit(DeviceVisitor &visitor)
+
+    void Mcu::visit(DeviceVisitor &visitor, SimulatorDevice &simulator_device)
     {
-        visitor.visit_mcu(*this);
+        visitor.visit_mcu(*this, simulator_device);
     }
 } // namespace sabre::pilot

@@ -343,3 +343,121 @@ classDiagram
 ```
 
 > **Note**: This only tests the implementation in this repository. It does not test any platform-specific implementations. Platform-specific frameworks should provide and test their own code.
+
+
+## MCU Simulator UML Class Diagram
+
+Below is a Mermaid UML class diagram for the main classes, structs, and enums in `src/pilot/simulator`:
+
+```mermaid
+classDiagram
+	class Presenter {
+		- _simulator : Simulator&
+		+ Presenter(simulator:Simulator&)
+		+ start()
+	}
+
+	class Mcu {
+		+ Mcu(config:DeviceConfig, app:AppUniquePtr)
+		+ visit(visitor:DeviceVisitor)
+	}
+
+	class UartConnector {
+		- _device_a : Device&
+		- _uart_number_a : uint32_t
+		- _device_b : Device&
+		- _uart_number_b : uint32_t
+		+ UartConnector(device_a:Device&, uart_number_a:uint32_t, device_b:Device&, uart_number_b:uint32_t)
+	}
+
+	class DeviceVisitor {
+		+ visit_mcu(mcu:Mcu)
+	}
+
+	class SimulatorDevice {
+		- device : shared_ptr<Device>
+		- thread : unique_ptr<jthread>
+		- show : bool
+	}
+
+	class Simulator {
+		- _devices : DeviceList
+		+ Simulator()
+		+ add_mcu(name:string, config:DeviceConfig, app:AppUniquePtr) : Device*
+		+ start_device(name:string)
+		+ get_device_list() : DeviceList&
+	}
+
+	class Device {
+		- _config : DeviceConfig
+		- _app : AppUniquePtr
+		- _gpios : GPIOVector
+		- _uart_map : UARTMap
+		- _event_callbacks : EventCallbacks
+		+ Device(config:DeviceConfig, app:AppUniquePtr)
+		+ start()
+		+ register_event_callback(type:DeviceEventType, callback:DeviceEventCallback)
+		+ get_gpio(index:size_t) : DeviceGPIO&
+		+ set_gpio_type(index:size_t, type:GPIOType)
+		+ visit(visitor:DeviceVisitor)
+	}
+
+	class DeviceEventData {
+		+ ~DeviceEventData()
+	}
+
+	class UartEventData {
+		- uart_number : uint32_t
+		- data : char
+		+ UartEventData(uart_number:uint32_t, data:char)
+	}
+
+	class DeviceEvent {
+		- type : DeviceEventType
+		- device : Device*
+		- data : unique_ptr<DeviceEventData>
+	}
+
+	class DeviceGPIO {
+		- number : uint32_t
+		- type : GPIOType
+		- state : uint32_t
+	}
+
+	class UartBuffers {
+		- output_data : string
+		- input_buffer : string
+		- input_data_consumed : string
+		- input_buffer_max_size : size_t
+	}
+
+	class DeviceConfig {
+		- gpio_count : size_t
+		- uart_count : size_t
+	}
+
+	class SimulatorDevice {
+		- device : shared_ptr<Device>
+		- thread : unique_ptr<jthread>
+		- show : bool
+	}
+
+	class DeviceEventType
+	class GPIOType
+
+	Device <|-- Mcu
+	DeviceEventData <|-- UartEventData
+	SimulatorDevice o-- Device
+	Simulator o-- SimulatorDevice
+	DeviceEvent o-- DeviceEventData
+	DeviceEvent o-- Device
+	Device o-- DeviceGPIO
+	Device o-- UartBuffers
+	Device o-- DeviceConfig
+	Device o-- DeviceEvent
+	Device o-- DeviceVisitor
+	UartConnector o-- Device
+	Presenter o-- Simulator
+	Simulator o-- Device
+	DeviceVisitor ..> Mcu : visits
+```
