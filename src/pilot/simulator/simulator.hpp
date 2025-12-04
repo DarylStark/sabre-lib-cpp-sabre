@@ -13,7 +13,6 @@ namespace sabre::pilot
         std::string name;
         std::shared_ptr<Device> device;
         std::unique_ptr<std::jthread> thread = nullptr;
-        bool show = true; // TODO: Move to ImGuiPresenter?
     };
 
     using DeviceList = std::map<std::string, SimulatorDevice>;

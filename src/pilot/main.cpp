@@ -60,7 +60,6 @@ int main()
     DeviceConfig config_gps{.gpio_count = 2, .uart_count = 1};
 
     Simulator simulator;
-    ImGuiPresenter presenter(simulator);
 
     auto mcu =
         simulator.add_mcu("ESP32-S3", config_mcu, std::make_unique<MyApp>());
@@ -70,6 +69,8 @@ int main()
 
     simulator.start_device("ESP32-S3");
     simulator.start_device("GPS");
+
+    ImGuiPresenter presenter(simulator);
 
     presenter.start();
 

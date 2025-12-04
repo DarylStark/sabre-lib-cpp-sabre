@@ -18,8 +18,10 @@ namespace sabre::pilot
         // Essential ImGui variables
         GLFWwindow *_window = nullptr;
 
+        std::unordered_map<std::string, bool> _device_visibility;
+
         // Concrete visitor for devices
-        ImGuiVisitor _imgui_visitor;
+        ImGuiVisitor _imgui_visitor{_device_visibility};
 
         // Scaling variables
         float _scale = 1.0f;

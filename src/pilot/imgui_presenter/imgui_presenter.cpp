@@ -62,8 +62,9 @@ namespace sabre::pilot
         {
             for (auto &device : _simulator.get_device_list())
                 if (ImGui::MenuItem(device.first.c_str(), nullptr,
-                                    device.second.show))
-                    device.second.show = !device.second.show;
+                                    _device_visibility[device.first]))
+                    _device_visibility[device.first] =
+                        !_device_visibility[device.first];
             ImGui::EndMenu();
         }
     }
@@ -123,7 +124,10 @@ namespace sabre::pilot
     void ImGuiPresenter::_device(const std::string &name,
                                  SimulatorDevice &sim_device)
     {
-        if (!sim_device.show)
+        if (_device_visibility.find(name) == _device_visibility.end())
+            _device_visibility[name] = true;
+
+        if (!_device_visibility[name])
             return;
 
         sim_device.device->accept(_imgui_visitor, name);

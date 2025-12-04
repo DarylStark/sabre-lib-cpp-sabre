@@ -9,10 +9,16 @@
 
 namespace sabre::pilot
 {
+    ImGuiVisitor::ImGuiVisitor(
+        std::unordered_map<std::string, bool> &device_visibility)
+        : _device_visibility(device_visibility)
+    {
+    }
+
     void ImGuiVisitor::visit_mcu(Mcu &mcu, const std::string &name)
     {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-        ImGui::Begin(name.c_str());
+        ImGui::Begin(name.c_str(), &_device_visibility[name]);
 
         // Calculate split
         float window_width = ImGui::GetContentRegionAvail().x;
