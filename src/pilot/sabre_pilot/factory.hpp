@@ -1,18 +1,18 @@
-#ifndef SABRE_TESTING_FACTORY_H
-#define SABRE_TESTING_FACTORY_H
+#pragma once
 
-#include <memory>
-#include <ostream>
+#include "../simulator/device.hpp"
+#include "sabre/app/app.hpp"
 #include <sabre/factory.hpp>
 
-namespace sabre::testing
+namespace sabre::pilot
 {
     class Factory : public sabre::Factory
     {
-        bool _uart_should_be_nullptr = false;
+    private:
+        Device *_device;
 
     public:
-        Factory(bool uart_should_be_nullptr = false);
+        Factory(Device *device);
         UARTUniquePtr create_uart_object(uint32_t uart_number,
                                          int32_t baud_rate, int32_t tx_pin,
                                          int32_t rx_pin,
@@ -21,15 +21,11 @@ namespace sabre::testing
         OutputGPIOUniquePtr create_output_gpio(int32_t pin) const;
         WifiStationUniquePtr create_wifi_station() const;
         WifiSoftAPUniquePtr create_wifi_soft_ap() const;
+        WallClockUniquePtr create_wall_clock() const;
+        NTPClientUniquePtr create_ntp_client(const std::string &server) const;
         MQTTClientUniquePtr create_mqtt_client() const;
         WaitForUniquePtr create_wait_for(WaitForPred fn, uint64_t timeout_in_ms,
                                          uint64_t sleep_time) const;
         ServiceUniquePtr create_service(ServiceHandler fn) const;
-
-        NTPClientUniquePtr
-        create_ntp_client(const std::string &server) const override;
-        WallClockUniquePtr create_wall_clock() const override;
     };
-} // namespace sabre::testing
-
-#endif // SABRE_FACTORY_H
+} // namespace sabre::pilot

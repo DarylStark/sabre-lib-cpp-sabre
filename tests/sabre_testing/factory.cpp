@@ -1,4 +1,5 @@
 #include "factory.hpp"
+#include "gpio/input_gpio.hpp"
 #include "uart/uart.hpp"
 
 namespace sabre::testing
@@ -11,7 +12,8 @@ namespace sabre::testing
 
     UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
                                               int32_t baud_rate, int32_t tx_pin,
-                                              int32_t rx_pin) const
+                                              int32_t rx_pin,
+                                              size_t buffer_size) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -54,8 +56,8 @@ namespace sabre::testing
     {
         return nullptr;
     }
-    NTPClientUniquePtr Factory::create_ntp_client(
-        const std::string& server) const
+    NTPClientUniquePtr
+    Factory::create_ntp_client(const std::string &server) const
     {
         return nullptr;
     }

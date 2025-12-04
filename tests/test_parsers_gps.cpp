@@ -1,212 +1,188 @@
 #include "sabre/parsers/gps.hpp"
 #include <gtest/gtest.h>
 
-TEST(ParsersGPS, IsValidData)
-{
-    using sabre::parsers::NMEA;
+using namespace sabre::parsers;
 
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,W,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "4042.603,N,07400.602,W,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    ASSERT_FALSE(nmea_parser.is_valid_data());
-    nmea_parser.parse();
-    ASSERT_TRUE(nmea_parser.is_valid_data());
+TEST(ParsersNMEA, ConstructEmpty)
+{
+    NMEA_Parser parser;
+    ASSERT_EQ(parser.get_last_position().get_latitude().get_dd(), 0);
+    ASSERT_EQ(parser.get_last_position().get_longitude().get_dd(), 0);
 }
 
-TEST(ParsersGPS, CorrectGGLLocationNW)
+TEST(ParsersNMEA, ConstructParseEmpty)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,W,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "4042.603,N,07400.602,W,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_ggl();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), -74.01003, 1e-5);
+    NMEA_Parser parser;
+    parser.parse();
+    ASSERT_EQ(parser.get_last_position().get_latitude().get_dd(), 0);
+    ASSERT_EQ(parser.get_last_position().get_longitude().get_dd(), 0);
 }
 
-TEST(ParsersGPS, CorrectGGLLocationSE)
+TEST(ParsersNMEA, AddScentence)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,S,07400.602,E,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "4042.603,S,07400.602,E,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_ggl();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), -40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), 74.01003, 1e-5);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNTXT,4042.603,N,07400.602,W,123456.00,A,A*7D");
+    ASSERT_EQ(parser.get_scentence_count(), 1);
 }
 
-TEST(ParsersGPS, InvalidGGLLocation)
+TEST(ParsersNMEA, AddTwoScentences)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,E,123456.00,V,A*6B\n$GNRMC,123456.00,V,"
-        "4042.603,N,07400.602,W,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_ggl();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNTXT,4042.603,N,07400.602,W,123456.00,A,A*7D");
+    parser.add_scentence(
+        "$GNZDA,123456.00,A,4042.603,N,07400.602,W,0.0,0.0,240925,,,A*5E");
+    ASSERT_EQ(parser.get_scentence_count(), 2);
 }
 
-TEST(ParsersGPS, EmptyGGLLocation)
+TEST(ParsersNMEA, AddTwoScentencesFromSameSource)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data("$GNGLL,,,,,192612.000,V,M*68\n$GNRMC,192612.000,V,,,,"
-                         ",,,121025,,,M,V*20");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_ggl();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNZDA,4042.603,N,07400.602,W,123456.00,A,A*7A");
+    parser.add_scentence("$GNZDA,4042.603,N,07400.602,W,123456.00,A,A*7A");
+    ASSERT_EQ(parser.get_scentence_count(), 1);
 }
 
-TEST(ParsersGPS, MissingGGLLocation)
+TEST(ParsersNMEA, AddOneScentenceFromRMC)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data("$GNRMC,192612.000,V,,,,,,,121025,,,M,V*20");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_ggl();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNRMC,112832.000,A,5157.15453,N,00515.01568,E,6.43,"
+                         "122.59,031125,,,A,V*02");
+    ASSERT_EQ(parser.get_scentence_count(), 0);
 }
 
-TEST(ParsersGPS, CorrectRMCLocationNW)
+TEST(ParsersNMEA, AddOneScentenceFromGLL)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,W,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "4042.603,N,07400.602,W,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_rmc();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), -74.01003, 1e-5);
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GPRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A");
+    ASSERT_EQ(parser.get_scentence_count(), 0);
 }
 
-TEST(ParsersGPS, CorrectRMCLocationSE)
+TEST(ParsersNMEA, ParseRMCScentence)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,S,07400.602,E,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "4042.603,S,07400.602,E,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_rmc();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), true);
-    ASSERT_NEAR(data->get_latitude().to_decimal(), -40.71005, 1e-5);
-    ASSERT_NEAR(data->get_longitude().to_decimal(), 74.01003, 1e-5);
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_NEAR(parser.get_last_position().get_latitude().get_dd(), 34.1554183,
+                1e-7);
+    ASSERT_NEAR(parser.get_last_position().get_longitude().get_dd(),
+                -118.8188167, 1e-7);
 }
 
-TEST(ParsersGPS, InvalidRMCLocation)
+TEST(ParsersNMEA, ParseGLLScentence)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,E,123456.00,V,A*6B\n$GNRMC,123456.00,V,"
-        "4042.603,N,07400.602,W,0.0,0.0,240925,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_rmc();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,A,A*62");
+    parser.parse();
+    ASSERT_NEAR(parser.get_last_position().get_latitude().get_dd(), 34.1554183,
+                1e-7);
+    ASSERT_NEAR(parser.get_last_position().get_longitude().get_dd(),
+                -118.8188167, 1e-7);
 }
 
-TEST(ParsersGPS, EmptyRMCLocation)
+TEST(ParsersNMEA, ParseGGAScentence)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data("$GNGLL,,,,,192612.000,V,M*68\n$GNRMC,192612.000,V,,,,"
-                         ",,,121025,,,M,V*20");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_rmc();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1,08,0.9,"
+                         "100.0,M,-34.0,M,,*4D");
+    parser.parse();
+    ASSERT_NEAR(parser.get_last_position().get_latitude().get_dd(), 34.1554183,
+                1e-7);
+    ASSERT_NEAR(parser.get_last_position().get_longitude().get_dd(),
+                -118.8188167, 1e-7);
 }
 
-TEST(ParsersGPS, MissingGRMCocation)
+TEST(ParsersNMEA, AddMultipleScentences)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data("$GNGLL,,,,,192612.000,V,M*68");
-    nmea_parser.parse();
-
-    const auto data = nmea_parser.get_rmc();
-
-    ASSERT_NE(data, nullptr);
-    ASSERT_EQ(data->is_valid(), false);
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1,08,0.9,"
+                         "100.0,M,-34.0,M,,*4D");
+    parser.add_scentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,A,A*62");
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1,08,0.9,"
+                         "100.0,M,-34.0,M,,*4D");
+    ASSERT_NEAR(parser.get_last_position().get_latitude().get_dd(), 34.1554183,
+                1e-7);
+    ASSERT_NEAR(parser.get_last_position().get_longitude().get_dd(),
+                -118.8188167, 1e-7);
 }
 
-TEST(ParsersGPS, ValidLocationViaRMC)
+TEST(ParsersNMEA, VoidRMC)
 {
-    using sabre::parsers::NMEA;
-
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,W,123456.00,A,A*6B\n$GNRMC,123456.00,A,"
-        "5222.212,N,00453.712,E,0.0,0.0,121025,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-    ASSERT_NEAR(nmea_parser.get_latitude().to_decimal(), 52.37019, 1e-5);
-    ASSERT_NEAR(nmea_parser.get_longitude().to_decimal(), 4.8952, 1e-5);
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,V,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A");
+    ASSERT_FALSE(parser.get_last_position().is_valid());
 }
 
-TEST(ParsersGPS, ValidLocationViaGGL)
+TEST(ParsersNMEA, InvalidRMC)
 {
-    using sabre::parsers::NMEA;
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125");
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
 
-    NMEA nmea_parser;
-    nmea_parser.set_data(
-        "$GNGLL,4042.603,N,07400.602,W,123456.00,A,A*6B\n$GNRMC,123456.00,V,"
-        "5222.212,N,00453.712,E,0.0,0.0,121025,,,A*7B\n$GNGGA,123456.00,4042."
-        "603,N,07400.602,W,1,08,1.0,10.0,M,0.0,M,,*6E");
-    nmea_parser.parse();
-    ASSERT_NEAR(nmea_parser.get_latitude().to_decimal(), 40.71005, 1e-5);
-    ASSERT_NEAR(nmea_parser.get_longitude().to_decimal(), -74.01003, 1e-5);
+TEST(ParsersNMEA, VoidGLL)
+{
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,V,A*2A");
+    parser.parse();
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
+
+TEST(ParsersNMEA, InvalidGLL)
+{
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,A");
+    parser.parse();
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
+
+TEST(ParsersNMEA, VoidGGA)
+{
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,0,08,0.9,"
+                         "100.0,M,-34.0,M,,*7C");
+    parser.parse();
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
+
+TEST(ParsersNMEA, InvalidGGA)
+{
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1"
+                         "100.0,M,-34.0,M,,*7C");
+    parser.parse();
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
+
+TEST(ParsersNMEA, InvalidChecksum)
+{
+    NMEA_Parser parser;
+    parser.add_scentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1,08,0.9,"
+                         "100.0,M,-34.0,M,,*AA");
+    parser.parse();
+    ASSERT_FALSE(parser.get_last_position().is_valid());
+}
+
+TEST(ParsersNMEA, AddMultipleScentencesIncreasedVersion)
+{
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11949.1290,W,0.00,0.00,061125,,,A*65");
+    ASSERT_EQ(parser.get_last_position().get_version(), 2);
+}
+
+TEST(ParsersNMEA, AddMultipleSameScentencesDontIncreaseVersion)
+{
+    NMEA_Parser parser;
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
+    parser.add_scentence(
+        "$GNRMC,120000.000,A,3409.3251,N,11849.1290,W,0.00,0.00,061125,,,A*64");
+    ASSERT_EQ(parser.get_last_position().get_version(), 1);
 }

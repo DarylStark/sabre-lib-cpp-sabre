@@ -173,3 +173,57 @@ TEST(Logging, LoggerEmergency)
     ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
     ASSERT_EQ(handler->get_last_message(), "Testmessage");
 }
+
+TEST(Logging, LoggingLevelToString_Unknown)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::NOTSET), "UNKNOWN");
+}
+
+TEST(Logging, LoggingLevelToString_Emergency)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::EMERGENCY), "EMERGENCY");
+}
+
+TEST(Logging, LoggingLevelToString_Alert)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::ALERT), "ALERT");
+}
+
+TEST(Logging, LoggingLevelToString_Critical)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::CRITICAL), "CRITICAL");
+}
+
+TEST(Logging, LoggingLevelToString_Error)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::ERROR), "ERROR");
+}
+
+TEST(Logging, LoggingLevelToString_Warning)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::WARNING), "WARNING");
+}
+
+TEST(Logging, LoggingLevelToString_Notice)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::NOTICE), "NOTICE");
+}
+
+TEST(Logging, LoggingLevelToString_Info)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::INFO), "INFO");
+}
+
+TEST(Logging, LoggingLevelToString_Debug)
+{
+    using namespace sabre;
+    ASSERT_EQ(LoggingLevelToString(LoggingLevel::DEBUG), "DEBUG");
+}

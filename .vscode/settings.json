@@ -65,6 +65,7 @@
         "cstring": "cpp",
         "unordered_set": "cpp",
         "fstream": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "cinttypes": "cpp"
     }
 }

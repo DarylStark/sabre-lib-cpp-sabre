@@ -1,14 +1,5 @@
-file(GLOB SOURCES CONFIGURE_DEPENDS sabre/**/*.cpp sabre/*.cpp)
-add_library(sabre STATIC ${SOURCES})
+add_subdirectory(sabre)
 
-if(SABRE_BUILD_TESTS STREQUAL "ON")
-    target_compile_options(sabre PRIVATE --coverage)
-    target_link_options(sabre PRIVATE --coverage)
+if(SABRE_BUILD_PILOT STREQUAL "ON")
+    add_subdirectory(pilot)
 endif()
-
-target_include_directories(
-    sabre
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/
-)
-

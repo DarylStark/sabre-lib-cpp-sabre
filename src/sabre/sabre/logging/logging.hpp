@@ -27,6 +27,18 @@ namespace sabre
         DEBUG,
     };
 
+    constexpr const char *LoggingLevelNames[] = {
+        "EMERGENCY", "ALERT",  "CRITICAL", "ERROR",
+        "WARNING",   "NOTICE", "INFO",     "DEBUG"};
+
+    inline std::string LoggingLevelToString(LoggingLevel level)
+    {
+        int idx = static_cast<int>(level);
+        if (idx < 0 || idx >= 8)
+            return "UNKNOWN";
+        return LoggingLevelNames[idx];
+    }
+
     /**
      * @brief Class for logging messages for specific components.
      *

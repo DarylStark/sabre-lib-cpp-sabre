@@ -12,6 +12,7 @@ namespace sabre::testing
     public:
         void initialize();
         int write_byte(char data) const;
+        std::string read_bytes(size_t max_bytes, uint32_t timeout_ms) override;
         void flush();
         void deinitialize();
 
