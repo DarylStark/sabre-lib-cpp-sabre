@@ -1,5 +1,4 @@
-#ifndef SABRE_TESTING_TEST_HANDLER_H
-#define SABRE_TESTING_TEST_HANDLER_H
+#pragma once
 
 #include <sabre/logging/logging.hpp>
 
@@ -21,5 +20,3 @@ namespace sabre::testing
         std::string get_last_message() const;
     };
 } // namespace sabre::testing
-
-#endif // SABRE_TESTING_TEST_HANDLER_H

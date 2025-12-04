@@ -1,5 +1,4 @@
-#ifndef SABRE_IPV4_ADDRESS_H
-#define SABRE_IPV4_ADDRESS_H
+#pragma once
 
 #include <cstdint>
 #include <memory>
@@ -66,5 +65,3 @@ namespace sabre
 
     std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
 }; // namespace sabre
-
-#endif // SABRE_IPV4_ADDRESS_H

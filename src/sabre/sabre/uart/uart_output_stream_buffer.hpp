@@ -1,5 +1,4 @@
-#ifndef SABRE_UART_OUTPUT_STREAM_BUFFER_H
-#define SABRE_UART_OUTPUT_STREAM_BUFFER_H
+#pragma once
 
 #include "uart.hpp"
 #include <memory>
@@ -74,5 +73,3 @@ namespace sabre
     using UARTStreamBufSharedPtr = std::shared_ptr<UARTStreamBuf>;
     using UARTStreamBufUniquePtr = std::unique_ptr<UARTStreamBuf>;
 } // namespace sabre
-
-#endif // SABRE_UART_OUTPUT_STREAM_BUFFER_H

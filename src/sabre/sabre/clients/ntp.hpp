@@ -1,5 +1,4 @@
-#ifndef SABRE_CLIENTS_NTP_HPP
-#define SABRE_CLIENTS_NTP_HPP
+#pragma once
 
 #include <memory>
 
@@ -34,5 +33,3 @@ namespace sabre
     using NTPClientSharedPtr = std::shared_ptr<sabre::NTPClient>;
     using NTPClientUniquePtr = std::unique_ptr<sabre::NTPClient>;
 } // namespace sabre
-
-#endif // SABRE_CLIENTS_NTP_HPP

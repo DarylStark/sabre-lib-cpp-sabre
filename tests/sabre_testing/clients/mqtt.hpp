@@ -1,5 +1,4 @@
-#ifndef SABRE_TESTING_CLIENTS_MQTT_H
-#define SABRE_TESTING_CLIENTS_MQTT_H
+#pragma once
 
 #include <sabre/clients/mqtt.hpp>
 #include <vector>
@@ -33,5 +32,3 @@ namespace sabre::testing
         std::vector<MQTTMessage> _published_messages;
     };
 } // namespace sabre::testing
-
-#endif // SABRE_TESTING_CLIENTS_MQTT_H

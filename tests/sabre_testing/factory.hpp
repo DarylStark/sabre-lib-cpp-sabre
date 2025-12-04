@@ -1,5 +1,4 @@
-#ifndef SABRE_TESTING_FACTORY_H
-#define SABRE_TESTING_FACTORY_H
+#pragma once
 
 #include <memory>
 #include <ostream>
@@ -31,5 +30,3 @@ namespace sabre::testing
         WallClockUniquePtr create_wall_clock() const override;
     };
 } // namespace sabre::testing
-
-#endif // SABRE_FACTORY_H

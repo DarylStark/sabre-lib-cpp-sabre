@@ -1,5 +1,4 @@
-#ifndef SABRE_OUTPUT_GPIO_H
-#define SABRE_OUTPUT_GPIO_H
+#pragma once
 
 #include "gpio.hpp"
 
@@ -35,5 +34,3 @@ namespace sabre
     using OutputGPIOSharedPtr = std::shared_ptr<OutputGPIO>;
     using OutputGPIOUniquePtr = std::unique_ptr<OutputGPIO>;
 }; // namespace sabre
-
-#endif // SABRE_OUTPUT_GPIO_H

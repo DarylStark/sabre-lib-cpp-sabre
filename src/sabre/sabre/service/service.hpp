@@ -1,5 +1,4 @@
-#ifndef SABRE_SERVICE_H
-#define SABRE_SERVICE_H
+#pragma once
 
 #include <functional>
 #include <memory>
@@ -51,5 +50,3 @@ namespace sabre
     using ServiceSharedPtr = std::shared_ptr<Service>;
     using ServiceUniquePtr = std::unique_ptr<Service>;
 } // namespace sabre
-
-#endif // SABRE_SERVICE_H

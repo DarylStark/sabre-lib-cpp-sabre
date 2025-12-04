@@ -1,5 +1,4 @@
-#ifndef SABRE_CLIENTS_MQTT_H
-#define SABRE_CLIENTS_MQTT_H
+#pragma once
 
 #include <functional>
 #include <memory>
@@ -221,5 +220,3 @@ namespace sabre
     using MQTTClientSharedPtr = std::shared_ptr<MQTTClient>;
     using MQTTClientUniquePtr = std::unique_ptr<MQTTClient>;
 }; // namespace sabre
-
-#endif // SABRE_CLIENTS_MQTT_H

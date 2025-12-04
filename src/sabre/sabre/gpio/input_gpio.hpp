@@ -1,5 +1,4 @@
-#ifndef SABRE_INPUT_GPIO_H
-#define SABRE_INPUT_GPIO_H
+#pragma once
 
 #include "gpio.hpp"
 #include <functional>
@@ -120,5 +119,3 @@ namespace sabre
     using InputGPIOSharedPtr = std::shared_ptr<InputGPIO>;
     using InputGPIOUniquePtr = std::unique_ptr<InputGPIO>;
 }; // namespace sabre
-
-#endif // SABRE_INPUT_GPIO_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_UART_H
-#define SABRE_UART_H
+#pragma once
 
 #include <cstddef> // For size_t
 #include <cstdint> // For uint32_t
@@ -76,5 +75,3 @@ namespace sabre
     using UARTSharedPtr = std::shared_ptr<UART>;
     using UARTUniquePtr = std::unique_ptr<UART>;
 } // namespace sabre
-
-#endif /* SABRE_UART_H */

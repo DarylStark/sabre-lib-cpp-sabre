@@ -1,5 +1,4 @@
-#ifndef SABRE_TESTING_INPUT_GPIO_H
-#define SABRE_TESTING_INPUT_GPIO_H
+#pragma once
 
 #include <sabre/gpio/input_gpio.hpp>
 
@@ -21,5 +20,3 @@ namespace sabre::testing
         bool level = true;
     };
 } // namespace sabre::testing
-
-#endif // SABRE_TESTING_INPUT_GPIO_H
