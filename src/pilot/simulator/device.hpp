@@ -112,8 +112,9 @@ namespace sabre::pilot
                                       const std::string &data);
         const UARTMap &get_uart_map() const;
 
-        // Visitor. Pure virtual method
-        virtual void visit(DeviceVisitor &visitor,
-                           class SimulatorDevice &simulator_device) = 0;
+        // Method for the Visitor pattern. The Visitor class will call the
+        // appropriate visit_<device_type> method.
+        virtual void accept(DeviceVisitor &visitor,
+                            const std::string &name) = 0;
     };
 } // namespace sabre::pilot

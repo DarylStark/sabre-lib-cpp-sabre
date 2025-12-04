@@ -8,7 +8,6 @@ namespace sabre::pilot
     {
     public:
         ~ImGuiVisitor() = default;
-        void visit_mcu(class Mcu &mcu,
-                       class SimulatorDevice &simulator_device) override;
+        void visit_mcu(class Mcu &mcu, const std::string &name) override;
     };
 } // namespace sabre::pilot

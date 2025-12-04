@@ -2,6 +2,7 @@
 
 #include "device.hpp"
 #include "simulator.hpp"
+#include <string>
 
 namespace sabre::pilot
 {
@@ -9,7 +10,6 @@ namespace sabre::pilot
     {
     public:
         Mcu(DeviceConfig config, sabre::AppUniquePtr &&app);
-        void visit(DeviceVisitor &visitor,
-                   SimulatorDevice &simulator_device) override;
+        void accept(DeviceVisitor &visitor, const std::string &name) override;
     };
 } // namespace sabre::pilot

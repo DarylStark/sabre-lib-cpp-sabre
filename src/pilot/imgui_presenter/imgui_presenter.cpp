@@ -126,7 +126,7 @@ namespace sabre::pilot
         if (!sim_device.show)
             return;
 
-        sim_device.device->visit(_imgui_visitor, sim_device);
+        sim_device.device->accept(_imgui_visitor, name);
         return;
 
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));

@@ -8,8 +8,8 @@ namespace sabre::pilot
     {
     }
 
-    void Mcu::visit(DeviceVisitor &visitor, SimulatorDevice &simulator_device)
+    void Mcu::accept(DeviceVisitor &visitor, const std::string &name)
     {
-        visitor.visit_mcu(*this, simulator_device);
+        visitor.visit_mcu(*this, name);
     }
 } // namespace sabre::pilot
