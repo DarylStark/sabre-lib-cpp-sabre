@@ -1,5 +1,4 @@
-#ifndef GPS_HPP
-#define GPS_HPP
+#pragma once
 
 #include <map>
 #include <memory>
@@ -319,4 +318,3 @@ namespace sabre
         };
     } // namespace parsers
 } // namespace sabre
-#endif

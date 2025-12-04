@@ -1,5 +1,4 @@
-#ifndef SABRE_WAIT_FOR_H
-#define SABRE_WAIT_FOR_H
+#pragma once
 
 #include <cstdint>
 #include <functional>
@@ -94,5 +93,3 @@ namespace sabre
     using WaitForSharedPtr = std::shared_ptr<WaitFor>;
     using WaitForUniquePtr = std::unique_ptr<WaitFor>;
 }; // namespace sabre
-
-#endif // SABRE_WAIT_FOR_H

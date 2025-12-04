@@ -1,5 +1,4 @@
-#ifndef SABRE_FACTORY_H
-#define SABRE_FACTORY_H
+#pragma once
 
 #include "clients/mqtt.hpp"
 #include "clients/ntp.hpp"
@@ -157,5 +156,3 @@ namespace sabre
     using FactorySharedPtr = std::shared_ptr<Factory>;
     using FactoryUniquePtr = std::unique_ptr<Factory>;
 } // namespace sabre
-
-#endif // SABRE_FACTORY_H

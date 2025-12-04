@@ -1,5 +1,4 @@
-#ifndef SABRE_WALL_CLOCK_HPP
-#define SABRE_WALL_CLOCK_HPP
+#pragma once
 
 #include <cstdint>
 #include <memory>
@@ -39,5 +38,3 @@ namespace sabre
     using WallClockSharedPtr = std::shared_ptr<WallClock>;
     using WallClockUniquePtr = std::unique_ptr<WallClock>;
 } // namespace sabre
-
-#endif // SABRE_WALL_CLOCK_HPP

@@ -1,5 +1,4 @@
-#ifndef SABRE_WIFI_STATION_H
-#define SABRE_WIFI_STATION_H
+#pragma once
 
 #include <string>
 
@@ -76,5 +75,3 @@ namespace sabre
     using WifiStationSharedPtr = std::shared_ptr<WifiStation>;
     using WifiStationUniquePtr = std::unique_ptr<WifiStation>;
 } // namespace sabre
-
-#endif // SABRE_WIFI_STATION_H

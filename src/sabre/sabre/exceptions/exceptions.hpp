@@ -1,5 +1,4 @@
-#ifndef SABRE_EXCEPTIONS_H
-#define SABRE_EXCEPTIONS_H
+#pragma once
 
 #include <stdexcept>
 #include <string>
@@ -55,5 +54,3 @@ namespace sabre
         APIError();
     };
 } // namespace sabre
-
-#endif // SABRE_EXCEPTIONS_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_LOG_HANDLERS_H
-#define SABRE_LOG_HANDLERS_H
+#pragma once
 
 #include "logging.hpp"
 #include <deque>
@@ -41,5 +40,3 @@ namespace sabre
     using LogBufferHandlerSharedPtr = std::shared_ptr<LogBufferHandler>;
     using LogBufferHandlerUniquePtr = std::unique_ptr<LogBufferHandler>;
 } // namespace sabre
-
-#endif // SABRE_LOG_HANDLERS_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_TESTING_SERVICE_H
-#define SABRE_TESTING_SERVICE_H
+#pragma once
 
 #include <sabre/service/service.hpp>
 
@@ -13,5 +12,3 @@ namespace sabre::testing
         void stop() override;
     };
 } // namespace sabre::testing
-
-#endif // SABRE_TESTING_SERVICE_H

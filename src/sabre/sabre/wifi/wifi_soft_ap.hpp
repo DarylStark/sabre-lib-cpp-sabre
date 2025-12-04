@@ -1,5 +1,4 @@
-#ifndef SABRE_WIFI_SOFT_AP_H
-#define SABRE_WIFI_SOFT_AP_H
+#pragma once
 
 namespace sabre
 {
@@ -42,5 +41,3 @@ namespace sabre
     using WifiSoftAPSharedPtr = std::shared_ptr<WifiSoftAP>;
     using WifiSoftAPUniquePtr = std::unique_ptr<WifiSoftAP>;
 }; // namespace sabre
-
-#endif // SABRE_WIFI_SOFT_AP_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_LOGGING_H
-#define SABRE_LOGGING_H
+#pragma once
 
 #include <forward_list>
 #include <memory>
@@ -222,5 +221,3 @@ namespace sabre
         static void remove_handler(LogHandlerSharedPtr handler);
     };
 }; // namespace sabre
-
-#endif // SABRE_LOGGING_H

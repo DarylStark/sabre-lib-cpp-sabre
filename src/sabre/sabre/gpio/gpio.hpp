@@ -1,5 +1,4 @@
-#ifndef SABRE_GPIO_H
-#define SABRE_GPIO_H
+#pragma once
 
 #include <memory>
 
@@ -28,5 +27,3 @@ namespace sabre
     using GPIOOSharedPtr = std::shared_ptr<GPIO>;
     using GPIOOUniquePtr = std::unique_ptr<GPIO>;
 }; // namespace sabre
-
-#endif // SABRE_GPIO_H

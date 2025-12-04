@@ -1,5 +1,4 @@
-#ifndef _SABRE_TESTING_UART_H_
-#define _SABRE_TESTING_UART_H_
+#pragma once
 
 #include <sabre/uart/uart.hpp>
 #include <sabre/uart/uart_output_stream_buffer.hpp>
@@ -19,5 +18,3 @@ namespace sabre::testing
         mutable std::string _buf;
     };
 } // namespace sabre::testing
-
-#endif // _SABRE_TESTING_UART_H_
