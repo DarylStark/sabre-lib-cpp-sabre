@@ -3,9 +3,9 @@
 #include "../../simulator/device.hpp"
 #include <sabre/gpio/input_gpio.hpp>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
-    class InputGPIO : public sabre::InputGPIO
+    class InputGPIO : public Sabre::InputGPIO
     {
     private:
         Device *_device;
@@ -24,4 +24,4 @@ namespace sabre::pilot
         void disable_pulldown() override;
         void add_interrupt_handler(ISRHandler, ISRTrigger) override;
     };
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

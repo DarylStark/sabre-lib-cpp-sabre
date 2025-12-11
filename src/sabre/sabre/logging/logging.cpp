@@ -1,6 +1,6 @@
 #include "logging.hpp"
 
-namespace sabre
+namespace Sabre
 {
     LoggingLevel Logging::_level = LoggingLevel::NOTSET;
 
@@ -79,4 +79,4 @@ namespace sabre
     {
         _handlers.remove(handler);
     }
-} // namespace sabre
+} // namespace Sabre

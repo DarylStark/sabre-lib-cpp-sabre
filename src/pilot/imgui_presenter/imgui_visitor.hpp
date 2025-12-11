@@ -3,7 +3,7 @@
 #include "../simulator/device_visitor.hpp"
 #include <unordered_map>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     class ImGuiVisitor : public DeviceVisitor
     {
@@ -15,4 +15,4 @@ namespace sabre::pilot
         ~ImGuiVisitor() = default;
         void visit_mcu(class Mcu &mcu, const std::string &name) override;
     };
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

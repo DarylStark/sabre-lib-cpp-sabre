@@ -1,9 +1,9 @@
 #include "app.hpp"
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
     void TestApp::start()
     {
         // TestApp start implementation
     }
-} // namespace sabre::testing
+} // namespace Sabre::Testing

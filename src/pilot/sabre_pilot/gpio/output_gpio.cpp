@@ -1,6 +1,6 @@
 #include "output_gpio.hpp"
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     OutputGPIO::OutputGPIO(Device *device, uint32_t pin)
         : __device(device), _pin(pin)
@@ -27,4 +27,4 @@ namespace sabre::pilot
     {
         __device->set_gpio_state(_pin, level ? 1 : 0);
     }
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

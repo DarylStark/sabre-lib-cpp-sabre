@@ -1,6 +1,6 @@
 #include "uart.hpp"
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     UART::UART(Device *device, uint32_t number, size_t buffer_size)
         : _device(device), _uart_number(number), _buffer_size(buffer_size)
@@ -38,4 +38,4 @@ namespace sabre::pilot
         if (!_device->deinitialize_uart(_uart_number))
             throw std::runtime_error("UART not initialized");
     }
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

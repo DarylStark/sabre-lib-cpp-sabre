@@ -2,13 +2,13 @@
 
 #include <sabre/service/service.hpp>
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
-    class Service : public sabre::Service
+    class Service : public Sabre::Service
     {
     public:
-        Service(sabre::ServiceHandler fn);
+        Service(Sabre::ServiceHandler fn);
         void start() override;
         void stop() override;
     };
-} // namespace sabre::testing
+} // namespace Sabre::Testing

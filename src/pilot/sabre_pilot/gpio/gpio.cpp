@@ -1,9 +1,9 @@
 #include "gpio.hpp"
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     void GPIO::reset()
     {
         // Implementation specific code to reset the GPIO
     }
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

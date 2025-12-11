@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 
-namespace sabre
+namespace Sabre
 {
-    namespace models
+    namespace Models
     {
 
         /**
@@ -210,11 +210,11 @@ namespace sabre
             uint32_t get_version() const;
             void set_version(uint32_t version);
         };
-    } // namespace models
+    } // namespace Models
 
-    namespace parsers
+    namespace Parsers
     {
-        using namespace sabre::models;
+        using namespace Sabre::Models;
 
         /**
          * @brief NMEA sentence parser for extracting position data.
@@ -316,5 +316,5 @@ namespace sabre
              */
             size_t get_scentence_count() const;
         };
-    } // namespace parsers
-} // namespace sabre
+    } // namespace Parsers
+} // namespace Sabre

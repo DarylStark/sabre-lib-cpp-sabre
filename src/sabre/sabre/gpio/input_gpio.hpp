@@ -4,7 +4,7 @@
 #include <functional>
 #include <memory>
 
-namespace sabre
+namespace Sabre
 {
     using ISRHandler = std::function<void(int)>;
 
@@ -118,4 +118,4 @@ namespace sabre
     using InputGPIOPtr = InputGPIO *;
     using InputGPIOSharedPtr = std::shared_ptr<InputGPIO>;
     using InputGPIOUniquePtr = std::unique_ptr<InputGPIO>;
-}; // namespace sabre
+}; // namespace Sabre

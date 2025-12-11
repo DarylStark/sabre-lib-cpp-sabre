@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     class Device;
 
@@ -77,7 +77,7 @@ namespace sabre::pilot
     {
     private:
         DeviceConfig _config;
-        sabre::AppUniquePtr _app;
+        Sabre::AppUniquePtr _app;
         GPIOVector _gpios;
         UARTMap _uart_map;
         EventCallbacks _event_callbacks;
@@ -86,7 +86,7 @@ namespace sabre::pilot
                           std::unique_ptr<DeviceEventData> data);
 
     public:
-        Device(DeviceConfig config, sabre::AppUniquePtr &&app);
+        Device(DeviceConfig config, Sabre::AppUniquePtr &&app);
 
         // Device control
         void start();
@@ -117,4 +117,4 @@ namespace sabre::pilot
         virtual void accept(DeviceVisitor &visitor,
                             const std::string &name) = 0;
     };
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

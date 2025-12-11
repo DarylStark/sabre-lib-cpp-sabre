@@ -3,7 +3,7 @@
 #include <functional>
 #include <memory>
 
-namespace sabre
+namespace Sabre
 {
     using ServiceHandler = std::function<void(void)>;
 
@@ -49,4 +49,4 @@ namespace sabre
     using ServicePtr = Service *;
     using ServiceSharedPtr = std::shared_ptr<Service>;
     using ServiceUniquePtr = std::unique_ptr<Service>;
-} // namespace sabre
+} // namespace Sabre

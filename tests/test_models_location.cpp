@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <sabre/parsers/gps.hpp>
 
-using namespace sabre::models;
+using namespace Sabre::Models;
 
 TEST(ModelsLocation, CoordinateConstructWithoutLocation)
 {

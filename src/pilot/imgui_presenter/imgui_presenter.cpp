@@ -5,7 +5,7 @@
 #include <imgui.h>
 #include <iostream>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     ImGuiPresenter::ImGuiPresenter(Simulator &simulator) : Presenter(simulator)
     {
@@ -268,4 +268,4 @@ namespace sabre::pilot
         if (_scale >= 1.5f)
             _set_scale(_scale - 0.5f);
     }
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

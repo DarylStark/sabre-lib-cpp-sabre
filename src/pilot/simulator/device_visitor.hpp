@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     class DeviceVisitor
     {
@@ -10,4 +10,4 @@ namespace sabre::pilot
         virtual ~DeviceVisitor() = default;
         virtual void visit_mcu(class Mcu &mcu, const std::string &name) = 0;
     };
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

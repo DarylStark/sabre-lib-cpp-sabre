@@ -15,7 +15,7 @@
 #include <memory>
 #include <ostream>
 
-namespace sabre
+namespace Sabre
 {
     /**
      * @brief Abstract factory for object creation.
@@ -155,4 +155,4 @@ namespace sabre
     using FactoryPtr = Factory *;
     using FactorySharedPtr = std::shared_ptr<Factory>;
     using FactoryUniquePtr = std::unique_ptr<Factory>;
-} // namespace sabre
+} // namespace Sabre

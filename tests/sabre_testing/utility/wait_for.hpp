@@ -2,9 +2,9 @@
 
 #include <sabre/utility/wait_for.hpp>
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
-    class WaitFor : public sabre::WaitFor
+    class WaitFor : public Sabre::WaitFor
     {
     protected:
         uint64_t _get_current_time() const;
@@ -13,4 +13,4 @@ namespace sabre::testing
     public:
         WaitFor(WaitForPred fn, uint64_t timeout_in_ms, uint64_t sleep_time);
     };
-} // namespace sabre::testing
+} // namespace Sabre::Testing

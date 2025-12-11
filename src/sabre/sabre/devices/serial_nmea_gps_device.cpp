@@ -1,28 +1,28 @@
 #include "serial_nmea_gps_device.hpp"
 
-namespace sabre::devices
+namespace Sabre::Devices
 {
     SerialNmeaGpsDevice::SerialNmeaGpsDevice()
         : _uart(nullptr), _output_uart(nullptr)
     {
     }
 
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice(sabre::UARTPtr uart)
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice(Sabre::UARTPtr uart)
         : _uart(uart), _output_uart(nullptr)
     {
     }
 
-    void SerialNmeaGpsDevice::set_uart_ptr(sabre::UARTPtr uart)
+    void SerialNmeaGpsDevice::set_uart_ptr(Sabre::UARTPtr uart)
     {
         _uart = uart;
     }
 
-    void SerialNmeaGpsDevice::set_output_uart_ptr(sabre::UARTPtr uart)
+    void SerialNmeaGpsDevice::set_output_uart_ptr(Sabre::UARTPtr uart)
     {
         _output_uart = uart;
     }
 
-    sabre::models::Position SerialNmeaGpsDevice::get_last_position() const
+    Sabre::Models::Position SerialNmeaGpsDevice::get_last_position() const
     {
         return _nmea_parser.get_last_position();
     }
@@ -62,4 +62,4 @@ namespace sabre::devices
         }
         return false;
     }
-} // namespace sabre::devices
+} // namespace Sabre::Devices

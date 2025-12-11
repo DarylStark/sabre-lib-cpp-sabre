@@ -4,13 +4,13 @@
 #include <iostream>
 #include <sstream>
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     Simulator::Simulator() {}
 
     Device *Simulator::add_mcu(const std::string &name,
                                const DeviceConfig &config,
-                               sabre::AppUniquePtr &&app)
+                               Sabre::AppUniquePtr &&app)
     {
         SimulatorDevice device{
             .name = name,
@@ -65,4 +65,4 @@ namespace sabre::pilot
         return _devices;
     }
 
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

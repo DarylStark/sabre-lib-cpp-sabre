@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace sabre
+namespace Sabre
 {
     /**
      * @brief Base class for all Sabre exceptions.
@@ -53,4 +53,4 @@ namespace sabre
          */
         APIError();
     };
-} // namespace sabre
+} // namespace Sabre

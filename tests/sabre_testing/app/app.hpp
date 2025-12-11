@@ -2,13 +2,13 @@
 
 #include <sabre/app/app.hpp>
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
-    class TestApp : public sabre::App
+    class TestApp : public Sabre::App
     {
     public:
-        using sabre::App::App;
+        using Sabre::App::App;
 
         void start() override;
     };
-} // namespace sabre::testing
+} // namespace Sabre::Testing

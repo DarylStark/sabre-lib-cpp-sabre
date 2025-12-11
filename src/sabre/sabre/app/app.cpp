@@ -1,6 +1,6 @@
 #include "app.hpp"
 
-namespace sabre
+namespace Sabre
 {
     App::App() : _factory(nullptr) {}
     App::App(FactoryUniquePtr factory) : _factory(std::move(factory)) {}
@@ -21,4 +21,4 @@ namespace sabre
             throw std::runtime_error("Factory is not set in App.");
         app.start();
     }
-} // namespace sabre
+} // namespace Sabre

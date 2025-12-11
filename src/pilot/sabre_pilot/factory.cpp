@@ -5,7 +5,7 @@
 #include "gpio/output_gpio.hpp"
 #include "uart/uart.hpp"
 
-namespace sabre::pilot
+namespace Sabre::Pilot
 {
     Factory::Factory(Device *device) : _device(device)
     {
@@ -79,4 +79,4 @@ namespace sabre::pilot
         // Implementation specific code to create a Service object
         return nullptr; // Placeholder
     }
-} // namespace sabre::pilot
+} // namespace Sabre::Pilot

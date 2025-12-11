@@ -2,7 +2,7 @@
 
 #include "../factory.hpp"
 
-namespace sabre
+namespace Sabre
 {
     class App
     {
@@ -28,4 +28,4 @@ namespace sabre
     using AppUniquePtr = std::unique_ptr<App>;
 
     void run_app(App &app);
-} // namespace sabre
+} // namespace Sabre

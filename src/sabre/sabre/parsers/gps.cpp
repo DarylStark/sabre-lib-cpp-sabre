@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 
-namespace sabre
+namespace Sabre
 {
-    namespace models
+    namespace Models
     {
 
         Coordinate::Coordinate()
@@ -183,9 +183,9 @@ namespace sabre
         {
             _version = version;
         }
-    } // namespace models
+    } // namespace Models
 
-    namespace parsers
+    namespace Parsers
     {
         NMEA_Parser::NMEA_Parser() : _last_position() {}
 
@@ -243,13 +243,13 @@ namespace sabre
         bool NMEA_Parser::_extract_position_from_fields(
             const std::vector<std::string> &fields, size_t lat_idx,
             size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
-            models::Position &out_position) const
+            Models::Position &out_position) const
         {
-            static const std::map<char, models::CoordinatesDirection> dir_map =
-                {{'N', models::CoordinatesDirection::NORTH},
-                 {'S', models::CoordinatesDirection::SOUTH},
-                 {'E', models::CoordinatesDirection::EAST},
-                 {'W', models::CoordinatesDirection::WEST}};
+            static const std::map<char, Models::CoordinatesDirection> dir_map =
+                {{'N', Models::CoordinatesDirection::NORTH},
+                 {'S', Models::CoordinatesDirection::SOUTH},
+                 {'E', Models::CoordinatesDirection::EAST},
+                 {'W', Models::CoordinatesDirection::WEST}};
 
             if (fields.size() <=
                 std::max({lat_idx, lat_dir_idx, lon_idx, lon_dir_idx}))
@@ -268,9 +268,9 @@ namespace sabre
             double lon_min = std::stod(lon_str.substr(3));
             char lon_dir = fields[lon_dir_idx][0];
 
-            out_position = models::Position(
-                models::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
-                models::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
+            out_position = Models::Position(
+                Models::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
+                Models::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
             return true;
         }
 
@@ -289,7 +289,7 @@ namespace sabre
             auto fields = _get_fields(scentence);
             if (fields.size() < 13 || fields[2] != "A")
                 return false;
-            models::Position pos;
+            Models::Position pos;
             if (!_extract_position_from_fields(fields, 3, 4, 5, 6, pos))
                 return false; // LCOV_EXCL_LINE
             _update_last_position(pos);
@@ -301,7 +301,7 @@ namespace sabre
             auto fields = _get_fields(scentence);
             if (fields.size() < 8 || fields[6] != "A")
                 return false;
-            models::Position pos;
+            Models::Position pos;
             if (!_extract_position_from_fields(fields, 1, 2, 3, 4, pos))
                 return false; // LCOV_EXCL_LINE
             _update_last_position(pos);
@@ -313,7 +313,7 @@ namespace sabre
             auto fields = _get_fields(scentence);
             if (fields.size() < 15 || fields[6] == "0")
                 return false;
-            models::Position pos;
+            Models::Position pos;
             if (!_extract_position_from_fields(fields, 2, 3, 4, 5, pos))
                 return false; // LCOV_EXCL_LINE
             _update_last_position(pos);
@@ -386,5 +386,5 @@ namespace sabre
         {
             return _scentences.size();
         }
-    } // namespace parsers
-} // namespace sabre
+    } // namespace Parsers
+} // namespace Sabre

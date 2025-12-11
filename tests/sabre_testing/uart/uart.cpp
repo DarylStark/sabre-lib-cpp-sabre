@@ -3,7 +3,7 @@
 #include <sabre/uart/uart_output_stream_buffer.hpp>
 #include <string>
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
     void TestUART::initialize()
     {
@@ -33,4 +33,4 @@ namespace sabre::testing
     {
         // No-op for test implementation
     }
-} // namespace sabre::testing
+} // namespace Sabre::Testing

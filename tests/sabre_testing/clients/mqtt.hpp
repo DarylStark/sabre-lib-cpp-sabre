@@ -3,17 +3,17 @@
 #include <sabre/clients/mqtt.hpp>
 #include <vector>
 
-namespace sabre::testing
+namespace Sabre::Testing
 {
     struct MQTTMessage
     {
         std::string topic;
         std::string message;
-        sabre::MQTTQoS qos;
-        sabre::MQTTRetain retain;
+        Sabre::MQTTQoS qos;
+        Sabre::MQTTRetain retain;
     };
 
-    class MQTTClient : public sabre::MQTTClient
+    class MQTTClient : public Sabre::MQTTClient
     {
     private:
         bool _is_connected = false;
@@ -31,4 +31,4 @@ namespace sabre::testing
 
         std::vector<MQTTMessage> _published_messages;
     };
-} // namespace sabre::testing
+} // namespace Sabre::Testing

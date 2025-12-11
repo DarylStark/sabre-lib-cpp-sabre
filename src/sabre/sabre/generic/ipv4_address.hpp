@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-namespace sabre
+namespace Sabre
 {
     /**
      * @brief Class that represents an IPv4 address.
@@ -63,5 +63,5 @@ namespace sabre
     using IPv4AddressSharedPtr = std::shared_ptr<IPv4Address>;
     using IPv4AddressUniquePtr = std::unique_ptr<IPv4Address>;
 
-    std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
-}; // namespace sabre
+    std::ostream &operator<<(std::ostream &os, const Sabre::IPv4Address &ipv4);
+}; // namespace Sabre

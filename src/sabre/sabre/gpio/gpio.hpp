@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace sabre
+namespace Sabre
 {
     /**
      * @brief Base class for GPIO operations.
@@ -26,4 +26,4 @@ namespace sabre
     using GPIOOPtr = GPIO *;
     using GPIOOSharedPtr = std::shared_ptr<GPIO>;
     using GPIOOUniquePtr = std::unique_ptr<GPIO>;
-}; // namespace sabre
+}; // namespace Sabre

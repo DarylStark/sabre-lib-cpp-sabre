@@ -1,7 +1,7 @@
 #include "log_handlers.hpp"
 #include <iomanip>
 
-namespace sabre
+namespace Sabre
 {
     OStreamLogHandler::OStreamLogHandler(std::ostream &stream) : _stream(stream)
     {
@@ -34,4 +34,4 @@ namespace sabre
     {
         return _buffer;
     }
-} // namespace sabre
+} // namespace Sabre

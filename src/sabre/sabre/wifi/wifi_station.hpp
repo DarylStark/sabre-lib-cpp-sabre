@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace sabre
+namespace Sabre
 {
     /**
      * @brief An interface for a Wi-Fi Station.
@@ -74,4 +74,4 @@ namespace sabre
     using WifiStationPtr = WifiStation *;
     using WifiStationSharedPtr = std::shared_ptr<WifiStation>;
     using WifiStationUniquePtr = std::unique_ptr<WifiStation>;
-} // namespace sabre
+} // namespace Sabre
