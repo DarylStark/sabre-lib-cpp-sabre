@@ -2,12 +2,12 @@
 
 namespace sabre::impl::sabre_testing
 {
-    Service::Service(ServiceHandler fn) : sabre::os::Service(fn) {}
+    StService::StService(ServiceHandler fn) : sabre::os::Service(fn) {}
 
-    void Service::start()
+    void StService::start()
     {
         _fn();
     }
 
-    void Service::stop() {}
+    void StService::stop() {}
 } // namespace sabre::impl::sabre_testing

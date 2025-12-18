@@ -2,9 +2,8 @@
 
 #include <cstdint>
 
-namespace sabre::models
+namespace sabre::models::geo
 {
-
     /**
      * @brief Cardinal directions for coordinates.
      */
@@ -205,4 +204,4 @@ namespace sabre::models
         uint32_t get_version() const;
         void set_version(uint32_t version);
     };
-} // namespace sabre::models
+} // namespace sabre::models::geo

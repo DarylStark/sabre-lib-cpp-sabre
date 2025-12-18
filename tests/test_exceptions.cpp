@@ -9,16 +9,16 @@ TEST(SabreExceptionTest, CustomMessage)
 
 TEST(SabreExceptionTest, APIErrorDefaultMessage)
 {
-    sabre::core::APIError apiError;
+    sabre::core::ApiError apiError;
     ASSERT_STREQ(apiError.what(), "Unknown API error");
 }
 
 TEST(SabreExceptionTest, APIErrorCustomMessage)
 {
-    class DerivedAPIError : public sabre::core::APIError
+    class DerivedAPIError : public sabre::core::ApiError
     {
     public:
-        DerivedAPIError(const std::string &msg) : sabre::core::APIError(msg) {}
+        DerivedAPIError(const std::string &msg) : sabre::core::ApiError(msg) {}
     };
     DerivedAPIError apiError("Specific API error occurred");
     ASSERT_STREQ(apiError.what(), "Specific API error occurred");

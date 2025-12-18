@@ -4,7 +4,7 @@
 TEST(Service, StartingWithALambda)
 {
     int var = 0;
-    sabre::impl::sabre_testing::Service my_service([&var]() { ++var; });
+    sabre::impl::sabre_testing::StService my_service([&var]() { ++var; });
     my_service.start();
 
     ASSERT_EQ(var, 1);
@@ -18,7 +18,7 @@ void MyVarIncrementServiceFunction(int *var)
 TEST(Service, StartingWithAFunction)
 {
     int var = 0;
-    sabre::impl::sabre_testing::Service my_service(
+    sabre::impl::sabre_testing::StService my_service(
         std::bind(MyVarIncrementServiceFunction, &var));
     my_service.start();
     ASSERT_EQ(var, 1);
@@ -38,7 +38,7 @@ public:
 TEST(Service, StartingWithAFunctor)
 {
     MyVarIncrementServiceFunctor fn;
-    sabre::impl::sabre_testing::Service my_service(std::ref(fn));
+    sabre::impl::sabre_testing::StService my_service(std::ref(fn));
     my_service.start();
     ASSERT_EQ(fn.var, 1);
 }

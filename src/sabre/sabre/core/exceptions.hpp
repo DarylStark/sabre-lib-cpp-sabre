@@ -29,28 +29,28 @@ namespace sabre::core
      * This exception is thrown when an operation is attempted on a API that
      * failed.
      */
-    class APIError : public SabreException
+    class ApiError : public SabreException
     {
     protected:
         /**
-         * @brief Constructor for APIError with a custom message.
+         * @brief Constructor for ApiError with a custom message.
          *
          * This constructor initializes the exception with a specific error
          * message. This is meant for derived classes to provide more
          * context-specific error messages. It should not be used to initialize
-         * APIError instances directly.
+         * ApiError instances directly.
          *
          * @param msg The error message to be associated with the exception.
          */
-        APIError(const std::string &msg);
+        ApiError(const std::string &msg);
 
     public:
         /**
-         * @brief Default constructor for APIError.
+         * @brief Default constructor for ApiError.
          *
          * This constructor initializes the exception with a default message
          * indicating an unknown API error.
          */
-        APIError();
+        ApiError();
     };
 } // namespace sabre::core

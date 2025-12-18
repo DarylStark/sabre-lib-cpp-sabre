@@ -13,12 +13,12 @@ namespace sabre::hal
      * methods to write a byte and flush the output buffer. It is intended to be
      * implemented by specific UART communication classes.
      */
-    class UART
+    class Uart
     {
     public:
-        using Ptr = UART *;
-        using SharedPtr = std::shared_ptr<UART>;
-        using UniquePtr = std::unique_ptr<UART>;
+        using Ptr = Uart *;
+        using SharedPtr = std::shared_ptr<Uart>;
+        using UniquePtr = std::unique_ptr<Uart>;
 
         /**
          * @brief Initialize the UART device.

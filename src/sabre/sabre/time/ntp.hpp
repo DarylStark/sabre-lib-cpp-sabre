@@ -4,12 +4,12 @@
 
 namespace sabre::time
 {
-    class NTPClient
+    class NtpClient
     {
     public:
-        using Ptr = NTPClient *;
-        using SharedPtr = std::shared_ptr<NTPClient>;
-        using UniquePtr = std::unique_ptr<NTPClient>;
+        using Ptr = NtpClient *;
+        using SharedPtr = std::shared_ptr<NtpClient>;
+        using UniquePtr = std::unique_ptr<NtpClient>;
 
         /**
          * @brief Starts the NTP client.

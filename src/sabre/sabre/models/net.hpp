@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-namespace sabre::models
+namespace sabre::models::net
 {
     /**
      * @brief Class that represents an IPv4 address.
@@ -68,4 +68,4 @@ namespace sabre::models
     };
 
     std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4);
-}; // namespace sabre::models
+}; // namespace sabre::models::net

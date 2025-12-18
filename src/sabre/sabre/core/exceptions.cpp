@@ -7,7 +7,7 @@ namespace sabre::core
     {
     }
 
-    APIError::APIError(const std::string &msg) : SabreException(msg) {}
+    ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
 
-    APIError::APIError() : SabreException("Unknown API error") {}
+    ApiError::ApiError() : SabreException("Unknown API error") {}
 } // namespace sabre::core

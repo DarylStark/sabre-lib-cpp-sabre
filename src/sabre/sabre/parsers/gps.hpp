@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../models/positioning.hpp"
+#include "../models/geo.hpp"
 #include <map>
 #include <memory>
 #include <string>
@@ -10,12 +10,12 @@ namespace sabre
 {
     namespace parsers
     {
-        using namespace sabre::models;
+        using namespace sabre::models::geo;
 
         /**
          * @brief NMEA sentence parser for extracting position data.
          */
-        class NMEA_Parser
+        class NmeaParser
         {
         private:
             Position _last_position; /**< Last parsed position. */
@@ -87,7 +87,7 @@ namespace sabre
             /**
              * @brief Default constructor.
              */
-            NMEA_Parser();
+            NmeaParser();
 
             /**
              * @brief Add a sentence to the buffer.

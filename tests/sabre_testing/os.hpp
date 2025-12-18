@@ -5,10 +5,11 @@
 namespace sabre::impl::sabre_testing
 {
     using sabre::os::ServiceHandler;
-    class Service : public sabre::os::Service
+
+    class StService : public sabre::os::Service
     {
     public:
-        Service(ServiceHandler fn);
+        StService(ServiceHandler fn);
         void start() override;
         void stop() override;
     };

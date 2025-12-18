@@ -6,7 +6,7 @@
 
 namespace sabre::io
 {
-    using sabre::hal::UART;
+    using sabre::hal::Uart;
     /**
      * @brief A stream buffer for UART output.
      *
@@ -14,17 +14,17 @@ namespace sabre::io
      * for output operations. It allows for buffered writing to UART, which can
      * improve performance by reducing the number of write operations.
      */
-    class UARTStreamBuf : public std::streambuf
+    class UartStreamBuf : public std::streambuf
     {
     public:
         using int_type = std::streambuf::traits_type::int_type;
 
-        using Ptr = UARTStreamBuf *;
-        using SharedPtr = std::shared_ptr<UARTStreamBuf>;
-        using UniquePtr = std::unique_ptr<UARTStreamBuf>;
+        using Ptr = UartStreamBuf *;
+        using SharedPtr = std::shared_ptr<UartStreamBuf>;
+        using UniquePtr = std::unique_ptr<UartStreamBuf>;
 
     private:
-        UART::UniquePtr _uart;
+        Uart::UniquePtr _uart;
         char *_buffer;
         size_t _buffer_size;
 
@@ -65,7 +65,7 @@ namespace sabre::io
          * @param uart The UART device to use for output operations.
          * @param buffer_size The size of the internal buffer (default is 512).
          */
-        UARTStreamBuf(UART::UniquePtr uart, size_t buffer_size = 512);
+        UartStreamBuf(Uart::UniquePtr uart, size_t buffer_size = 512);
 
         /**
          * @brief Destructor for the UARTStreamBuf class.
@@ -73,6 +73,6 @@ namespace sabre::io
          * This destructor flushes the buffer and releases any allocated
          * resources.
          */
-        ~UARTStreamBuf();
+        ~UartStreamBuf();
     };
 } // namespace sabre::io

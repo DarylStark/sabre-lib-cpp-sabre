@@ -2,17 +2,17 @@
 
 namespace sabre::impl::sabre_testing
 {
-    bool InputGPIO::_get_level() const
+    bool StInputGpio::_get_level() const
     {
         return level;
     }
 
-    void InputGPIO::enable_pullup() {}
-    void InputGPIO::enable_pulldown() {}
-    void InputGPIO::disable_pullup() {}
-    void InputGPIO::disable_pulldown() {}
-    void InputGPIO::add_interrupt_handler(ISRHandler, ISRTrigger) {}
-    void InputGPIO::reset() {}
+    void StInputGpio::enable_pullup() {}
+    void StInputGpio::enable_pulldown() {}
+    void StInputGpio::disable_pullup() {}
+    void StInputGpio::disable_pulldown() {}
+    void StInputGpio::add_interrupt_handler(ISRHandler, ISRTrigger) {}
+    void StInputGpio::reset() {}
 
     void TestUART::initialize()
     {

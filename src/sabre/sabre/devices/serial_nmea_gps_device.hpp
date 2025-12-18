@@ -6,23 +6,23 @@
 
 namespace sabre::devices
 {
-    using sabre::hal::UART;
+    using sabre::hal::Uart;
     class SerialNmeaGpsDevice : public GpsDevice
     {
     private:
-        sabre::hal::UART::Ptr _uart;
-        sabre::hal::UART::Ptr _output_uart;
-        sabre::parsers::NMEAValidator _nmea_validator;
-        sabre::parsers::NMEA_Parser _nmea_parser;
+        sabre::hal::Uart::Ptr _uart;
+        sabre::hal::Uart::Ptr _output_uart;
+        sabre::parsers::NmeaValidator _nmea_validator;
+        sabre::parsers::NmeaParser _nmea_parser;
 
     public:
         SerialNmeaGpsDevice();
-        SerialNmeaGpsDevice(UART::Ptr uart);
+        SerialNmeaGpsDevice(Uart::Ptr uart);
 
-        void set_uart_ptr(UART::Ptr uart);
-        void set_output_uart_ptr(UART::Ptr uart);
+        void set_uart_ptr(Uart::Ptr uart);
+        void set_output_uart_ptr(Uart::Ptr uart);
 
-        sabre::models::Position get_last_position() const override;
+        sabre::models::geo::Position get_last_position() const override;
         bool is_valid_position() const override;
         bool read() override;
     };

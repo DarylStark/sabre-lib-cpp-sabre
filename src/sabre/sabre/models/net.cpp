@@ -1,7 +1,7 @@
-#include "ipv4_address.hpp"
+#include "net.hpp"
 #include <ostream>
 
-namespace sabre::models
+namespace sabre::models::net
 {
     IPv4Address::IPv4Address() : _address(0) {}
 
@@ -39,4 +39,4 @@ namespace sabre::models
         os << static_cast<std::string>(ipv4);
         return os;
     }
-} // namespace sabre::models
+} // namespace sabre::models::net

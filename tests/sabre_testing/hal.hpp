@@ -9,7 +9,7 @@ namespace sabre::impl::sabre_testing
     using sabre::hal::ISRHandler;
     using sabre::hal::ISRTrigger;
 
-    class InputGPIO : public sabre::hal::InputGPIO
+    class StInputGpio : public sabre::hal::InputGpio
     {
     protected:
         bool _get_level() const override;
@@ -25,7 +25,7 @@ namespace sabre::impl::sabre_testing
         bool level = true;
     };
 
-    class TestUART : public sabre::hal::UART
+    class TestUART : public sabre::hal::Uart
     {
     public:
         void initialize();

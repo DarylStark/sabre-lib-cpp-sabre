@@ -5,20 +5,17 @@
 namespace sabre::hal
 {
     /**
-     * @brief Base class for GPIO operations.
+     * @brief Base class for Gpio operations.
      *
-     * This class provides a base interface for GPIO operations. It can be
-     * extended to implement specific GPIO functionalities.
+     * This class provides a base interface for Gpio operations. It can be
+     * extended to implement specific Gpio functionalities.
      */
-    class GPIO
+    class Gpio
     {
     public:
-        using Ptr = GPIO *;
-        using SharedPtr = std::shared_ptr<GPIO>;
-        using UniquePtr = std::unique_ptr<GPIO>;
-
-    protected:
-        bool _inverse_level = false;
+        using Ptr = Gpio *;
+        using SharedPtr = std::shared_ptr<Gpio>;
+        using UniquePtr = std::unique_ptr<Gpio>;
 
     public:
         /**

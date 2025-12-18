@@ -10,7 +10,7 @@ TEST(OStreamLogHandler, Logging)
     std::unique_ptr<sabre::impl::sabre_testing::TestUART> u =
         std::make_unique<sabre::impl::sabre_testing::TestUART>();
     auto *u_ptr = u.get();
-    sabre::io::UARTStreamBuf buffer(std::move(u), 128);
+    sabre::io::UartStreamBuf buffer(std::move(u), 128);
     std::ostream stream(&buffer);
 
     sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);

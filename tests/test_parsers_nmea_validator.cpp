@@ -3,36 +3,36 @@
 
 using namespace sabre::parsers;
 
-TEST(NMEAValidator, TestConstruction)
+TEST(NmeaValidator, TestConstruction)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     ASSERT_FALSE(validator.is_started());
     ASSERT_FALSE(validator.is_accepted());
     ASSERT_FALSE(validator.is_error());
     ASSERT_EQ(validator.get_buffer(), "");
 }
 
-TEST(NMEAValidator, TestStartWithDollar)
+TEST(NmeaValidator, TestStartWithDollar)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('$');
     ASSERT_TRUE(validator.is_started());
     ASSERT_FALSE(validator.is_accepted());
     ASSERT_FALSE(validator.is_error());
 }
 
-TEST(NMEAValidator, TestStartWithNotDollar)
+TEST(NmeaValidator, TestStartWithNotDollar)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('#');
     ASSERT_FALSE(validator.is_started());
     ASSERT_FALSE(validator.is_accepted());
     ASSERT_FALSE(validator.is_error());
 }
 
-TEST(NMEAValidator, TestStartWithDollarThenEndWithNewLine_Accepted)
+TEST(NmeaValidator, TestStartWithDollarThenEndWithNewLine_Accepted)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('$');
     validator.add_character('.');
     validator.add_character('\n');
@@ -42,9 +42,9 @@ TEST(NMEAValidator, TestStartWithDollarThenEndWithNewLine_Accepted)
     ASSERT_EQ(validator.get_buffer(), "$.");
 }
 
-TEST(NMEAValidator, TestStartWithDollarThenEndWithCarrieReturn_Accepted)
+TEST(NmeaValidator, TestStartWithDollarThenEndWithCarrieReturn_Accepted)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('$');
     validator.add_character('.');
     validator.add_character('\r');
@@ -54,9 +54,9 @@ TEST(NMEAValidator, TestStartWithDollarThenEndWithCarrieReturn_Accepted)
     ASSERT_EQ(validator.get_buffer(), "$.");
 }
 
-TEST(NMEAValidator, TestStartWithDollarThenAnotherDollar_Error)
+TEST(NmeaValidator, TestStartWithDollarThenAnotherDollar_Error)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('$');
     validator.add_character('.');
     validator.add_character('$');
@@ -65,9 +65,9 @@ TEST(NMEAValidator, TestStartWithDollarThenAnotherDollar_Error)
     ASSERT_TRUE(validator.is_error());
 }
 
-TEST(NMEAValidator, TestStringTooLong)
+TEST(NmeaValidator, TestStringTooLong)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
     validator.add_character('$');
     for (uint32_t x = 0; x < 82; x++)
         validator.add_character('a');
@@ -76,9 +76,9 @@ TEST(NMEAValidator, TestStringTooLong)
     ASSERT_TRUE(validator.is_error());
 }
 
-TEST(NMEAValidator, TestEndToEnd)
+TEST(NmeaValidator, TestEndToEnd)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
 
     validator.add_character('t');
     validator.add_character('e');
@@ -99,9 +99,9 @@ TEST(NMEAValidator, TestEndToEnd)
     ASSERT_FALSE(validator.is_error());
 }
 
-TEST(NMEAValidator, TestDataAfterFinished)
+TEST(NmeaValidator, TestDataAfterFinished)
 {
-    NMEAValidator validator;
+    NmeaValidator validator;
 
     validator.add_character('t');
     validator.add_character('e');

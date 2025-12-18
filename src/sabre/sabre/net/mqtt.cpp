@@ -2,56 +2,56 @@
 
 namespace sabre::net
 {
-    MQTTTopic::MQTTTopic(MQTTClient &client, const std::string &topic)
+    MqttTopic::MqttTopic(MqttClient &client, const std::string &topic)
         : _client(client), _topic(topic)
     {
     }
 
-    void MQTTTopic::publish(const std::string &message, MQTTQoS qos,
-                            MQTTRetain retain)
+    void MqttTopic::publish(const std::string &message, MqttQos qos,
+                            MqttRetain retain)
     {
-        if (qos == MQTTQoS::UNDEFINED)
+        if (qos == MqttQos::UNDEFINED)
             qos = _default_qos;
-        if (retain == MQTTRetain::UNDEFINED)
+        if (retain == MqttRetain::UNDEFINED)
             retain = _default_retain;
 
         _client.publish(_topic, message, qos, retain);
     }
 
-    void MQTTTopic::subscribe(MQTTCallback fn, MQTTQoS qos)
+    void MqttTopic::subscribe(MqttCallback fn, MqttQos qos)
     {
         _client.subscribe(_topic, fn, qos);
     }
 
-    void MQTTTopic::set_default_qos(MQTTQoS qos)
+    void MqttTopic::set_default_qos(MqttQos qos)
     {
-        if (qos == MQTTQoS::UNDEFINED)
+        if (qos == MqttQos::UNDEFINED)
             return;
         _default_qos = qos;
     }
 
-    void MQTTTopic::set_default_retain(MQTTRetain retain)
+    void MqttTopic::set_default_retain(MqttRetain retain)
     {
-        if (retain == MQTTRetain::UNDEFINED)
+        if (retain == MqttRetain::UNDEFINED)
             return;
         _default_retain = retain;
     }
 
-    void MQTTClient::subscribe(const std::string &topic, MQTTCallback fn,
-                               MQTTQoS qos)
+    void MqttClient::subscribe(const std::string &topic, MqttCallback fn,
+                               MqttQos qos)
     {
-        if (qos == MQTTQoS::UNDEFINED)
-            qos = MQTTQoS::EXACTLY_ONCE;
+        if (qos == MqttQos::UNDEFINED)
+            qos = MqttQos::EXACTLY_ONCE;
 
         _subscriptions[topic] = fn;
     }
 
-    MQTTTopic::UniquePtr MQTTClient::get_topic(const std::string &topic_name)
+    MqttTopic::UniquePtr MqttClient::get_topic(const std::string &topic_name)
     {
-        return std::make_unique<MQTTTopic>(*this, topic_name);
+        return std::make_unique<MqttTopic>(*this, topic_name);
     }
 
-    void MQTTClient::process_received(MQTTEvent event)
+    void MqttClient::process_received(MqttEvent event)
     {
         if (_subscriptions.find(event.topic) != _subscriptions.end())
             _subscriptions[event.topic](event);
@@ -59,7 +59,7 @@ namespace sabre::net
             _default_handler(event);
     }
 
-    void MQTTClient::set_default_handler(MQTTCallback handler)
+    void MqttClient::set_default_handler(MqttCallback handler)
     {
         _default_handler = handler;
     }

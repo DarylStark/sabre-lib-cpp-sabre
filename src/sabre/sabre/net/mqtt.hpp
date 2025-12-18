@@ -18,7 +18,7 @@ namespace sabre::net
      *
      * - `EXACTLY_ONCE` QoS level 2
      */
-    enum class MQTTQoS
+    enum class MqttQos
     {
         UNDEFINED = -1,
         FIRE_AND_FORGET = 0,
@@ -29,7 +29,7 @@ namespace sabre::net
     /**
      * @brief Enumeration for the retaining of MQTT message.
      */
-    enum class MQTTRetain
+    enum class MqttRetain
     {
         UNDEFINED = -1,
         DONT_RETAIN = 0,
@@ -39,21 +39,21 @@ namespace sabre::net
     /**
      * @brief Object for a MQTTEvent
      */
-    struct MQTTEvent
+    struct MqttEvent
     {
-        using Ptr = MQTTEvent *;
-        using SharedPtr = std::shared_ptr<MQTTEvent>;
-        using UniquePtr = std::unique_ptr<MQTTEvent>;
+        using Ptr = MqttEvent *;
+        using SharedPtr = std::shared_ptr<MqttEvent>;
+        using UniquePtr = std::unique_ptr<MqttEvent>;
 
         std::string topic;
         std::string data;
-        MQTTQoS qos;
-        MQTTRetain retain;
+        MqttQos qos;
+        MqttRetain retain;
     };
 
-    class MQTTClient;
+    class MqttClient;
 
-    using MQTTCallback = std::function<void(const MQTTEvent &)>;
+    using MqttCallback = std::function<void(const MqttEvent &)>;
 
     /**
      * @brief Class that represents a MQTT topic.
@@ -61,18 +61,18 @@ namespace sabre::net
      * This class can be used to subscribe to a topic or send messages to a
      * topic.
      */
-    class MQTTTopic
+    class MqttTopic
     {
     public:
-        using Ptr = MQTTTopic *;
-        using SharedPtr = std::shared_ptr<MQTTTopic>;
-        using UniquePtr = std::unique_ptr<MQTTTopic>;
+        using Ptr = MqttTopic *;
+        using SharedPtr = std::shared_ptr<MqttTopic>;
+        using UniquePtr = std::unique_ptr<MqttTopic>;
 
     protected:
-        MQTTClient &_client;
+        MqttClient &_client;
         std::string _topic;
-        MQTTQoS _default_qos = MQTTQoS::FIRE_AND_FORGET;
-        MQTTRetain _default_retain = MQTTRetain::DONT_RETAIN;
+        MqttQos _default_qos = MqttQos::FIRE_AND_FORGET;
+        MqttRetain _default_retain = MqttRetain::DONT_RETAIN;
 
     public:
         /**
@@ -81,7 +81,7 @@ namespace sabre::net
          * @param client the MQTT client to use.
          * @param topic the MQTT topic for this object.
          */
-        MQTTTopic(MQTTClient &client, const std::string &topic);
+        MqttTopic(MqttClient &client, const std::string &topic);
 
         /**
          * @brief Publish a message to the topic.
@@ -93,8 +93,8 @@ namespace sabre::net
          * `FIRE_AND_FORGET`.
          */
         virtual void publish(const std::string &message,
-                             MQTTQoS qos = MQTTQoS::UNDEFINED,
-                             MQTTRetain retain = MQTTRetain::UNDEFINED);
+                             MqttQos qos = MqttQos::UNDEFINED,
+                             MqttRetain retain = MqttRetain::UNDEFINED);
 
         /**
          * @brief Subscribe to the MQTT topic.
@@ -103,8 +103,8 @@ namespace sabre::net
          * @param qos the QoS for the subscription. If set the `UNDEFINED`, it
          * will be set to `FIRE_AND_FORGET`.
          */
-        virtual void subscribe(MQTTCallback fn,
-                               MQTTQoS qos = MQTTQoS::UNDEFINED);
+        virtual void subscribe(MqttCallback fn,
+                               MqttQos qos = MqttQos::UNDEFINED);
 
         /**
          * @brief Set the default QoS for outgoing messages.
@@ -112,7 +112,7 @@ namespace sabre::net
          * @param qos the default QoS for the outgoing messages. If set the
          * `UNDEFINED`, it will be set to `FIRE_AND_FORGET`.
          */
-        void set_default_qos(MQTTQoS qos);
+        void set_default_qos(MqttQos qos);
 
         /**
          * @brief Set the default retain value for outgoing messages.
@@ -120,7 +120,7 @@ namespace sabre::net
          * @param retain the default retain value for the outgoing messages. If
          * set the `UNDEFINED`, it will be set to `DONT_RETAIN`.
          */
-        void set_default_retain(MQTTRetain retain);
+        void set_default_retain(MqttRetain retain);
     };
 
     /**
@@ -129,16 +129,16 @@ namespace sabre::net
      * This class should be overriden by implementation to implement the correct
      * API functionality to talk to MQTT brokers.
      */
-    class MQTTClient
+    class MqttClient
     {
     public:
-        using Ptr = MQTTClient *;
-        using SharedPtr = std::shared_ptr<MQTTClient>;
-        using UniquePtr = std::unique_ptr<MQTTClient>;
+        using Ptr = MqttClient *;
+        using SharedPtr = std::shared_ptr<MqttClient>;
+        using UniquePtr = std::unique_ptr<MqttClient>;
 
     private:
-        std::unordered_map<std::string, MQTTCallback> _subscriptions;
-        MQTTCallback _default_handler;
+        std::unordered_map<std::string, MqttCallback> _subscriptions;
+        MqttCallback _default_handler;
 
     public:
         /**
@@ -182,8 +182,8 @@ namespace sabre::net
          * `FIRE_AND_FORGET`.
          */
         virtual void publish(const std::string &topic,
-                             const std::string &message, MQTTQoS qos,
-                             MQTTRetain retain) = 0;
+                             const std::string &message, MqttQos qos,
+                             MqttRetain retain) = 0;
 
         /**
          * @brief Subscribe to the MQTT topic.
@@ -193,8 +193,8 @@ namespace sabre::net
          * @param qos the QoS for the subscription. If set the `UNDEFINED`, it
          * will be set to `FIRE_AND_FORGET`.
          */
-        virtual void subscribe(const std::string &topic, MQTTCallback fn,
-                               MQTTQoS qos = MQTTQoS::UNDEFINED);
+        virtual void subscribe(const std::string &topic, MqttCallback fn,
+                               MqttQos qos = MqttQos::UNDEFINED);
 
         /**
          * @brief Set a default handler for receiving message.
@@ -205,14 +205,14 @@ namespace sabre::net
          *
          * @param handler the callback for the subscription.
          */
-        virtual void set_default_handler(MQTTCallback handler);
+        virtual void set_default_handler(MqttCallback handler);
 
         /**
          * @brief Method to process a received message.
          *
          * @param event the event that is raised.
          */
-        void process_received(MQTTEvent event);
+        void process_received(MqttEvent event);
 
         /**
          * @brief Get a Topic object from this client for a MQTT topic.
@@ -222,6 +222,6 @@ namespace sabre::net
          * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
-        MQTTTopic::UniquePtr get_topic(const std::string &topic_name);
+        MqttTopic::UniquePtr get_topic(const std::string &topic_name);
     };
 }; // namespace sabre::net

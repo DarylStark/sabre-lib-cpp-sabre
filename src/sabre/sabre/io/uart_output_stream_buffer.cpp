@@ -4,7 +4,7 @@
 
 namespace sabre::io
 {
-    UARTStreamBuf::UARTStreamBuf(UART::UniquePtr uart, size_t buffer_size)
+    UartStreamBuf::UartStreamBuf(Uart::UniquePtr uart, size_t buffer_size)
         : _uart(std::move(uart))
     {
         _buffer = new char[buffer_size];
@@ -12,13 +12,13 @@ namespace sabre::io
         _reset_put_buffer();
     }
 
-    UARTStreamBuf::~UARTStreamBuf()
+    UartStreamBuf::~UartStreamBuf()
     {
         sync();
         delete[] _buffer;
     }
 
-    UARTStreamBuf::int_type UARTStreamBuf::overflow(int_type c)
+    UartStreamBuf::int_type UartStreamBuf::overflow(int_type c)
     {
         if (c != traits_type::eof())
         {
@@ -33,7 +33,7 @@ namespace sabre::io
         return c;
     }
 
-    int UARTStreamBuf::sync()
+    int UartStreamBuf::sync()
     {
         size_t len = pptr() - pbase();
         if (len == 0)
@@ -45,7 +45,7 @@ namespace sabre::io
         return 0;
     }
 
-    void UARTStreamBuf::_reset_put_buffer()
+    void UartStreamBuf::_reset_put_buffer()
     {
         setp(_buffer, _buffer + _buffer_size);
     }

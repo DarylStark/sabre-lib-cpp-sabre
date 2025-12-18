@@ -46,12 +46,12 @@ namespace sabre::hal
      * reading levels, setting pull-up/pull-down resistors, and handling
      * interrupts.
      */
-    class InputGPIO : public GPIO
+    class InputGpio : public Gpio
     {
     public:
-        using Ptr = InputGPIO *;
-        using SharedPtr = std::shared_ptr<InputGPIO>;
-        using UniquePtr = std::unique_ptr<InputGPIO>;
+        using Ptr = InputGpio *;
+        using SharedPtr = std::shared_ptr<InputGpio>;
+        using UniquePtr = std::unique_ptr<InputGpio>;
 
     protected:
         bool _inverse_level = false;

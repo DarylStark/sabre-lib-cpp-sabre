@@ -7,22 +7,22 @@ namespace sabre::devices
     {
     }
 
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice(UART::Ptr uart)
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice(Uart::Ptr uart)
         : _uart(uart), _output_uart(nullptr)
     {
     }
 
-    void SerialNmeaGpsDevice::set_uart_ptr(UART::Ptr uart)
+    void SerialNmeaGpsDevice::set_uart_ptr(Uart::Ptr uart)
     {
         _uart = uart;
     }
 
-    void SerialNmeaGpsDevice::set_output_uart_ptr(UART::Ptr uart)
+    void SerialNmeaGpsDevice::set_output_uart_ptr(Uart::Ptr uart)
     {
         _output_uart = uart;
     }
 
-    sabre::models::Position SerialNmeaGpsDevice::get_last_position() const
+    sabre::models::geo::Position SerialNmeaGpsDevice::get_last_position() const
     {
         return _nmea_parser.get_last_position();
     }

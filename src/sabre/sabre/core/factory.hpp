@@ -17,15 +17,15 @@
 
 namespace sabre::core
 {
-    using sabre::hal::InputGPIO;
-    using sabre::hal::OutputGPIO;
-    using sabre::hal::UART;
-    using sabre::net::MQTTClient;
+    using sabre::hal::InputGpio;
+    using sabre::hal::OutputGpio;
+    using sabre::hal::Uart;
+    using sabre::net::MqttClient;
     using sabre::net::WifiSoftAP;
     using sabre::net::WifiStation;
     using sabre::os::Service;
     using sabre::os::ServiceHandler;
-    using sabre::time::NTPClient;
+    using sabre::time::NtpClient;
     using sabre::time::WallClock;
     using sabre::utility::WaitFor;
     using sabre::utility::WaitForPred;
@@ -58,7 +58,7 @@ namespace sabre::core
          *
          * @return A `UARTUniquePtr` unique pointer to a `UART` object.
          */
-        virtual UART::UniquePtr
+        virtual Uart::UniquePtr
         create_uart_object(uint32_t uart_number, int32_t baud_rate,
                            int32_t tx_pin, int32_t rx_pin,
                            size_t buffer_size) const = 0;
@@ -71,7 +71,7 @@ namespace sabre::core
          * @return A `InputGPIOUniquePtr` unique pointer to a `InputGPIO`
          * object.
          */
-        virtual InputGPIO::UniquePtr create_input_gpio(int32_t pin) const = 0;
+        virtual InputGpio::UniquePtr create_input_gpio(int32_t pin) const = 0;
 
         /**
          * @brief Create a `OutputGPIO` object.
@@ -81,7 +81,7 @@ namespace sabre::core
          * @return A `OutputGPIOUniquePtr` unique pointer to a `OutputGPIO`
          * object.
          */
-        virtual OutputGPIO::UniquePtr create_output_gpio(int32_t pin) const = 0;
+        virtual OutputGpio::UniquePtr create_output_gpio(int32_t pin) const = 0;
 
         /**
          * @brief Create a `WifiStation` object.
@@ -122,10 +122,10 @@ namespace sabre::core
          * @return A `NTPClientUniquePtr` unique pointer to a `NTPClient`
          * object.
          */
-        virtual NTPClient::UniquePtr
+        virtual NtpClient::UniquePtr
         create_ntp_client(const std::string &server) const = 0;
 
-        virtual MQTTClient::UniquePtr create_mqtt_client() const = 0;
+        virtual MqttClient::UniquePtr create_mqtt_client() const = 0;
 
         /**
          * @brief Create a `WaitFor` object.

@@ -10,12 +10,12 @@ namespace sabre::hal
      * This class defines the interface for output GPIO pins. It provides
      * methods to set the GPIO pin to high or low level, or to a specific level.
      */
-    class OutputGPIO : public GPIO
+    class OutputGpio : public Gpio
     {
     public:
-        using Ptr = OutputGPIO *;
-        using SharedPtr = std::shared_ptr<OutputGPIO>;
-        using UniquePtr = std::unique_ptr<OutputGPIO>;
+        using Ptr = OutputGpio *;
+        using SharedPtr = std::shared_ptr<OutputGpio>;
+        using UniquePtr = std::unique_ptr<OutputGpio>;
 
         /**
          * @brief Set the GPIO pin to high level.
