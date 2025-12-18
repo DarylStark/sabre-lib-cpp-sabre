@@ -3,7 +3,7 @@
 
 TEST(WaitFor, RunSuccessfulPredicate)
 {
-    sabre::WaitForPred pred = []() -> bool { return true; };
+    sabre::utility::WaitForPred pred = []() -> bool { return true; };
     sabre::Testing::WaitFor tw(pred, 100, 10);
     ASSERT_TRUE(tw());
     ASSERT_TRUE(tw.get_result());
@@ -11,7 +11,7 @@ TEST(WaitFor, RunSuccessfulPredicate)
 
 TEST(WaitFor, RunFailingPredicate)
 {
-    sabre::WaitForPred pred = []() -> bool { return false; };
+    sabre::utility::WaitForPred pred = []() -> bool { return false; };
     sabre::Testing::WaitFor tw(pred, 100, 10);
     ASSERT_FALSE(tw());
     ASSERT_FALSE(tw.get_result());
@@ -20,7 +20,7 @@ TEST(WaitFor, RunFailingPredicate)
 TEST(WaitFor, RunSuccessfulPredicateAfterAFewIterations)
 {
     int n = 0;
-    sabre::WaitForPred pred = [&n]() -> bool { return n++ == 5; };
+    sabre::utility::WaitForPred pred = [&n]() -> bool { return n++ == 5; };
     sabre::Testing::WaitFor tw(pred, 1000, 10);
     ASSERT_TRUE(tw());
     ASSERT_TRUE(tw.get_result());

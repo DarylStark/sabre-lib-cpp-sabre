@@ -1,12 +1,11 @@
 #pragma once
 
-#include <sabre/uart/uart.hpp>
-#include <sabre/uart/uart_output_stream_buffer.hpp>
+#include <sabre/hal/uart.hpp>
 #include <string>
 
 namespace sabre::Testing
 {
-    class TestUART : public sabre::UART
+    class TestUART : public sabre::hal::UART
     {
     public:
         void initialize();

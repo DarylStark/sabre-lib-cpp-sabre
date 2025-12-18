@@ -2,7 +2,7 @@
 
 namespace sabre::Testing
 {
-    Service::Service(sabre::ServiceHandler fn) : sabre::Service(fn) {}
+    Service::Service(ServiceHandler fn) : sabre::os::Service(fn) {}
 
     void Service::start()
     {

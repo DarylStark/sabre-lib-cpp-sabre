@@ -16,7 +16,7 @@ namespace sabre::Testing
 
     WaitFor::WaitFor(WaitForPred fn, uint64_t timeout_in_ms,
                      uint64_t sleep_time)
-        : sabre::WaitFor(fn, timeout_in_ms, sleep_time)
+        : sabre::utility::WaitFor(fn, timeout_in_ms, sleep_time)
     {
     }
 

@@ -4,7 +4,9 @@
 
 namespace sabre::Testing
 {
-    class WaitFor : public sabre::WaitFor
+    using sabre::utility::WaitForPred;
+
+    class WaitFor : public sabre::utility::WaitFor
     {
     protected:
         uint64_t _get_current_time() const;

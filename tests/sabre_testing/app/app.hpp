@@ -1,14 +1,15 @@
 #pragma once
 
-#include <sabre/app/app.hpp>
+#include <sabre/core/app.hpp>
+#include <sabre/factory.hpp>
 
 namespace sabre::Testing
 {
-    class TestApp : public sabre::App
+    class TestApp : public sabre::core::App
     {
     public:
-        using sabre::App::App;
-
+        TestApp();
+        TestApp(sabre::core::Factory::UniquePtr factory);
         void start() override;
     };
 } // namespace sabre::Testing

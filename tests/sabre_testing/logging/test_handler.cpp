@@ -11,7 +11,7 @@ namespace sabre::Testing
         _message = message;
     }
 
-    sabre::LoggingLevel TestHandler::get_last_level() const
+    LoggingLevel TestHandler::get_last_level() const
     {
         return _level;
     }

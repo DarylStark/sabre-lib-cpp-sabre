@@ -1,13 +1,14 @@
 #pragma once
 
-#include <sabre/service/service.hpp>
+#include <sabre/os/service.hpp>
 
 namespace sabre::Testing
 {
-    class Service : public sabre::Service
+    using sabre::os::ServiceHandler;
+    class Service : public sabre::os::Service
     {
     public:
-        Service(sabre::ServiceHandler fn);
+        Service(ServiceHandler fn);
         void start() override;
         void stop() override;
     };

@@ -1,10 +1,13 @@
 #pragma once
 
-#include <sabre/gpio/input_gpio.hpp>
+#include <sabre/hal/input_gpio.hpp>
 
 namespace sabre::Testing
 {
-    class InputGPIO : public sabre::InputGPIO
+    using sabre::hal::ISRHandler;
+    using sabre::hal::ISRTrigger;
+
+    class InputGPIO : public sabre::hal::InputGPIO
     {
     protected:
         bool _get_level() const override;

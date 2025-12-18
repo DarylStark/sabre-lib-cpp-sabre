@@ -1,19 +1,22 @@
 #pragma once
 
-#include <sabre/clients/mqtt.hpp>
+#include <sabre/net/mqtt.hpp>
 #include <vector>
 
 namespace sabre::Testing
 {
+    using sabre::net::MQTTQoS;
+    using sabre::net::MQTTRetain;
+
     struct MQTTMessage
     {
         std::string topic;
         std::string message;
-        sabre::MQTTQoS qos;
-        sabre::MQTTRetain retain;
+        MQTTQoS qos;
+        MQTTRetain retain;
     };
 
-    class MQTTClient : public sabre::MQTTClient
+    class MQTTClient : public sabre::net::MQTTClient
     {
     private:
         bool _is_connected = false;

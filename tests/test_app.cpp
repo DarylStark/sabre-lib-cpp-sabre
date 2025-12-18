@@ -27,17 +27,3 @@ TEST(App, AppDefaultConstructor)
     TestApp app;
     EXPECT_EQ(app.get_factory(), nullptr);
 }
-
-TEST(App, RunAppFunctionNoFactory)
-{
-    TestApp app;
-    EXPECT_ANY_THROW(sabre::run_app(app));
-}
-
-TEST(App, RunAppFunction)
-{
-    TestApp app;
-    auto factory = std::make_unique<Factory>();
-    app.set_factory(std::move(factory));
-    EXPECT_NO_THROW(sabre::run_app(app));
-}

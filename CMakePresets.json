@@ -17,6 +17,17 @@
             }
         },
         {
+            "name": "ninja-debug-with-tests-no-pilot",
+            "displayName": "Debug - Sabre, Tests",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/debug-with-tests-no-pilot",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SABRE_BUILD_TESTS": "ON",
+                "SABRE_BUILD_PILOT": "OFF"
+            }
+        },
+        {
             "name": "ninja-release-with-tests",
             "displayName": "Release - Sabre, Pilot, Tests",
             "generator": "Ninja",
