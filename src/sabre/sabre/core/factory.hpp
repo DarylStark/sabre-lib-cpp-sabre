@@ -64,21 +64,21 @@ namespace sabre::core
                            size_t buffer_size) const = 0;
 
         /**
-         * @brief Create a `InputGPIO` object.
+         * @brief Create a `InputGpio` object.
          *
          * @param pin the pin number for the GPIO.
          *
-         * @return A `InputGPIOUniquePtr` unique pointer to a `InputGPIO`
+         * @return A `InputGpio::UniquePtr` unique pointer to a `InputGpio`
          * object.
          */
         virtual InputGpio::UniquePtr create_input_gpio(int32_t pin) const = 0;
 
         /**
-         * @brief Create a `OutputGPIO` object.
+         * @brief Create a `OutputGpio` object.
          *
          * @param pin the pin number for the GPIO.
          *
-         * @return A `OutputGPIOUniquePtr` unique pointer to a `OutputGPIO`
+         * @return A `OutputGpioUniquePtr` unique pointer to a `OutputGpio`
          * object.
          */
         virtual OutputGpio::UniquePtr create_output_gpio(int32_t pin) const = 0;

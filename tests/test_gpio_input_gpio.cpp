@@ -1,27 +1,27 @@
 #include "sabre_testing/hal.hpp"
 #include <gtest/gtest.h>
 
-TEST(InputGPIO, DefaultInverseLevel)
+TEST(InputGpio, DefaultInverseLevel)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     ASSERT_FALSE(gpio.get_inverse_level());
 }
 
-TEST(InputGPIO, SetInverseLevelTrue)
+TEST(InputGpio, SetInverseLevelTrue)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.set_inverse_level(true);
     ASSERT_TRUE(gpio.get_inverse_level());
 }
 
-TEST(InputGPIO, SetInverseLevelFalse)
+TEST(InputGpio, SetInverseLevelFalse)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.set_inverse_level(false);
     ASSERT_FALSE(gpio.get_inverse_level());
 }
 
-TEST(InputGPIO, CheckLevelInversionFalseTrue)
+TEST(InputGpio, CheckLevelInversionFalseTrue)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.level = false;
@@ -29,7 +29,7 @@ TEST(InputGPIO, CheckLevelInversionFalseTrue)
     ASSERT_TRUE(gpio.get_level());
 }
 
-TEST(InputGPIO, CheckLevelInversionFalseFalse)
+TEST(InputGpio, CheckLevelInversionFalseFalse)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.level = false;
@@ -37,7 +37,7 @@ TEST(InputGPIO, CheckLevelInversionFalseFalse)
     ASSERT_FALSE(gpio.get_level());
 }
 
-TEST(InputGPIO, CheckLevelInversionTrueFalse)
+TEST(InputGpio, CheckLevelInversionTrueFalse)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.level = true;
@@ -45,7 +45,7 @@ TEST(InputGPIO, CheckLevelInversionTrueFalse)
     ASSERT_TRUE(gpio.get_level());
 }
 
-TEST(InputGPIO, CheckLevelInversionTrueTrue)
+TEST(InputGpio, CheckLevelInversionTrueTrue)
 {
     sabre::impl::sabre_testing::StInputGpio gpio;
     gpio.level = true;

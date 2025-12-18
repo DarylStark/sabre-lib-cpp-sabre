@@ -59,9 +59,9 @@ namespace sabre::hal
 
     public:
         /**
-         * @brief Default constructor for InputGPIO.
+         * @brief Default constructor for InputGpio.
          *
-         * This constructor initializes the InputGPIO object with default
+         * This constructor initializes the InputGpio object with default
          * settings.
          */
         virtual bool get_level() const;
