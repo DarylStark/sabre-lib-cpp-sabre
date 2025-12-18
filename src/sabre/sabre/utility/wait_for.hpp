@@ -57,8 +57,8 @@ namespace sabre::utility
          * @brief Constructor for the WaitFor class.
          *
          * @param fn The predicate function to check.
-         * @param timeout_in_ms The maximum time to wait in milliseconds.
-         * @param sleep_time The time to sleep between checks in milliseconds.
+         * @param timeoutInMs The maximum time to wait in milliseconds.
+         * @param sleepTime The time to sleep between checks in milliseconds.
          */
         WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime);
 

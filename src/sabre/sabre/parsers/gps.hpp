@@ -69,11 +69,11 @@ namespace sabre
             /**
              * @brief Helper to extract coordinates from fields.
              * @param fields The split fields.
-             * @param lat_idx Latitude field index.
-             * @param lat_dir_idx Latitude direction field index.
-             * @param lon_idx Longitude field index.
-             * @param lon_dir_idx Longitude direction field index.
-             * @param out_position Output position.
+             * @param latIndex Latitude field index.
+             * @param latDirIndex Latitude direction field index.
+             * @param lonIndex Longitude field index.
+             * @param lonDirIndex Longitude direction field index.
+             * @param outPosition Output position.
              * @return True if extraction was successful.
              */
             bool

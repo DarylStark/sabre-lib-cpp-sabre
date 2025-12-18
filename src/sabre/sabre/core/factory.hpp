@@ -47,11 +47,11 @@ namespace sabre::core
         /**
          * @brief Create a `UART` object.
          *
-         * @param uart_number the UART number to configure the object with.
-         * @param baud_rate the baud rate for the serial interface.
-         * @param tx_pin transmit pin.
-         * @param rx_pin receive pin.
-         * @param buffer_size the size of the input buffer in bytes. The
+         * @param uartNumber the UART number to configure the object with.
+         * @param baudRate the baud rate for the serial interface.
+         * @param txPin transmit pin.
+         * @param rxPin receive pin.
+         * @param bufferSize the size of the input buffer in bytes. The
          * specific implementation may choose to use this value to allocate
          * internal buffers. If the hardware does not support input buffering,
          * this value may be ignored.
@@ -131,8 +131,8 @@ namespace sabre::core
          * @brief Create a `WaitFor` object.
          *
          * @param fn the function to run in the WaitFor.
-         * @param timeout_in_ms the maximum runtime in ms of the function.
-         * @param sleep_time how much time (in ms) to sleep between each
+         * @param timeoutInMs the maximum runtime in ms of the function.
+         * @param sleepTime how much time (in ms) to sleep between each
          * iteration.
          *
          * @return A `WaitForUniquePtr` unique pointer to a `WaitFor`

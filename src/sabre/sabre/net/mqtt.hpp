@@ -145,7 +145,7 @@ namespace sabre::net
          * @brief Connect to a specific MQTT broker.
          *
          * @param hostname the hostname for the MQTT broker.
-         * @param client_id the client_id for the connection.
+         * @param clientId the client_id for the connection.
          * @param username the username for the connection.
          * @param password the password for the connection.
          */
@@ -217,7 +217,7 @@ namespace sabre::net
         /**
          * @brief Get a Topic object from this client for a MQTT topic.
          *
-         * @param topic_name the topic for the MQTTTopic object.
+         * @param topicName the topic for the MQTTTopic object.
          *
          * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.

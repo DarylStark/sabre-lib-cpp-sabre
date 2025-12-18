@@ -121,7 +121,7 @@ namespace sabre::models::geo
 
         /**
          * @brief Construct from millimeters.
-         * @param distance_in_mm Distance in millimeters.
+         * @param distanceInMm Distance in millimeters.
          */
         Distance(uint64_t distanceInMm);
 

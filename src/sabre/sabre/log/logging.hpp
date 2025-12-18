@@ -140,7 +140,7 @@ namespace sabre::log
          * @brief Abstract method to handle log messages.
          *
          * @param level The logging level of the message.
-         * @param logger_name The name of the logger that generated the message.
+         * @param loggerName The name of the logger that generated the message.
          * @param message The log message to be handled.
          */
         virtual void handleLog(const LoggingLevel level,
@@ -198,7 +198,7 @@ namespace sabre::log
          * level set for the application.
          *
          * @param level The logging level for the message.
-         * @param logger_name The name of the logger that generated the message.
+         * @param loggerName The name of the logger that generated the message.
          * @param message The message to be logged.
          */
         static void log(const LoggingLevel level,

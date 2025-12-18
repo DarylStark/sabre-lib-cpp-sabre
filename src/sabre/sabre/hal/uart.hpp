@@ -49,8 +49,8 @@ namespace sabre::hal
          * returned. If only partial data is available during the timeout
          * period, it will be returned.
          *
-         * @param max_bytes The maximum number of bytes to read.
-         * @param timeout_ms The timeout in milliseconds.
+         * @param maxBytes The maximum number of bytes to read.
+         * @param timeoutMs The timeout in milliseconds.
          *
          * @return A string containing the received data.
          */

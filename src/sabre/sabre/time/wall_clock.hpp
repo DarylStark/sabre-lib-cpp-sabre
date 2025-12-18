@@ -33,7 +33,7 @@ namespace sabre::time
         /**
          * @brief Set the current time in ms since 1970-01-01
          *
-         * @param time_in_ms The time to set in milliseconds since 1970-01-01
+         * @param timeInMs The time to set in milliseconds since 1970-01-01
          * 00:00:00.
          */
         virtual void setNowMs(uint64_t timeInMs) = 0;
