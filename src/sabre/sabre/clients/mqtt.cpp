@@ -1,6 +1,6 @@
 #include "mqtt.hpp"
 
-namespace sabre
+namespace sabre::net
 {
     MQTTTopic::MQTTTopic(MQTTClient &client, const std::string &topic)
         : _client(client), _topic(topic)
@@ -64,4 +64,4 @@ namespace sabre
         _default_handler = handler;
     }
 
-} // namespace sabre
+} // namespace sabre::net

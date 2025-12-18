@@ -4,7 +4,7 @@
 #include <cstdint> // For uint32_t
 #include <memory>
 
-namespace sabre
+namespace sabre::hal
 {
     /**
      * @brief Abstract base class for UART communication.
@@ -74,4 +74,4 @@ namespace sabre
     using UARTPtr = UART *;
     using UARTSharedPtr = std::shared_ptr<UART>;
     using UARTUniquePtr = std::unique_ptr<UART>;
-} // namespace sabre
+} // namespace sabre::hal

@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-namespace sabre
+namespace sabre::models
 {
     /**
      * @brief Class that represents an IPv4 address.
@@ -64,4 +64,4 @@ namespace sabre
     using IPv4AddressUniquePtr = std::unique_ptr<IPv4Address>;
 
     std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
-}; // namespace sabre
+}; // namespace sabre::models

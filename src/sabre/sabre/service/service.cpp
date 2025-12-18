@@ -1,6 +1,6 @@
 #include "service.hpp"
 
-namespace sabre
+namespace sabre::os
 {
     Service::Service(ServiceHandler fn) : _fn(fn) {}
-} // namespace sabre
+} // namespace sabre::os

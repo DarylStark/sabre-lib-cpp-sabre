@@ -1,6 +1,6 @@
 #include "wait_for.hpp"
 
-namespace sabre
+namespace sabre::utility
 {
 
     bool WaitFor::_done(bool result, uint64_t total_runtime)
@@ -38,4 +38,4 @@ namespace sabre
     {
         return _runtime;
     }
-}; // namespace sabre
+}; // namespace sabre::utility

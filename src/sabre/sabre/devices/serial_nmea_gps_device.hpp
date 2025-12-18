@@ -21,7 +21,7 @@ namespace sabre::devices
         void set_uart_ptr(sabre::UARTPtr uart);
         void set_output_uart_ptr(sabre::UARTPtr uart);
 
-        sabre::Models::Position get_last_position() const override;
+        sabre::models::Position get_last_position() const override;
         bool is_valid_position() const override;
         bool read() override;
     };

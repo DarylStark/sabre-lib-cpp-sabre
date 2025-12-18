@@ -22,7 +22,7 @@ namespace sabre::devices
         _output_uart = uart;
     }
 
-    sabre::Models::Position SerialNmeaGpsDevice::get_last_position() const
+    sabre::models::Position SerialNmeaGpsDevice::get_last_position() const
     {
         return _nmea_parser.get_last_position();
     }

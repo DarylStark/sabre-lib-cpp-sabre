@@ -7,7 +7,7 @@
 
 namespace sabre
 {
-    namespace Models
+    namespace models
     {
 
         /**
@@ -210,11 +210,11 @@ namespace sabre
             uint32_t get_version() const;
             void set_version(uint32_t version);
         };
-    } // namespace Models
+    } // namespace models
 
     namespace parsers
     {
-        using namespace sabre::Models;
+        using namespace sabre::models;
 
         /**
          * @brief NMEA sentence parser for extracting position data.

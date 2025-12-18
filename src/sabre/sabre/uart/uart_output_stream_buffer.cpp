@@ -2,7 +2,7 @@
 
 #include "uart_output_stream_buffer.hpp"
 
-namespace sabre
+namespace sabre::io
 {
     UARTStreamBuf::UARTStreamBuf(UARTUniquePtr uart, size_t buffer_size)
         : _uart(std::move(uart))
@@ -49,4 +49,4 @@ namespace sabre
     {
         setp(_buffer, _buffer + _buffer_size);
     }
-} // namespace sabre
+} // namespace sabre::io
