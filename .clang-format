@@ -6,7 +6,7 @@ BreakBeforeBraces: Allman
 AllowShortFunctionsOnASingleLine: Empty
 Language: Cpp
 Standard: c++20
-RemoveBracesLLVM: true
+RemoveBracesLLVM: false
 AlignAfterOpenBracket: Align
 NamespaceIndentation: All
 AccessModifierOffset: -4

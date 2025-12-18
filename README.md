@@ -30,22 +30,3 @@ To build the framework, you have to use `cmake`. **Note:** CMake 3.19 or newer i
 cd build/release-with-tests
 ctest
 ```
-
-## Namespace structure
-
-The Sabre framework is structured as follows:
-
-| Namespace        | Description                                                            | Interface only |  Pure   | Dependencies                           | Remarks                       |
-| ---------------- | ---------------------------------------------------------------------- | :------------: | :-----: | -------------------------------------- | ----------------------------- |
-| `sabre::core`    | Core abstractions and lifecycle                                        |     **No**     |         | All interface only and pure namespaces | Shouldn't depend on concretes |
-| `sabre::devices` | High-level device facades (GPS, LTE, sensors) – use HAL underneath     |     **No**     |         | `hal`, `net`, `time`, `model`          |                               |
-| `sabre::hal`     | Pure hardware abstraction interfaces (GPIO, UART, I2C, SPI, etc.)      |    **Yes**     |         | None                                   |                               |
-| `sabre::impl`    | Platform implementations for interfaces                                |     **No**     |         | `hal`, `net`, `os`, `time`             |                               |
-| `sabre::io`      | Streams, logging sinks, files if any (desktop only)                    |    **Yes**     |         | `hal`                                  |                               |
-| `sabre::log`     | Log handlers                                                           |     **No**     |         | `io`                                   |                               |
-| `sabre::model`   | Domain models (Position, SatelliteInfo…) – pure value types            |     **No**     | **Yes** | None                                   |                               |
-| `sabre::net`     | Protocol-level interfaces (WiFi, SoftAP, MQTT, TCP/UDP)                |    **Yes**     |         | None                                   |                               |
-| `sabre::os`      | “service” concept, threading, timers; maps to FreeRTOS/Std::thread     |    **Yes**     |         | None                                   |                               |
-| `sabre::parsers` | Parsers (NMEA, UBX, JSON...); pure, platform-free                      |     **No**     | **Yes** | None                                   |                               |
-| `sabre::time`    | WallClock, NTP, monotonic timers                                       |    **Yes**     |         | None                                   |                               |
-| `sabre::utility` | General-purpose helpers, reusable patterns, predicates, timeouts, etc. |     **No**     |         | All interface only and pure namespaces | For non-domain-specific code  |
