@@ -6,10 +6,10 @@
     },
     "configurePresets": [
         {
-            "name": "ninja-debug-with-tests",
+            "name": "dbg-sabre-pilot-tests",
             "displayName": "Debug - Sabre, Pilot, Tests",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/debug-with-tests",
+            "binaryDir": "${sourceDir}/build/dbg-sabre-pilot-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "SABRE_BUILD_TESTS": "ON",
@@ -17,10 +17,10 @@
             }
         },
         {
-            "name": "ninja-debug-with-tests-no-pilot",
+            "name": "dbg-sabre-tests",
             "displayName": "Debug - Sabre, Tests",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/debug-with-tests-no-pilot",
+            "binaryDir": "${sourceDir}/build/dbg-sabre-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "SABRE_BUILD_TESTS": "ON",
@@ -28,24 +28,24 @@
             }
         },
         {
-            "name": "ninja-release-with-tests",
-            "displayName": "Release - Sabre, Pilot, Tests",
+            "name": "dbg-sabre",
+            "displayName": "Debug - Sabre",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/release-with-tests",
+            "binaryDir": "${sourceDir}/build/dbg-sabre",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "SABRE_BUILD_TESTS": "ON",
-                "SABRE_BUILD_PILOT": "ON"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SABRE_BUILD_TESTS": "OFF",
+                "SABRE_BUILD_PILOT": "OFF"
             }
         },
         {
-            "name": "ninja-release-without-tests",
-            "displayName": "Release - Sabre",
+            "name": "rel-sabre-tests",
+            "displayName": "Release - Sabre, Tests",
             "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/release-without-tests",
+            "binaryDir": "${sourceDir}/build/rel-sabre-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "SABRE_BUILD_TESTS": "OFF",
+                "SABRE_BUILD_TESTS": "ON",
                 "SABRE_BUILD_PILOT": "OFF"
             }
         }
