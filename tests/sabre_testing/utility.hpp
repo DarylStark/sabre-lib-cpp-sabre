@@ -13,6 +13,6 @@ namespace sabre::impl::sabre_testing
         void _sleep() const;
 
     public:
-        StWaitFor(WaitForPred fn, uint64_t timeout_in_ms, uint64_t sleep_time);
+        StWaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime);
     };
 } // namespace sabre::impl::sabre_testing

@@ -4,7 +4,7 @@
 #include <functional>
 #include <list>
 #include <map>
-#include <sabre/app/app.hpp>
+#include <sabre/core/app.hpp>
 #include <unordered_map>
 #include <vector>
 
@@ -77,7 +77,7 @@ namespace sabre::Pilot
     {
     private:
         DeviceConfig _config;
-        sabre::AppUniquePtr _app;
+        sabre::core::App::UniquePtr _app;
         GPIOVector _gpios;
         UARTMap _uart_map;
         EventCallbacks _event_callbacks;
@@ -86,7 +86,7 @@ namespace sabre::Pilot
                           std::unique_ptr<DeviceEventData> data);
 
     public:
-        Device(DeviceConfig config, sabre::AppUniquePtr &&app);
+        Device(DeviceConfig config, sabre::core::App::UniquePtr &&app);
 
         // Device control
         void start();

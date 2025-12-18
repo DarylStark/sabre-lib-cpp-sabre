@@ -1,21 +1,21 @@
 #pragma once
 
 #include "../../simulator/device.hpp"
-#include <sabre/gpio/output_gpio.hpp>
+#include <sabre/hal/output_gpio.hpp>
 
 namespace sabre::Pilot
 {
-    class OutputGPIO : public sabre::OutputGPIO
+    class OutputGpio : public sabre::hal::OutputGpio
     {
     private:
         Device *__device;
         uint32_t _pin;
 
     public:
-        OutputGPIO(Device *device, uint32_t pin);
+        OutputGpio(Device *device, uint32_t pin);
         void reset() override;
-        void set_high() override;
-        void set_low() override;
-        void set_level(bool level) override;
+        void setHigh() override;
+        void setLow() override;
+        void setLevel(bool level) override;
     };
 } // namespace sabre::Pilot

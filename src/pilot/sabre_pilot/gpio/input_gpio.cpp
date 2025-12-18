@@ -2,46 +2,46 @@
 
 namespace sabre::Pilot
 {
-    InputGPIO::InputGPIO(Device *device, uint32_t pin)
+    InputGpio::InputGpio(Device *device, uint32_t pin)
         : _device(device), _pin(pin)
     {
         _device->set_gpio_type(pin, GPIOType::INPUT);
     }
 
-    bool InputGPIO::_get_level() const
+    bool InputGpio::_getLevel() const
     {
         // Implementation specific code to get the GPIO level
         return _device->get_gpio(_pin).state > 0;
     }
 
-    void InputGPIO::reset()
+    void InputGpio::reset()
     {
         // Implementation specific code to reset the GPIO
         _device->reset_gpio(_pin);
     }
 
-    void InputGPIO::enable_pullup()
+    void InputGpio::enablePullup()
     {
         // Implementation specific code to enable pull-up resistor
     }
 
-    void InputGPIO::enable_pulldown()
+    void InputGpio::enablePulldown()
     {
         // Implementation specific code to enable pull-down resistor
     }
 
-    void InputGPIO::disable_pullup()
+    void InputGpio::disablePullup()
     {
         // Implementation specific code to disable pull-up resistor
     }
 
-    void InputGPIO::disable_pulldown()
+    void InputGpio::disablePulldown()
     {
         // Implementation specific code to disable pull-down resistor
     }
 
-    void InputGPIO::add_interrupt_handler(ISRHandler handler,
-                                          ISRTrigger trigger)
+    void InputGpio::addInterruptHandler(sabre::hal::ISRHandler handler,
+                                        sabre::hal::ISRTrigger trigger)
     {
         // Implementation specific code to add an interrupt handler
     }

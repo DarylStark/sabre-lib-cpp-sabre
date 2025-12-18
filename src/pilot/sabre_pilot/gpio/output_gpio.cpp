@@ -2,28 +2,28 @@
 
 namespace sabre::Pilot
 {
-    OutputGPIO::OutputGPIO(Device *device, uint32_t pin)
+    OutputGpio::OutputGpio(Device *device, uint32_t pin)
         : __device(device), _pin(pin)
     {
         __device->set_gpio_type(pin, GPIOType::OUTPUT);
     }
 
-    void OutputGPIO::reset()
+    void OutputGpio::reset()
     {
         __device->reset_gpio(_pin);
     }
 
-    void OutputGPIO::set_high()
+    void OutputGpio::setHigh()
     {
-        set_level(true);
+        setLevel(true);
     }
 
-    void OutputGPIO::set_low()
+    void OutputGpio::setLow()
     {
-        set_level(false);
+        setLevel(false);
     }
 
-    void OutputGPIO::set_level(bool level)
+    void OutputGpio::setLevel(bool level)
     {
         __device->set_gpio_state(_pin, level ? 1 : 0);
     }

@@ -12,69 +12,71 @@ namespace sabre::Pilot
         std::cout << "Factory created for device at " << device << std::endl;
     }
 
-    UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
-                                              int32_t baud_rate, int32_t tx_pin,
-                                              int32_t rx_pin,
-                                              size_t buffer_size) const
+    sabre::hal::Uart::UniquePtr
+    Factory::createUartObject(uint32_t uart_number, int32_t baud_rate,
+                              int32_t tx_pin, int32_t rx_pin,
+                              size_t buffer_size) const
     {
         // Implementation specific code to create a UART object
-        return std::make_unique<UART>(_device, uart_number, buffer_size);
+        return std::make_unique<Uart>(_device, uart_number, buffer_size);
     }
 
-    InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const
+    sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const
     {
         std::cout << "Creating InputGPIO on pin " << pin << " for device at "
                   << _device << std::endl;
-        return std::make_unique<InputGPIO>(_device, pin);
+        return std::make_unique<sabre::Pilot::InputGpio>(_device, pin);
     }
 
-    OutputGPIOUniquePtr Factory::create_output_gpio(int32_t pin) const
+    sabre::hal::OutputGpio::UniquePtr
+    Factory::createOutputGpio(int32_t pin) const
     {
         std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
                   << _device << std::endl;
-        return std::make_unique<OutputGPIO>(_device, pin);
+        return std::make_unique<sabre::Pilot::OutputGpio>(_device, pin);
     }
 
-    WifiStationUniquePtr Factory::create_wifi_station() const
+    sabre::net::WifiStation::UniquePtr Factory::createWifiStation() const
     {
         // Implementation specific code to create a WifiStation object
         return nullptr; // Placeholder
     }
 
-    WifiSoftAPUniquePtr Factory::create_wifi_soft_ap() const
+    sabre::net::WifiSoftAp::UniquePtr Factory::createWifiSoftAp() const
     {
         // Implementation specific code to create a WifiSoftAP object
         return nullptr; // Placeholder
     }
 
-    WallClockUniquePtr Factory::create_wall_clock() const
+    sabre::time::WallClock::UniquePtr Factory::createWallClock() const
     {
         // Implementation specific code to create a WallClock object
         return nullptr; // Placeholder
     }
 
-    NTPClientUniquePtr
-    Factory::create_ntp_client(const std::string &server) const
+    sabre::time::NtpClient::UniquePtr
+    Factory::createNtpClient(const std::string &server) const
     {
         // Implementation specific code to create an NTPClient object
         return nullptr; // Placeholder
     }
 
-    MQTTClientUniquePtr Factory::create_mqtt_client() const
+    sabre::net::MqttClient::UniquePtr Factory::createMqttClient() const
     {
         // Implementation specific code to create an MQTTClient object
         return nullptr; // Placeholder
     }
 
-    WaitForUniquePtr Factory::create_wait_for(WaitForPred fn,
-                                              uint64_t timeout_in_ms,
-                                              uint64_t sleep_time) const
+    sabre::utility::WaitFor::UniquePtr
+    Factory::createWaitFor(sabre::utility::WaitForPred fn,
+                           uint64_t timeout_in_ms, uint64_t sleep_time) const
     {
         // Implementation specific code to create a WaitFor object
         return nullptr; // Placeholder
     }
 
-    ServiceUniquePtr Factory::create_service(ServiceHandler fn) const
+    sabre::os::Service::UniquePtr
+    Factory::createService(sabre::os::ServiceHandler fn) const
     {
         // Implementation specific code to create a Service object
         return nullptr; // Placeholder

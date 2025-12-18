@@ -11,9 +11,9 @@ TEST(Logging, DebugLogging)
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "Testlogger",
                              "Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::INFO);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::INFO);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, InfoLogging)
@@ -27,9 +27,9 @@ TEST(Logging, InfoLogging)
     sabre::log::Logging::log(sabre::log::LoggingLevel::DEBUG,
                              "Testlogger_debug", "Testmessage_debug");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::INFO);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::INFO);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, RetrieveLevel)
@@ -52,9 +52,9 @@ TEST(Logging, Logger)
     sabre::log::Logger logger("Testlogger");
     logger.log(sabre::log::LoggingLevel::INFO, "Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::INFO);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::INFO);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerDebug)
@@ -67,9 +67,9 @@ TEST(Logging, LoggerDebug)
     sabre::log::Logger logger("Testlogger");
     logger.debug("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::DEBUG);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::DEBUG);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerInfo)
@@ -82,9 +82,9 @@ TEST(Logging, LoggerInfo)
     sabre::log::Logger logger("Testlogger");
     logger.info("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::INFO);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::INFO);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerNotice)
@@ -97,9 +97,9 @@ TEST(Logging, LoggerNotice)
     sabre::log::Logger logger("Testlogger");
     logger.notice("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::NOTICE);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::NOTICE);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerWarning)
@@ -112,9 +112,9 @@ TEST(Logging, LoggerWarning)
     sabre::log::Logger logger("Testlogger");
     logger.warning("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::WARNING);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::WARNING);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerError)
@@ -127,9 +127,9 @@ TEST(Logging, LoggerError)
     sabre::log::Logger logger("Testlogger");
     logger.error("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::ERROR);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::ERROR);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerCritical)
@@ -142,9 +142,9 @@ TEST(Logging, LoggerCritical)
     sabre::log::Logger logger("Testlogger");
     logger.critical("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::CRITICAL);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::CRITICAL);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerAlert)
@@ -157,9 +157,9 @@ TEST(Logging, LoggerAlert)
     sabre::log::Logger logger("Testlogger");
     logger.alert("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::ALERT);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::ALERT);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggerEmergency)
@@ -172,9 +172,9 @@ TEST(Logging, LoggerEmergency)
     sabre::log::Logger logger("Testlogger");
     logger.emergency("Testmessage");
 
-    ASSERT_EQ(handler->get_last_level(), sabre::log::LoggingLevel::EMERGENCY);
-    ASSERT_EQ(handler->get_last_logger_name(), "Testlogger");
-    ASSERT_EQ(handler->get_last_message(), "Testmessage");
+    ASSERT_EQ(handler->getLastLevel(), sabre::log::LoggingLevel::EMERGENCY);
+    ASSERT_EQ(handler->getLastLoggerName(), "Testlogger");
+    ASSERT_EQ(handler->getLastMessage(), "Testmessage");
 }
 
 TEST(Logging, LoggingLevelToString_Unknown)

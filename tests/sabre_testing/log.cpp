@@ -3,25 +3,25 @@
 namespace sabre::impl::sabre_testing
 {
     void TestHandler::handleLog(const LoggingLevel level,
-                                const std::string &logger_name,
+                                const std::string &loggerName,
                                 const std::string &message)
     {
         _level = level;
-        _logger_name = logger_name;
+        _logger_name = loggerName;
         _message = message;
     }
 
-    LoggingLevel TestHandler::get_last_level() const
+    LoggingLevel TestHandler::getLastLevel() const
     {
         return _level;
     }
 
-    std::string TestHandler::get_last_logger_name() const
+    std::string TestHandler::getLastLoggerName() const
     {
         return _logger_name;
     }
 
-    std::string TestHandler::get_last_message() const
+    std::string TestHandler::getLastMessage() const
     {
         return _message;
     }

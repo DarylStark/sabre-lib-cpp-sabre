@@ -1,10 +1,10 @@
 #pragma once
 
-#include <sabre/gpio/gpio.hpp>
+#include <sabre/hal/gpio.hpp>
 
 namespace sabre::Pilot
 {
-    class GPIO : public sabre::GPIO
+    class Gpio : public sabre::hal::Gpio
     {
     public:
         void reset() override;

@@ -11,7 +11,7 @@ namespace sabre::Pilot
     {
     }
 
-    Device::Device(DeviceConfig config, sabre::AppUniquePtr &&app)
+    Device::Device(DeviceConfig config, sabre::core::App::UniquePtr &&app)
         : _config(config), _app(std::move(app)), _gpios(config.gpio_count)
     {
         uint32_t gpio_index = 0;
@@ -34,7 +34,7 @@ namespace sabre::Pilot
 
     void Device::start()
     {
-        _app->set_factory(std::make_unique<Factory>(this));
+        _app->setFactory(std::make_unique<sabre::Pilot::Factory>(this));
         _app->start();
     }
 

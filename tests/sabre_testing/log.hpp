@@ -14,10 +14,10 @@ namespace sabre::impl::sabre_testing
         std::string _message;
 
     public:
-        void handleLog(const LoggingLevel level, const std::string &logger_name,
+        void handleLog(const LoggingLevel level, const std::string &loggerName,
                        const std::string &message);
-        LoggingLevel get_last_level() const;
-        std::string get_last_logger_name() const;
-        std::string get_last_message() const;
+        LoggingLevel getLastLevel() const;
+        std::string getLastLoggerName() const;
+        std::string getLastMessage() const;
     };
 } // namespace sabre::impl::sabre_testing

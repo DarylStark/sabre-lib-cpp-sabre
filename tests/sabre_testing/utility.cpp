@@ -14,9 +14,9 @@ namespace sabre::impl::sabre_testing
             .count();
     }
 
-    StWaitFor::StWaitFor(WaitForPred fn, uint64_t timeout_in_ms,
-                         uint64_t sleep_time)
-        : sabre::utility::WaitFor(fn, timeout_in_ms, sleep_time)
+    StWaitFor::StWaitFor(WaitForPred fn, uint64_t timeoutInMs,
+                         uint64_t sleepTime)
+        : sabre::utility::WaitFor(fn, timeoutInMs, sleepTime)
     {
     }
 

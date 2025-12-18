@@ -2,7 +2,7 @@
 
 namespace sabre::Pilot
 {
-    void GPIO::reset()
+    void Gpio::reset()
     {
         // Implementation specific code to reset the GPIO
     }

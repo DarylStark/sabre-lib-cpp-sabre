@@ -25,10 +25,10 @@ namespace sabre::impl::sabre_testing
         return static_cast<int>(data);
     }
 
-    std::string TestUART::readBytes(size_t max_bytes, uint32_t timeout_ms)
+    std::string TestUART::readBytes(size_t maxBytes, uint32_t timeoutMs)
     {
-        // For testing purposes, return up to max_bytes from the buffer
-        std::string result = _buf.substr(0, max_bytes);
+        // For testing purposes, return up to maxBytes from the buffer
+        std::string result = _buf.substr(0, maxBytes);
         _buf.erase(0, result.size());
         return result;
     }

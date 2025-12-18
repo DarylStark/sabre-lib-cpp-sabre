@@ -23,7 +23,7 @@ namespace sabre::impl::sabre_testing
         bool _is_started = false;
 
     public:
-        void connect(const std::string &hostname, const std::string &client_id,
+        void connect(const std::string &hostname, const std::string &clientId,
                      const std::string &username, const std::string &password);
         void disconnect();
         void stop();

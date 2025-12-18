@@ -10,7 +10,7 @@ namespace sabre::Pilot
 
     Device *Simulator::add_mcu(const std::string &name,
                                const DeviceConfig &config,
-                               sabre::AppUniquePtr &&app)
+                               sabre::core::App::UniquePtr &&app)
     {
         SimulatorDevice device{
             .name = name,

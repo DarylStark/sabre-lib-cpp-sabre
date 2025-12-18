@@ -30,7 +30,7 @@ namespace sabre::impl::sabre_testing
     public:
         void initialize();
         int writeByte(char data) const;
-        std::string readBytes(size_t max_bytes, uint32_t timeout_ms) override;
+        std::string readBytes(size_t maxBytes, uint32_t timeoutMs) override;
         void flush();
         void deinitialize();
 

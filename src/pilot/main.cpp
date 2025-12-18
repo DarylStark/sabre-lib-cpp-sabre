@@ -1,15 +1,15 @@
 #include "imgui_presenter/imgui_presenter.hpp"
 #include "mcu.hpp"
-#include "sabre/app/app.hpp"
+#include "sabre/core/app.hpp"
 #include "simulator/device_connector.hpp"
 #include "simulator/simulator.hpp"
 #include <iostream>
 #include <thread>
 
-class MyApp : public sabre::App
+class MyApp : public sabre::core::App
 {
 private:
-    sabre::UARTUniquePtr _uart0;
+    sabre::hal::Uart::UniquePtr _uart0;
     bool _stop = false;
 
 public:
@@ -17,26 +17,26 @@ public:
 
     void start() override
     {
-        _uart0 = _factory->create_uart_object(0, 9600, 1, 2, 512);
+        _uart0 = _factory->createUartObject(0, 9600, 1, 2, 512);
         _uart0->initialize();
 
         while (true)
         {
-            std::string received_data = _uart0->read_bytes(1, 16);
+            std::string received_data = _uart0->readBytes(1, 16);
             for (const auto &b : received_data)
-                _uart0->write_byte(b);
+                _uart0->writeByte(b);
             std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 };
 
-class MyGpsApp : public sabre::App
+class MyGpsApp : public sabre::core::App
 {
 public:
     void start() override
     {
         // Simulate GPS data output
-        auto uart1 = _factory->create_uart_object(0, 9600, 0, 1, 512);
+        auto uart1 = _factory->createUartObject(0, 9600, 0, 1, 512);
         uart1->initialize();
         while (true)
         {
@@ -44,7 +44,7 @@ public:
                                         "1,08,0.9,545.4,M,46.9,M,,*47\n";
             for (const char &p : nmea_sentence)
             {
-                uart1->write_byte(p);
+                uart1->writeByte(p);
                 std::this_thread::sleep_for(std::chrono::milliseconds(10));
             }
             std::this_thread::sleep_for(std::chrono::seconds(1));

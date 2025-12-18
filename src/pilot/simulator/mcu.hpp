@@ -9,7 +9,7 @@ namespace sabre::Pilot
     class Mcu : public Device
     {
     public:
-        Mcu(DeviceConfig config, sabre::AppUniquePtr &&app);
+        Mcu(DeviceConfig config, sabre::core::App::UniquePtr &&app);
         void accept(DeviceVisitor &visitor, const std::string &name) override;
     };
 } // namespace sabre::Pilot

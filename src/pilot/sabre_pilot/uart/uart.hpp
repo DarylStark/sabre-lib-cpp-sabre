@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../../simulator/device.hpp"
-#include <sabre/uart/uart.hpp>
+#include <sabre/hal/uart.hpp>
 
 namespace sabre::Pilot
 {
-    class UART : public sabre::UART
+    class Uart : public sabre::hal::Uart
     {
     private:
         Device *_device;
@@ -13,10 +13,10 @@ namespace sabre::Pilot
         size_t _buffer_size;
 
     public:
-        UART(Device *device, uint32_t number, size_t buffer_size);
+        Uart(Device *device, uint32_t number, size_t buffer_size);
         void initialize() override;
-        int write_byte(char data) const override;
-        std::string read_bytes(size_t max_bytes, uint32_t timeout_ms) override;
+        int writeByte(char data) const override;
+        std::string readBytes(size_t max_bytes, uint32_t timeout_ms) override;
         void flush() override;
         void deinitialize() override;
     };

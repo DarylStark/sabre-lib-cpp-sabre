@@ -3,16 +3,15 @@
 
 namespace sabre::impl::sabre_testing
 {
-    StFactory::StFactory(bool uart_should_be_nullptr)
-        : _uart_should_be_nullptr(uart_should_be_nullptr)
+    StFactory::StFactory(bool uartShouldBeNullptr)
+        : _uart_should_be_nullptr(uartShouldBeNullptr)
     {
     }
 
-    Uart::UniquePtr StFactory::create_uart_object(uint32_t uart_number,
-                                                  int32_t baud_rate,
-                                                  int32_t tx_pin,
-                                                  int32_t rx_pin,
-                                                  size_t buffer_size) const
+    Uart::UniquePtr StFactory::createUartObject(uint32_t uartNumber,
+                                                int32_t baudRate, int32_t txPin,
+                                                int32_t rxPin,
+                                                size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -45,8 +44,8 @@ namespace sabre::impl::sabre_testing
     }
 
     WaitFor::UniquePtr StFactory::createWaitFor(WaitForPred fn,
-                                                uint64_t timeout_in_ms,
-                                                uint64_t sleep_time) const
+                                                uint64_t timeoutInMs,
+                                                uint64_t sleepTime) const
     {
         return nullptr;
     }

@@ -3,7 +3,7 @@
 namespace sabre::impl::sabre_testing
 {
     void StMQTTClient::connect(const std::string &hostname,
-                               const std::string &client_id,
+                               const std::string &clientId,
                                const std::string &username,
                                const std::string &password)
     {
