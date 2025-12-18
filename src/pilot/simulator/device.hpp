@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     class Device;
 
@@ -117,4 +117,4 @@ namespace sabre::Pilot
         virtual void accept(DeviceVisitor &visitor,
                             const std::string &name) = 0;
     };
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

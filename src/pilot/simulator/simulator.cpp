@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     Simulator::Simulator() {}
 
@@ -65,4 +65,4 @@ namespace sabre::Pilot
         return _devices;
     }
 
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

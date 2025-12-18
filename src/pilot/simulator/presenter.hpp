@@ -2,7 +2,7 @@
 
 #include "../simulator/simulator.hpp"
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     class Presenter
     {
@@ -13,4 +13,4 @@ namespace sabre::Pilot
         Presenter(Simulator &simulator);
         virtual void start() = 0;
     };
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

@@ -4,7 +4,7 @@
 #include "sabre/core/app.hpp"
 #include <sabre/core/factory.hpp>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     class Factory : public sabre::core::Factory
     {
@@ -32,4 +32,4 @@ namespace sabre::Pilot
         sabre::os::Service::UniquePtr
         createService(sabre::os::ServiceHandler fn) const;
     };
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

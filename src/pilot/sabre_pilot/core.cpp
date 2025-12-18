@@ -1,11 +1,8 @@
-#include "factory.hpp"
+#include "core.hpp"
+#include "hal.hpp"
 #include <iostream>
 
-#include "gpio/input_gpio.hpp"
-#include "gpio/output_gpio.hpp"
-#include "uart/uart.hpp"
-
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     Factory::Factory(Device *device) : _device(device)
     {
@@ -25,7 +22,7 @@ namespace sabre::Pilot
     {
         std::cout << "Creating InputGPIO on pin " << pin << " for device at "
                   << _device << std::endl;
-        return std::make_unique<sabre::Pilot::InputGpio>(_device, pin);
+        return std::make_unique<sabre::impl::pilot::InputGpio>(_device, pin);
     }
 
     sabre::hal::OutputGpio::UniquePtr
@@ -33,7 +30,7 @@ namespace sabre::Pilot
     {
         std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
                   << _device << std::endl;
-        return std::make_unique<sabre::Pilot::OutputGpio>(_device, pin);
+        return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
     }
 
     sabre::net::WifiStation::UniquePtr Factory::createWifiStation() const
@@ -81,4 +78,4 @@ namespace sabre::Pilot
         // Implementation specific code to create a Service object
         return nullptr; // Placeholder
     }
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

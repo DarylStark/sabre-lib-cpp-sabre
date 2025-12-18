@@ -1,8 +1,8 @@
 #include "device.hpp"
-#include "../sabre_pilot/factory.hpp"
+#include "../sabre_pilot/core.hpp"
 #include <iostream>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     DeviceEventData::~DeviceEventData() {}
 
@@ -34,7 +34,7 @@ namespace sabre::Pilot
 
     void Device::start()
     {
-        _app->setFactory(std::make_unique<sabre::Pilot::Factory>(this));
+        _app->setFactory(std::make_unique<sabre::impl::pilot::Factory>(this));
         _app->start();
     }
 
@@ -154,4 +154,4 @@ namespace sabre::Pilot
     {
         return _uart_map;
     }
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

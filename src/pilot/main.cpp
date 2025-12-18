@@ -54,7 +54,7 @@ public:
 
 int main()
 {
-    using namespace sabre::Pilot;
+    using namespace sabre::impl::pilot;
 
     DeviceConfig config_mcu{.gpio_count = 32, .uart_count = 2};
     DeviceConfig config_gps{.gpio_count = 2, .uart_count = 1};

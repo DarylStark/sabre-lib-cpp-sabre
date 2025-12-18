@@ -6,7 +6,7 @@
 #include <thread>
 #include <utility>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     struct SimulatorDevice
     {
@@ -35,4 +35,4 @@ namespace sabre::Pilot
 
         DeviceList &get_device_list();
     };
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot

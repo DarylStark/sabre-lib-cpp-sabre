@@ -4,7 +4,7 @@
 #include "simulator.hpp"
 #include <string>
 
-namespace sabre::Pilot
+namespace sabre::impl::pilot
 {
     class Mcu : public Device
     {
@@ -12,4 +12,4 @@ namespace sabre::Pilot
         Mcu(DeviceConfig config, sabre::core::App::UniquePtr &&app);
         void accept(DeviceVisitor &visitor, const std::string &name) override;
     };
-} // namespace sabre::Pilot
+} // namespace sabre::impl::pilot
