@@ -2,18 +2,18 @@
 
 namespace sabre::hal
 {
-    bool InputGpio::get_level() const
+    bool InputGpio::getLevel() const
     {
-        return _get_level() == !_inverse_level;
+        return _getLevel() == !_inverseLevel;
     }
 
-    void InputGpio::set_inverse_level(bool level)
+    void InputGpio::setInverseLevel(bool level)
     {
-        _inverse_level = level;
+        _inverseLevel = level;
     }
 
-    bool InputGpio::get_inverse_level() const
+    bool InputGpio::getInverseLevel() const
     {
-        return _inverse_level;
+        return _inverseLevel;
     }
 } // namespace sabre::hal

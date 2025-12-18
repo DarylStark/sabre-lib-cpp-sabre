@@ -9,7 +9,7 @@ namespace sabre::io
     {
         _buffer = new char[buffer_size];
         _buffer_size = buffer_size;
-        _reset_put_buffer();
+        _resetPutBuffer();
     }
 
     UartStreamBuf::~UartStreamBuf()
@@ -40,12 +40,12 @@ namespace sabre::io
             return 0;
 
         for (size_t i = 0; i < len; ++i)
-            _uart->write_byte(pbase()[i]);
-        _reset_put_buffer();
+            _uart->writeByte(pbase()[i]);
+        _resetPutBuffer();
         return 0;
     }
 
-    void UartStreamBuf::_reset_put_buffer()
+    void UartStreamBuf::_resetPutBuffer()
     {
         setp(_buffer, _buffer + _buffer_size);
     }

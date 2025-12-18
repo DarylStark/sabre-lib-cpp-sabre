@@ -19,9 +19,8 @@ namespace sabre::log
 
     public:
         OStreamLogHandler(std::ostream &stream);
-        void handle_log(const LoggingLevel level,
-                        const std::string &logger_name,
-                        const std::string &message) override;
+        void handleLog(const LoggingLevel level, const std::string &logger_name,
+                       const std::string &message) override;
     };
 
     using LogBufferHandlerBuffer = std::deque<std::string>;
@@ -34,13 +33,12 @@ namespace sabre::log
 
     private:
         LogBufferHandlerBuffer _buffer;
-        size_t _max_size;
+        size_t _maxSize;
 
     public:
         LogBufferHandler(size_t size);
-        void handle_log(const LoggingLevel level,
-                        const std::string &logger_name,
-                        const std::string &message) override;
+        void handleLog(const LoggingLevel level, const std::string &logger_name,
+                       const std::string &message) override;
         const LogBufferHandlerBuffer &get_buffer() const;
     };
 } // namespace sabre::log

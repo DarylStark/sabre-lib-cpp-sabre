@@ -7,8 +7,8 @@ namespace sabre::devices
     class GpsDevice
     {
     public:
-        virtual sabre::models::geo::Position get_last_position() const = 0;
-        virtual bool is_valid_position() const = 0;
-        virtual bool read() = 0;
+        virtual sabre::models::geo::Position getLastPosition() const = 0;
+        virtual bool isValidPosition() const = 0;
+        virtual bool readData() = 0;
     };
 } // namespace sabre::devices

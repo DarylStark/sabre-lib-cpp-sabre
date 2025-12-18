@@ -2,9 +2,9 @@
 
 namespace sabre::impl::sabre_testing
 {
-    void TestHandler::handle_log(const LoggingLevel level,
-                                 const std::string &logger_name,
-                                 const std::string &message)
+    void TestHandler::handleLog(const LoggingLevel level,
+                                const std::string &logger_name,
+                                const std::string &message)
     {
         _level = level;
         _logger_name = logger_name;

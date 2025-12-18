@@ -15,20 +15,20 @@ namespace sabre::parsers
     class NmeaValidator : public StringValidator
     {
     private:
-        std::string _nmea_sentence;
+        std::string _NmeaSentence;
         NmeaValidationState _state;
 
     public:
         NmeaValidator();
         ~NmeaValidator();
 
-        void add_character(char character);
+        void addCharacter(char character);
 
         void reset();
-        std::string get_buffer() const;
+        std::string getBuffer() const;
 
-        bool is_error() const;
-        bool is_accepted() const;
-        bool is_started() const;
+        bool isError() const;
+        bool isAccepted() const;
+        bool isStarted() const;
     };
 } // namespace sabre::parsers

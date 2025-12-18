@@ -19,50 +19,50 @@ namespace sabre::impl::sabre_testing
         return std::make_unique<TestUART>();
     }
 
-    InputGpio::UniquePtr StFactory::create_input_gpio(int32_t pin) const
+    InputGpio::UniquePtr StFactory::createInputGpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    OutputGpio::UniquePtr StFactory::create_output_gpio(int32_t pin) const
+    OutputGpio::UniquePtr StFactory::createOutputGpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    WifiStation::UniquePtr StFactory::create_wifi_station() const
+    WifiStation::UniquePtr StFactory::createWifiStation() const
     {
         return nullptr;
     }
 
-    WifiSoftAP::UniquePtr StFactory::create_wifi_soft_ap() const
+    WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
     {
         return nullptr;
     }
 
-    MqttClient::UniquePtr StFactory::create_mqtt_client() const
+    MqttClient::UniquePtr StFactory::createMqttClient() const
     {
         return nullptr;
     }
 
-    WaitFor::UniquePtr StFactory::create_wait_for(WaitForPred fn,
-                                                  uint64_t timeout_in_ms,
-                                                  uint64_t sleep_time) const
+    WaitFor::UniquePtr StFactory::createWaitFor(WaitForPred fn,
+                                                uint64_t timeout_in_ms,
+                                                uint64_t sleep_time) const
     {
         return nullptr;
     }
 
-    Service::UniquePtr StFactory::create_service(ServiceHandler fn) const
+    Service::UniquePtr StFactory::createService(ServiceHandler fn) const
     {
         return nullptr;
     }
 
     NtpClient::UniquePtr
-    StFactory::create_ntp_client(const std::string &server) const
+    StFactory::createNtpClient(const std::string &server) const
     {
         return nullptr;
     }
 
-    WallClock::UniquePtr StFactory::create_wall_clock() const
+    WallClock::UniquePtr StFactory::createWallClock() const
     {
         return nullptr;
     }

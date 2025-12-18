@@ -64,7 +64,7 @@ Sabre follows C++ naming practices broadly aligned with the LLVM coding style, w
     -   Examples: `timeoutMs`, `currentState`, `topicMap`.
 -   For class data members:
     -   Private and protected members must be prefixed with an underscore (e.g. `_timeoutMs`, `_currentState`).
-    -   Public members should use plain `lowerCamelCase`.
+    -   Members should use plain `lowerCamelCase`.
 -   Avoid one-letter variable names except for small loop indices.
 
 ### Constants

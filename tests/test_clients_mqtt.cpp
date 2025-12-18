@@ -6,9 +6,9 @@ TEST(MQTTTopic, PublishingExplicitValues)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
+        client.getTopic("sabre/testing/topic1");
     sabre::net::MqttTopic::SharedPtr topic2 =
-        client.get_topic("sabre/testing/topic2");
+        client.getTopic("sabre/testing/topic2");
 
     topic1->publish("Test message", sabre::net::MqttQos::FIRE_AND_FORGET,
                     sabre::net::MqttRetain::RETAIN);
@@ -34,7 +34,7 @@ TEST(MQTTTopic, PublishingDefaultQoS)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
+        client.getTopic("sabre/testing/topic1");
 
     topic1->publish("Test message");
 
@@ -47,8 +47,8 @@ TEST(MQTTTopic, PublishingDefaultChangedDefault)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
-    topic1->set_default_qos(sabre::net::MqttQos::EXACTLY_ONCE);
+        client.getTopic("sabre/testing/topic1");
+    topic1->setDefaultQos(sabre::net::MqttQos::EXACTLY_ONCE);
 
     topic1->publish("Test message");
 
@@ -61,8 +61,8 @@ TEST(MQTTTopic, PublishingDefaultChangedDefaultToInvalid)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
-    topic1->set_default_qos(sabre::net::MqttQos::UNDEFINED);
+        client.getTopic("sabre/testing/topic1");
+    topic1->setDefaultQos(sabre::net::MqttQos::UNDEFINED);
 
     topic1->publish("Test message");
 
@@ -75,7 +75,7 @@ TEST(MQTTTopic, PublishingDefaultRetain)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
+        client.getTopic("sabre/testing/topic1");
 
     topic1->publish("Test message", sabre::net::MqttQos::AT_LEAST_ONCE);
 
@@ -88,8 +88,8 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefault)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
-    topic1->set_default_retain(sabre::net::MqttRetain::RETAIN);
+        client.getTopic("sabre/testing/topic1");
+    topic1->setDefaultRetain(sabre::net::MqttRetain::RETAIN);
 
     topic1->publish("Test message", sabre::net::MqttQos::AT_LEAST_ONCE);
 
@@ -102,8 +102,8 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
-    topic1->set_default_retain(sabre::net::MqttRetain::UNDEFINED);
+        client.getTopic("sabre/testing/topic1");
+    topic1->setDefaultRetain(sabre::net::MqttRetain::UNDEFINED);
 
     topic1->publish("Test message", sabre::net::MqttQos::AT_LEAST_ONCE);
 
@@ -117,15 +117,15 @@ TEST(MQTTTopic, ReceiveForSubscription)
     int callcount = 0;
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
+        client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
         [&callcount](const sabre::net::MqttEvent) { ++callcount; };
 
     topic1->subscribe(callback);
 
-    client.process_received({"sabre/testing/topic1", "test",
-                             sabre::net::MqttQos::AT_LEAST_ONCE,
-                             sabre::net::MqttRetain::RETAIN});
+    client.processReceived({"sabre/testing/topic1", "test",
+                            sabre::net::MqttQos::AT_LEAST_ONCE,
+                            sabre::net::MqttRetain::RETAIN});
 
     ASSERT_EQ(callcount, 1);
 }
@@ -135,15 +135,15 @@ TEST(MQTTTopic, DontReceiveForNoneSubscription)
     int callcount = 0;
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
-        client.get_topic("sabre/testing/topic1");
+        client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
         [&callcount](const sabre::net::MqttEvent) { ++callcount; };
 
     topic1->subscribe(callback);
 
-    client.process_received({"sabre/testing/topic2", "test",
-                             sabre::net::MqttQos::AT_LEAST_ONCE,
-                             sabre::net::MqttRetain::RETAIN});
+    client.processReceived({"sabre/testing/topic2", "test",
+                            sabre::net::MqttQos::AT_LEAST_ONCE,
+                            sabre::net::MqttRetain::RETAIN});
 
     ASSERT_EQ(callcount, 0);
 }
@@ -154,11 +154,11 @@ TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
     sabre::impl::sabre_testing::StMQTTClient client;
     sabre::net::MqttCallback default_handler =
         [&callcount](const sabre::net::MqttEvent) { ++callcount; };
-    client.set_default_handler(default_handler);
+    client.setDefaultHandler(default_handler);
 
-    client.process_received({"unspecified/topic", "test",
-                             sabre::net::MqttQos::AT_LEAST_ONCE,
-                             sabre::net::MqttRetain::RETAIN});
+    client.processReceived({"unspecified/topic", "test",
+                            sabre::net::MqttQos::AT_LEAST_ONCE,
+                            sabre::net::MqttRetain::RETAIN});
 
     ASSERT_EQ(callcount, 1);
 }
@@ -166,7 +166,7 @@ TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
 TEST(MQTTTopic, NoDefaultHandlerSet)
 {
     sabre::impl::sabre_testing::StMQTTClient client;
-    ASSERT_NO_THROW(client.process_received({"unspecified/topic", "test",
-                                             sabre::net::MqttQos::AT_LEAST_ONCE,
-                                             sabre::net::MqttRetain::RETAIN}););
+    ASSERT_NO_THROW(client.processReceived({"unspecified/topic", "test",
+                                            sabre::net::MqttQos::AT_LEAST_ONCE,
+                                            sabre::net::MqttRetain::RETAIN}););
 }

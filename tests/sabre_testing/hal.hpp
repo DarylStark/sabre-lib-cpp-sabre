@@ -12,14 +12,14 @@ namespace sabre::impl::sabre_testing
     class StInputGpio : public sabre::hal::InputGpio
     {
     protected:
-        bool _get_level() const override;
+        bool _getLevel() const override;
 
     public:
-        void enable_pullup() override;
-        void enable_pulldown() override;
-        void disable_pullup() override;
-        void disable_pulldown() override;
-        void add_interrupt_handler(ISRHandler, ISRTrigger) override;
+        void enablePullup() override;
+        void enablePulldown() override;
+        void disablePullup() override;
+        void disablePulldown() override;
+        void addInterruptHandler(ISRHandler, ISRTrigger) override;
         void reset() override;
 
         bool level = true;
@@ -29,8 +29,8 @@ namespace sabre::impl::sabre_testing
     {
     public:
         void initialize();
-        int write_byte(char data) const;
-        std::string read_bytes(size_t max_bytes, uint32_t timeout_ms) override;
+        int writeByte(char data) const;
+        std::string readBytes(size_t max_bytes, uint32_t timeout_ms) override;
         void flush();
         void deinitialize();
 

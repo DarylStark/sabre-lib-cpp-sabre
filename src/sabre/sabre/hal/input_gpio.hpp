@@ -54,8 +54,8 @@ namespace sabre::hal
         using UniquePtr = std::unique_ptr<InputGpio>;
 
     protected:
-        bool _inverse_level = false;
-        virtual bool _get_level() const = 0;
+        bool _inverseLevel = false;
+        virtual bool _getLevel() const = 0;
 
     public:
         /**
@@ -64,7 +64,7 @@ namespace sabre::hal
          * This constructor initializes the InputGpio object with default
          * settings.
          */
-        virtual bool get_level() const;
+        virtual bool getLevel() const;
 
         /**
          * @brief Sets the level inversion for the GPIO pin.
@@ -76,7 +76,7 @@ namespace sabre::hal
          * @param level A boolean value indicating whether to invert the level.
          *              Default is false, meaning no inversion.
          */
-        virtual void set_inverse_level(bool level = false);
+        virtual void setInverseLevel(bool level = false);
 
         /**
          * @brief Gets the current level inversion setting.
@@ -87,27 +87,27 @@ namespace sabre::hal
          *
          * @return A boolean indicating whether the level is inverted.
          */
-        virtual bool get_inverse_level() const;
+        virtual bool getInverseLevel() const;
 
         /**
          * @brief Enable pull up resistor for the GPIO pin.
          */
-        virtual void enable_pullup() = 0;
+        virtual void enablePullup() = 0;
 
         /**
          * @brief Enable pull down resistor for the GPIO pin.
          */
-        virtual void enable_pulldown() = 0;
+        virtual void enablePulldown() = 0;
 
         /**
          * @brief Disable pull up resistor for the GPIO pin.
          */
-        virtual void disable_pullup() = 0;
+        virtual void disablePullup() = 0;
 
         /**
          * @brief Disable pull down resistor for the GPIO pin.
          */
-        virtual void disable_pulldown() = 0;
+        virtual void disablePulldown() = 0;
 
         /**
          * @brief Add an interrupt handler for the GPIO pin.
@@ -119,6 +119,6 @@ namespace sabre::hal
          * @param handler The ISR handler function to be called on interrupt.
          * @param trigger The trigger condition for the interrupt.
          */
-        virtual void add_interrupt_handler(ISRHandler, ISRTrigger) = 0;
+        virtual void addInterruptHandler(ISRHandler, ISRTrigger) = 0;
     };
 }; // namespace sabre::hal

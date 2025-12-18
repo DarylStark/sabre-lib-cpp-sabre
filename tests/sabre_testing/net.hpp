@@ -27,7 +27,7 @@ namespace sabre::impl::sabre_testing
                      const std::string &username, const std::string &password);
         void disconnect();
         void stop();
-        bool is_connected() const;
+        bool isConnected() const;
 
         void publish(const std::string &topic, const std::string &message,
                      MqttQos qos, MqttRetain retain);

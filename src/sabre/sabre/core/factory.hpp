@@ -21,7 +21,7 @@ namespace sabre::core
     using sabre::hal::OutputGpio;
     using sabre::hal::Uart;
     using sabre::net::MqttClient;
-    using sabre::net::WifiSoftAP;
+    using sabre::net::WifiSoftAp;
     using sabre::net::WifiStation;
     using sabre::os::Service;
     using sabre::os::ServiceHandler;
@@ -71,7 +71,7 @@ namespace sabre::core
          * @return A `InputGpio::UniquePtr` unique pointer to a `InputGpio`
          * object.
          */
-        virtual InputGpio::UniquePtr create_input_gpio(int32_t pin) const = 0;
+        virtual InputGpio::UniquePtr createInputGpio(int32_t pin) const = 0;
 
         /**
          * @brief Create a `OutputGpio` object.
@@ -81,7 +81,7 @@ namespace sabre::core
          * @return A `OutputGpioUniquePtr` unique pointer to a `OutputGpio`
          * object.
          */
-        virtual OutputGpio::UniquePtr create_output_gpio(int32_t pin) const = 0;
+        virtual OutputGpio::UniquePtr createOutputGpio(int32_t pin) const = 0;
 
         /**
          * @brief Create a `WifiStation` object.
@@ -89,7 +89,7 @@ namespace sabre::core
          * @return A `WifiStationUniquePtr` unique pointer to a `WifiStation`
          * object.
          */
-        virtual WifiStation::UniquePtr create_wifi_station() const = 0;
+        virtual WifiStation::UniquePtr createWifiStation() const = 0;
 
         /**
          * @brief Create a `WifiSoftAP` object.
@@ -97,7 +97,7 @@ namespace sabre::core
          * @return A `WifiSoftAPUniquePtr` unique pointer to a `WifiSoftAP`
          * object.
          */
-        virtual WifiSoftAP::UniquePtr create_wifi_soft_ap() const = 0;
+        virtual WifiSoftAp::UniquePtr createWifiSoftAp() const = 0;
 
         /**
          * @brief Create a `MQTTClient` object.
@@ -112,7 +112,7 @@ namespace sabre::core
          * @return A `WallClockUniquePtr` unique pointer to a `WallClock`
          * object.
          */
-        virtual WallClock::UniquePtr create_wall_clock() const = 0;
+        virtual WallClock::UniquePtr createWallClock() const = 0;
 
         /**
          * @brief Create a `NTPClient` object.
@@ -123,9 +123,9 @@ namespace sabre::core
          * object.
          */
         virtual NtpClient::UniquePtr
-        create_ntp_client(const std::string &server) const = 0;
+        createNtpClient(const std::string &server) const = 0;
 
-        virtual MqttClient::UniquePtr create_mqtt_client() const = 0;
+        virtual MqttClient::UniquePtr createMqttClient() const = 0;
 
         /**
          * @brief Create a `WaitFor` object.
@@ -138,9 +138,9 @@ namespace sabre::core
          * @return A `WaitForUniquePtr` unique pointer to a `WaitFor`
          * object.
          */
-        virtual WaitFor::UniquePtr
-        create_wait_for(WaitForPred fn, uint64_t timeout_in_ms,
-                        uint64_t sleep_time) const = 0;
+        virtual WaitFor::UniquePtr createWaitFor(WaitForPred fn,
+                                                 uint64_t timeout_in_ms,
+                                                 uint64_t sleep_time) const = 0;
 
         /**
          * @brief Create a `Service` object.
@@ -150,6 +150,6 @@ namespace sabre::core
          * @return A `ServiceUniquePtr` unique pointer to a `Service`
          * object.
          */
-        virtual Service::UniquePtr create_service(ServiceHandler fn) const = 0;
+        virtual Service::UniquePtr createService(ServiceHandler fn) const = 0;
     };
 } // namespace sabre::core

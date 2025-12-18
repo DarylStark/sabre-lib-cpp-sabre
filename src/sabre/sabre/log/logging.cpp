@@ -49,12 +49,12 @@ namespace sabre::log
         log(LoggingLevel::EMERGENCY, message);
     }
 
-    void Logging::set_level(LoggingLevel level)
+    void Logging::setLevel(LoggingLevel level)
     {
         _level = level;
     }
 
-    LoggingLevel Logging::get_level()
+    LoggingLevel Logging::getLevel()
     {
         return _level;
     }
@@ -67,15 +67,15 @@ namespace sabre::log
     {
         if (level <= _level)
             for (const auto &handler : _handlers)
-                handler->handle_log(level, logger_name, message);
+                handler->handleLog(level, logger_name, message);
     }
 
-    void Logging::add_handler(LogHandler::SharedPtr handler)
+    void Logging::addHandler(LogHandler::SharedPtr handler)
     {
         _handlers.push_front(handler);
     }
 
-    void Logging::remove_handler(LogHandler::SharedPtr handler)
+    void Logging::removeHandler(LogHandler::SharedPtr handler)
     {
         _handlers.remove(handler);
     }

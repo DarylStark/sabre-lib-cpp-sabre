@@ -6,8 +6,8 @@ TEST(Logging, DebugLogging)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "Testlogger",
                              "Testmessage");
 
@@ -20,8 +20,8 @@ TEST(Logging, InfoLogging)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::INFO);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::INFO);
+    sabre::log::Logging::addHandler(handler);
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "Testlogger",
                              "Testmessage");
     sabre::log::Logging::log(sabre::log::LoggingLevel::DEBUG,
@@ -34,11 +34,11 @@ TEST(Logging, InfoLogging)
 
 TEST(Logging, RetrieveLevel)
 {
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::INFO);
-    ASSERT_EQ(sabre::log::Logging::get_level(), sabre::log::LoggingLevel::INFO);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::INFO);
+    ASSERT_EQ(sabre::log::Logging::getLevel(), sabre::log::LoggingLevel::INFO);
 
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::WARNING);
-    ASSERT_EQ(sabre::log::Logging::get_level(),
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::WARNING);
+    ASSERT_EQ(sabre::log::Logging::getLevel(),
               sabre::log::LoggingLevel::WARNING);
 }
 
@@ -46,8 +46,8 @@ TEST(Logging, Logger)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::INFO);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::INFO);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.log(sabre::log::LoggingLevel::INFO, "Testmessage");
@@ -61,8 +61,8 @@ TEST(Logging, LoggerDebug)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.debug("Testmessage");
@@ -76,8 +76,8 @@ TEST(Logging, LoggerInfo)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.info("Testmessage");
@@ -91,8 +91,8 @@ TEST(Logging, LoggerNotice)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.notice("Testmessage");
@@ -106,8 +106,8 @@ TEST(Logging, LoggerWarning)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.warning("Testmessage");
@@ -121,8 +121,8 @@ TEST(Logging, LoggerError)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.error("Testmessage");
@@ -136,8 +136,8 @@ TEST(Logging, LoggerCritical)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.critical("Testmessage");
@@ -151,8 +151,8 @@ TEST(Logging, LoggerAlert)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.alert("Testmessage");
@@ -166,8 +166,8 @@ TEST(Logging, LoggerEmergency)
 {
     std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
         std::make_shared<sabre::impl::sabre_testing::TestHandler>();
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logger logger("Testlogger");
     logger.emergency("Testmessage");

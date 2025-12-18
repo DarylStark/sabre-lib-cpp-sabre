@@ -9,12 +9,12 @@ namespace sabre::net
      * a Wi-Fi Soft AP. It is designed to be implemented by classes that provide
      * specific functionality for managing a Wi-Fi Soft AP.
      */
-    class WifiSoftAP
+    class WifiSoftAp
     {
     public:
-        using Ptr = WifiSoftAP *;
-        using SharedPtr = std::shared_ptr<WifiSoftAP>;
-        using UniquePtr = std::unique_ptr<WifiSoftAP>;
+        using Ptr = WifiSoftAp *;
+        using SharedPtr = std::shared_ptr<WifiSoftAp>;
+        using UniquePtr = std::unique_ptr<WifiSoftAp>;
 
         /**
          * @brief Initialize the Wi-Fi Soft AP.

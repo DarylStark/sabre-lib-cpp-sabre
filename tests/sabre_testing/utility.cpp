@@ -7,7 +7,7 @@
 
 namespace sabre::impl::sabre_testing
 {
-    uint64_t StWaitFor::_get_current_time() const
+    uint64_t StWaitFor::_getCurrentTime() const
     {
         return std::chrono::duration_cast<std::chrono::microseconds>(
                    std::chrono::steady_clock::now().time_since_epoch())
@@ -22,6 +22,6 @@ namespace sabre::impl::sabre_testing
 
     void StWaitFor::_sleep() const
     {
-        std::this_thread::sleep_for(std::chrono::microseconds(_sleep_time));
+        std::this_thread::sleep_for(std::chrono::microseconds(_sleepTime));
     }
 } // namespace sabre::impl::sabre_testing

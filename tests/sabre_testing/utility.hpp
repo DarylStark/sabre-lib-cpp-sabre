@@ -9,7 +9,7 @@ namespace sabre::impl::sabre_testing
     class StWaitFor : public sabre::utility::WaitFor
     {
     protected:
-        uint64_t _get_current_time() const;
+        uint64_t _getCurrentTime() const;
         void _sleep() const;
 
     public:

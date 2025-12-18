@@ -31,6 +31,6 @@ namespace sabre::time
          *
          * @returns true if the NTP client is synchronized, false otherwise.
          */
-        virtual bool is_synchronized() const = 0;
+        virtual bool isSynchronized() const = 0;
     };
 } // namespace sabre::time

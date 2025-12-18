@@ -39,7 +39,7 @@ namespace sabre::hal
          *
          * @return Returns 0 on success, or a negative error code on failure.
          */
-        virtual int write_byte(char data) const = 0;
+        virtual int writeByte(char data) const = 0;
 
         /**
          * @brief Read input data from the UART device.
@@ -54,8 +54,8 @@ namespace sabre::hal
          *
          * @return A string containing the received data.
          */
-        virtual std::string read_bytes(size_t max_bytes,
-                                       uint32_t timeout_ms) = 0;
+        virtual std::string readBytes(size_t max_bytes,
+                                      uint32_t timeout_ms) = 0;
 
         /**
          * @brief Flush the output buffer of the UART device.

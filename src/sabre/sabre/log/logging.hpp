@@ -143,9 +143,9 @@ namespace sabre::log
          * @param logger_name The name of the logger that generated the message.
          * @param message The log message to be handled.
          */
-        virtual void handle_log(const LoggingLevel level,
-                                const std::string &logger_name,
-                                const std::string &message) = 0;
+        virtual void handleLog(const LoggingLevel level,
+                               const std::string &logger_name,
+                               const std::string &message) = 0;
     };
 
     /**
@@ -178,7 +178,7 @@ namespace sabre::log
          *
          * @param level The desired logging level.
          */
-        static void set_level(LoggingLevel level);
+        static void setLevel(LoggingLevel level);
 
         /**
          * @brief Get the current logging level.
@@ -188,7 +188,7 @@ namespace sabre::log
          *
          * @return The current logging level.
          */
-        static LoggingLevel get_level();
+        static LoggingLevel getLevel();
 
         /**
          * @brief Log a message at the specified logging level.
@@ -211,7 +211,7 @@ namespace sabre::log
          * This method allows the user to register a log handler that will
          * receive log messages.
          */
-        static void add_handler(LogHandler::SharedPtr handler);
+        static void addHandler(LogHandler::SharedPtr handler);
 
         /**
          * @brief Remove a log handler from the logging system.
@@ -221,6 +221,6 @@ namespace sabre::log
          *
          * @param handler The log handler to be removed.
          */
-        static void remove_handler(LogHandler::SharedPtr handler);
+        static void removeHandler(LogHandler::SharedPtr handler);
     };
 }; // namespace sabre::log

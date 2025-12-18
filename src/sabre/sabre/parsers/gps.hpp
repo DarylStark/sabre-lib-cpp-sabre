@@ -20,51 +20,51 @@ namespace sabre
         private:
             Position _last_position; /**< Last parsed position. */
             std::map<std::string, std::string>
-                _scentences; /**< Buffered sentences. */
+                _sentences; /**< Buffered sentences. */
 
             /**
              * @brief Extracts the sentence type (e.g., RMC, GGA).
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return The type string.
              */
-            std::string _get_type(std::string scentence) const;
+            std::string _get_type(std::string sentence) const;
 
             /**
              * @brief Extracts the talker ID (e.g., GP, GN).
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return The talker string.
              */
-            std::string _get_talker(std::string scentence) const;
+            std::string _get_talker(std::string sentence) const;
 
-            bool _is_valid_checksum(const std::string &scentence) const;
+            bool _is_valid_checksum(const std::string &sentence) const;
 
             /**
              * @brief Parse RMC sentence.
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_rmc(std::string scentence);
+            bool _parse_rmc(std::string sentence);
 
             /**
              * @brief Parse GLL sentence.
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gll(std::string scentence);
+            bool _parse_gll(std::string sentence);
 
             /**
              * @brief Parse GGA sentence.
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gga(std::string scentence);
+            bool _parse_gga(std::string sentence);
 
             /**
              * @brief Split a sentence into fields.
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              * @return Vector of fields.
              */
-            std::vector<std::string> _get_fields(std::string scentence) const;
+            std::vector<std::string> _get_fields(std::string sentence) const;
 
             /**
              * @brief Helper to extract coordinates from fields.
@@ -76,12 +76,13 @@ namespace sabre
              * @param out_position Output position.
              * @return True if extraction was successful.
              */
-            bool _extract_position_from_fields(
-                const std::vector<std::string> &fields, size_t lat_idx,
-                size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
-                Position &out_position) const;
+            bool
+            _extractPositionFromFields(const std::vector<std::string> &fields,
+                                       size_t lat_idx, size_t lat_dir_idx,
+                                       size_t lon_idx, size_t lon_dir_idx,
+                                       Position &out_position) const;
 
-            void _update_last_position(Position &new_position);
+            void _updateLastPosition(Position &new_position);
 
         public:
             /**
@@ -91,9 +92,9 @@ namespace sabre
 
             /**
              * @brief Add a sentence to the buffer.
-             * @param scentence The NMEA sentence.
+             * @param sentence The NMEA sentence.
              */
-            void add_scentence(const std::string &scentence);
+            void addSentence(const std::string &sentence);
 
             /**
              * @brief Parse buffered sentences and update last position.
@@ -104,13 +105,13 @@ namespace sabre
              * @brief Get the last parsed position.
              * @return Last position.
              */
-            Position get_last_position() const;
+            Position getLastPosition() const;
 
             /**
              * @brief Get the number of buffered sentences.
              * @return Sentence count.
              */
-            size_t get_scentence_count() const;
+            size_t getSentenceCount() const;
         };
     } // namespace parsers
 } // namespace sabre

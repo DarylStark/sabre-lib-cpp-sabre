@@ -24,7 +24,7 @@ namespace sabre::net
          * This method is called to set up the Wi-Fi Station before any
          * connection attempts are made.
          */
-        virtual void init() = 0;
+        virtual void initialize() = 0;
 
         /**
          * @brief Connect to a Wi-Fi network.
@@ -65,7 +65,7 @@ namespace sabre::net
          * @return True if the Wi-Fi Station is connected to a network, false
          * otherwise.
          */
-        virtual bool is_connected() const = 0;
+        virtual bool isConnected() const = 0;
 
         /**
          * @brief Check if the Wi-Fi Station has an IPv4 address.
@@ -73,6 +73,6 @@ namespace sabre::net
          * @return True if the Wi-Fi Station has an IPv4 address, false
          * otherwise.
          */
-        virtual bool has_ipv4_address() const = 0;
+        virtual bool hasIPv4Address() const = 0;
     };
 } // namespace sabre::net

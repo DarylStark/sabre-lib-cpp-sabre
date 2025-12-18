@@ -20,18 +20,18 @@ namespace sabre::hal
         /**
          * @brief Set the GPIO pin to high level.
          */
-        virtual void set_high() = 0;
+        virtual void setHigh() = 0;
 
         /**
          * @brief Set the GPIO pin to low level.
          */
-        virtual void set_low() = 0;
+        virtual void setLow() = 0;
 
         /**
          * @brief Set the GPIO to a specific level.
          *
          * @param level The level to set the GPIO pin to. If true, sets to high;
          */
-        virtual void set_level(bool level) = 0;
+        virtual void setLevel(bool level) = 0;
     };
 }; // namespace sabre::hal

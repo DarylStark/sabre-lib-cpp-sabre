@@ -61,7 +61,7 @@ namespace sabre
         }
 
         // Helper to parse coordinates from NMEA fields
-        bool NmeaParser::_extract_position_from_fields(
+        bool NmeaParser::_extractPositionFromFields(
             const std::vector<std::string> &fields, size_t lat_idx,
             size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
             models::geo::Position &out_position) const
@@ -94,7 +94,7 @@ namespace sabre
             return true;
         }
 
-        void NmeaParser::_update_last_position(Position &new_position)
+        void NmeaParser::_updateLastPosition(Position &new_position)
         {
             if (new_position == _last_position)
                 return;
@@ -110,9 +110,9 @@ namespace sabre
             if (fields.size() < 13 || fields[2] != "A")
                 return false;
             models::geo::Position pos;
-            if (!_extract_position_from_fields(fields, 3, 4, 5, 6, pos))
+            if (!_extractPositionFromFields(fields, 3, 4, 5, 6, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
@@ -122,9 +122,9 @@ namespace sabre
             if (fields.size() < 8 || fields[6] != "A")
                 return false;
             models::geo::Position pos;
-            if (!_extract_position_from_fields(fields, 1, 2, 3, 4, pos))
+            if (!_extractPositionFromFields(fields, 1, 2, 3, 4, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
@@ -134,13 +134,13 @@ namespace sabre
             if (fields.size() < 15 || fields[6] == "0")
                 return false;
             models::geo::Position pos;
-            if (!_extract_position_from_fields(fields, 2, 3, 4, 5, pos))
+            if (!_extractPositionFromFields(fields, 2, 3, 4, 5, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
-        void NmeaParser::add_scentence(const std::string &scentence)
+        void NmeaParser::addSentence(const std::string &scentence)
         {
             std::string type = _get_type(scentence);
             std::string talker = _get_talker(scentence);
@@ -149,10 +149,10 @@ namespace sabre
             if (!_is_valid_checksum(scentence))
                 return;
 
-            if (_scentences.find(full_type) != _scentences.end())
+            if (_sentences.find(full_type) != _sentences.end())
                 parse();
 
-            _scentences[full_type] = scentence;
+            _sentences[full_type] = scentence;
 
             if (type == "RMC")
                 parse();
@@ -185,8 +185,8 @@ namespace sabre
             bool valid = false;
             for (const auto &[type, func] : priorities)
             {
-                auto it = _scentences.find(type);
-                if (it != _scentences.end())
+                auto it = _sentences.find(type);
+                if (it != _sentences.end())
                 {
                     valid = (this->*func)(it->second);
                     if (valid)
@@ -194,17 +194,17 @@ namespace sabre
                 }
             }
 
-            _scentences.clear();
+            _sentences.clear();
         }
 
-        Position NmeaParser::get_last_position() const
+        Position NmeaParser::getLastPosition() const
         {
             return _last_position;
         }
 
-        size_t NmeaParser::get_scentence_count() const
+        size_t NmeaParser::getSentenceCount() const
         {
-            return _scentences.size();
+            return _sentences.size();
         }
     } // namespace parsers
 } // namespace sabre

@@ -9,8 +9,8 @@ TEST(App, AppSetFactory)
     TestApp app;
     auto factory = std::make_unique<StFactory>();
     auto factory_ptr = factory.get();
-    app.set_factory(std::move(factory));
-    EXPECT_EQ(app.get_factory().get(), factory_ptr);
+    app.setFactory(std::move(factory));
+    EXPECT_EQ(app.getFactory().get(), factory_ptr);
 }
 
 TEST(App, AppConstructorWithFactory)
@@ -18,11 +18,11 @@ TEST(App, AppConstructorWithFactory)
     auto factory = std::make_unique<StFactory>();
     auto factory_ptr = factory.get();
     TestApp app(std::move(factory));
-    EXPECT_EQ(app.get_factory().get(), factory_ptr);
+    EXPECT_EQ(app.getFactory().get(), factory_ptr);
 }
 
 TEST(App, AppDefaultConstructor)
 {
     TestApp app;
-    EXPECT_EQ(app.get_factory(), nullptr);
+    EXPECT_EQ(app.getFactory(), nullptr);
 }

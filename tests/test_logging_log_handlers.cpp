@@ -13,16 +13,16 @@ TEST(OStreamLogHandler, Logging)
     sabre::io::UartStreamBuf buffer(std::move(u), 128);
     std::ostream stream(&buffer);
 
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::OStreamLogHandler::SharedPtr handler =
         std::make_shared<sabre::log::OStreamLogHandler>(stream);
 
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "TestLogger",
                              "Testmessage");
 
-    sabre::log::Logging::remove_handler(handler);
+    sabre::log::Logging::removeHandler(handler);
 
     ASSERT_TRUE(u_ptr->_buf.contains("TestLogger"));
     ASSERT_TRUE(u_ptr->_buf.contains("Testmessage"));
@@ -30,11 +30,11 @@ TEST(OStreamLogHandler, Logging)
 
 TEST(LogBufferHandler, Logging)
 {
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::LogBufferHandler::SharedPtr handler =
         std::make_shared<sabre::log::LogBufferHandler>(1);
 
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::addHandler(handler);
 
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "TestLogger",
                              "Testmessage");
@@ -44,11 +44,11 @@ TEST(LogBufferHandler, Logging)
 
 TEST(LogBufferHandler, Overflow)
 {
-    sabre::log::Logging::set_level(sabre::log::LoggingLevel::DEBUG);
+    sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::LogBufferHandler::SharedPtr handler =
         std::make_shared<sabre::log::LogBufferHandler>(2);
 
-    sabre::log::Logging::add_handler(handler);
+    sabre::log::Logging::addHandler(handler);
 
     for (uint32_t i = 0; i < 5; ++i)
         sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "TestLogger",

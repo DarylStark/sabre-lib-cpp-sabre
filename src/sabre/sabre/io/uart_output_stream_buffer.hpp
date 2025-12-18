@@ -28,7 +28,7 @@ namespace sabre::io
         char *_buffer;
         size_t _buffer_size;
 
-        void _reset_put_buffer();
+        void _resetPutBuffer();
 
     protected:
         /**

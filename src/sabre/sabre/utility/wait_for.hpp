@@ -27,9 +27,9 @@ namespace sabre::utility
         bool _done(bool result, uint64_t total_runtime);
 
     protected:
-        uint64_t _timeout_in_ms;
+        uint64_t _timeoutInMs;
         WaitForPred _fn;
-        uint64_t _sleep_time = 0;
+        uint64_t _sleepTime = 0;
 
         bool _result = false;
         uint64_t _runtime = 0;
@@ -41,7 +41,7 @@ namespace sabre::utility
          * the current time in milliseconds since the epoch or a similar
          * reference point.
          */
-        virtual uint64_t _get_current_time() const = 0;
+        virtual uint64_t _getCurrentTime() const = 0;
 
         /**
          * @brief Sleep for a specified duration.
@@ -82,7 +82,7 @@ namespace sabre::utility
          * @return True if the predicate function returned true, false
          * otherwise.
          */
-        bool get_result() const;
+        bool getResult() const;
 
         /**
          * @brief Get the runtime of the last wait operation.
@@ -92,6 +92,6 @@ namespace sabre::utility
          *
          * @return The runtime in milliseconds.
          */
-        uint64_t get_result_runtime() const;
+        uint64_t getResultRuntime() const;
     };
 }; // namespace sabre::utility

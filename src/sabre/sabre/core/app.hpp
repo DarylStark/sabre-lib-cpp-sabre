@@ -22,13 +22,13 @@ namespace sabre::core
         App &operator=(const App &) = delete;
         App(App &&) = default;
 
-        void set_factory(Factory::UniquePtr factory);
-        const Factory::UniquePtr &get_factory() const;
+        void setFactory(Factory::UniquePtr factory);
+        const Factory::UniquePtr &getFactory() const;
 
         virtual ~App() = default;
 
         virtual void start() = 0;
     };
 
-    void run_app(App &app);
+    void runApp(App &app);
 } // namespace sabre::core

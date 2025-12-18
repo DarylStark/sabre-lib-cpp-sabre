@@ -21,7 +21,7 @@ namespace sabre::impl::sabre_testing
         _is_started = false;
     }
 
-    bool StMQTTClient::is_connected() const
+    bool StMQTTClient::isConnected() const
     {
         return _is_connected;
     }
