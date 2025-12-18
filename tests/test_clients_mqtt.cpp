@@ -4,7 +4,7 @@
 
 TEST(MQTTTopic, PublishingExplicitValues)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     sabre::net::MQTTTopic::SharedPtr topic2 =
@@ -32,7 +32,7 @@ TEST(MQTTTopic, PublishingExplicitValues)
 
 TEST(MQTTTopic, PublishingDefaultQoS)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
 
@@ -45,7 +45,7 @@ TEST(MQTTTopic, PublishingDefaultQoS)
 
 TEST(MQTTTopic, PublishingDefaultChangedDefault)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     topic1->set_default_qos(sabre::net::MQTTQoS::EXACTLY_ONCE);
@@ -59,7 +59,7 @@ TEST(MQTTTopic, PublishingDefaultChangedDefault)
 
 TEST(MQTTTopic, PublishingDefaultChangedDefaultToInvalid)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     topic1->set_default_qos(sabre::net::MQTTQoS::UNDEFINED);
@@ -73,7 +73,7 @@ TEST(MQTTTopic, PublishingDefaultChangedDefaultToInvalid)
 
 TEST(MQTTTopic, PublishingDefaultRetain)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
 
@@ -86,7 +86,7 @@ TEST(MQTTTopic, PublishingDefaultRetain)
 
 TEST(MQTTTopic, PublishingDefaultRetainChangedDefault)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     topic1->set_default_retain(sabre::net::MQTTRetain::RETAIN);
@@ -100,7 +100,7 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefault)
 
 TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     topic1->set_default_retain(sabre::net::MQTTRetain::UNDEFINED);
@@ -115,7 +115,7 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
 TEST(MQTTTopic, ReceiveForSubscription)
 {
     int callcount = 0;
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     sabre::net::MQTTCallback callback =
@@ -133,7 +133,7 @@ TEST(MQTTTopic, ReceiveForSubscription)
 TEST(MQTTTopic, DontReceiveForNoneSubscription)
 {
     int callcount = 0;
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTTopic::SharedPtr topic1 =
         client.get_topic("sabre/testing/topic1");
     sabre::net::MQTTCallback callback =
@@ -151,7 +151,7 @@ TEST(MQTTTopic, DontReceiveForNoneSubscription)
 TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
 {
     int callcount = 0;
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     sabre::net::MQTTCallback default_handler =
         [&callcount](const sabre::net::MQTTEvent) { ++callcount; };
     client.set_default_handler(default_handler);
@@ -165,7 +165,7 @@ TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
 
 TEST(MQTTTopic, NoDefaultHandlerSet)
 {
-    sabre::Testing::MQTTClient client;
+    sabre::impl::sabre_testing::MQTTClient client;
     ASSERT_NO_THROW(client.process_received({"unspecified/topic", "test",
                                              sabre::net::MQTTQoS::AT_LEAST_ONCE,
                                              sabre::net::MQTTRetain::RETAIN}););

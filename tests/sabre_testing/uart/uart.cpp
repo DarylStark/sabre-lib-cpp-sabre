@@ -1,7 +1,7 @@
 #include "uart.hpp"
 #include <string>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     void TestUART::initialize()
     {
@@ -31,4 +31,4 @@ namespace sabre::Testing
     {
         // No-op for test implementation
     }
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

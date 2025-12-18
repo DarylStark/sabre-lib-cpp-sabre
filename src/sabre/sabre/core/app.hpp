@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../factory.hpp"
+#include "factory.hpp"
 
 namespace sabre::core
 {

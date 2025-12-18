@@ -2,7 +2,7 @@
 
 #include <sabre/os/service.hpp>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     using sabre::os::ServiceHandler;
     class Service : public sabre::os::Service
@@ -12,4 +12,4 @@ namespace sabre::Testing
         void start() override;
         void stop() override;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

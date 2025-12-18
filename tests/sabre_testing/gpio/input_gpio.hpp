@@ -2,7 +2,7 @@
 
 #include <sabre/hal/input_gpio.hpp>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     using sabre::hal::ISRHandler;
     using sabre::hal::ISRTrigger;
@@ -22,4 +22,4 @@ namespace sabre::Testing
 
         bool level = true;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

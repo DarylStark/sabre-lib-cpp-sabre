@@ -2,9 +2,9 @@
 
 #include <memory>
 #include <ostream>
-#include <sabre/factory.hpp>
+#include <sabre/core/factory.hpp>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     using namespace sabre::core;
 
@@ -32,4 +32,4 @@ namespace sabre::Testing
         create_ntp_client(const std::string &server) const override;
         WallClock::UniquePtr create_wall_clock() const override;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

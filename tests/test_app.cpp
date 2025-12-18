@@ -2,8 +2,8 @@
 #include "sabre_testing/factory.hpp"
 #include <gtest/gtest.h>
 
-using sabre::Testing::Factory;
-using sabre::Testing::TestApp;
+using sabre::impl::sabre_testing::Factory;
+using sabre::impl::sabre_testing::TestApp;
 
 TEST(App, AppSetFactory)
 {

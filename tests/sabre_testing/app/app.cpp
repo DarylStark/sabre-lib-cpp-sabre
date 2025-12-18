@@ -1,6 +1,6 @@
 #include "app.hpp"
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     TestApp::TestApp() : sabre::core::App() {}
 
@@ -13,4 +13,4 @@ namespace sabre::Testing
     {
         // TestApp start implementation
     }
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <sabre/core/app.hpp>
-#include <sabre/factory.hpp>
+#include <sabre/core/factory.hpp>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     class TestApp : public sabre::core::App
     {
@@ -12,4 +12,4 @@ namespace sabre::Testing
         TestApp(sabre::core::Factory::UniquePtr factory);
         void start() override;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

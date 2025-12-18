@@ -1,6 +1,6 @@
 #include "input_gpio.hpp"
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     bool InputGPIO::_get_level() const
     {
@@ -13,4 +13,4 @@ namespace sabre::Testing
     void InputGPIO::disable_pulldown() {}
     void InputGPIO::add_interrupt_handler(ISRHandler, ISRTrigger) {}
     void InputGPIO::reset() {}
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

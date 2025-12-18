@@ -3,7 +3,7 @@
 #include <sabre/net/mqtt.hpp>
 #include <vector>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     using sabre::net::MQTTQoS;
     using sabre::net::MQTTRetain;
@@ -34,4 +34,4 @@ namespace sabre::Testing
 
         std::vector<MQTTMessage> _published_messages;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

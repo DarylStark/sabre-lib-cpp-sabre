@@ -3,7 +3,7 @@
 #include <sabre/hal/uart.hpp>
 #include <string>
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     class TestUART : public sabre::hal::UART
     {
@@ -16,4 +16,4 @@ namespace sabre::Testing
 
         mutable std::string _buf;
     };
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing

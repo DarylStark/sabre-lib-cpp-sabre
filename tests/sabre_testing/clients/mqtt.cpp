@@ -1,6 +1,6 @@
 #include "mqtt.hpp"
 
-namespace sabre::Testing
+namespace sabre::impl::sabre_testing
 {
     void MQTTClient::connect(const std::string &hostname,
                              const std::string &client_id,
@@ -32,4 +32,4 @@ namespace sabre::Testing
     {
         _published_messages.emplace_back(topic, message, qos, retain);
     }
-} // namespace sabre::Testing
+} // namespace sabre::impl::sabre_testing
