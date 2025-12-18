@@ -41,14 +41,15 @@ namespace sabre::net
      */
     struct MQTTEvent
     {
+        using Ptr = MQTTEvent *;
+        using SharedPtr = std::shared_ptr<MQTTEvent>;
+        using UniquePtr = std::unique_ptr<MQTTEvent>;
+
         std::string topic;
         std::string data;
         MQTTQoS qos;
         MQTTRetain retain;
     };
-    using MQTTEventPtr = MQTTEvent *;
-    using MQTTEventSharedPtr = std::shared_ptr<MQTTEvent>;
-    using MQTTEventUniquePtr = std::unique_ptr<MQTTEvent>;
 
     class MQTTClient;
 
@@ -62,6 +63,11 @@ namespace sabre::net
      */
     class MQTTTopic
     {
+    public:
+        using Ptr = MQTTTopic *;
+        using SharedPtr = std::shared_ptr<MQTTTopic>;
+        using UniquePtr = std::unique_ptr<MQTTTopic>;
+
     protected:
         MQTTClient &_client;
         std::string _topic;
@@ -116,9 +122,6 @@ namespace sabre::net
          */
         void set_default_retain(MQTTRetain retain);
     };
-    using MQTTTopicPtr = MQTTTopic *;
-    using MQTTTopicSharedPtr = std::shared_ptr<MQTTTopic>;
-    using MQTTTopicUniquePtr = std::unique_ptr<MQTTTopic>;
 
     /**
      * @brief Class for a MQTT client
@@ -128,6 +131,11 @@ namespace sabre::net
      */
     class MQTTClient
     {
+    public:
+        using Ptr = MQTTClient *;
+        using SharedPtr = std::shared_ptr<MQTTClient>;
+        using UniquePtr = std::unique_ptr<MQTTClient>;
+
     private:
         std::unordered_map<std::string, MQTTCallback> _subscriptions;
         MQTTCallback _default_handler;
@@ -216,7 +224,4 @@ namespace sabre::net
          */
         MQTTTopicUniquePtr get_topic(const std::string &topic_name);
     };
-    using MQTTClientPtr = MQTTClient *;
-    using MQTTClientSharedPtr = std::shared_ptr<MQTTClient>;
-    using MQTTClientUniquePtr = std::unique_ptr<MQTTClient>;
 }; // namespace sabre::net

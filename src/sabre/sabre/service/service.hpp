@@ -19,6 +19,11 @@ namespace sabre::os
      */
     class Service
     {
+    public:
+        using Ptr = Service *;
+        using SharedPtr = std::shared_ptr<Service>;
+        using UniquePtr = std::unique_ptr<Service>;
+
     protected:
         ServiceHandler _fn;
 
@@ -46,7 +51,4 @@ namespace sabre::os
          */
         virtual void stop() = 0;
     };
-    using ServicePtr = Service *;
-    using ServiceSharedPtr = std::shared_ptr<Service>;
-    using ServiceUniquePtr = std::unique_ptr<Service>;
 } // namespace sabre::os

@@ -12,8 +12,15 @@ namespace sabre::models
      * This class can be used to represent an IPv4 address in a more
      * convenient way than using a simple `uint32_t`.
      */
+
     class IPv4Address
     {
+    public:
+        using Ptr = IPv4Address *;
+        using SharedPtr = std::shared_ptr<IPv4Address>;
+        using UniquePtr = std::unique_ptr<IPv4Address>;
+
+    private:
         uint32_t _address;
 
     public:
@@ -59,9 +66,6 @@ namespace sabre::models
          */
         operator std::string() const;
     };
-    using IPv4AddressPtr = IPv4Address *;
-    using IPv4AddressSharedPtr = std::shared_ptr<IPv4Address>;
-    using IPv4AddressUniquePtr = std::unique_ptr<IPv4Address>;
 
     std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
 }; // namespace sabre::models

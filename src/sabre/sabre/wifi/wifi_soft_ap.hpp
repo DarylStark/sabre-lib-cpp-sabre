@@ -12,6 +12,10 @@ namespace sabre
     class WifiSoftAP
     {
     public:
+        using Ptr = WifiSoftAP *;
+        using SharedPtr = std::shared_ptr<WifiSoftAP>;
+        using UniquePtr = std::unique_ptr<WifiSoftAP>;
+
         /**
          * @brief Initialize the Wi-Fi Soft AP.
          */
@@ -37,7 +41,4 @@ namespace sabre
          */
         virtual void deinitialize() = 0;
     };
-    using WifiSoftAPPtr = WifiSoftAP *;
-    using WifiSoftAPSharedPtr = std::shared_ptr<WifiSoftAP>;
-    using WifiSoftAPUniquePtr = std::unique_ptr<WifiSoftAP>;
 }; // namespace sabre

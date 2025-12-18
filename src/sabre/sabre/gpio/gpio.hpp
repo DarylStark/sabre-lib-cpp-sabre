@@ -12,6 +12,11 @@ namespace sabre::hal
      */
     class GPIO
     {
+    public:
+        using Ptr = GPIO *;
+        using SharedPtr = std::shared_ptr<GPIO>;
+        using UniquePtr = std::unique_ptr<GPIO>;
+
     protected:
         bool _inverse_level = false;
 
@@ -23,7 +28,5 @@ namespace sabre::hal
          */
         virtual void reset() = 0;
     };
-    using GPIOOPtr = GPIO *;
-    using GPIOOSharedPtr = std::shared_ptr<GPIO>;
-    using GPIOOUniquePtr = std::unique_ptr<GPIO>;
+
 }; // namespace sabre::hal

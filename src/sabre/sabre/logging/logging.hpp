@@ -55,6 +55,11 @@ namespace sabre::log
      */
     class Logger
     {
+    public:
+        using Ptr = Logger *;
+        using SharedPtr = std::shared_ptr<Logger>;
+        using UniquePtr = std::unique_ptr<Logger>;
+
     private:
         std::string _name;
 
@@ -117,9 +122,6 @@ namespace sabre::log
          */
         void emergency(const std::string &message);
     };
-    using LoggerPtr = Logger *;
-    using LoggerSharedPtr = std::shared_ptr<Logger>;
-    using LoggerUniquePtr = std::unique_ptr<Logger>;
 
     /**
      * @brief Abstract base class for log handlers.
@@ -130,6 +132,10 @@ namespace sabre::log
     class LogHandler
     {
     public:
+        using Ptr = LogHandler *;
+        using SharedPtr = std::shared_ptr<LogHandler>;
+        using UniquePtr = std::unique_ptr<LogHandler>;
+
         /**
          * @brief Abstract method to handle log messages.
          *
@@ -141,9 +147,6 @@ namespace sabre::log
                                 const std::string &logger_name,
                                 const std::string &message) = 0;
     };
-    using LogHandlerPtr = LogHandler *;
-    using LogHandlerSharedPtr = std::shared_ptr<LogHandler>;
-    using LogHandlerUniquePtr = std::unique_ptr<LogHandler>;
 
     /**
      * @brief Class for managing logging across the application.

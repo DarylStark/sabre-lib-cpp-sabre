@@ -18,6 +18,11 @@ namespace sabre::utility
      */
     class WaitFor
     {
+    public:
+        using Ptr = WaitFor *;
+        using SharedPtr = std::shared_ptr<WaitFor>;
+        using UniquePtr = std::unique_ptr<WaitFor>;
+
     private:
         bool _done(bool result, uint64_t total_runtime);
 
@@ -89,7 +94,4 @@ namespace sabre::utility
          */
         uint64_t get_result_runtime() const;
     };
-    using WaitForPtr = WaitFor *;
-    using WaitForSharedPtr = std::shared_ptr<WaitFor>;
-    using WaitForUniquePtr = std::unique_ptr<WaitFor>;
 }; // namespace sabre::utility

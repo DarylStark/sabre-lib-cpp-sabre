@@ -16,6 +16,10 @@ namespace sabre::hal
     class UART
     {
     public:
+        using Ptr = UART *;
+        using SharedPtr = std::shared_ptr<UART>;
+        using UniquePtr = std::unique_ptr<UART>;
+
         /**
          * @brief Initialize the UART device.
          *
@@ -71,7 +75,4 @@ namespace sabre::hal
          */
         virtual void deinitialize() = 0;
     };
-    using UARTPtr = UART *;
-    using UARTSharedPtr = std::shared_ptr<UART>;
-    using UARTUniquePtr = std::unique_ptr<UART>;
 } // namespace sabre::hal

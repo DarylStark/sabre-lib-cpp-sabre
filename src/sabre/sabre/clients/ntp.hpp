@@ -7,6 +7,10 @@ namespace sabre::time
     class NTPClient
     {
     public:
+        using Ptr = NTPClient *;
+        using SharedPtr = std::shared_ptr<NTPClient>;
+        using UniquePtr = std::unique_ptr<NTPClient>;
+
         /**
          * @brief Starts the NTP client.
          *
@@ -29,7 +33,4 @@ namespace sabre::time
          */
         virtual bool is_synchronized() const = 0;
     };
-    using NTPClientPtr = NTPClient *;
-    using NTPClientSharedPtr = std::shared_ptr<sabre::NTPClient>;
-    using NTPClientUniquePtr = std::unique_ptr<sabre::NTPClient>;
 } // namespace sabre::time

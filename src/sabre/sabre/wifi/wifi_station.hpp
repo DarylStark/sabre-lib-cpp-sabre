@@ -14,6 +14,10 @@ namespace sabre
     class WifiStation
     {
     public:
+        using Ptr = WifiStation *;
+        using SharedPtr = std::shared_ptr<WifiStation>;
+        using UniquePtr = std::unique_ptr<WifiStation>;
+
         /**
          * @brief Initialize the Wi-Fi Station.
          *
@@ -71,7 +75,4 @@ namespace sabre
          */
         virtual bool has_ipv4_address() const = 0;
     };
-    using WifiStationPtr = WifiStation *;
-    using WifiStationSharedPtr = std::shared_ptr<WifiStation>;
-    using WifiStationUniquePtr = std::unique_ptr<WifiStation>;
 } // namespace sabre

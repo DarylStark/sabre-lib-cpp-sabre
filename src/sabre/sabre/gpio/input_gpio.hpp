@@ -16,12 +16,13 @@ namespace sabre::hal
      */
     struct ISRConfig
     {
+        using Ptr = ISRConfig *;
+        using SharedPtr = std::shared_ptr<ISRConfig>;
+        using UniquePtr = std::unique_ptr<ISRConfig>;
+
         ISRHandler handler;
         int gpio;
     };
-    using ISRConfigPtr = ISRConfig *;
-    using ISRConfigSharedPtr = std::shared_ptr<ISRConfig>;
-    using ISRConfigUniquePtr = std::unique_ptr<ISRConfig>;
 
     /**
      * @brief Enumeration for the trigger types of an ISR.
@@ -47,6 +48,11 @@ namespace sabre::hal
      */
     class InputGPIO : public GPIO
     {
+    public:
+        using Ptr = InputGPIO *;
+        using SharedPtr = std::shared_ptr<InputGPIO>;
+        using UniquePtr = std::unique_ptr<InputGPIO>;
+
     protected:
         bool _inverse_level = false;
         virtual bool _get_level() const = 0;
@@ -115,7 +121,4 @@ namespace sabre::hal
          */
         virtual void add_interrupt_handler(ISRHandler, ISRTrigger) = 0;
     };
-    using InputGPIOPtr = InputGPIO *;
-    using InputGPIOSharedPtr = std::shared_ptr<InputGPIO>;
-    using InputGPIOUniquePtr = std::unique_ptr<InputGPIO>;
 }; // namespace sabre::hal

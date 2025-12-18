@@ -15,7 +15,12 @@ namespace sabre::io
      */
     class UARTStreamBuf : public std::streambuf
     {
+    public:
         using int_type = std::streambuf::traits_type::int_type;
+
+        using Ptr = UARTStreamBuf *;
+        using SharedPtr = std::shared_ptr<UARTStreamBuf>;
+        using UniquePtr = std::unique_ptr<UARTStreamBuf>;
 
     private:
         UARTUniquePtr _uart;
@@ -69,7 +74,4 @@ namespace sabre::io
          */
         ~UARTStreamBuf();
     };
-    using UARTStreamBufPtr = UARTStreamBuf *;
-    using UARTStreamBufSharedPtr = std::shared_ptr<UARTStreamBuf>;
-    using UARTStreamBufUniquePtr = std::unique_ptr<UARTStreamBuf>;
 } // namespace sabre::io

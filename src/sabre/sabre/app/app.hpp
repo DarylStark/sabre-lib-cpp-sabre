@@ -4,8 +4,14 @@
 
 namespace sabre::core
 {
+
     class App
     {
+    public:
+        using Ptr = App *;
+        using SharedPtr = std::shared_ptr<App>;
+        using UniquePtr = std::unique_ptr<App>;
+
     protected:
         FactoryUniquePtr _factory;
 
@@ -23,9 +29,6 @@ namespace sabre::core
 
         virtual void start() = 0;
     };
-    using AppPtr = App *;
-    using AppSharedPtr = std::shared_ptr<App>;
-    using AppUniquePtr = std::unique_ptr<App>;
 
     void run_app(App &app);
 } // namespace sabre::core

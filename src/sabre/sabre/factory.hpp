@@ -15,7 +15,7 @@
 #include <memory>
 #include <ostream>
 
-namespace sabre
+namespace sabre::core
 {
     /**
      * @brief Abstract factory for object creation.
@@ -28,6 +28,9 @@ namespace sabre
     class Factory
     {
     public:
+        using Ptr = Factory *;
+        using SharedPtr = std::shared_ptr<Factory>;
+        using UniquePtr = std::unique_ptr<Factory>;
         /**
          * @brief Create a `UART` object.
          *
@@ -152,7 +155,4 @@ namespace sabre
          */
         virtual ServiceUniquePtr create_service(ServiceHandler fn) const = 0;
     };
-    using FactoryPtr = Factory *;
-    using FactorySharedPtr = std::shared_ptr<Factory>;
-    using FactoryUniquePtr = std::unique_ptr<Factory>;
-} // namespace sabre
+} // namespace sabre::core

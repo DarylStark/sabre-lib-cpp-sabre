@@ -13,6 +13,10 @@ namespace sabre::hal
     class OutputGPIO : public GPIO
     {
     public:
+        using Ptr = OutputGPIO *;
+        using SharedPtr = std::shared_ptr<OutputGPIO>;
+        using UniquePtr = std::unique_ptr<OutputGPIO>;
+
         /**
          * @brief Set the GPIO pin to high level.
          */
@@ -30,7 +34,4 @@ namespace sabre::hal
          */
         virtual void set_level(bool level) = 0;
     };
-    using OutputGPIOPtr = OutputGPIO *;
-    using OutputGPIOSharedPtr = std::shared_ptr<OutputGPIO>;
-    using OutputGPIOUniquePtr = std::unique_ptr<OutputGPIO>;
 }; // namespace sabre::hal

@@ -9,6 +9,11 @@ namespace sabre::log
 {
     class OStreamLogHandler : public LogHandler
     {
+    public:
+        using Ptr = OStreamLogHandler *;
+        using SharedPtr = std::shared_ptr<OStreamLogHandler>;
+        using UniquePtr = std::unique_ptr<OStreamLogHandler>;
+
     private:
         std::ostream &_stream;
 
@@ -18,13 +23,15 @@ namespace sabre::log
                         const std::string &logger_name,
                         const std::string &message) override;
     };
-    using OStreamLogHandlerPtr = OStreamLogHandler *;
-    using OStreamLogHandlerSharedPtr = std::shared_ptr<OStreamLogHandler>;
-    using OStreamLogHandlerUniquePtr = std::unique_ptr<OStreamLogHandler>;
 
     using LogBufferHandlerBuffer = std::deque<std::string>;
     class LogBufferHandler : public LogHandler
     {
+    public:
+        using Ptr = LogBufferHandler *;
+        using SharedPtr = std::shared_ptr<LogBufferHandler>;
+        using UniquePtr = std::unique_ptr<LogBufferHandler>;
+
     private:
         LogBufferHandlerBuffer _buffer;
         size_t _max_size;
@@ -36,7 +43,4 @@ namespace sabre::log
                         const std::string &message) override;
         const LogBufferHandlerBuffer &get_buffer() const;
     };
-    using LogBufferHandlerPtr = LogBufferHandler *;
-    using LogBufferHandlerSharedPtr = std::shared_ptr<LogBufferHandler>;
-    using LogBufferHandlerUniquePtr = std::unique_ptr<LogBufferHandler>;
 } // namespace sabre::log

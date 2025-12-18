@@ -19,6 +19,10 @@ namespace sabre::time
     class WallClock
     {
     public:
+        using Ptr = WallClock *;
+        using SharedPtr = std::shared_ptr<WallClock>;
+        using UniquePtr = std::unique_ptr<WallClock>;
+
         /**
          * @brief Get the current time in ms since 1970-01-01
          *
@@ -34,7 +38,4 @@ namespace sabre::time
          */
         virtual void set_now_ms(uint64_t time_in_ms) = 0;
     };
-    using WallClockPtr = WallClock *;
-    using WallClockSharedPtr = std::shared_ptr<WallClock>;
-    using WallClockUniquePtr = std::unique_ptr<WallClock>;
 } // namespace sabre::time
