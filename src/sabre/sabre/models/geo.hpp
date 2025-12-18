@@ -71,37 +71,37 @@ namespace sabre::models::geo
          * @brief Get decimal degrees value.
          * @return Decimal degrees.
          */
-        double get_dd() const;
+        double getDD() const;
 
         /**
          * @brief Get coordinate type.
          * @return CoordinateType.
          */
-        CoordinateType get_type() const;
+        CoordinateType getType() const;
 
         /**
          * @brief Get cardinal direction.
          * @return CoordinatesDirection.
          */
-        CoordinatesDirection get_direction() const;
+        CoordinatesDirection getDirection() const;
 
         /**
          * @brief Get degrees part.
          * @return Degrees as integer.
          */
-        uint16_t get_degrees() const;
+        uint16_t getDegrees() const;
 
         /**
          * @brief Get minutes part.
          * @return Minutes as integer.
          */
-        uint16_t get_minutes() const;
+        uint16_t getMinutes() const;
 
         /**
          * @brief Get seconds part.
          * @return Seconds as double.
          */
-        double get_seconds() const;
+        double getSeconds() const;
     };
 
     /**
@@ -111,7 +111,7 @@ namespace sabre::models::geo
     class Distance
     {
     private:
-        uint64_t _distance_in_mm; /**< Distance in millimeters. */
+        uint64_t _distanceInMm; /**< Distance in millimeters. */
 
     public:
         /**
@@ -123,7 +123,7 @@ namespace sabre::models::geo
          * @brief Construct from millimeters.
          * @param distance_in_mm Distance in millimeters.
          */
-        Distance(uint64_t distance_in_mm);
+        Distance(uint64_t distanceInMm);
 
         /**
          * @brief Get distance in millimeters.
@@ -184,24 +184,24 @@ namespace sabre::models::geo
          * @brief Get latitude coordinate.
          * @return Latitude.
          */
-        Coordinate get_latitude() const;
+        Coordinate getLatitude() const;
 
         /**
          * @brief Get longitude coordinate.
          * @return Longitude.
          */
-        Coordinate get_longitude() const;
+        Coordinate getLongitude() const;
 
         /**
          * @brief Calculate distance to another position.
          * @param other The other position.
          * @return Distance between positions.
          */
-        Distance get_distance(const Position &other) const;
+        Distance getDistance(const Position &other) const;
 
-        bool is_valid() const;
+        bool isValid() const;
 
-        uint32_t get_version() const;
-        void set_version(uint32_t version);
+        uint32_t getVersion() const;
+        void setVersion(uint32_t version);
     };
 } // namespace sabre::models::geo

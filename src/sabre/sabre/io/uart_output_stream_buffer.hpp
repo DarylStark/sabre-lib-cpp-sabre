@@ -24,9 +24,9 @@ namespace sabre::io
         using UniquePtr = std::unique_ptr<UartStreamBuf>;
 
     private:
-        Uart::UniquePtr _uart;
+        Uart::UniquePtr _uartPtr;
         char *_buffer;
-        size_t _buffer_size;
+        size_t _bufferSize;
 
         void _resetPutBuffer();
 

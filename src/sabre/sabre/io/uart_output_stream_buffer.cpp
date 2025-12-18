@@ -5,10 +5,10 @@
 namespace sabre::io
 {
     UartStreamBuf::UartStreamBuf(Uart::UniquePtr uart, size_t buffer_size)
-        : _uart(std::move(uart))
+        : _uartPtr(std::move(uart))
     {
         _buffer = new char[buffer_size];
-        _buffer_size = buffer_size;
+        _bufferSize = buffer_size;
         _resetPutBuffer();
     }
 
@@ -25,7 +25,7 @@ namespace sabre::io
             if (pptr() >= epptr())
             {
                 sync();
-                _uart->flush();
+                _uartPtr->flush();
             }
             *pptr() = c;
             pbump(1);
@@ -40,13 +40,13 @@ namespace sabre::io
             return 0;
 
         for (size_t i = 0; i < len; ++i)
-            _uart->writeByte(pbase()[i]);
+            _uartPtr->writeByte(pbase()[i]);
         _resetPutBuffer();
         return 0;
     }
 
     void UartStreamBuf::_resetPutBuffer()
     {
-        setp(_buffer, _buffer + _buffer_size);
+        setp(_buffer, _buffer + _bufferSize);
     }
 } // namespace sabre::io

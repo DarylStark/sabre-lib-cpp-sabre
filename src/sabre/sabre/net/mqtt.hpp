@@ -222,6 +222,6 @@ namespace sabre::net
          * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
-        MqttTopic::UniquePtr getTopic(const std::string &topic_name);
+        MqttTopic::UniquePtr getTopic(const std::string &topicName);
     };
 }; // namespace sabre::net

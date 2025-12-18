@@ -49,17 +49,17 @@ namespace sabre::models::geo
         return other._coordinate == _coordinate && other._type == _type;
     }
 
-    double Coordinate::get_dd() const
+    double Coordinate::getDD() const
     {
         return _coordinate;
     }
 
-    CoordinateType Coordinate::get_type() const
+    CoordinateType Coordinate::getType() const
     {
         return _type;
     }
 
-    CoordinatesDirection Coordinate::get_direction() const
+    CoordinatesDirection Coordinate::getDirection() const
     {
 
         if (_type == CoordinateType::LONGITUDE)
@@ -69,19 +69,19 @@ namespace sabre::models::geo
                                 : CoordinatesDirection::SOUTH;
     }
 
-    uint16_t Coordinate::get_degrees() const
+    uint16_t Coordinate::getDegrees() const
     {
         return static_cast<uint16_t>(std::floor(std::abs(_coordinate)));
     }
 
-    uint16_t Coordinate::get_minutes() const
+    uint16_t Coordinate::getMinutes() const
     {
         double abs_coord = std::abs(_coordinate);
         double fractional = abs_coord - std::floor(abs_coord);
         return static_cast<uint16_t>(std::floor(fractional * 60.0));
     }
 
-    double Coordinate::get_seconds() const
+    double Coordinate::getSeconds() const
     {
         double abs_coord = std::abs(_coordinate);
         double fractional = abs_coord - std::floor(abs_coord);
@@ -103,57 +103,54 @@ namespace sabre::models::geo
         return other._latitude == _latitude && other._longitude == _longitude;
     }
 
-    Coordinate Position::get_latitude() const
+    Coordinate Position::getLatitude() const
     {
         return _latitude;
     }
 
-    Coordinate Position::get_longitude() const
+    Coordinate Position::getLongitude() const
     {
         return _longitude;
     }
 
-    Distance::Distance() : _distance_in_mm(0) {}
+    Distance::Distance() : _distanceInMm(0) {}
 
-    Distance::Distance(uint64_t distance_in_mm)
-        : _distance_in_mm(distance_in_mm)
-    {
-    }
+    Distance::Distance(uint64_t distanceInMM) : _distanceInMm(distanceInMM) {}
 
     uint64_t Distance::millimeters() const
     {
-        return _distance_in_mm;
+        return _distanceInMm;
     }
 
     float Distance::centimeters() const
     {
-        return static_cast<float>(_distance_in_mm) / 10.0f;
+        return static_cast<float>(_distanceInMm) / 10.0f;
     }
 
     float Distance::meters() const
     {
-        return static_cast<float>(_distance_in_mm) / 1000.0f;
+        return static_cast<float>(_distanceInMm) / 1000.0f;
     }
 
     float Distance::kilometers() const
     {
-        return static_cast<float>(_distance_in_mm) / 1'000'000.0f;
+        return static_cast<float>(_distanceInMm) / 1'000'000.0f;
     }
 
     Distance::operator uint64_t() const
     {
-        return _distance_in_mm;
+        return _distanceInMm;
     }
 
-    Distance Position::get_distance(const Position &other) const
+    Distance Position::getDistance(const Position &other) const
     {
         const double R = 6371000; // Radius of the Earth in meters
-        double lat1_rad = _latitude.get_dd() * M_PI / 180.0;
-        double lat2_rad = other._latitude.get_dd() * M_PI / 180.0;
+        double lat1_rad = _latitude.getDD() * M_PI / 180.0;
+        double lat2_rad = other._latitude.getDD() * M_PI / 180.0;
         double delta_lat =
-            (other._latitude.get_dd() - _latitude.get_dd()) * M_PI / 180.0;
+            (other._latitude.getDD() - _latitude.getDD()) * M_PI / 180.0;
         double delta_lon =
-            (other._longitude.get_dd() - _longitude.get_dd()) * M_PI / 180.0;
+            (other._longitude.getDD() - _longitude.getDD()) * M_PI / 180.0;
 
         double a = std::sin(delta_lat / 2) * std::sin(delta_lat / 2) +
                    std::cos(lat1_rad) * std::cos(lat2_rad) *
@@ -163,17 +160,17 @@ namespace sabre::models::geo
         return Distance(static_cast<uint64_t>(R * c * 100.0 * 10.0));
     }
 
-    bool Position::is_valid() const
+    bool Position::isValid() const
     {
-        return _latitude.get_dd() != 0.0 || _longitude.get_dd() != 0.0;
+        return _latitude.getDD() != 0.0 || _longitude.getDD() != 0.0;
     }
 
-    uint32_t Position::get_version() const
+    uint32_t Position::getVersion() const
     {
         return _version;
     }
 
-    void Position::set_version(uint32_t version)
+    void Position::setVersion(uint32_t version)
     {
         _version = version;
     }

@@ -24,9 +24,9 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART)
         ;
 
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 34.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 34.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -118.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -118.8188167,
                 1e-7);
 }
 
@@ -47,9 +47,9 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MultipleScentences)
         ;
 
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 35.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 35.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -119.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -119.8188167,
                 1e-7);
 }
 
@@ -70,9 +70,9 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MidSentence)
         ;
 
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 34.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 34.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -118.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -118.8188167,
                 1e-7);
 }
 
@@ -92,9 +92,9 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_MidSentenceStop)
     while (device.readData())
         ;
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 34.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 34.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -118.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -118.8188167,
                 1e-7);
 }
 
@@ -129,9 +129,9 @@ TEST(SerialNmeaGpsDeviceTest, ReceiveDataFromUART_UARTError)
     while (device.readData())
         ;
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 34.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 34.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -118.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -118.8188167,
                 1e-7);
 }
 
@@ -150,9 +150,9 @@ TEST(SerialNmeaGpsDeviceTest, SwitchUARTPtr)
         ;
 
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 34.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 34.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -118.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -118.8188167,
                 1e-7);
 
     // Set up UART-2
@@ -168,9 +168,9 @@ TEST(SerialNmeaGpsDeviceTest, SwitchUARTPtr)
         ;
 
     ASSERT_TRUE(device.isValidPosition());
-    ASSERT_NEAR(device.getLastPosition().get_latitude().get_dd(), 36.1554183,
+    ASSERT_NEAR(device.getLastPosition().getLatitude().getDD(), 36.1554183,
                 1e-7);
-    ASSERT_NEAR(device.getLastPosition().get_longitude().get_dd(), -120.8188167,
+    ASSERT_NEAR(device.getLastPosition().getLongitude().getDD(), -120.8188167,
                 1e-7);
 }
 

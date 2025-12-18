@@ -29,7 +29,7 @@ namespace sabre::devices
 
     bool SerialNmeaGpsDevice::isValidPosition() const
     {
-        return _nmeaParser.getLastPosition().is_valid();
+        return _nmeaParser.getLastPosition().isValid();
     }
 
     bool SerialNmeaGpsDevice::readData()

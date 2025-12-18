@@ -78,11 +78,11 @@ namespace sabre
              */
             bool
             _extractPositionFromFields(const std::vector<std::string> &fields,
-                                       size_t lat_idx, size_t lat_dir_idx,
-                                       size_t lon_idx, size_t lon_dir_idx,
-                                       Position &out_position) const;
+                                       size_t latIndex, size_t latDirIndex,
+                                       size_t lonIndex, size_t lonDirIndex,
+                                       Position &outPosition) const;
 
-            void _updateLastPosition(Position &new_position);
+            void _updateLastPosition(Position &newPosition);
 
         public:
             /**

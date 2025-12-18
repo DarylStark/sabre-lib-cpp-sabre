@@ -36,6 +36,6 @@ namespace sabre::time
          * @param time_in_ms The time to set in milliseconds since 1970-01-01
          * 00:00:00.
          */
-        virtual void setNowMs(uint64_t time_in_ms) = 0;
+        virtual void setNowMs(uint64_t timeInMs) = 0;
     };
 } // namespace sabre::time

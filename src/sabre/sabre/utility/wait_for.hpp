@@ -24,7 +24,7 @@ namespace sabre::utility
         using UniquePtr = std::unique_ptr<WaitFor>;
 
     private:
-        bool _done(bool result, uint64_t total_runtime);
+        bool _done(bool result, uint64_t totalRuntime);
 
     protected:
         uint64_t _timeoutInMs;
@@ -60,7 +60,7 @@ namespace sabre::utility
          * @param timeout_in_ms The maximum time to wait in milliseconds.
          * @param sleep_time The time to sleep between checks in milliseconds.
          */
-        WaitFor(WaitForPred fn, uint64_t timeout_in_ms, uint64_t sleep_time);
+        WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime);
 
         /**
          * @brief Start the waiting process.

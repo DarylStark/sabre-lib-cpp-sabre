@@ -58,10 +58,10 @@ namespace sabre::core
          *
          * @return A `UARTUniquePtr` unique pointer to a `UART` object.
          */
-        virtual Uart::UniquePtr
-        create_uart_object(uint32_t uart_number, int32_t baud_rate,
-                           int32_t tx_pin, int32_t rx_pin,
-                           size_t buffer_size) const = 0;
+        virtual Uart::UniquePtr create_uart_object(uint32_t uartNumber,
+                                                   int32_t baudRate,
+                                                   int32_t txPin, int32_t rxPin,
+                                                   size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `InputGpio` object.
@@ -139,8 +139,8 @@ namespace sabre::core
          * object.
          */
         virtual WaitFor::UniquePtr createWaitFor(WaitForPred fn,
-                                                 uint64_t timeout_in_ms,
-                                                 uint64_t sleep_time) const = 0;
+                                                 uint64_t timeoutInMs,
+                                                 uint64_t sleepTime) const = 0;
 
         /**
          * @brief Create a `Service` object.

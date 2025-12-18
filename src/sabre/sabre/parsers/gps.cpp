@@ -99,9 +99,9 @@ namespace sabre
             if (new_position == _last_position)
                 return;
 
-            uint32_t version = _last_position.get_version();
+            uint32_t version = _last_position.getVersion();
             _last_position = new_position;
-            _last_position.set_version(version + 1);
+            _last_position.setVersion(version + 1);
         }
 
         bool NmeaParser::_parse_rmc(std::string scentence)
