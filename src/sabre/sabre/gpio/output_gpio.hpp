@@ -2,7 +2,7 @@
 
 #include "gpio.hpp"
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief Abstract class for output GPIO pins.
@@ -33,4 +33,4 @@ namespace Sabre
     using OutputGPIOPtr = OutputGPIO *;
     using OutputGPIOSharedPtr = std::shared_ptr<OutputGPIO>;
     using OutputGPIOUniquePtr = std::unique_ptr<OutputGPIO>;
-}; // namespace Sabre
+}; // namespace sabre

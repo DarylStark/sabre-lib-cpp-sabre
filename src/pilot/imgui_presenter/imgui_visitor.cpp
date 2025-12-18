@@ -7,7 +7,7 @@
 #include <simulator.hpp>
 #include <sstream>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
     ImGuiVisitor::ImGuiVisitor(
         std::unordered_map<std::string, bool> &device_visibility)
@@ -162,4 +162,4 @@ namespace Sabre::Pilot
         ImGui::End();
         ImGui::PopStyleVar();
     }
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

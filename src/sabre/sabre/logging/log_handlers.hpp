@@ -5,7 +5,7 @@
 #include <memory>
 #include <ostream>
 
-namespace Sabre
+namespace sabre
 {
     class OStreamLogHandler : public LogHandler
     {
@@ -39,4 +39,4 @@ namespace Sabre
     using LogBufferHandlerPtr = LogBufferHandler *;
     using LogBufferHandlerSharedPtr = std::shared_ptr<LogBufferHandler>;
     using LogBufferHandlerUniquePtr = std::unique_ptr<LogBufferHandler>;
-} // namespace Sabre
+} // namespace sabre

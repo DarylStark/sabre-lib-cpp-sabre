@@ -3,8 +3,8 @@
 
 TEST(Factory, UARTOutputStreamBuffer)
 {
-    Sabre::Testing::Factory f;
-    Sabre::UARTStreamBufUniquePtr buffer =
+    sabre::Testing::Factory f;
+    sabre::UARTStreamBufUniquePtr buffer =
         f.create_uart_output_stream_buffer(1, 9600, 1, 2, 10);
     std::ostream str(buffer.get());
     ASSERT_NO_THROW(str << "test" << std::endl);
@@ -13,8 +13,8 @@ TEST(Factory, UARTOutputStreamBuffer)
 
 TEST(Factory, UARTOutputStreamBufferFailingUARTFactoryMethod)
 {
-    Sabre::Testing::Factory f(true);
-    Sabre::UARTStreamBufUniquePtr buffer =
+    sabre::Testing::Factory f(true);
+    sabre::UARTStreamBufUniquePtr buffer =
         f.create_uart_output_stream_buffer(1, 9600, 1, 2, 10);
     ASSERT_EQ(buffer, nullptr);
 }

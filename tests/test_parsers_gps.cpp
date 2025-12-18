@@ -1,7 +1,7 @@
 #include "sabre/parsers/gps.hpp"
 #include <gtest/gtest.h>
 
-using namespace Sabre::Parsers;
+using namespace sabre::parsers;
 
 TEST(ParsersNMEA, ConstructEmpty)
 {

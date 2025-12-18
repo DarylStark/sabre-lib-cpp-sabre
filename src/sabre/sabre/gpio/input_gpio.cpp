@@ -1,6 +1,6 @@
 #include "input_gpio.hpp"
 
-namespace Sabre
+namespace sabre
 {
     bool InputGPIO::get_level() const
     {
@@ -16,4 +16,4 @@ namespace Sabre
     {
         return _inverse_level;
     }
-} // namespace Sabre
+} // namespace sabre

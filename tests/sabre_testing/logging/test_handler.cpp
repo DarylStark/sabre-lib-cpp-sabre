@@ -1,6 +1,6 @@
 #include "test_handler.hpp"
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
     void TestHandler::handle_log(const LoggingLevel level,
                                  const std::string &logger_name,
@@ -11,7 +11,7 @@ namespace Sabre::Testing
         _message = message;
     }
 
-    Sabre::LoggingLevel TestHandler::get_last_level() const
+    sabre::LoggingLevel TestHandler::get_last_level() const
     {
         return _level;
     }
@@ -25,4 +25,4 @@ namespace Sabre::Testing
     {
         return _message;
     }
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

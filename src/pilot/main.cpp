@@ -6,10 +6,10 @@
 #include <iostream>
 #include <thread>
 
-class MyApp : public Sabre::App
+class MyApp : public sabre::App
 {
 private:
-    Sabre::UARTUniquePtr _uart0;
+    sabre::UARTUniquePtr _uart0;
     bool _stop = false;
 
 public:
@@ -30,7 +30,7 @@ public:
     }
 };
 
-class MyGpsApp : public Sabre::App
+class MyGpsApp : public sabre::App
 {
 public:
     void start() override
@@ -54,7 +54,7 @@ public:
 
 int main()
 {
-    using namespace Sabre::Pilot;
+    using namespace sabre::Pilot;
 
     DeviceConfig config_mcu{.gpio_count = 32, .uart_count = 2};
     DeviceConfig config_gps{.gpio_count = 2, .uart_count = 1};

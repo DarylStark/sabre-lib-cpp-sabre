@@ -3,9 +3,9 @@
 #include "../../simulator/device.hpp"
 #include <sabre/uart/uart.hpp>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
-    class UART : public Sabre::UART
+    class UART : public sabre::UART
     {
     private:
         Device *_device;
@@ -20,4 +20,4 @@ namespace Sabre::Pilot
         void flush() override;
         void deinitialize() override;
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

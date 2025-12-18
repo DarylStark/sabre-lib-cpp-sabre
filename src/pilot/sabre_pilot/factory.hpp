@@ -4,9 +4,9 @@
 #include "sabre/app/app.hpp"
 #include <sabre/factory.hpp>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
-    class Factory : public Sabre::Factory
+    class Factory : public sabre::Factory
     {
     private:
         Device *_device;
@@ -28,4 +28,4 @@ namespace Sabre::Pilot
                                          uint64_t sleep_time) const;
         ServiceUniquePtr create_service(ServiceHandler fn) const;
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

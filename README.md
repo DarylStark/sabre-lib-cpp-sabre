@@ -35,79 +35,17 @@ ctest
 
 The Sabre framework is structured as follows:
 
-| Namespace         | Description                                                                       | Interface only |  Pure   | Dependencies                           | Remarks                       |
-| ----------------- | --------------------------------------------------------------------------------- | :------------: | :-----: | -------------------------------------- | ----------------------------- |
-| `sabre::core`     | Core abstractions and lifecycle                                                   |     **No**     |         | All interface only and pure namespaces | Shouldn't depend on concretes |
-| `sabre::os`       | “service” concept, threading, timers; maps to FreeRTOS/Std::thread                |    **Yes**     |         | None                                   |                               |
-| `sabre::hal`      | Pure hardware abstraction interfaces (GPIO, UART, I2C, SPI, etc.)                 |    **Yes**     |         | None                                   |                               |
-| `sabre::net`      | Protocol-level interfaces (WiFi, SoftAP, MQTT, TCP/UDP)                           |    **Yes**     |         | None                                   |                               |
-| `sabre::time`     | WallClock, NTP, monotonic timers                                                  |    **Yes**     |         | None                                   |                               |
-| `sabre::io`       | Streams, logging sinks, files if any (desktop only)                               |    **Yes**     |         | None                                   |                               |
-| `sabre::devices`  | High-level device facades (GPS, LTE, sensors) – use HAL underneath                |     **No**     |         | `hal`, `net`, `time`, `model`          |                               |
-| `sabre::parsers`  | Parsers (NMEA, UBX, JSON...); pure, platform-free                                 |     **No**     | **Yes** | None                                   |                               |
-| `sabre::model`    | Domain models (Position, SatelliteInfo…) – pure value types                       |     **No**     | **Yes** | None                                   |                               |
-| `sabre::platform` | Platform modules that implement the interfaces:                                   |     **No**     |         | `hal`, `net`, `os`, `time`             |                               |
-| `sabre::testkit`  | Mocks/fakes/simulators for desktop tests; implements hal/net/os with test doubles |     **No**     |         | All interface only namespaces          |                               |
-
-
-| Namespace         | Description                                                                       |       Interface Only       | Allowed Dependencies                      | Forbidden Dependencies  |
-| ----------------- | --------------------------------------------------------------------------------- | :------------------------: | ----------------------------------------- | ----------------------- |
-| `sabre::core`     | Core abstractions and lifecycle (Registry, Application, Config, Lifecycle)        | concept, threading, timers | Yes                                       | None                    | `platform`, `core` |  | `sabre::core` | Core abstractions and lifecycle (Registry, Application, Config, Lifecycle) | No | `hal`, `net`, `os`, `time`, `io`, `model`, `parsers` | `platform`, `testkit` |
-| `sabre::hal`      | Pure hardware abstraction interfaces (GPIO, UART, I2C, SPI, etc.)                 |            Yes             | None                                      | `platform`, `core`      |
-| `sabre::net`      | Protocol-level interfaces (WiFi, SoftAP, MQTT, TCP/UDP)                           |            Yes             | None                                      | `platform`, `core`      |
-| `sabre::time`     | WallClock, NTP, monotonic timers                                                  |            Yes             | None                                      | `platform`, `core`      |
-| `sabre::io`       | Streams, logging sinks, files if any (desktop only)                               |            Yes             | None                                      | `platform`, `core`      |
-| `sabre::devices`  | High-level device facades (GPS, LTE, sensors) – use HAL underneath                |             No             | `hal`, `net`, `time`, `model`             | `platform`, `core`      |
-| `sabre::parsers`  | Parsers (NMEA, UBX, JSON...); pure, platform-free                                 |             No             | None                                      | `platform`, `core`      |
-| `sabre::model`    | Domain models (Position, SatelliteInfo…) – pure value types                       |             No             | None                                      | `platform`, `core`      |
-| `sabre::platform` | Platform modules that implement the interfaces (ESP32, STM32, Pico, Desktop)      |             No             | `hal`, `net`, `os`, `time` (to implement) | `core`, `testkit`       |
-| `sabre::testkit`  | Mocks/fakes/simulators for desktop tests; implements hal/net/os with test doubles |             No             | All interface-only namespaces             | `platform`, vendor SDKs |
-
-
-
-```mermaid
-
-
-flowchart TD
-    subgraph Pure
-        M[sabre::model]
-        P[sabre::parsers]
-    end
-
-    subgraph Interfaces
-        H[sabre::hal]
-        N[sabre::net]
-        O[sabre::os]
-        T[sabre::time]
-        I[sabre::io]
-    end
-
-    D[sabre::devices]
-    C[sabre::core]
-    PL[sabre::platform::<x>]
-    TK[sabre::testkit]
-
-    M --> D
-    P --> D
-    H --> D
-    N --> D
-    T --> D
-
-    D --> C
-    H --> C
-    N --> C
-    O --> C
-    T --> C
-    I --> C
-
-    C -->|receives registry from| PL
-    TK --> H
-    TK --> N
-    TK --> O
-    TK --> T
-
-    style PL fill:#fdd,stroke:#f66,stroke-width:2px
-    style TK fill:#dfd,stroke:#6c6,stroke-width:2px
-    style C fill:#ddf,stroke:#66f,stroke-width:2px
-
-```
+| Namespace        | Description                                                            | Interface only |  Pure   | Dependencies                           | Remarks                       |
+| ---------------- | ---------------------------------------------------------------------- | :------------: | :-----: | -------------------------------------- | ----------------------------- |
+| `sabre::core`    | Core abstractions and lifecycle                                        |     **No**     |         | All interface only and pure namespaces | Shouldn't depend on concretes |
+| `sabre::devices` | High-level device facades (GPS, LTE, sensors) – use HAL underneath     |     **No**     |         | `hal`, `net`, `time`, `model`          |                               |
+| `sabre::hal`     | Pure hardware abstraction interfaces (GPIO, UART, I2C, SPI, etc.)      |    **Yes**     |         | None                                   |                               |
+| `sabre::impl`    | Platform implementations for interfaces                                |     **No**     |         | `hal`, `net`, `os`, `time`             |                               |
+| `sabre::io`      | Streams, logging sinks, files if any (desktop only)                    |    **Yes**     |         | `hal`                                  |                               |
+| `sabre::log`     | Log handlers                                                           |     **No**     |         | `io`                                   |                               |
+| `sabre::model`   | Domain models (Position, SatelliteInfo…) – pure value types            |     **No**     | **Yes** | None                                   |                               |
+| `sabre::net`     | Protocol-level interfaces (WiFi, SoftAP, MQTT, TCP/UDP)                |    **Yes**     |         | None                                   |                               |
+| `sabre::os`      | “service” concept, threading, timers; maps to FreeRTOS/Std::thread     |    **Yes**     |         | None                                   |                               |
+| `sabre::parsers` | Parsers (NMEA, UBX, JSON...); pure, platform-free                      |     **No**     | **Yes** | None                                   |                               |
+| `sabre::time`    | WallClock, NTP, monotonic timers                                       |    **Yes**     |         | None                                   |                               |
+| `sabre::utility` | General-purpose helpers, reusable patterns, predicates, timeouts, etc. |     **No**     |         | All interface only and pure namespaces | For non-domain-specific code  |

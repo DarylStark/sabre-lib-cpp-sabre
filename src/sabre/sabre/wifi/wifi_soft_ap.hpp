@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief An interface for a Wi-Fi Soft Access Point (AP).
@@ -40,4 +40,4 @@ namespace Sabre
     using WifiSoftAPPtr = WifiSoftAP *;
     using WifiSoftAPSharedPtr = std::shared_ptr<WifiSoftAP>;
     using WifiSoftAPUniquePtr = std::unique_ptr<WifiSoftAP>;
-}; // namespace Sabre
+}; // namespace sabre

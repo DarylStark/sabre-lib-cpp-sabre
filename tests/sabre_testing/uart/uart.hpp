@@ -4,9 +4,9 @@
 #include <sabre/uart/uart_output_stream_buffer.hpp>
 #include <string>
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
-    class TestUART : public Sabre::UART
+    class TestUART : public sabre::UART
     {
     public:
         void initialize();
@@ -17,4 +17,4 @@ namespace Sabre::Testing
 
         mutable std::string _buf;
     };
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

@@ -2,11 +2,11 @@
 
 #include <sabre/gpio/gpio.hpp>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
-    class GPIO : public Sabre::GPIO
+    class GPIO : public sabre::GPIO
     {
     public:
         void reset() override;
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

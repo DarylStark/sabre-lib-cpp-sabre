@@ -2,7 +2,7 @@
 #include "../sabre_pilot/factory.hpp"
 #include <iostream>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
     DeviceEventData::~DeviceEventData() {}
 
@@ -11,7 +11,7 @@ namespace Sabre::Pilot
     {
     }
 
-    Device::Device(DeviceConfig config, Sabre::AppUniquePtr &&app)
+    Device::Device(DeviceConfig config, sabre::AppUniquePtr &&app)
         : _config(config), _app(std::move(app)), _gpios(config.gpio_count)
     {
         uint32_t gpio_index = 0;
@@ -154,4 +154,4 @@ namespace Sabre::Pilot
     {
         return _uart_map;
     }
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

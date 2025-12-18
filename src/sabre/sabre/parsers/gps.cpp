@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace Sabre
+namespace sabre
 {
     namespace Models
     {
@@ -185,7 +185,7 @@ namespace Sabre
         }
     } // namespace Models
 
-    namespace Parsers
+    namespace parsers
     {
         NMEA_Parser::NMEA_Parser() : _last_position() {}
 
@@ -386,5 +386,5 @@ namespace Sabre
         {
             return _scentences.size();
         }
-    } // namespace Parsers
-} // namespace Sabre
+    } // namespace parsers
+} // namespace sabre

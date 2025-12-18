@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <memory>
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief Interface for a wall clock.
@@ -37,4 +37,4 @@ namespace Sabre
     using WallClockPtr = WallClock *;
     using WallClockSharedPtr = std::shared_ptr<WallClock>;
     using WallClockUniquePtr = std::unique_ptr<WallClock>;
-} // namespace Sabre
+} // namespace sabre

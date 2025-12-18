@@ -2,7 +2,7 @@
 
 #include "string_validator.hpp"
 
-namespace Sabre::Parsers
+namespace sabre::parsers
 {
     enum class NMEA_Validation_State
     {
@@ -31,4 +31,4 @@ namespace Sabre::Parsers
         bool is_accepted() const;
         bool is_started() const;
     };
-} // namespace Sabre::Parsers
+} // namespace sabre::parsers

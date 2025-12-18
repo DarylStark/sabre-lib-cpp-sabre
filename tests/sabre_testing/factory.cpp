@@ -2,7 +2,7 @@
 #include "gpio/input_gpio.hpp"
 #include "uart/uart.hpp"
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
 
     Factory::Factory(bool uart_should_be_nullptr)
@@ -66,4 +66,4 @@ namespace Sabre::Testing
     {
         return nullptr;
     }
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

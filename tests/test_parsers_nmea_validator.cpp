@@ -1,7 +1,7 @@
 #include "sabre/parsers/nmea_validator.hpp"
 #include <gtest/gtest.h>
 
-using namespace Sabre::Parsers;
+using namespace sabre::parsers;
 
 TEST(NMEAValidator, TestConstruction)
 {

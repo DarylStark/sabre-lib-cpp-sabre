@@ -3,7 +3,7 @@
 #include "imgui_visitor.hpp"
 #include <presenter.hpp>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
     enum class ImGuiTheme
     {
@@ -68,4 +68,4 @@ namespace Sabre::Pilot
         ImGuiPresenter(Simulator &simulator);
         void start() override;
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

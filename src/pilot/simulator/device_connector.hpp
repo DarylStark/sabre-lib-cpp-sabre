@@ -2,7 +2,7 @@
 
 #include "device.hpp"
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
     class UartConnector
     {
@@ -16,4 +16,4 @@ namespace Sabre::Pilot
         UartConnector(Device &device_a, uint32_t uart_number_a,
                       Device &device_b, uint32_t uart_number_b);
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

@@ -1,7 +1,7 @@
 #include "ipv4_address.hpp"
 #include <ostream>
 
-namespace Sabre
+namespace sabre
 {
     IPv4Address::IPv4Address() : _address(0) {}
 
@@ -34,9 +34,9 @@ namespace Sabre
         return result;
     }
 
-    std::ostream &operator<<(std::ostream &os, const Sabre::IPv4Address &ipv4)
+    std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4)
     {
         os << static_cast<std::string>(ipv4);
         return os;
     }
-} // namespace Sabre
+} // namespace sabre

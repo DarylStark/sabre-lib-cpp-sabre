@@ -1,9 +1,9 @@
 #include "mcu.hpp"
 #include "simulator.hpp"
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
-    Mcu::Mcu(DeviceConfig config, Sabre::AppUniquePtr &&app)
+    Mcu::Mcu(DeviceConfig config, sabre::AppUniquePtr &&app)
         : Device(std::move(config), std::move(app))
     {
     }
@@ -12,4 +12,4 @@ namespace Sabre::Pilot
     {
         visitor.visit_mcu(*this, name);
     }
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

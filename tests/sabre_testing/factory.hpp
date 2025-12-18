@@ -4,9 +4,9 @@
 #include <ostream>
 #include <sabre/factory.hpp>
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
-    class Factory : public Sabre::Factory
+    class Factory : public sabre::Factory
     {
         bool _uart_should_be_nullptr = false;
 
@@ -29,4 +29,4 @@ namespace Sabre::Testing
         create_ntp_client(const std::string &server) const override;
         WallClockUniquePtr create_wall_clock() const override;
     };
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

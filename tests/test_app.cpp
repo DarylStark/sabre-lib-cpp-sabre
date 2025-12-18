@@ -2,8 +2,8 @@
 #include "sabre_testing/factory.hpp"
 #include <gtest/gtest.h>
 
-using Sabre::Testing::Factory;
-using Sabre::Testing::TestApp;
+using sabre::Testing::Factory;
+using sabre::Testing::TestApp;
 
 TEST(App, AppSetFactory)
 {
@@ -31,7 +31,7 @@ TEST(App, AppDefaultConstructor)
 TEST(App, RunAppFunctionNoFactory)
 {
     TestApp app;
-    EXPECT_ANY_THROW(Sabre::run_app(app));
+    EXPECT_ANY_THROW(sabre::run_app(app));
 }
 
 TEST(App, RunAppFunction)
@@ -39,5 +39,5 @@ TEST(App, RunAppFunction)
     TestApp app;
     auto factory = std::make_unique<Factory>();
     app.set_factory(std::move(factory));
-    EXPECT_NO_THROW(Sabre::run_app(app));
+    EXPECT_NO_THROW(sabre::run_app(app));
 }

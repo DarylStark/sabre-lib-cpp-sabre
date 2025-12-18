@@ -1,6 +1,6 @@
 #include "input_gpio.hpp"
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
     InputGPIO::InputGPIO(Device *device, uint32_t pin)
         : _device(device), _pin(pin)
@@ -45,4 +45,4 @@ namespace Sabre::Pilot
     {
         // Implementation specific code to add an interrupt handler
     }
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

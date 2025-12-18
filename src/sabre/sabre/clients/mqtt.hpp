@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief Enumeration for the QoS levels of a MQTT message.
@@ -219,4 +219,4 @@ namespace Sabre
     using MQTTClientPtr = MQTTClient *;
     using MQTTClientSharedPtr = std::shared_ptr<MQTTClient>;
     using MQTTClientUniquePtr = std::unique_ptr<MQTTClient>;
-}; // namespace Sabre
+}; // namespace sabre

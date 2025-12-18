@@ -1,8 +1,8 @@
 #include "service.hpp"
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
-    Service::Service(Sabre::ServiceHandler fn) : Sabre::Service(fn) {}
+    Service::Service(sabre::ServiceHandler fn) : sabre::Service(fn) {}
 
     void Service::start()
     {
@@ -10,4 +10,4 @@ namespace Sabre::Testing
     }
 
     void Service::stop() {}
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

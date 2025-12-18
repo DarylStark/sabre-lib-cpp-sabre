@@ -1,6 +1,6 @@
 #include "nmea_validator.hpp"
 
-namespace Sabre::Parsers
+namespace sabre::parsers
 {
     NMEAValidator::NMEAValidator()
         : _state(NMEA_Validation_State::WAITING_FOR_START)
@@ -54,4 +54,4 @@ namespace Sabre::Parsers
     {
         return _state == NMEA_Validation_State::WAITING_FOR_END;
     }
-} // namespace Sabre::Parsers
+} // namespace sabre::parsers

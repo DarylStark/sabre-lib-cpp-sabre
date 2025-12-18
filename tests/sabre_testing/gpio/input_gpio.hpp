@@ -2,9 +2,9 @@
 
 #include <sabre/gpio/input_gpio.hpp>
 
-namespace Sabre::Testing
+namespace sabre::Testing
 {
-    class InputGPIO : public Sabre::InputGPIO
+    class InputGPIO : public sabre::InputGPIO
     {
     protected:
         bool _get_level() const override;
@@ -19,4 +19,4 @@ namespace Sabre::Testing
 
         bool level = true;
     };
-} // namespace Sabre::Testing
+} // namespace sabre::Testing

@@ -4,7 +4,7 @@
 #include <memory>
 #include <streambuf>
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief A stream buffer for UART output.
@@ -72,4 +72,4 @@ namespace Sabre
     using UARTStreamBufPtr = UARTStreamBuf *;
     using UARTStreamBufSharedPtr = std::shared_ptr<UARTStreamBuf>;
     using UARTStreamBufUniquePtr = std::unique_ptr<UARTStreamBuf>;
-} // namespace Sabre
+} // namespace sabre

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Sabre::Parsers
+namespace sabre::parsers
 {
     class StringValidator
     {
@@ -18,4 +18,4 @@ namespace Sabre::Parsers
         virtual bool is_accepted() const = 0;
         virtual bool is_started() const = 0;
     };
-} // namespace Sabre::Parsers
+} // namespace sabre::parsers

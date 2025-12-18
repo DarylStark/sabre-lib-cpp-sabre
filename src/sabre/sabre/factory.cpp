@@ -1,6 +1,6 @@
 #include "factory.hpp"
 
-namespace Sabre
+namespace sabre
 {
     UARTStreamBufUniquePtr Factory::create_uart_output_stream_buffer(
         uint32_t uart_number, int32_t baud_rate, int32_t tx_pin, int32_t rx_pin,
@@ -14,4 +14,4 @@ namespace Sabre
         uart->initialize();
         return std::make_unique<UARTStreamBuf>(std::move(uart), buffer_size);
     }
-} // namespace Sabre
+} // namespace sabre

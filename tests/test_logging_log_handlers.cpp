@@ -7,21 +7,21 @@
 
 TEST(OStreamLogHandler, Logging)
 {
-    std::unique_ptr<Sabre::Testing::TestUART> u =
-        std::make_unique<Sabre::Testing::TestUART>();
+    std::unique_ptr<sabre::Testing::TestUART> u =
+        std::make_unique<sabre::Testing::TestUART>();
     auto *u_ptr = u.get();
-    Sabre::UARTStreamBuf buffer(std::move(u), 128);
+    sabre::UARTStreamBuf buffer(std::move(u), 128);
     std::ostream stream(&buffer);
 
-    Sabre::Logging::set_level(Sabre::LoggingLevel::DEBUG);
-    Sabre::OStreamLogHandlerSharedPtr handler =
-        std::make_shared<Sabre::OStreamLogHandler>(stream);
+    sabre::Logging::set_level(sabre::LoggingLevel::DEBUG);
+    sabre::OStreamLogHandlerSharedPtr handler =
+        std::make_shared<sabre::OStreamLogHandler>(stream);
 
-    Sabre::Logging::add_handler(handler);
+    sabre::Logging::add_handler(handler);
 
-    Sabre::Logging::log(Sabre::LoggingLevel::INFO, "TestLogger", "Testmessage");
+    sabre::Logging::log(sabre::LoggingLevel::INFO, "TestLogger", "Testmessage");
 
-    Sabre::Logging::remove_handler(handler);
+    sabre::Logging::remove_handler(handler);
 
     ASSERT_TRUE(u_ptr->_buf.contains("TestLogger"));
     ASSERT_TRUE(u_ptr->_buf.contains("Testmessage"));
@@ -29,27 +29,27 @@ TEST(OStreamLogHandler, Logging)
 
 TEST(LogBufferHandler, Logging)
 {
-    Sabre::Logging::set_level(Sabre::LoggingLevel::DEBUG);
-    Sabre::LogBufferHandlerSharedPtr handler =
-        std::make_shared<Sabre::LogBufferHandler>(1);
+    sabre::Logging::set_level(sabre::LoggingLevel::DEBUG);
+    sabre::LogBufferHandlerSharedPtr handler =
+        std::make_shared<sabre::LogBufferHandler>(1);
 
-    Sabre::Logging::add_handler(handler);
+    sabre::Logging::add_handler(handler);
 
-    Sabre::Logging::log(Sabre::LoggingLevel::INFO, "TestLogger", "Testmessage");
+    sabre::Logging::log(sabre::LoggingLevel::INFO, "TestLogger", "Testmessage");
 
     ASSERT_TRUE(handler->get_buffer()[0].contains("TestLogger"));
 }
 
 TEST(LogBufferHandler, Overflow)
 {
-    Sabre::Logging::set_level(Sabre::LoggingLevel::DEBUG);
-    Sabre::LogBufferHandlerSharedPtr handler =
-        std::make_shared<Sabre::LogBufferHandler>(2);
+    sabre::Logging::set_level(sabre::LoggingLevel::DEBUG);
+    sabre::LogBufferHandlerSharedPtr handler =
+        std::make_shared<sabre::LogBufferHandler>(2);
 
-    Sabre::Logging::add_handler(handler);
+    sabre::Logging::add_handler(handler);
 
     for (uint32_t i = 0; i < 5; ++i)
-        Sabre::Logging::log(Sabre::LoggingLevel::INFO, "TestLogger",
+        sabre::Logging::log(sabre::LoggingLevel::INFO, "TestLogger",
                             "Testmessage");
     ASSERT_TRUE(handler->get_buffer().size() == 2);
 }

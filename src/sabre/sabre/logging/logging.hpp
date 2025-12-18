@@ -4,7 +4,7 @@
 #include <memory>
 #include <string>
 
-namespace Sabre
+namespace sabre
 {
     /**
      * @brief Enumeration for logging levels.
@@ -220,4 +220,4 @@ namespace Sabre
          */
         static void remove_handler(LogHandlerSharedPtr handler);
     };
-}; // namespace Sabre
+}; // namespace sabre

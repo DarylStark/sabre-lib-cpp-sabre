@@ -3,9 +3,9 @@
 #include "../../simulator/device.hpp"
 #include <sabre/gpio/output_gpio.hpp>
 
-namespace Sabre::Pilot
+namespace sabre::Pilot
 {
-    class OutputGPIO : public Sabre::OutputGPIO
+    class OutputGPIO : public sabre::OutputGPIO
     {
     private:
         Device *__device;
@@ -18,4 +18,4 @@ namespace Sabre::Pilot
         void set_low() override;
         void set_level(bool level) override;
     };
-} // namespace Sabre::Pilot
+} // namespace sabre::Pilot

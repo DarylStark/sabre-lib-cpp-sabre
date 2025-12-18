@@ -4,7 +4,7 @@
 #include <functional>
 #include <memory>
 
-namespace Sabre
+namespace sabre
 {
     using WaitForPred = std::function<bool()>;
 
@@ -92,4 +92,4 @@ namespace Sabre
     using WaitForPtr = WaitFor *;
     using WaitForSharedPtr = std::shared_ptr<WaitFor>;
     using WaitForUniquePtr = std::unique_ptr<WaitFor>;
-}; // namespace Sabre
+}; // namespace sabre

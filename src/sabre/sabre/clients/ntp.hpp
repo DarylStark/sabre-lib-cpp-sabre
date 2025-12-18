@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace Sabre
+namespace sabre
 {
     class NTPClient
     {
@@ -30,6 +30,6 @@ namespace Sabre
         virtual bool is_synchronized() const = 0;
     };
     using NTPClientPtr = NTPClient *;
-    using NTPClientSharedPtr = std::shared_ptr<Sabre::NTPClient>;
-    using NTPClientUniquePtr = std::unique_ptr<Sabre::NTPClient>;
-} // namespace Sabre
+    using NTPClientSharedPtr = std::shared_ptr<sabre::NTPClient>;
+    using NTPClientUniquePtr = std::unique_ptr<sabre::NTPClient>;
+} // namespace sabre
