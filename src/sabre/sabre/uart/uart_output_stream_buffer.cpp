@@ -4,7 +4,7 @@
 
 namespace sabre::io
 {
-    UARTStreamBuf::UARTStreamBuf(UARTUniquePtr uart, size_t buffer_size)
+    UARTStreamBuf::UARTStreamBuf(UART::UniquePtr uart, size_t buffer_size)
         : _uart(std::move(uart))
     {
         _buffer = new char[buffer_size];

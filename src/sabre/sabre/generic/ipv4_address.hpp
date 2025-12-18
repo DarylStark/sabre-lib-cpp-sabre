@@ -67,5 +67,5 @@ namespace sabre::models
         operator std::string() const;
     };
 
-    std::ostream &operator<<(std::ostream &os, const sabre::IPv4Address &ipv4);
+    std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4);
 }; // namespace sabre::models

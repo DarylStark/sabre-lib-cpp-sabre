@@ -219,9 +219,9 @@ namespace sabre::net
          *
          * @param topic_name the topic for the MQTTTopic object.
          *
-         * @return A `MQTTTopicUniquePtr` unique pointer to a `MQTTTopic`
+         * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
-        MQTTTopicUniquePtr get_topic(const std::string &topic_name);
+        MQTTTopic::UniquePtr get_topic(const std::string &topic_name);
     };
 }; // namespace sabre::net

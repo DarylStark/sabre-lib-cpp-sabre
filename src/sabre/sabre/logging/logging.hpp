@@ -167,7 +167,7 @@ namespace sabre::log
         Logging &operator=(const Logging &) = delete;
 
         static LoggingLevel _level;
-        static std::forward_list<LogHandlerSharedPtr> _handlers;
+        static std::forward_list<LogHandler::SharedPtr> _handlers;
 
     public:
         /**
@@ -211,7 +211,7 @@ namespace sabre::log
          * This method allows the user to register a log handler that will
          * receive log messages.
          */
-        static void add_handler(LogHandlerSharedPtr handler);
+        static void add_handler(LogHandler::SharedPtr handler);
 
         /**
          * @brief Remove a log handler from the logging system.
@@ -221,6 +221,6 @@ namespace sabre::log
          *
          * @param handler The log handler to be removed.
          */
-        static void remove_handler(LogHandlerSharedPtr handler);
+        static void remove_handler(LogHandler::SharedPtr handler);
     };
 }; // namespace sabre::log

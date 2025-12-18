@@ -6,6 +6,7 @@
 
 namespace sabre::io
 {
+    using sabre::hal::UART;
     /**
      * @brief A stream buffer for UART output.
      *
@@ -23,7 +24,7 @@ namespace sabre::io
         using UniquePtr = std::unique_ptr<UARTStreamBuf>;
 
     private:
-        UARTUniquePtr _uart;
+        UART::UniquePtr _uart;
         char *_buffer;
         size_t _buffer_size;
 
@@ -64,7 +65,7 @@ namespace sabre::io
          * @param uart The UART device to use for output operations.
          * @param buffer_size The size of the internal buffer (default is 512).
          */
-        UARTStreamBuf(UARTUniquePtr uart, size_t buffer_size = 512);
+        UARTStreamBuf(UART::UniquePtr uart, size_t buffer_size = 512);
 
         /**
          * @brief Destructor for the UARTStreamBuf class.

@@ -3,14 +3,14 @@
 namespace sabre::core
 {
     App::App() : _factory(nullptr) {}
-    App::App(FactoryUniquePtr factory) : _factory(std::move(factory)) {}
+    App::App(Factory::UniquePtr factory) : _factory(std::move(factory)) {}
 
-    void App::set_factory(FactoryUniquePtr factory)
+    void App::set_factory(Factory::UniquePtr factory)
     {
         _factory = std::move(factory);
     }
 
-    const FactoryUniquePtr &App::get_factory() const
+    const Factory::UniquePtr &App::get_factory() const
     {
         return _factory;
     }

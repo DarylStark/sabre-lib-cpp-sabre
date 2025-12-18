@@ -46,7 +46,7 @@ namespace sabre::net
         _subscriptions[topic] = fn;
     }
 
-    MQTTTopicUniquePtr MQTTClient::get_topic(const std::string &topic_name)
+    MQTTTopic::UniquePtr MQTTClient::get_topic(const std::string &topic_name)
     {
         return std::make_unique<MQTTTopic>(*this, topic_name);
     }

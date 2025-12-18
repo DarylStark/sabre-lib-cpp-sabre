@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sabre
+namespace sabre::net
 {
     /**
      * @brief An interface for a Wi-Fi Soft Access Point (AP).
@@ -41,4 +41,4 @@ namespace sabre
          */
         virtual void deinitialize() = 0;
     };
-}; // namespace sabre
+}; // namespace sabre::net

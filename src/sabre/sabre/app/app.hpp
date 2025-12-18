@@ -13,17 +13,17 @@ namespace sabre::core
         using UniquePtr = std::unique_ptr<App>;
 
     protected:
-        FactoryUniquePtr _factory;
+        Factory::UniquePtr _factory;
 
     public:
         App();
-        App(FactoryUniquePtr factory);
+        App(Factory::UniquePtr factory);
         App(const App &) = delete;
         App &operator=(const App &) = delete;
         App(App &&) = default;
 
-        void set_factory(FactoryUniquePtr factory);
-        const FactoryUniquePtr &get_factory() const;
+        void set_factory(Factory::UniquePtr factory);
+        const Factory::UniquePtr &get_factory() const;
 
         virtual ~App() = default;
 

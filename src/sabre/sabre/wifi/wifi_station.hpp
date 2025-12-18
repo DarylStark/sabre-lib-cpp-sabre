@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace sabre
+namespace sabre::net
 {
     /**
      * @brief An interface for a Wi-Fi Station.
@@ -75,4 +75,4 @@ namespace sabre
          */
         virtual bool has_ipv4_address() const = 0;
     };
-} // namespace sabre
+} // namespace sabre::net
