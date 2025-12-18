@@ -1,4 +1,4 @@
-#include "sabre_testing/utility/wait_for.hpp"
+#include "sabre_testing/utility.hpp"
 #include <gtest/gtest.h>
 
 TEST(WaitFor, RunSuccessfulPredicate)

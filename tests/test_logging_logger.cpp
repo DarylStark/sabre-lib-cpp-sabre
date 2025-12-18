@@ -1,4 +1,4 @@
-#include "sabre_testing/logging/test_handler.hpp"
+#include "sabre_testing/log.hpp"
 #include <gtest/gtest.h>
 #include <sabre/log/logging.hpp>
 

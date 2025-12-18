@@ -1,4 +1,4 @@
-#include "sabre_testing/clients/mqtt.hpp"
+#include "sabre_testing/net.hpp"
 #include <gtest/gtest.h>
 #include <string>
 

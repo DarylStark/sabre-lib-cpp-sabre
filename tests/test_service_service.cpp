@@ -1,4 +1,4 @@
-#include "sabre_testing/service/service.hpp"
+#include "sabre_testing/os.hpp"
 #include <gtest/gtest.h>
 
 TEST(Service, StartingWithALambda)

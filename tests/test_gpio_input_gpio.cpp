@@ -1,4 +1,4 @@
-#include "sabre_testing/gpio/input_gpio.hpp"
+#include "sabre_testing/hal.hpp"
 #include <gtest/gtest.h>
 
 TEST(InputGPIO, DefaultInverseLevel)

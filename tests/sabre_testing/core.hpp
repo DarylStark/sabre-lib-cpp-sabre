@@ -1,7 +1,6 @@
 #pragma once
 
-#include <memory>
-#include <ostream>
+#include <sabre/core/app.hpp>
 #include <sabre/core/factory.hpp>
 
 namespace sabre::impl::sabre_testing
@@ -31,5 +30,13 @@ namespace sabre::impl::sabre_testing
         NTPClient::UniquePtr
         create_ntp_client(const std::string &server) const override;
         WallClock::UniquePtr create_wall_clock() const override;
+    };
+
+    class TestApp : public sabre::core::App
+    {
+    public:
+        TestApp();
+        TestApp(sabre::core::Factory::UniquePtr factory);
+        void start() override;
     };
 } // namespace sabre::impl::sabre_testing

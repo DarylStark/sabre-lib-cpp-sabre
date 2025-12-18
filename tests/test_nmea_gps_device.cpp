@@ -1,6 +1,5 @@
+#include "sabre_testing/hal.hpp"
 #include <gtest/gtest.h>
-
-#include "sabre_testing/uart/uart.hpp"
 #include <sabre/devices/serial_nmea_gps_device.hpp>
 
 TEST(SerialNmeaGpsDeviceTest, DefaultConstructor)

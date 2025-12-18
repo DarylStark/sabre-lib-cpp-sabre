@@ -1,5 +1,4 @@
-#include "sabre_testing/app/app.hpp"
-#include "sabre_testing/factory.hpp"
+#include "sabre_testing/core.hpp"
 #include <gtest/gtest.h>
 
 using sabre::impl::sabre_testing::Factory;
