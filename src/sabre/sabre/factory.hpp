@@ -1,16 +1,16 @@
 #pragma once
 
-#include "clients/mqtt.hpp"
-#include "clients/ntp.hpp"
-#include "gpio/input_gpio.hpp"
-#include "gpio/output_gpio.hpp"
-#include "service/service.hpp"
-#include "system/wall_clock.hpp"
-#include "uart/uart.hpp"
-#include "uart/uart_output_stream_buffer.hpp"
+#include "hal/input_gpio.hpp"
+#include "hal/output_gpio.hpp"
+#include "hal/uart.hpp"
+#include "io/uart_output_stream_buffer.hpp"
+#include "net/mqtt.hpp"
+#include "net/wifi_soft_ap.hpp"
+#include "net/wifi_station.hpp"
+#include "os/service.hpp"
+#include "time/ntp.hpp"
+#include "time/wall_clock.hpp"
 #include "utility/wait_for.hpp"
-#include "wifi/wifi_soft_ap.hpp"
-#include "wifi/wifi_station.hpp"
 
 #include <memory>
 #include <ostream>

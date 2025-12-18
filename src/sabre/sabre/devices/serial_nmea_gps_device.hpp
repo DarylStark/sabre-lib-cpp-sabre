@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../hal/uart.hpp"
 #include "../parsers/nmea_validator.hpp"
-#include "../uart/uart.hpp"
 #include "./gps_device.hpp"
 
 namespace sabre::devices

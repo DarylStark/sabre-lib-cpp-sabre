@@ -1,6 +1,6 @@
 #pragma once
 
-#include "uart.hpp"
+#include "../hal/uart.hpp"
 #include <memory>
 #include <streambuf>
 
