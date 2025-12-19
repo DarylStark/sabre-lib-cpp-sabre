@@ -66,10 +66,10 @@ namespace sabre::impl::sabre_testing
         return nullptr;
     }
 
-    TestApp::TestApp() : sabre::core::App() {}
+    TestApp::TestApp() : sabre::runtime::App() {}
 
     TestApp::TestApp(sabre::core::Factory::UniquePtr factory)
-        : sabre::core::App(std::move(factory))
+        : sabre::runtime::App(std::move(factory))
     {
     }
 

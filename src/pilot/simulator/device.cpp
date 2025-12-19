@@ -11,7 +11,7 @@ namespace sabre::impl::pilot
     {
     }
 
-    Device::Device(DeviceConfig config, sabre::core::App::UniquePtr &&app)
+    Device::Device(DeviceConfig config, sabre::runtime::App::UniquePtr &&app)
         : _config(config), _app(std::move(app)), _gpios(config.gpioCount)
     {
         uint32_t gpio_index = 0;

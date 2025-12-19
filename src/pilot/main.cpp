@@ -1,12 +1,12 @@
 #include "imgui_presenter/imgui_presenter.hpp"
 #include "mcu.hpp"
-#include "sabre/core/app.hpp"
+#include "sabre/runtime/app.hpp"
 #include "simulator/device_connector.hpp"
 #include "simulator/simulator.hpp"
 #include <iostream>
 #include <thread>
 
-class MyApp : public sabre::core::App
+class MyApp : public sabre::runtime::App
 {
 private:
     sabre::hal::Uart::UniquePtr _uart0;
@@ -30,7 +30,7 @@ public:
     }
 };
 
-class MyGpsApp : public sabre::core::App
+class MyGpsApp : public sabre::runtime::App
 {
 public:
     void start() override

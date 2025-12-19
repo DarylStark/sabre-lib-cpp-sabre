@@ -1,16 +1,19 @@
 #include "app.hpp"
 
-namespace sabre::core
+namespace sabre::runtime
 {
     App::App() : _factory(nullptr) {}
-    App::App(Factory::UniquePtr factory) : _factory(std::move(factory)) {}
+    App::App(sabre::core::Factory::UniquePtr factory)
+        : _factory(std::move(factory))
+    {
+    }
 
-    void App::setFactory(Factory::UniquePtr factory)
+    void App::setFactory(sabre::core::Factory::UniquePtr factory)
     {
         _factory = std::move(factory);
     }
 
-    const Factory::UniquePtr &App::getFactory() const
+    const sabre::core::Factory::UniquePtr &App::getFactory() const
     {
         return _factory;
     }
@@ -21,4 +24,4 @@ namespace sabre::core
             throw std::runtime_error("Factory is not set in App.");
         app.start();
     }
-} // namespace sabre::core
+} // namespace sabre::runtime

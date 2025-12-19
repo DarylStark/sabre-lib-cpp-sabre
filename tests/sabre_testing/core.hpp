@@ -1,7 +1,7 @@
 #pragma once
 
-#include <sabre/core/app.hpp>
 #include <sabre/core/factory.hpp>
+#include <sabre/runtime/app.hpp>
 
 namespace sabre::impl::sabre_testing
 {
@@ -30,7 +30,7 @@ namespace sabre::impl::sabre_testing
         WallClock::UniquePtr createWallClock() const override;
     };
 
-    class TestApp : public sabre::core::App
+    class TestApp : public sabre::runtime::App
     {
     public:
         TestApp();

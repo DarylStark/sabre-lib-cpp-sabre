@@ -1,8 +1,8 @@
 #pragma once
 
-#include "factory.hpp"
+#include "../core/factory.hpp"
 
-namespace sabre::core
+namespace sabre::runtime
 {
 
     class App
@@ -13,17 +13,17 @@ namespace sabre::core
         using UniquePtr = std::unique_ptr<App>;
 
     protected:
-        Factory::UniquePtr _factory;
+        sabre::core::Factory::UniquePtr _factory;
 
     public:
         App();
-        App(Factory::UniquePtr factory);
+        App(sabre::core::Factory::UniquePtr factory);
         App(const App &) = delete;
         App &operator=(const App &) = delete;
         App(App &&) = default;
 
-        void setFactory(Factory::UniquePtr factory);
-        const Factory::UniquePtr &getFactory() const;
+        void setFactory(sabre::core::Factory::UniquePtr factory);
+        const sabre::core::Factory::UniquePtr &getFactory() const;
 
         virtual ~App() = default;
 
@@ -31,4 +31,4 @@ namespace sabre::core
     };
 
     void runApp(App &app);
-} // namespace sabre::core
+} // namespace sabre::runtime

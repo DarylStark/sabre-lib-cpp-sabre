@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../simulator/device.hpp"
-#include "sabre/core/app.hpp"
+#include "sabre/runtime/app.hpp"
 #include <sabre/core/factory.hpp>
 
 namespace sabre::impl::pilot
