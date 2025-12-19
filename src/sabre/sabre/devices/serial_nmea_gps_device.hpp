@@ -17,10 +17,10 @@ namespace sabre::devices
 
     public:
         SerialNmeaGpsDevice();
-        SerialNmeaGpsDevice(Uart::Ptr uart);
+        SerialNmeaGpsDevice(Uart::Ptr uartPtr);
 
-        void setUartPtr(Uart::Ptr uart);
-        void setOutputUartPtr(Uart::Ptr uart);
+        void setUartPtr(Uart::Ptr uartPtr);
+        void setOutputUartPtr(Uart::Ptr uartPtr);
 
         sabre::models::geo::Position getLastPosition() const override;
         bool isValidPosition() const override;

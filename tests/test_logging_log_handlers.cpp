@@ -39,7 +39,7 @@ TEST(LogBufferHandler, Logging)
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "TestLogger",
                              "Testmessage");
 
-    ASSERT_TRUE(handler->get_buffer()[0].contains("TestLogger"));
+    ASSERT_TRUE(handler->getBuffer()[0].contains("TestLogger"));
 }
 
 TEST(LogBufferHandler, Overflow)
@@ -53,5 +53,5 @@ TEST(LogBufferHandler, Overflow)
     for (uint32_t i = 0; i < 5; ++i)
         sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "TestLogger",
                                  "Testmessage");
-    ASSERT_TRUE(handler->get_buffer().size() == 2);
+    ASSERT_TRUE(handler->getBuffer().size() == 2);
 }

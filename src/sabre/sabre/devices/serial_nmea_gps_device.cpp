@@ -17,9 +17,9 @@ namespace sabre::devices
         _uartPtr = uart;
     }
 
-    void SerialNmeaGpsDevice::setOutputUartPtr(Uart::Ptr uart)
+    void SerialNmeaGpsDevice::setOutputUartPtr(Uart::Ptr uartPtr)
     {
-        _outputUartPtr = uart;
+        _outputUartPtr = uartPtr;
     }
 
     sabre::models::geo::Position SerialNmeaGpsDevice::getLastPosition() const

@@ -54,8 +54,8 @@ namespace sabre::hal
          *
          * @return A string containing the received data.
          */
-        virtual std::string readBytes(size_t max_bytes,
-                                      uint32_t timeout_ms) = 0;
+        virtual std::string readBytes(size_t maxBytes,
+                                      uint32_t timeoutInMs) = 0;
 
         /**
          * @brief Flush the output buffer of the UART device.

@@ -150,7 +150,7 @@ namespace sabre::net
          * @param password the password for the connection.
          */
         virtual void connect(const std::string &hostname,
-                             const std::string &client_id,
+                             const std::string &clientId,
                              const std::string &username,
                              const std::string &password) = 0;
 

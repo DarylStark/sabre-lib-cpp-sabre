@@ -13,11 +13,9 @@ namespace sabre::impl::pilot
 
     public:
         Factory(Device *device);
-        sabre::hal::Uart::UniquePtr createUartObject(uint32_t uart_number,
-                                                     int32_t baud_rate,
-                                                     int32_t tx_pin,
-                                                     int32_t rx_pin,
-                                                     size_t buffer_size) const;
+        sabre::hal::Uart::UniquePtr
+        createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
+                         int32_t rxPin, size_t bufferSize) const;
         sabre::hal::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
         sabre::hal::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
         sabre::net::WifiStation::UniquePtr createWifiStation() const;
@@ -27,8 +25,8 @@ namespace sabre::impl::pilot
         createNtpClient(const std::string &server) const;
         sabre::net::MqttClient::UniquePtr createMqttClient() const;
         sabre::utility::WaitFor::UniquePtr
-        createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeout_in_ms,
-                      uint64_t sleep_time) const;
+        createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
+                      uint64_t sleepTime) const;
         sabre::os::Service::UniquePtr
         createService(sabre::os::ServiceHandler fn) const;
     };

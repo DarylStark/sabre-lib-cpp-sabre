@@ -13,10 +13,10 @@ namespace sabre::impl::pilot
         size_t _buffer_size;
 
     public:
-        Uart(Device *device, uint32_t number, size_t buffer_size);
+        Uart(Device *device, uint32_t number, size_t bufferSize);
         void initialize() override;
         int writeByte(char data) const override;
-        std::string readBytes(size_t max_bytes, uint32_t timeout_ms) override;
+        std::string readBytes(size_t maxBytes, uint32_t timeoutInMs) override;
         void flush() override;
         void deinitialize() override;
     };

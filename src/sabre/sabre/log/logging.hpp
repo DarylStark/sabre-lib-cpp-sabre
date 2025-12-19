@@ -144,7 +144,7 @@ namespace sabre::log
          * @param message The log message to be handled.
          */
         virtual void handleLog(const LoggingLevel level,
-                               const std::string &logger_name,
+                               const std::string &loggerName,
                                const std::string &message) = 0;
     };
 
@@ -201,8 +201,7 @@ namespace sabre::log
          * @param loggerName The name of the logger that generated the message.
          * @param message The message to be logged.
          */
-        static void log(const LoggingLevel level,
-                        const std::string &logger_name,
+        static void log(const LoggingLevel level, const std::string &loggerName,
                         const std::string &message);
 
         /**

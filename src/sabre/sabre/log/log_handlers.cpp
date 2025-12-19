@@ -29,7 +29,7 @@ namespace sabre::log
             _buffer.erase(_buffer.begin());
     }
 
-    const LogBufferHandlerBuffer &LogBufferHandler::get_buffer() const
+    const LogBufferHandlerBuffer &LogBufferHandler::getBuffer() const
     {
         return _buffer;
     }
