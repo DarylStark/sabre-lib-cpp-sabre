@@ -23,7 +23,7 @@ namespace sabre::impl::pilot
         DeviceList _devices;
 
         void _thread_device_start(std::shared_ptr<Device> device);
-        void _start_device(SimulatorDevice &sim_device);
+        void _start_device(SimulatorDevice &simDevice);
         void _start_all_devices();
 
     public:

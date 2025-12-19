@@ -8,11 +8,11 @@ namespace sabre::impl::pilot
     class ImGuiVisitor : public DeviceVisitor
     {
     private:
-        std::unordered_map<std::string, bool> &_device_visibility;
+        std::unordered_map<std::string, bool> &_deviceVisibility;
 
     public:
-        ImGuiVisitor(std::unordered_map<std::string, bool> &device_visibility);
+        ImGuiVisitor(std::unordered_map<std::string, bool> &deviceVisibility);
         ~ImGuiVisitor() = default;
-        void visit_mcu(class Mcu &mcu, const std::string &name) override;
+        void visitMcu(class Mcu &mcu, const std::string &name) override;
     };
 } // namespace sabre::impl::pilot

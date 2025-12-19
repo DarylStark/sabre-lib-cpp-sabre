@@ -7,12 +7,12 @@ namespace sabre::impl::pilot
     DeviceEventData::~DeviceEventData() {}
 
     UartEventData::UartEventData(uint32_t uart_number, char data)
-        : uart_number(uart_number), data(data)
+        : uartNumber(uart_number), data(data)
     {
     }
 
     Device::Device(DeviceConfig config, sabre::core::App::UniquePtr &&app)
-        : _config(config), _app(std::move(app)), _gpios(config.gpio_count)
+        : _config(config), _app(std::move(app)), _gpios(config.gpioCount)
     {
         uint32_t gpio_index = 0;
         for (auto &gpio : _gpios)
@@ -23,7 +23,7 @@ namespace sabre::impl::pilot
     void Device::_raise_event(DeviceEventType type,
                               std::unique_ptr<DeviceEventData> data)
     {
-        auto range = _event_callbacks.equal_range(type);
+        auto range = _eventCallback.equal_range(type);
         for (auto it = range.first; it != range.second; ++it)
         {
             DeviceEventCallback callback = it->second;
@@ -41,7 +41,7 @@ namespace sabre::impl::pilot
     void Device::register_event_callback(DeviceEventType type,
                                          DeviceEventCallback callback)
     {
-        _event_callbacks.emplace(type, callback);
+        _eventCallback.emplace(type, callback);
     }
 
     DeviceGPIO &Device::get_gpio(size_t index)
@@ -79,34 +79,34 @@ namespace sabre::impl::pilot
 
     bool Device::initialize_uart(uint32_t uart_number, size_t input_buffer_size)
     {
-        if (uart_number >= _config.uart_count)
+        if (uart_number >= _config.uartCount)
             return false;
 
-        if (_uart_map.find(uart_number) != _uart_map.end())
+        if (_uartMap.find(uart_number) != _uartMap.end())
             return false; // UART already initialized
 
-        _uart_map[uart_number] =
-            UartBuffers{.input_buffer_max_size = input_buffer_size};
+        _uartMap[uart_number] =
+            UartBuffers{.inputBufferMaxSize = input_buffer_size};
         return true;
     }
 
     bool Device::deinitialize_uart(uint32_t uart_number)
     {
-        auto it = _uart_map.find(uart_number);
-        if (it == _uart_map.end())
+        auto it = _uartMap.find(uart_number);
+        if (it == _uartMap.end())
             return false; // UART not initialized
 
-        _uart_map.erase(it);
+        _uartMap.erase(it);
         return true;
     }
 
     bool Device::write_uart_data(uint32_t uart_number, char data)
     {
-        auto it = _uart_map.find(uart_number);
-        if (it == _uart_map.end())
+        auto it = _uartMap.find(uart_number);
+        if (it == _uartMap.end())
             return false; // UART not initialized
 
-        it->second.output_data.push_back(data);
+        it->second.outputData.push_back(data);
         // TODO: only on flush.
         _raise_event(DeviceEventType::UART_DATA_SEND,
                      std::make_unique<UartEventData>(uart_number, data));
@@ -117,13 +117,13 @@ namespace sabre::impl::pilot
     std::string Device::read_uart_data(uint32_t uart_number, size_t max_bytes,
                                        uint32_t timeout_ms)
     {
-        auto it = _uart_map.find(uart_number);
-        if (it == _uart_map.end())
+        auto it = _uartMap.find(uart_number);
+        if (it == _uartMap.end())
             return ""; // UART not initialized
 
         std::string &input_buffer = it->second.input_buffer;
         std::string result = input_buffer.substr(0, max_bytes);
-        it->second.input_data_consumed += result;
+        it->second.inputDataConsumed += result;
         input_buffer.erase(0, result.size());
         return result;
     }
@@ -131,12 +131,12 @@ namespace sabre::impl::pilot
     void Device::add_to_input_uart_buffer(uint32_t uart_number,
                                           const std::string &data)
     {
-        auto it = _uart_map.find(uart_number);
-        if (it == _uart_map.end())
+        auto it = _uartMap.find(uart_number);
+        if (it == _uartMap.end())
             return; // UART not initialized
 
         // Make sure the input buffer does not exceed max size
-        size_t max_size = it->second.input_buffer_max_size;
+        size_t max_size = it->second.inputBufferMaxSize;
         if (it->second.input_buffer.size() + data.size() > max_size)
         {
             size_t excess_size =
@@ -152,6 +152,6 @@ namespace sabre::impl::pilot
 
     const UARTMap &Device::get_uart_map() const
     {
-        return _uart_map;
+        return _uartMap;
     }
 } // namespace sabre::impl::pilot

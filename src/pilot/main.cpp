@@ -56,8 +56,8 @@ int main()
 {
     using namespace sabre::impl::pilot;
 
-    DeviceConfig config_mcu{.gpio_count = 32, .uart_count = 2};
-    DeviceConfig config_gps{.gpio_count = 2, .uart_count = 1};
+    DeviceConfig config_mcu{.gpioCount = 32, .uartCount = 2};
+    DeviceConfig config_gps{.gpioCount = 2, .uartCount = 1};
 
     Simulator simulator;
 

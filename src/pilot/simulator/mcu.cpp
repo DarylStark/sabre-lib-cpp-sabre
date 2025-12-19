@@ -10,6 +10,6 @@ namespace sabre::impl::pilot
 
     void Mcu::accept(DeviceVisitor &visitor, const std::string &name)
     {
-        visitor.visit_mcu(*this, name);
+        visitor.visitMcu(*this, name);
     }
 } // namespace sabre::impl::pilot

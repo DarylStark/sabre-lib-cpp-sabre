@@ -8,6 +8,6 @@ namespace sabre::impl::pilot
     {
     public:
         virtual ~DeviceVisitor() = default;
-        virtual void visit_mcu(class Mcu &mcu, const std::string &name) = 0;
+        virtual void visitMcu(class Mcu &mcu, const std::string &name) = 0;
     };
 } // namespace sabre::impl::pilot

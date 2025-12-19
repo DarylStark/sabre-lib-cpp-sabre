@@ -11,14 +11,14 @@ namespace sabre::impl::pilot
 {
     ImGuiVisitor::ImGuiVisitor(
         std::unordered_map<std::string, bool> &device_visibility)
-        : _device_visibility(device_visibility)
+        : _deviceVisibility(device_visibility)
     {
     }
 
-    void ImGuiVisitor::visit_mcu(Mcu &mcu, const std::string &name)
+    void ImGuiVisitor::visitMcu(Mcu &mcu, const std::string &name)
     {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-        ImGui::Begin(name.c_str(), &_device_visibility[name]);
+        ImGui::Begin(name.c_str(), &_deviceVisibility[name]);
 
         // Calculate split
         float window_width = ImGui::GetContentRegionAvail().x;
@@ -49,7 +49,7 @@ namespace sabre::impl::pilot
                     "UARTOutputChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextWrapped(uart_data.output_data.c_str());
+                ImGui::TextWrapped(uart_data.outputData.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
@@ -81,7 +81,7 @@ namespace sabre::impl::pilot
                     "UARTInputConsumedChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextWrapped(uart_data.input_data_consumed.c_str());
+                ImGui::TextWrapped(uart_data.inputDataConsumed.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
