@@ -65,7 +65,7 @@ namespace sabre::io
          * @param uart The UART device to use for output operations.
          * @param bufferSize The size of the internal buffer (default is 512).
          */
-        UartStreamBuf(Uart::UniquePtr uart, size_t buffer_size = 512);
+        UartStreamBuf(Uart::UniquePtr uartPtr, size_t bufferSize = 512);
 
         /**
          * @brief Destructor for the UARTStreamBuf class.

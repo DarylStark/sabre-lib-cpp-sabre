@@ -25,14 +25,14 @@ namespace sabre::impl::pilot
         return _devices[name].device.get();
     }
 
-    void Simulator::_start_device(SimulatorDevice &sim_device)
+    void Simulator::_start_device(SimulatorDevice &simDevice)
     {
-        if (sim_device.thread == nullptr)
+        if (simDevice.thread == nullptr)
         {
             std::clog << "Starting device in new thread..." << std::endl;
-            sim_device.thread = std::make_unique<std::jthread>(
-                &Simulator::_thread_device_start, this, sim_device.device);
-            sim_device.thread->detach();
+            simDevice.thread = std::make_unique<std::jthread>(
+                &Simulator::_thread_device_start, this, simDevice.device);
+            simDevice.thread->detach();
         }
     }
 

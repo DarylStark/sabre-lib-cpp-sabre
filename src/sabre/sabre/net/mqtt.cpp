@@ -46,9 +46,9 @@ namespace sabre::net
         _subscriptions[topic] = fn;
     }
 
-    MqttTopic::UniquePtr MqttClient::getTopic(const std::string &topic_name)
+    MqttTopic::UniquePtr MqttClient::getTopic(const std::string &topicName)
     {
-        return std::make_unique<MqttTopic>(*this, topic_name);
+        return std::make_unique<MqttTopic>(*this, topicName);
     }
 
     void MqttClient::processReceived(MqttEvent event)

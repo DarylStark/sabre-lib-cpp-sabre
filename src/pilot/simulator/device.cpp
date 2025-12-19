@@ -6,8 +6,8 @@ namespace sabre::impl::pilot
 {
     DeviceEventData::~DeviceEventData() {}
 
-    UartEventData::UartEventData(uint32_t uart_number, char data)
-        : uartNumber(uart_number), data(data)
+    UartEventData::UartEventData(uint32_t uartNumber, char data)
+        : uartNumber(uartNumber), data(data)
     {
     }
 
@@ -77,22 +77,22 @@ namespace sabre::impl::pilot
         return gpios;
     }
 
-    bool Device::initialize_uart(uint32_t uart_number, size_t input_buffer_size)
+    bool Device::initialize_uart(uint32_t uartNumber, size_t inputBufferSize)
     {
-        if (uart_number >= _config.uartCount)
+        if (uartNumber >= _config.uartCount)
             return false;
 
-        if (_uartMap.find(uart_number) != _uartMap.end())
+        if (_uartMap.find(uartNumber) != _uartMap.end())
             return false; // UART already initialized
 
-        _uartMap[uart_number] =
-            UartBuffers{.inputBufferMaxSize = input_buffer_size};
+        _uartMap[uartNumber] =
+            UartBuffers{.inputBufferMaxSize = inputBufferSize};
         return true;
     }
 
-    bool Device::deinitialize_uart(uint32_t uart_number)
+    bool Device::deinitialize_uart(uint32_t uartNumber)
     {
-        auto it = _uartMap.find(uart_number);
+        auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
             return false; // UART not initialized
 
@@ -100,38 +100,38 @@ namespace sabre::impl::pilot
         return true;
     }
 
-    bool Device::write_uart_data(uint32_t uart_number, char data)
+    bool Device::write_uart_data(uint32_t uartNumber, char data)
     {
-        auto it = _uartMap.find(uart_number);
+        auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
             return false; // UART not initialized
 
         it->second.outputData.push_back(data);
         // TODO: only on flush.
         _raise_event(DeviceEventType::UART_DATA_SEND,
-                     std::make_unique<UartEventData>(uart_number, data));
+                     std::make_unique<UartEventData>(uartNumber, data));
 
         return true;
     }
 
-    std::string Device::read_uart_data(uint32_t uart_number, size_t max_bytes,
-                                       uint32_t timeout_ms)
+    std::string Device::read_uart_data(uint32_t uartNumber, size_t maxBytes,
+                                       uint32_t timeoutInMs)
     {
-        auto it = _uartMap.find(uart_number);
+        auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
             return ""; // UART not initialized
 
         std::string &input_buffer = it->second.input_buffer;
-        std::string result = input_buffer.substr(0, max_bytes);
+        std::string result = input_buffer.substr(0, maxBytes);
         it->second.inputDataConsumed += result;
         input_buffer.erase(0, result.size());
         return result;
     }
 
-    void Device::add_to_input_uart_buffer(uint32_t uart_number,
+    void Device::add_to_input_uart_buffer(uint32_t uartNumber,
                                           const std::string &data)
     {
-        auto it = _uartMap.find(uart_number);
+        auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
             return; // UART not initialized
 

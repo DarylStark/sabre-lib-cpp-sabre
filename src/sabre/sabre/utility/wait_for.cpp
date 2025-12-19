@@ -3,16 +3,15 @@
 namespace sabre::utility
 {
 
-    bool WaitFor::_done(bool result, uint64_t total_runtime)
+    bool WaitFor::_done(bool result, uint64_t totalRuntime)
     {
-        _runtime = total_runtime;
+        _runtime = totalRuntime;
         _result = result;
         return result;
     }
 
-    WaitFor::WaitFor(WaitForPred fn, uint64_t timeout_in_ms,
-                     uint64_t sleep_time)
-        : _timeoutInMs(timeout_in_ms), _fn(fn), _sleepTime(sleep_time)
+    WaitFor::WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime)
+        : _timeoutInMs(timeoutInMs), _fn(fn), _sleepTime(sleepTime)
     {
     }
 

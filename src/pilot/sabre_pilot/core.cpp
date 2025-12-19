@@ -10,12 +10,12 @@ namespace sabre::impl::pilot
     }
 
     sabre::hal::Uart::UniquePtr
-    Factory::createUartObject(uint32_t uart_number, int32_t baud_rate,
-                              int32_t tx_pin, int32_t rx_pin,
-                              size_t buffer_size) const
+    Factory::createUartObject(uint32_t uartNumber, int32_t baudRate,
+                              int32_t txPin, int32_t rxPin,
+                              size_t bufferSize) const
     {
         // Implementation specific code to create a UART object
-        return std::make_unique<Uart>(_device, uart_number, buffer_size);
+        return std::make_unique<Uart>(_device, uartNumber, bufferSize);
     }
 
     sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const
@@ -65,8 +65,8 @@ namespace sabre::impl::pilot
     }
 
     sabre::utility::WaitFor::UniquePtr
-    Factory::createWaitFor(sabre::utility::WaitForPred fn,
-                           uint64_t timeout_in_ms, uint64_t sleep_time) const
+    Factory::createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
+                           uint64_t sleepTime) const
     {
         // Implementation specific code to create a WaitFor object
         return nullptr; // Placeholder

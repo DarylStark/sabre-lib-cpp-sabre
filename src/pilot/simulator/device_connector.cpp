@@ -2,10 +2,10 @@
 
 namespace sabre::impl::pilot
 {
-    UartConnector::UartConnector(Device &device_a, uint32_t uart_number_a,
-                                 Device &device_b, uint32_t uart_number_b)
-        : _deviceA(device_a), _uartNumberA(uart_number_a), _deviceB(device_b),
-          _uartNumberB(uart_number_b)
+    UartConnector::UartConnector(Device &deviceA, uint32_t uartNumberA,
+                                 Device &deviceB, uint32_t uartNumberB)
+        : _deviceA(deviceA), _uartNumberA(uartNumberA), _deviceB(deviceB),
+          _uartNumberB(uartNumberB)
     {
         _deviceA.register_event_callback(
             DeviceEventType::UART_DATA_SEND,

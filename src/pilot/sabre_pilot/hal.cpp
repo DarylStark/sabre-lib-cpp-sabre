@@ -2,28 +2,28 @@
 
 namespace sabre::impl::pilot
 {
-    Uart::Uart(Device *device, uint32_t number, size_t buffer_size)
-        : _device(device), _uart_number(number), _buffer_size(buffer_size)
+    Uart::Uart(Device *device, uint32_t number, size_t bufferSize)
+        : _device(device), _uartNumber(number), _bufferSize(bufferSize)
     {
     }
 
     void Uart::initialize()
     {
         // TODO : Custom exception
-        if (!_device->initialize_uart(_uart_number, _buffer_size))
+        if (!_device->initialize_uart(_uartNumber, _bufferSize))
             throw std::runtime_error("UART already initialized");
     }
 
     int Uart::writeByte(char data) const
     {
-        if (!_device->write_uart_data(_uart_number, data))
+        if (!_device->write_uart_data(_uartNumber, data))
             return -1; // UART not initialized
         return 0;      // Success
     }
 
-    std::string Uart::readBytes(size_t max_bytes, uint32_t timeout_ms)
+    std::string Uart::readBytes(size_t maxBytes, uint32_t timeoutInMs)
     {
-        return _device->read_uart_data(_uart_number, max_bytes, timeout_ms);
+        return _device->read_uart_data(_uartNumber, maxBytes, timeoutInMs);
     }
 
     void Uart::flush()
@@ -35,7 +35,7 @@ namespace sabre::impl::pilot
 
     void Uart::deinitialize()
     {
-        if (!_device->deinitialize_uart(_uart_number))
+        if (!_device->deinitialize_uart(_uartNumber))
             throw std::runtime_error("UART not initialized");
     }
 
@@ -89,14 +89,14 @@ namespace sabre::impl::pilot
     }
 
     OutputGpio::OutputGpio(Device *device, uint32_t pin)
-        : __device(device), _pin(pin)
+        : _device(device), _pin(pin)
     {
-        __device->set_gpio_type(pin, GPIOType::OUTPUT);
+        _device->set_gpio_type(pin, GPIOType::OUTPUT);
     }
 
     void OutputGpio::reset()
     {
-        __device->reset_gpio(_pin);
+        _device->reset_gpio(_pin);
     }
 
     void OutputGpio::setHigh()
@@ -111,6 +111,6 @@ namespace sabre::impl::pilot
 
     void OutputGpio::setLevel(bool level)
     {
-        __device->set_gpio_state(_pin, level ? 1 : 0);
+        _device->set_gpio_state(_pin, level ? 1 : 0);
     }
 } // namespace sabre::impl::pilot

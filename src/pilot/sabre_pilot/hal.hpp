@@ -9,8 +9,8 @@ namespace sabre::impl::pilot
     {
     private:
         Device *_device;
-        uint32_t _uart_number;
-        size_t _buffer_size;
+        uint32_t _uartNumber;
+        size_t _bufferSize;
 
     public:
         Uart(Device *device, uint32_t number, size_t bufferSize);
@@ -51,7 +51,7 @@ namespace sabre::impl::pilot
     class OutputGpio : public sabre::hal::OutputGpio
     {
     private:
-        Device *__device;
+        Device *_device;
         uint32_t _pin;
 
     public:

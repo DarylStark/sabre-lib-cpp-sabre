@@ -10,8 +10,8 @@
 namespace sabre::impl::pilot
 {
     ImGuiVisitor::ImGuiVisitor(
-        std::unordered_map<std::string, bool> &device_visibility)
-        : _deviceVisibility(device_visibility)
+        std::unordered_map<std::string, bool> &deviceVisibility)
+        : _deviceVisibility(deviceVisibility)
     {
     }
 

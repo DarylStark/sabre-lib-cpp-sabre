@@ -121,7 +121,7 @@ namespace sabre::impl::pilot
     }
 
     void ImGuiPresenter::_device(const std::string &name,
-                                 SimulatorDevice &sim_device)
+                                 SimulatorDevice &simDevice)
     {
         if (_deviceVisibility.find(name) == _deviceVisibility.end())
             _deviceVisibility[name] = true;
@@ -129,7 +129,7 @@ namespace sabre::impl::pilot
         if (!_deviceVisibility[name])
             return;
 
-        sim_device.device->accept(_imguiVisitor, name);
+        simDevice.device->accept(_imguiVisitor, name);
         return;
     }
 

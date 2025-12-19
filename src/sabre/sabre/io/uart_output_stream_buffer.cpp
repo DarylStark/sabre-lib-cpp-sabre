@@ -4,11 +4,11 @@
 
 namespace sabre::io
 {
-    UartStreamBuf::UartStreamBuf(Uart::UniquePtr uart, size_t buffer_size)
-        : _uartPtr(std::move(uart))
+    UartStreamBuf::UartStreamBuf(Uart::UniquePtr uartPtr, size_t bufferSize)
+        : _uartPtr(std::move(uartPtr))
     {
-        _buffer = new char[buffer_size];
-        _bufferSize = buffer_size;
+        _buffer = new char[bufferSize];
+        _bufferSize = bufferSize;
         _resetPutBuffer();
     }
 
