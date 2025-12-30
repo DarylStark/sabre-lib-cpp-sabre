@@ -4,7 +4,6 @@ project(sabre LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
-
 if(SABRE_BUILD_TESTS STREQUAL "ON")
     message(STATUS "Enabling testing")
     enable_testing()

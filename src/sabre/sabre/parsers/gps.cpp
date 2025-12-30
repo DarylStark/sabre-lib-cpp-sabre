@@ -6,200 +6,21 @@
 
 namespace sabre
 {
-    namespace models
-    {
-
-        Coordinate::Coordinate()
-            : _coordinate(0), _type(CoordinateType::LATITUDE)
-        {
-        }
-
-        Coordinate::Coordinate(uint16_t degrees, uint16_t minutes,
-                               double seconds, CoordinatesDirection direction)
-        {
-            _coordinate = degrees + (static_cast<double>(minutes) / 60.0) +
-                          (seconds / 3600.0);
-            if (direction == CoordinatesDirection::SOUTH ||
-                direction == CoordinatesDirection::WEST)
-                _coordinate = -_coordinate;
-
-            _type = CoordinateType::LONGITUDE;
-            if (direction == CoordinatesDirection::NORTH ||
-                direction == CoordinatesDirection::SOUTH)
-                _type = CoordinateType::LATITUDE;
-        }
-
-        Coordinate::Coordinate(uint16_t degrees, float minutes,
-                               CoordinatesDirection direction)
-        {
-            _coordinate = degrees + (static_cast<double>(minutes) / 60.0);
-            if (direction == CoordinatesDirection::SOUTH ||
-                direction == CoordinatesDirection::WEST)
-                _coordinate = -_coordinate;
-
-            _type = CoordinateType::LONGITUDE;
-            if (direction == CoordinatesDirection::NORTH ||
-                direction == CoordinatesDirection::SOUTH)
-                _type = CoordinateType::LATITUDE;
-        }
-
-        Coordinate::Coordinate(double coordinate, CoordinateType type)
-            : _coordinate(coordinate), _type(type)
-        {
-        }
-
-        bool Coordinate::operator==(const Coordinate &other) const
-        {
-            return other._coordinate == _coordinate && other._type == _type;
-        }
-
-        double Coordinate::get_dd() const
-        {
-            return _coordinate;
-        }
-
-        CoordinateType Coordinate::get_type() const
-        {
-            return _type;
-        }
-
-        CoordinatesDirection Coordinate::get_direction() const
-        {
-
-            if (_type == CoordinateType::LONGITUDE)
-                return _coordinate >= 0 ? CoordinatesDirection::EAST
-                                        : CoordinatesDirection::WEST;
-            return _coordinate >= 0 ? CoordinatesDirection::NORTH
-                                    : CoordinatesDirection::SOUTH;
-        }
-
-        uint16_t Coordinate::get_degrees() const
-        {
-            return static_cast<uint16_t>(std::floor(std::abs(_coordinate)));
-        }
-
-        uint16_t Coordinate::get_minutes() const
-        {
-            double abs_coord = std::abs(_coordinate);
-            double fractional = abs_coord - std::floor(abs_coord);
-            return static_cast<uint16_t>(std::floor(fractional * 60.0));
-        }
-
-        double Coordinate::get_seconds() const
-        {
-            double abs_coord = std::abs(_coordinate);
-            double fractional = abs_coord - std::floor(abs_coord);
-            double minutes = fractional * 60.0;
-            double min_fractional = minutes - std::floor(minutes);
-            // Round to nearest millisecond for higher precision
-            return std::round(min_fractional * 60.0 * 1000.0) / 1000.0;
-        }
-
-        Position::Position() : _latitude(), _longitude(), _version(0) {}
-
-        Position::Position(Coordinate latitude, Coordinate longitude)
-            : _latitude(latitude), _longitude(longitude), _version(0)
-        {
-        }
-
-        bool Position::operator==(const Position &other) const
-        {
-            return other._latitude == _latitude &&
-                   other._longitude == _longitude;
-        }
-
-        Coordinate Position::get_latitude() const
-        {
-            return _latitude;
-        }
-
-        Coordinate Position::get_longitude() const
-        {
-            return _longitude;
-        }
-
-        Distance::Distance() : _distance_in_mm(0) {}
-
-        Distance::Distance(uint64_t distance_in_mm)
-            : _distance_in_mm(distance_in_mm)
-        {
-        }
-
-        uint64_t Distance::millimeters() const
-        {
-            return _distance_in_mm;
-        }
-
-        float Distance::centimeters() const
-        {
-            return static_cast<float>(_distance_in_mm) / 10.0f;
-        }
-
-        float Distance::meters() const
-        {
-            return static_cast<float>(_distance_in_mm) / 1000.0f;
-        }
-
-        float Distance::kilometers() const
-        {
-            return static_cast<float>(_distance_in_mm) / 1'000'000.0f;
-        }
-
-        Distance::operator uint64_t() const
-        {
-            return _distance_in_mm;
-        }
-
-        Distance Position::get_distance(const Position &other) const
-        {
-            const double R = 6371000; // Radius of the Earth in meters
-            double lat1_rad = _latitude.get_dd() * M_PI / 180.0;
-            double lat2_rad = other._latitude.get_dd() * M_PI / 180.0;
-            double delta_lat =
-                (other._latitude.get_dd() - _latitude.get_dd()) * M_PI / 180.0;
-            double delta_lon =
-                (other._longitude.get_dd() - _longitude.get_dd()) * M_PI /
-                180.0;
-
-            double a = std::sin(delta_lat / 2) * std::sin(delta_lat / 2) +
-                       std::cos(lat1_rad) * std::cos(lat2_rad) *
-                           std::sin(delta_lon / 2) * std::sin(delta_lon / 2);
-            double c = 2 * std::atan2(std::sqrt(a), std::sqrt(1 - a));
-
-            return Distance(static_cast<uint64_t>(R * c * 100.0 * 10.0));
-        }
-
-        bool Position::is_valid() const
-        {
-            return _latitude.get_dd() != 0.0 || _longitude.get_dd() != 0.0;
-        }
-
-        uint32_t Position::get_version() const
-        {
-            return _version;
-        }
-
-        void Position::set_version(uint32_t version)
-        {
-            _version = version;
-        }
-    } // namespace models
-
     namespace parsers
     {
-        NMEA_Parser::NMEA_Parser() : _last_position() {}
+        NmeaParser::NmeaParser() : _last_position() {}
 
-        std::string NMEA_Parser::_get_type(std::string scentence) const
+        std::string NmeaParser::_get_type(std::string scentence) const
         {
             return std::string(scentence.substr(3, 3));
         }
 
-        std::string NMEA_Parser::_get_talker(std::string scentence) const
+        std::string NmeaParser::_get_talker(std::string scentence) const
         {
             return std::string(scentence.substr(1, 2));
         }
 
-        bool NMEA_Parser::_is_valid_checksum(const std::string &scentence) const
+        bool NmeaParser::_is_valid_checksum(const std::string &scentence) const
         {
             uint32_t total_xor = 0;
 
@@ -222,7 +43,7 @@ namespace sabre
         }
 
         std::vector<std::string>
-        NMEA_Parser::_get_fields(std::string scentence) const
+        NmeaParser::_get_fields(std::string scentence) const
         {
             std::vector<std::string> fields;
             size_t start = 0;
@@ -240,17 +61,16 @@ namespace sabre
         }
 
         // Helper to parse coordinates from NMEA fields
-        bool NMEA_Parser::_extract_position_from_fields(
+        bool NmeaParser::_extractPositionFromFields(
             const std::vector<std::string> &fields, size_t lat_idx,
             size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
-            models::Position &out_position) const
+            models::geo::Position &out_position) const
         {
-            static const std::map<char, models::CoordinatesDirection> dir_map =
-                {{'N', models::CoordinatesDirection::NORTH},
-                 {'S', models::CoordinatesDirection::SOUTH},
-                 {'E', models::CoordinatesDirection::EAST},
-                 {'W', models::CoordinatesDirection::WEST}};
-
+            static const std::map<char, models::geo::CoordinatesDirection>
+                dir_map = {{'N', models::geo::CoordinatesDirection::NORTH},
+                           {'S', models::geo::CoordinatesDirection::SOUTH},
+                           {'E', models::geo::CoordinatesDirection::EAST},
+                           {'W', models::geo::CoordinatesDirection::WEST}};
             if (fields.size() <=
                 std::max({lat_idx, lat_dir_idx, lon_idx, lon_dir_idx}))
                 return false; // LCOV_EXCL_LINE
@@ -268,59 +88,59 @@ namespace sabre
             double lon_min = std::stod(lon_str.substr(3));
             char lon_dir = fields[lon_dir_idx][0];
 
-            out_position = models::Position(
-                models::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
-                models::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
+            out_position = models::geo::Position(
+                models::geo::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
+                models::geo::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
             return true;
         }
 
-        void NMEA_Parser::_update_last_position(Position &new_position)
+        void NmeaParser::_updateLastPosition(Position &new_position)
         {
             if (new_position == _last_position)
                 return;
 
-            uint32_t version = _last_position.get_version();
+            uint32_t version = _last_position.getVersion();
             _last_position = new_position;
-            _last_position.set_version(version + 1);
+            _last_position.setVersion(version + 1);
         }
 
-        bool NMEA_Parser::_parse_rmc(std::string scentence)
+        bool NmeaParser::_parse_rmc(std::string scentence)
         {
             auto fields = _get_fields(scentence);
             if (fields.size() < 13 || fields[2] != "A")
                 return false;
-            models::Position pos;
-            if (!_extract_position_from_fields(fields, 3, 4, 5, 6, pos))
+            models::geo::Position pos;
+            if (!_extractPositionFromFields(fields, 3, 4, 5, 6, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
-        bool NMEA_Parser::_parse_gll(std::string scentence)
+        bool NmeaParser::_parse_gll(std::string scentence)
         {
             auto fields = _get_fields(scentence);
             if (fields.size() < 8 || fields[6] != "A")
                 return false;
-            models::Position pos;
-            if (!_extract_position_from_fields(fields, 1, 2, 3, 4, pos))
+            models::geo::Position pos;
+            if (!_extractPositionFromFields(fields, 1, 2, 3, 4, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
-        bool NMEA_Parser::_parse_gga(std::string scentence)
+        bool NmeaParser::_parse_gga(std::string scentence)
         {
             auto fields = _get_fields(scentence);
             if (fields.size() < 15 || fields[6] == "0")
                 return false;
-            models::Position pos;
-            if (!_extract_position_from_fields(fields, 2, 3, 4, 5, pos))
+            models::geo::Position pos;
+            if (!_extractPositionFromFields(fields, 2, 3, 4, 5, pos))
                 return false; // LCOV_EXCL_LINE
-            _update_last_position(pos);
+            _updateLastPosition(pos);
             return true;
         }
 
-        void NMEA_Parser::add_scentence(const std::string &scentence)
+        void NmeaParser::addSentence(const std::string &scentence)
         {
             std::string type = _get_type(scentence);
             std::string talker = _get_talker(scentence);
@@ -329,44 +149,44 @@ namespace sabre
             if (!_is_valid_checksum(scentence))
                 return;
 
-            if (_scentences.find(full_type) != _scentences.end())
+            if (_sentences.find(full_type) != _sentences.end())
                 parse();
 
-            _scentences[full_type] = scentence;
+            _sentences[full_type] = scentence;
 
             if (type == "RMC")
                 parse();
         }
 
-        void NMEA_Parser::parse()
+        void NmeaParser::parse()
         {
-            using ParseFunc = bool (NMEA_Parser::*)(std::string);
+            using ParseFunc = bool (NmeaParser::*)(std::string);
             // Priority list: pair of sentence type and member function pointer
 
             // LCOV_EXCL_START
             static const std::vector<std::pair<std::string, ParseFunc>>
-                priorities = {{"GNRMC", &NMEA_Parser::_parse_rmc},
-                              {"GNGLL", &NMEA_Parser::_parse_gll},
-                              {"GNGGA", &NMEA_Parser::_parse_gga},
-                              {"GPRMC", &NMEA_Parser::_parse_rmc},
-                              {"GPGLL", &NMEA_Parser::_parse_gll},
-                              {"GPGGA", &NMEA_Parser::_parse_gga},
-                              {"BDRMC", &NMEA_Parser::_parse_rmc},
-                              {"BDGLL", &NMEA_Parser::_parse_gll},
-                              {"BDGGA", &NMEA_Parser::_parse_gga},
-                              {"GLRMC", &NMEA_Parser::_parse_rmc},
-                              {"GLGLL", &NMEA_Parser::_parse_gll},
-                              {"GLGGA", &NMEA_Parser::_parse_gga},
-                              {"GARMC", &NMEA_Parser::_parse_rmc},
-                              {"GAGLL", &NMEA_Parser::_parse_gll},
-                              {"GAGGA", &NMEA_Parser::_parse_gga}};
+                priorities = {{"GNRMC", &NmeaParser::_parse_rmc},
+                              {"GNGLL", &NmeaParser::_parse_gll},
+                              {"GNGGA", &NmeaParser::_parse_gga},
+                              {"GPRMC", &NmeaParser::_parse_rmc},
+                              {"GPGLL", &NmeaParser::_parse_gll},
+                              {"GPGGA", &NmeaParser::_parse_gga},
+                              {"BDRMC", &NmeaParser::_parse_rmc},
+                              {"BDGLL", &NmeaParser::_parse_gll},
+                              {"BDGGA", &NmeaParser::_parse_gga},
+                              {"GLRMC", &NmeaParser::_parse_rmc},
+                              {"GLGLL", &NmeaParser::_parse_gll},
+                              {"GLGGA", &NmeaParser::_parse_gga},
+                              {"GARMC", &NmeaParser::_parse_rmc},
+                              {"GAGLL", &NmeaParser::_parse_gll},
+                              {"GAGGA", &NmeaParser::_parse_gga}};
             // LCOV_EXCL_STOP
 
             bool valid = false;
             for (const auto &[type, func] : priorities)
             {
-                auto it = _scentences.find(type);
-                if (it != _scentences.end())
+                auto it = _sentences.find(type);
+                if (it != _sentences.end())
                 {
                     valid = (this->*func)(it->second);
                     if (valid)
@@ -374,17 +194,17 @@ namespace sabre
                 }
             }
 
-            _scentences.clear();
+            _sentences.clear();
         }
 
-        Position NMEA_Parser::get_last_position() const
+        Position NmeaParser::getLastPosition() const
         {
             return _last_position;
         }
 
-        size_t NMEA_Parser::get_scentence_count() const
+        size_t NmeaParser::getSentenceCount() const
         {
-            return _scentences.size();
+            return _sentences.size();
         }
     } // namespace parsers
 } // namespace sabre

@@ -1,15 +1,15 @@
 #include "mcu.hpp"
 #include "simulator.hpp"
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
-    Mcu::Mcu(DeviceConfig config, sabre::AppUniquePtr &&app)
+    Mcu::Mcu(DeviceConfig config, sabre::runtime::App::UniquePtr &&app)
         : Device(std::move(config), std::move(app))
     {
     }
 
     void Mcu::accept(DeviceVisitor &visitor, const std::string &name)
     {
-        visitor.visit_mcu(*this, name);
+        visitor.visitMcu(*this, name);
     }
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot

@@ -7,18 +7,18 @@
 #include <simulator.hpp>
 #include <sstream>
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
     ImGuiVisitor::ImGuiVisitor(
-        std::unordered_map<std::string, bool> &device_visibility)
-        : _device_visibility(device_visibility)
+        std::unordered_map<std::string, bool> &deviceVisibility)
+        : _deviceVisibility(deviceVisibility)
     {
     }
 
-    void ImGuiVisitor::visit_mcu(Mcu &mcu, const std::string &name)
+    void ImGuiVisitor::visitMcu(Mcu &mcu, const std::string &name)
     {
         ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-        ImGui::Begin(name.c_str(), &_device_visibility[name]);
+        ImGui::Begin(name.c_str(), &_deviceVisibility[name]);
 
         // Calculate split
         float window_width = ImGui::GetContentRegionAvail().x;
@@ -49,7 +49,7 @@ namespace sabre::pilot
                     "UARTOutputChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextWrapped(uart_data.output_data.c_str());
+                ImGui::TextWrapped(uart_data.outputData.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
@@ -81,7 +81,7 @@ namespace sabre::pilot
                     "UARTInputConsumedChild" + std::to_string(uart_number);
                 ImGui::BeginChild(child_id.c_str(), ImVec2(0, 250), true,
                                   ImGuiWindowFlags_HorizontalScrollbar);
-                ImGui::TextWrapped(uart_data.input_data_consumed.c_str());
+                ImGui::TextWrapped(uart_data.inputDataConsumed.c_str());
                 // Auto-scroll to bottom if already at bottom
                 if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
                     ImGui::SetScrollHereY(1.0f);
@@ -162,4 +162,4 @@ namespace sabre::pilot
         ImGui::End();
         ImGui::PopStyleVar();
     }
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot

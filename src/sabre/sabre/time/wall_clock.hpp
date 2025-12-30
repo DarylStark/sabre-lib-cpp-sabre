@@ -1,0 +1,41 @@
+#pragma once
+
+#include <cstdint>
+#include <memory>
+
+namespace sabre::time
+{
+    /**
+     * @brief Interface for a wall clock.
+     *
+     * This interface provides methods to get the current time in milliseconds
+     * since the epoch (1970-01-01 00:00:00 UTC) and to set the current time.
+     * It is used to provide a consistent time source for the application.
+     *
+     * This interface is intended to be implemented by platform-specific
+     * wall clock classes, allowing for different implementations depending on
+     * the platform (e.g., ESP32, Linux, etc.).
+     */
+    class WallClock
+    {
+    public:
+        using Ptr = WallClock *;
+        using SharedPtr = std::shared_ptr<WallClock>;
+        using UniquePtr = std::unique_ptr<WallClock>;
+
+        /**
+         * @brief Get the current time in ms since 1970-01-01
+         *
+         * @return The current time since 1970-01-01 00:00:00 in milliseconds.
+         */
+        virtual uint64_t nowMs() const = 0;
+
+        /**
+         * @brief Set the current time in ms since 1970-01-01
+         *
+         * @param timeInMs The time to set in milliseconds since 1970-01-01
+         * 00:00:00.
+         */
+        virtual void setNowMs(uint64_t timeInMs) = 0;
+    };
+} // namespace sabre::time

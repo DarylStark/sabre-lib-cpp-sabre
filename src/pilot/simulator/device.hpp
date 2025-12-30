@@ -4,11 +4,11 @@
 #include <functional>
 #include <list>
 #include <map>
-#include <sabre/app/app.hpp>
+#include <sabre/runtime/app.hpp>
 #include <unordered_map>
 #include <vector>
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
     class Device;
 
@@ -28,16 +28,16 @@ namespace sabre::pilot
 
     struct UartBuffers
     {
-        std::string output_data = "";
+        std::string outputData = "";
         std::string input_buffer = "";
-        std::string input_data_consumed = "";
-        size_t input_buffer_max_size = 0;
+        std::string inputDataConsumed = "";
+        size_t inputBufferMaxSize = 0;
     };
 
     struct DeviceConfig
     {
-        size_t gpio_count = 0;
-        size_t uart_count = 1;
+        size_t gpioCount = 0;
+        size_t uartCount = 1;
     };
 
     enum class DeviceEventType
@@ -54,10 +54,10 @@ namespace sabre::pilot
     class UartEventData : public DeviceEventData
     {
     public:
-        uint32_t uart_number;
+        uint32_t uartNumber;
         char data;
 
-        UartEventData(uint32_t uart_number, char data);
+        UartEventData(uint32_t uartNumber, char data);
     };
 
     struct DeviceEvent
@@ -77,16 +77,16 @@ namespace sabre::pilot
     {
     private:
         DeviceConfig _config;
-        sabre::AppUniquePtr _app;
+        sabre::runtime::App::UniquePtr _app;
         GPIOVector _gpios;
-        UARTMap _uart_map;
-        EventCallbacks _event_callbacks;
+        UARTMap _uartMap;
+        EventCallbacks _eventCallback;
 
         void _raise_event(DeviceEventType type,
                           std::unique_ptr<DeviceEventData> data);
 
     public:
-        Device(DeviceConfig config, sabre::AppUniquePtr &&app);
+        Device(DeviceConfig config, sabre::runtime::App::UniquePtr &&app);
 
         // Device control
         void start();
@@ -103,12 +103,12 @@ namespace sabre::pilot
         GPIOVector get_gpios(GPIOType type) const;
 
         // UART management
-        bool initialize_uart(uint32_t uart_number, size_t input_buffer_size);
-        bool deinitialize_uart(uint32_t uart_number);
-        bool write_uart_data(uint32_t uart_number, char data);
-        std::string read_uart_data(uint32_t uart_number, size_t max_bytes,
-                                   uint32_t timeout_ms);
-        void add_to_input_uart_buffer(uint32_t uart_number,
+        bool initialize_uart(uint32_t uartNumber, size_t inputBufferSize);
+        bool deinitialize_uart(uint32_t uartNumber);
+        bool write_uart_data(uint32_t uartNumber, char data);
+        std::string read_uart_data(uint32_t uartNumber, size_t maxBytes,
+                                   uint32_t timeoutInMs);
+        void add_to_input_uart_buffer(uint32_t uartNumber,
                                       const std::string &data);
         const UARTMap &get_uart_map() const;
 
@@ -117,4 +117,4 @@ namespace sabre::pilot
         virtual void accept(DeviceVisitor &visitor,
                             const std::string &name) = 0;
     };
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot

@@ -4,7 +4,7 @@
 #include <functional>
 #include <memory>
 
-namespace sabre
+namespace sabre::utility
 {
     using WaitForPred = std::function<bool()>;
 
@@ -18,13 +18,18 @@ namespace sabre
      */
     class WaitFor
     {
+    public:
+        using Ptr = WaitFor *;
+        using SharedPtr = std::shared_ptr<WaitFor>;
+        using UniquePtr = std::unique_ptr<WaitFor>;
+
     private:
-        bool _done(bool result, uint64_t total_runtime);
+        bool _done(bool result, uint64_t totalRuntime);
 
     protected:
-        uint64_t _timeout_in_ms;
+        uint64_t _timeoutInMs;
         WaitForPred _fn;
-        uint64_t _sleep_time = 0;
+        uint64_t _sleepTime = 0;
 
         bool _result = false;
         uint64_t _runtime = 0;
@@ -36,7 +41,7 @@ namespace sabre
          * the current time in milliseconds since the epoch or a similar
          * reference point.
          */
-        virtual uint64_t _get_current_time() const = 0;
+        virtual uint64_t _getCurrentTime() const = 0;
 
         /**
          * @brief Sleep for a specified duration.
@@ -52,10 +57,10 @@ namespace sabre
          * @brief Constructor for the WaitFor class.
          *
          * @param fn The predicate function to check.
-         * @param timeout_in_ms The maximum time to wait in milliseconds.
-         * @param sleep_time The time to sleep between checks in milliseconds.
+         * @param timeoutInMs The maximum time to wait in milliseconds.
+         * @param sleepTime The time to sleep between checks in milliseconds.
          */
-        WaitFor(WaitForPred fn, uint64_t timeout_in_ms, uint64_t sleep_time);
+        WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime);
 
         /**
          * @brief Start the waiting process.
@@ -77,7 +82,7 @@ namespace sabre
          * @return True if the predicate function returned true, false
          * otherwise.
          */
-        bool get_result() const;
+        bool getResult() const;
 
         /**
          * @brief Get the runtime of the last wait operation.
@@ -87,9 +92,6 @@ namespace sabre
          *
          * @return The runtime in milliseconds.
          */
-        uint64_t get_result_runtime() const;
+        uint64_t getResultRuntime() const;
     };
-    using WaitForPtr = WaitFor *;
-    using WaitForSharedPtr = std::shared_ptr<WaitFor>;
-    using WaitForUniquePtr = std::unique_ptr<WaitFor>;
-}; // namespace sabre
+}; // namespace sabre::utility

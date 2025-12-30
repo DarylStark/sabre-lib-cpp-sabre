@@ -12,9 +12,9 @@ jobs:
         run: sudo apt install cmake ninja-build
       - name: Build project
         run: |
-          cmake --preset ninja-release-with-tests -DSABRE_BUILD_PILOT=OFF
-          cmake --build build/release-with-tests
+          cmake --preset dbg-sabre-pilot-tests -DSABRE_BUILD_PILOT=OFF
+          cmake --build build/dbg-sabre-pilot-tests
       - name: Run tests
         run: |
-          cd build/release-with-tests
+          cd build/dbg-sabre-pilot-tests
           ctest

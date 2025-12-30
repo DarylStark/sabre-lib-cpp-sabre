@@ -2,56 +2,56 @@
 
 namespace sabre::parsers
 {
-    NMEAValidator::NMEAValidator()
-        : _state(NMEA_Validation_State::WAITING_FOR_START)
+    NmeaValidator::NmeaValidator()
+        : _state(NmeaValidationState::WAITING_FOR_START)
     {
-        _nmea_sentence.reserve(82);
+        _NmeaSentence.reserve(82);
     }
 
-    NMEAValidator::~NMEAValidator() {}
+    NmeaValidator::~NmeaValidator() {}
 
-    void NMEAValidator::add_character(char character)
+    void NmeaValidator::addCharacter(char character)
     {
-        if (_state == NMEA_Validation_State::WAITING_FOR_START)
+        if (_state == NmeaValidationState::WAITING_FOR_START)
         {
             if (character == '$')
             {
-                _state = NMEA_Validation_State::WAITING_FOR_END;
-                _nmea_sentence.push_back(character);
+                _state = NmeaValidationState::WAITING_FOR_END;
+                _NmeaSentence.push_back(character);
             }
         }
-        else if (_state == NMEA_Validation_State::WAITING_FOR_END)
+        else if (_state == NmeaValidationState::WAITING_FOR_END)
             if (character == '\r' || character == '\n')
-                _state = NMEA_Validation_State::ACCEPTED;
-            else if (character == '$' || _nmea_sentence.length() >= 82)
-                _state = NMEA_Validation_State::ERROR;
+                _state = NmeaValidationState::ACCEPTED;
+            else if (character == '$' || _NmeaSentence.length() >= 82)
+                _state = NmeaValidationState::ERROR;
             else
-                _nmea_sentence.push_back(character);
+                _NmeaSentence.push_back(character);
     }
 
-    void NMEAValidator::reset()
+    void NmeaValidator::reset()
     {
-        _state = NMEA_Validation_State::WAITING_FOR_START;
-        _nmea_sentence.clear();
+        _state = NmeaValidationState::WAITING_FOR_START;
+        _NmeaSentence.clear();
     }
 
-    std::string NMEAValidator::get_buffer() const
+    std::string NmeaValidator::getBuffer() const
     {
-        return _nmea_sentence;
+        return _NmeaSentence;
     }
 
-    bool NMEAValidator::is_error() const
+    bool NmeaValidator::isError() const
     {
-        return _state == NMEA_Validation_State::ERROR;
+        return _state == NmeaValidationState::ERROR;
     }
 
-    bool NMEAValidator::is_accepted() const
+    bool NmeaValidator::isAccepted() const
     {
-        return _state == NMEA_Validation_State::ACCEPTED;
+        return _state == NmeaValidationState::ACCEPTED;
     }
 
-    bool NMEAValidator::is_started() const
+    bool NmeaValidator::isStarted() const
     {
-        return _state == NMEA_Validation_State::WAITING_FOR_END;
+        return _state == NmeaValidationState::WAITING_FOR_END;
     }
 } // namespace sabre::parsers

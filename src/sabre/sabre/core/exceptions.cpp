@@ -1,0 +1,13 @@
+#include "exceptions.hpp"
+
+namespace sabre::core
+{
+    SabreException::SabreException(const std::string &message)
+        : std::runtime_error(message)
+    {
+    }
+
+    ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
+
+    ApiError::ApiError() : SabreException("Unknown API error") {}
+} // namespace sabre::core

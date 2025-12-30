@@ -3,59 +3,59 @@
 namespace sabre::devices
 {
     SerialNmeaGpsDevice::SerialNmeaGpsDevice()
-        : _uart(nullptr), _output_uart(nullptr)
+        : _uartPtr(nullptr), _outputUartPtr(nullptr)
     {
     }
 
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice(sabre::UARTPtr uart)
-        : _uart(uart), _output_uart(nullptr)
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice(Uart::Ptr uartPtr)
+        : _uartPtr(uartPtr), _outputUartPtr(nullptr)
     {
     }
 
-    void SerialNmeaGpsDevice::set_uart_ptr(sabre::UARTPtr uart)
+    void SerialNmeaGpsDevice::setUartPtr(Uart::Ptr uartPtr)
     {
-        _uart = uart;
+        _uartPtr = uartPtr;
     }
 
-    void SerialNmeaGpsDevice::set_output_uart_ptr(sabre::UARTPtr uart)
+    void SerialNmeaGpsDevice::setOutputUartPtr(Uart::Ptr uartPtr)
     {
-        _output_uart = uart;
+        _outputUartPtr = uartPtr;
     }
 
-    sabre::models::Position SerialNmeaGpsDevice::get_last_position() const
+    sabre::models::geo::Position SerialNmeaGpsDevice::getLastPosition() const
     {
-        return _nmea_parser.get_last_position();
+        return _nmeaParser.getLastPosition();
     }
 
-    bool SerialNmeaGpsDevice::is_valid_position() const
+    bool SerialNmeaGpsDevice::isValidPosition() const
     {
-        return _nmea_parser.get_last_position().is_valid();
+        return _nmeaParser.getLastPosition().isValid();
     }
 
-    bool SerialNmeaGpsDevice::read()
+    bool SerialNmeaGpsDevice::readData()
     {
-        if (!_uart)
+        if (!_uartPtr)
             return false;
 
-        std::string x = _uart->read_bytes(1, 50);
+        std::string x = _uartPtr->readBytes(1, 50);
         if (!x.empty())
         {
-            if (_output_uart)
+            if (_outputUartPtr)
                 for (const auto &byte : x)
-                    _output_uart->write_byte(byte);
+                    _outputUartPtr->writeByte(byte);
 
             for (const auto &c : x)
             {
-                _nmea_validator.add_character(c);
-                if (_nmea_validator.is_accepted())
+                _nmeaValidator.addCharacter(c);
+                if (_nmeaValidator.isAccepted())
                 {
-                    _nmea_parser.add_scentence(_nmea_validator.get_buffer());
-                    _nmea_validator.reset();
+                    _nmeaParser.addSentence(_nmeaValidator.getBuffer());
+                    _nmeaValidator.reset();
                 }
-                else if (_nmea_validator.is_error())
+                else if (_nmeaValidator.isError())
                 {
-                    _nmea_validator.reset();
-                    _nmea_validator.add_character(c);
+                    _nmeaValidator.reset();
+                    _nmeaValidator.addCharacter(c);
                 }
             }
             return true;

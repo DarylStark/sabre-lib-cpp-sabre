@@ -1,6 +1,6 @@
 #include "presenter.hpp"
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
     Presenter::Presenter(Simulator &simulator) : _simulator(simulator) {}
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot

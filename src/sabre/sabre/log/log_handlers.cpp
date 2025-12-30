@@ -1,0 +1,36 @@
+#include "log_handlers.hpp"
+#include <iomanip>
+
+namespace sabre::log
+{
+    OStreamLogHandler::OStreamLogHandler(std::ostream &stream) : _stream(stream)
+    {
+    }
+
+    void OStreamLogHandler::handleLog(const LoggingLevel level,
+                                      const std::string &loggerName,
+                                      const std::string &message)
+    {
+        _stream << "[" << loggerName << "] - " << std::left << std::setw(10)
+                << std::setfill('.') << LoggingLevelToString(level) << " - "
+                << message << std::endl;
+    }
+
+    LogBufferHandler::LogBufferHandler(size_t size) : _buffer(0), _maxSize(size)
+    {
+    }
+
+    void LogBufferHandler::handleLog(const LoggingLevel level,
+                                     const std::string &loggerName,
+                                     const std::string &message)
+    {
+        _buffer.push_back("[" + loggerName + "] " + message);
+        if (_buffer.size() > _maxSize)
+            _buffer.erase(_buffer.begin());
+    }
+
+    const LogBufferHandlerBuffer &LogBufferHandler::getBuffer() const
+    {
+        return _buffer;
+    }
+} // namespace sabre::log

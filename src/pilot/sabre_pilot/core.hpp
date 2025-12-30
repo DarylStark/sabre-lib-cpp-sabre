@@ -1,0 +1,33 @@
+#pragma once
+
+#include "../simulator/device.hpp"
+#include "sabre/runtime/app.hpp"
+#include <sabre/core/factory.hpp>
+
+namespace sabre::impl::pilot
+{
+    class Factory : public sabre::core::Factory
+    {
+    private:
+        Device *_device;
+
+    public:
+        Factory(Device *device);
+        sabre::hal::Uart::UniquePtr
+        createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
+                         int32_t rxPin, size_t bufferSize) const;
+        sabre::hal::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
+        sabre::hal::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
+        sabre::net::WifiStation::UniquePtr createWifiStation() const;
+        sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const;
+        sabre::time::WallClock::UniquePtr createWallClock() const;
+        sabre::time::NtpClient::UniquePtr
+        createNtpClient(const std::string &server) const;
+        sabre::net::MqttClient::UniquePtr createMqttClient() const;
+        sabre::utility::WaitFor::UniquePtr
+        createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
+                      uint64_t sleepTime) const;
+        sabre::os::Service::UniquePtr
+        createService(sabre::os::ServiceHandler fn) const;
+    };
+} // namespace sabre::impl::pilot

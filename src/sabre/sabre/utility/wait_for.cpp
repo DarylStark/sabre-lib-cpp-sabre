@@ -1,41 +1,40 @@
 #include "wait_for.hpp"
 
-namespace sabre
+namespace sabre::utility
 {
 
-    bool WaitFor::_done(bool result, uint64_t total_runtime)
+    bool WaitFor::_done(bool result, uint64_t totalRuntime)
     {
-        _runtime = total_runtime;
+        _runtime = totalRuntime;
         _result = result;
         return result;
     }
 
-    WaitFor::WaitFor(WaitForPred fn, uint64_t timeout_in_ms,
-                     uint64_t sleep_time)
-        : _timeout_in_ms(timeout_in_ms), _fn(fn), _sleep_time(sleep_time)
+    WaitFor::WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime)
+        : _timeoutInMs(timeoutInMs), _fn(fn), _sleepTime(sleepTime)
     {
     }
 
     bool WaitFor::operator()()
     {
-        uint64_t starttime = _get_current_time();
+        uint64_t starttime = _getCurrentTime();
 
-        while (_timeout_in_ms > _get_current_time() - starttime)
+        while (_timeoutInMs > _getCurrentTime() - starttime)
         {
             if (_fn())
-                return _done(true, _get_current_time() - starttime);
+                return _done(true, _getCurrentTime() - starttime);
             _sleep();
         }
-        return _done(false, _get_current_time() - starttime);
+        return _done(false, _getCurrentTime() - starttime);
     }
 
-    bool WaitFor::get_result() const
+    bool WaitFor::getResult() const
     {
         return _result;
     }
 
-    uint64_t WaitFor::get_result_runtime() const
+    uint64_t WaitFor::getResultRuntime() const
     {
         return _runtime;
     }
-}; // namespace sabre
+}; // namespace sabre::utility

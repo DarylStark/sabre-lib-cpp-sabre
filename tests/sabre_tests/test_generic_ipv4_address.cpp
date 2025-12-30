@@ -1,0 +1,48 @@
+#include <gtest/gtest.h>
+#include <sabre/models/net.hpp>
+#include <sstream>
+#include <string>
+
+TEST(IPv4Address, EmptyConstructor)
+{
+    sabre::models::net::IPv4Address add;
+    ASSERT_EQ(static_cast<uint32_t>(add), 0);
+}
+
+TEST(IPv4Address, Setting)
+{
+    sabre::models::net::IPv4Address add;
+    add.set(3232242232);
+    ASSERT_EQ(static_cast<uint32_t>(add), 3232242232);
+}
+
+TEST(IPv4Address, Octets)
+{
+    sabre::models::net::IPv4Address add(3232242231);
+    ASSERT_EQ(add[0], 192);
+    ASSERT_EQ(add[1], 168);
+    ASSERT_EQ(add[2], 26);
+    ASSERT_EQ(add[3], 55);
+}
+
+TEST(IPv4Address, StringConversion)
+{
+    sabre::models::net::IPv4Address add(3232242231);
+    std::string ip = static_cast<std::string>(add);
+    ASSERT_EQ(ip, "192.168.26.55");
+}
+
+TEST(IPv4Address, UInt32Conversion)
+{
+    sabre::models::net::IPv4Address add(3232242231);
+    uint32_t ip = static_cast<uint32_t>(add);
+    ASSERT_EQ(ip, 3232242231);
+}
+
+TEST(IPv4Address, OStreamOperator)
+{
+    std::stringstream oss;
+    sabre::models::net::IPv4Address add(3232242231);
+    oss << add;
+    ASSERT_EQ(oss.str(), "192.168.26.55");
+}

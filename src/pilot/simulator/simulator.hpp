@@ -6,7 +6,7 @@
 #include <thread>
 #include <utility>
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
     struct SimulatorDevice
     {
@@ -23,16 +23,16 @@ namespace sabre::pilot
         DeviceList _devices;
 
         void _thread_device_start(std::shared_ptr<Device> device);
-        void _start_device(SimulatorDevice &sim_device);
+        void _start_device(SimulatorDevice &simDevice);
         void _start_all_devices();
 
     public:
         Simulator();
 
         Device *add_mcu(const std::string &name, const DeviceConfig &config,
-                        sabre::AppUniquePtr &&app);
+                        sabre::runtime::App::UniquePtr &&app);
         void start_device(const std::string &name);
 
         DeviceList &get_device_list();
     };
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot

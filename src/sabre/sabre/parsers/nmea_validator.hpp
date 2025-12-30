@@ -4,7 +4,7 @@
 
 namespace sabre::parsers
 {
-    enum class NMEA_Validation_State
+    enum class NmeaValidationState
     {
         WAITING_FOR_START,
         WAITING_FOR_END,
@@ -12,23 +12,23 @@ namespace sabre::parsers
         ERROR
     };
 
-    class NMEAValidator : public StringValidator
+    class NmeaValidator : public StringValidator
     {
     private:
-        std::string _nmea_sentence;
-        NMEA_Validation_State _state;
+        std::string _NmeaSentence;
+        NmeaValidationState _state;
 
     public:
-        NMEAValidator();
-        ~NMEAValidator();
+        NmeaValidator();
+        ~NmeaValidator();
 
-        void add_character(char character);
+        void addCharacter(char character);
 
         void reset();
-        std::string get_buffer() const;
+        std::string getBuffer() const;
 
-        bool is_error() const;
-        bool is_accepted() const;
-        bool is_started() const;
+        bool isError() const;
+        bool isAccepted() const;
+        bool isStarted() const;
     };
 } // namespace sabre::parsers

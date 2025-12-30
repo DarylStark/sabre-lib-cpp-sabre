@@ -1,28 +1,29 @@
 #pragma once
 
+#include "../hal/uart.hpp"
 #include "../parsers/nmea_validator.hpp"
-#include "../uart/uart.hpp"
 #include "./gps_device.hpp"
 
 namespace sabre::devices
 {
+    using sabre::hal::Uart;
     class SerialNmeaGpsDevice : public GpsDevice
     {
     private:
-        sabre::UARTPtr _uart;
-        sabre::UARTPtr _output_uart;
-        sabre::parsers::NMEAValidator _nmea_validator;
-        sabre::parsers::NMEA_Parser _nmea_parser;
+        sabre::hal::Uart::Ptr _uartPtr;
+        sabre::hal::Uart::Ptr _outputUartPtr;
+        sabre::parsers::NmeaValidator _nmeaValidator;
+        sabre::parsers::NmeaParser _nmeaParser;
 
     public:
         SerialNmeaGpsDevice();
-        SerialNmeaGpsDevice(sabre::UARTPtr uart);
+        SerialNmeaGpsDevice(Uart::Ptr uartPtr);
 
-        void set_uart_ptr(sabre::UARTPtr uart);
-        void set_output_uart_ptr(sabre::UARTPtr uart);
+        void setUartPtr(Uart::Ptr uartPtr);
+        void setOutputUartPtr(Uart::Ptr uartPtr);
 
-        sabre::models::Position get_last_position() const override;
-        bool is_valid_position() const override;
-        bool read() override;
+        sabre::models::geo::Position getLastPosition() const override;
+        bool isValidPosition() const override;
+        bool readData() override;
     };
 } // namespace sabre::devices

@@ -5,37 +5,37 @@
 #include <imgui.h>
 #include <iostream>
 
-namespace sabre::pilot
+namespace sabre::impl::pilot
 {
     ImGuiPresenter::ImGuiPresenter(Simulator &simulator) : Presenter(simulator)
     {
     }
 
-    void ImGuiPresenter::_handle_key_events()
+    void ImGuiPresenter::_handleKeyEvents()
     {
         if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) &&
             ImGui::IsKeyPressed(ImGuiKey_Equal))
-            _zoom_in();
+            _zoomIn();
         if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) &&
             ImGui::IsKeyPressed(ImGuiKey_Minus))
-            _zoom_out();
+            _zoomOut();
         if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) &&
             ImGui::IsKeyPressed(ImGuiKey_0))
-            _set_scale_to_auto();
+            _setScaleToAuto();
     }
 
-    void ImGuiPresenter::_main_menu()
+    void ImGuiPresenter::_mainMenu()
     {
         if (ImGui::BeginMainMenuBar())
         {
-            _main_menu_file();
-            _main_menu_view();
-            _main_menu_debug();
+            _mainMenuFile();
+            _mainMenuView();
+            _mainMenuDebug();
             ImGui::EndMainMenuBar();
         }
     }
 
-    void ImGuiPresenter::_main_menu_file()
+    void ImGuiPresenter::_mainMenuFile()
     {
         if (ImGui::BeginMenu("File"))
         {
@@ -45,96 +45,95 @@ namespace sabre::pilot
         }
     }
 
-    void ImGuiPresenter::_main_menu_view()
+    void ImGuiPresenter::_mainMenuView()
     {
         if (ImGui::BeginMenu("View"))
         {
-            _main_menu_view_device_list();
-            _main_menu_view_scale();
-            _main_menu_view_theme();
+            _mainMenuViewDeviceList();
+            _mainMenuViewScale();
+            _mainMenuViewTheme();
             ImGui::EndMenu();
         }
     }
 
-    void ImGuiPresenter::_main_menu_view_device_list()
+    void ImGuiPresenter::_mainMenuViewDeviceList()
     {
         if (ImGui::BeginMenu("Device"))
         {
             for (auto &device : _simulator.get_device_list())
                 if (ImGui::MenuItem(device.first.c_str(), nullptr,
-                                    _device_visibility[device.first]))
-                    _device_visibility[device.first] =
-                        !_device_visibility[device.first];
+                                    _deviceVisibility[device.first]))
+                    _deviceVisibility[device.first] =
+                        !_deviceVisibility[device.first];
             ImGui::EndMenu();
         }
     }
 
-    void ImGuiPresenter::_main_menu_view_scale()
+    void ImGuiPresenter::_mainMenuViewScale()
     {
         if (ImGui::BeginMenu("Scale"))
         {
-            if (ImGui::MenuItem("Auto", "Ctrl + 0", _auto_scale))
-                _set_scale_to_auto();
+            if (ImGui::MenuItem("Auto", "Ctrl + 0", _autoScale))
+                _setScaleToAuto();
             ImGui::Separator();
             if (ImGui::MenuItem("Zoom in", "Ctrl + =", false, _scale != 5.0f))
-                _zoom_in();
+                _zoomIn();
             if (ImGui::MenuItem("Zoom out", "Ctrl + -", false, _scale != 1.0f))
-                _zoom_out();
+                _zoomOut();
             ImGui::Separator();
             for (float scale = 1; scale <= 5; scale += 0.5f)
             {
                 std::string label =
                     std::to_string(static_cast<int>(scale * 100)) + "%";
                 if (ImGui::MenuItem(label.c_str(), nullptr,
-                                    _scale == scale && !_auto_scale))
-                    _set_scale(scale);
+                                    _scale == scale && !_autoScale))
+                    _setScale(scale);
             }
             ImGui::EndMenu();
         }
     }
 
-    void ImGuiPresenter::_main_menu_view_theme()
+    void ImGuiPresenter::_mainMenuViewTheme()
     {
         if (ImGui::BeginMenu("Theme"))
         {
             if (ImGui::MenuItem("Light", nullptr,
-                                _current_theme == ImGuiTheme::LIGHT))
-                _current_theme = ImGuiTheme::LIGHT;
+                                _currentTheme == ImGuiTheme::LIGHT))
+                _currentTheme = ImGuiTheme::LIGHT;
             if (ImGui::MenuItem("Dark", nullptr,
-                                _current_theme == ImGuiTheme::DARK))
-                _current_theme = ImGuiTheme::DARK;
+                                _currentTheme == ImGuiTheme::DARK))
+                _currentTheme = ImGuiTheme::DARK;
             if (ImGui::MenuItem("Classic", nullptr,
-                                _current_theme == ImGuiTheme::CLASSIC))
-                _current_theme = ImGuiTheme::CLASSIC;
+                                _currentTheme == ImGuiTheme::CLASSIC))
+                _currentTheme = ImGuiTheme::CLASSIC;
             ImGui::EndMenu();
         }
     }
 
-    void ImGuiPresenter::_main_menu_debug()
+    void ImGuiPresenter::_mainMenuDebug()
     {
         if (ImGui::BeginMenu("Debug"))
         {
-            ImGui::MenuItem("ImGui Demo Window", nullptr, &_show_imgui_demo);
-            ImGui::MenuItem("ImGui Metric Window", nullptr,
-                            &_show_imgui_metrics);
+            ImGui::MenuItem("ImGui Demo Window", nullptr, &_showImGuiDemo);
+            ImGui::MenuItem("ImGui Metric Window", nullptr, &_showImGuiMetrics);
             ImGui::EndMenu();
         }
     }
 
     void ImGuiPresenter::_device(const std::string &name,
-                                 SimulatorDevice &sim_device)
+                                 SimulatorDevice &simDevice)
     {
-        if (_device_visibility.find(name) == _device_visibility.end())
-            _device_visibility[name] = true;
+        if (_deviceVisibility.find(name) == _deviceVisibility.end())
+            _deviceVisibility[name] = true;
 
-        if (!_device_visibility[name])
+        if (!_deviceVisibility[name])
             return;
 
-        sim_device.device->accept(_imgui_visitor, name);
+        simDevice.device->accept(_imguiVisitor, name);
         return;
     }
 
-    void ImGuiPresenter::_create_window()
+    void ImGuiPresenter::_createWindow()
     {
         std::clog << "Creating GLFW window..." << std::endl;
         if (glfwInit() != GLFW_TRUE)
@@ -149,7 +148,7 @@ namespace sabre::pilot
         glfwMakeContextCurrent(_window);
     }
 
-    void ImGuiPresenter::_create_imgui_context()
+    void ImGuiPresenter::_createImGuiContext()
     {
         std::clog << "Creating ImGui context..." << std::endl;
 
@@ -163,7 +162,7 @@ namespace sabre::pilot
         ImGui_ImplOpenGL3_Init("#version 130");
     }
 
-    void ImGuiPresenter::_destroy_window()
+    void ImGuiPresenter::_destroyWindow()
     {
         std::clog << "Destroying GLFW window..." << std::endl;
         if (_window)
@@ -174,24 +173,24 @@ namespace sabre::pilot
         glfwTerminate();
     }
 
-    void ImGuiPresenter::_imgui_demo_window()
+    void ImGuiPresenter::_imguiDemoWindow()
     {
-        if (!_show_imgui_demo)
+        if (!_showImGuiDemo)
             return;
-        ImGui::ShowDemoWindow(&_show_imgui_demo);
+        ImGui::ShowDemoWindow(&_showImGuiDemo);
     }
 
-    void ImGuiPresenter::_device_windows()
+    void ImGuiPresenter::_deviceWindows()
     {
         for (auto &device : _simulator.get_device_list())
             _device(device.first, device.second);
     }
 
-    void ImGuiPresenter::_imgui_metrics_window()
+    void ImGuiPresenter::_imguiMetricsWindow()
     {
-        if (!_show_imgui_metrics)
+        if (!_showImGuiMetrics)
             return;
-        ImGui::ShowMetricsWindow(&_show_imgui_metrics);
+        ImGui::ShowMetricsWindow(&_showImGuiMetrics);
     }
 
     void ImGuiPresenter::_loop()
@@ -207,18 +206,18 @@ namespace sabre::pilot
             ImGui::NewFrame();
             ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
 
-            if (_current_theme == ImGuiTheme::DARK)
+            if (_currentTheme == ImGuiTheme::DARK)
                 ImGui::StyleColorsDark();
-            else if (_current_theme == ImGuiTheme::LIGHT)
+            else if (_currentTheme == ImGuiTheme::LIGHT)
                 ImGui::StyleColorsLight();
-            else if (_current_theme == ImGuiTheme::CLASSIC)
+            else if (_currentTheme == ImGuiTheme::CLASSIC)
                 ImGui::StyleColorsClassic();
 
-            _handle_key_events();
-            _main_menu();
-            _device_windows();
-            _imgui_demo_window();
-            _imgui_metrics_window();
+            _handleKeyEvents();
+            _mainMenu();
+            _deviceWindows();
+            _imguiDemoWindow();
+            _imguiMetricsWindow();
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -230,42 +229,42 @@ namespace sabre::pilot
     {
         std::clog << "Starting GUI..." << std::endl;
 
-        _create_window();
-        _create_imgui_context();
-        _set_scale_to_auto();
+        _createWindow();
+        _createImGuiContext();
+        _setScaleToAuto();
         _loop();
-        _destroy_window();
+        _destroyWindow();
     }
 
-    void ImGuiPresenter::_set_scale_to_auto()
+    void ImGuiPresenter::_setScaleToAuto()
     {
         if (!_window)
             return;
         float scale_x, scale_y;
         glfwGetWindowContentScale(_window, &scale_x, &scale_y);
-        _set_scale(scale_x);
-        _auto_scale = true;
+        _setScale(scale_x);
+        _autoScale = true;
     }
 
-    void ImGuiPresenter::_set_scale(float scale)
+    void ImGuiPresenter::_setScale(float scale)
     {
         float current_scale = _scale;
         _scale = scale;
         ImGui::GetStyle().ScaleAllSizes(_scale / current_scale);
         ImGuiIO &io = ImGui::GetIO();
         io.FontGlobalScale = _scale;
-        _auto_scale = false;
+        _autoScale = false;
     }
 
-    void ImGuiPresenter::_zoom_in()
+    void ImGuiPresenter::_zoomIn()
     {
         if (_scale < 5)
-            _set_scale(_scale + 0.5f);
+            _setScale(_scale + 0.5f);
     }
 
-    void ImGuiPresenter::_zoom_out()
+    void ImGuiPresenter::_zoomOut()
     {
         if (_scale >= 1.5f)
-            _set_scale(_scale - 0.5f);
+            _setScale(_scale - 0.5f);
     }
-} // namespace sabre::pilot
+} // namespace sabre::impl::pilot
