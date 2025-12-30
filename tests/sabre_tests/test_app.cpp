@@ -1,4 +1,4 @@
-#include "sabre_testing/core.hpp"
+#include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
 
 using sabre::impl::sabre_testing::StFactory;

@@ -1,4 +1,4 @@
-#include "sabre_testing/hal.hpp"
+#include "sabre_test_mocks/hal.hpp"
 #include <gtest/gtest.h>
 #include <sabre/hal/uart.hpp>
 #include <sabre/io/uart_output_stream_buffer.hpp>

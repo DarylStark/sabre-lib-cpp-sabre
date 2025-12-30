@@ -1,4 +1,4 @@
-#include "sabre_testing/hal.hpp"
+#include "sabre_test_mocks/hal.hpp"
 #include <gtest/gtest.h>
 #include <sabre/devices/serial_nmea_gps_device.hpp>
 
