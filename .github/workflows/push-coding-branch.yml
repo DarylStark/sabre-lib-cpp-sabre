@@ -6,6 +6,8 @@ jobs:
   code-format-check:
     name: Code Format Check
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v2
       - name: Install clang-format
@@ -42,6 +44,8 @@ jobs:
   unit-testing:
     name: Unit Testing
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v2
       - name: Install build tools
