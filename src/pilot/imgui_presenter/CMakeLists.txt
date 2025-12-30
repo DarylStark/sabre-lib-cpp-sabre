@@ -14,6 +14,7 @@ file(
         ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
 )
 add_library(imgui STATIC ${IMGUI_SOURCES})
+set_target_properties(imgui PROPERTIES CXX_CLANG_TIDY "")
 
 target_include_directories(
     imgui

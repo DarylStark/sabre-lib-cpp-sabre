@@ -1,0 +1,4 @@
+Checks: 'modernize-*,readability-*,performance-*'
+WarningsAsErrors: ''
+HeaderFilterRegex: '^(src/|tests/)'
+FormatStyle: file
