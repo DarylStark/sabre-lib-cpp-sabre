@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install clang-format
-        run: sudo apt install clang-format-14
+        run: sudo apt install clang-format
       - name: Check code formatting
         run: |
           # Find all C++ source files in src and tests directories
@@ -27,7 +27,7 @@ jobs:
           # Check formatting for each file
           format_errors=0
           for file in $files; do
-            if ! clang-format-14 --dry-run -Werror "$file" >/dev/null 2>&1; then
+            if ! clang-format --dry-run -Werror "$file" >/dev/null 2>&1; then
               echo "Error: $file is not formatted correctly"
               echo "Please run: clang-format -i $file"
               format_errors=$((format_errors + 1))
