@@ -6,8 +6,8 @@
 
 TEST(UARTStreamBuf, UseAsOStreamObject)
 {
-    std::unique_ptr<sabre::impl::sabre_testing::TestUART> u =
-        std::make_unique<sabre::impl::sabre_testing::TestUART>();
+    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
+        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
     auto *u_ptr = u.get();
     sabre::io::UartStreamBuf buffer(std::move(u), 128);
 
@@ -19,8 +19,8 @@ TEST(UARTStreamBuf, UseAsOStreamObject)
 
 TEST(UARTStreamBuf, OverflowBuffer)
 {
-    std::unique_ptr<sabre::impl::sabre_testing::TestUART> u =
-        std::make_unique<sabre::impl::sabre_testing::TestUART>();
+    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
+        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
     auto *u_ptr = u.get();
     sabre::io::UartStreamBuf buffer(std::move(u), 10);
 

@@ -4,7 +4,7 @@
 #include <sabre/hal/uart.hpp>
 #include <string>
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     using sabre::hal::ISRHandler;
     using sabre::hal::ISRTrigger;
@@ -36,4 +36,4 @@ namespace sabre::impl::sabre_testing
 
         mutable std::string _buf;
     };
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

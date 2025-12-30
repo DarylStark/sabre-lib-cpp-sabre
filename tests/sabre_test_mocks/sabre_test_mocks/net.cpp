@@ -1,6 +1,6 @@
 #include "net.hpp"
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     void StMQTTClient::connect(const std::string &hostname,
                                const std::string &clientId,
@@ -32,4 +32,4 @@ namespace sabre::impl::sabre_testing
     {
         _published_messages.emplace_back(topic, message, qos, retain);
     }
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

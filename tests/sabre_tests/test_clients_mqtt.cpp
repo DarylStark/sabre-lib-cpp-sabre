@@ -4,7 +4,7 @@
 
 TEST(MQTTTopic, PublishingExplicitValues)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     sabre::net::MqttTopic::SharedPtr topic2 =
@@ -32,7 +32,7 @@ TEST(MQTTTopic, PublishingExplicitValues)
 
 TEST(MQTTTopic, PublishingDefaultQoS)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
 
@@ -45,7 +45,7 @@ TEST(MQTTTopic, PublishingDefaultQoS)
 
 TEST(MQTTTopic, PublishingDefaultChangedDefault)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     topic1->setDefaultQos(sabre::net::MqttQos::EXACTLY_ONCE);
@@ -59,7 +59,7 @@ TEST(MQTTTopic, PublishingDefaultChangedDefault)
 
 TEST(MQTTTopic, PublishingDefaultChangedDefaultToInvalid)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     topic1->setDefaultQos(sabre::net::MqttQos::UNDEFINED);
@@ -73,7 +73,7 @@ TEST(MQTTTopic, PublishingDefaultChangedDefaultToInvalid)
 
 TEST(MQTTTopic, PublishingDefaultRetain)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
 
@@ -86,7 +86,7 @@ TEST(MQTTTopic, PublishingDefaultRetain)
 
 TEST(MQTTTopic, PublishingDefaultRetainChangedDefault)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     topic1->setDefaultRetain(sabre::net::MqttRetain::RETAIN);
@@ -100,7 +100,7 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefault)
 
 TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     topic1->setDefaultRetain(sabre::net::MqttRetain::UNDEFINED);
@@ -115,7 +115,7 @@ TEST(MQTTTopic, PublishingDefaultRetainChangedDefaultInvalid)
 TEST(MQTTTopic, ReceiveForSubscription)
 {
     int callcount = 0;
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
@@ -133,7 +133,7 @@ TEST(MQTTTopic, ReceiveForSubscription)
 TEST(MQTTTopic, DontReceiveForNoneSubscription)
 {
     int callcount = 0;
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
@@ -151,7 +151,7 @@ TEST(MQTTTopic, DontReceiveForNoneSubscription)
 TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
 {
     int callcount = 0;
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttCallback default_handler =
         [&callcount](const sabre::net::MqttEvent) { ++callcount; };
     client.setDefaultHandler(default_handler);
@@ -165,7 +165,7 @@ TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
 
 TEST(MQTTTopic, NoDefaultHandlerSet)
 {
-    sabre::impl::sabre_testing::StMQTTClient client;
+    sabre::impl::sabre_test_mocks::StMQTTClient client;
     ASSERT_NO_THROW(client.processReceived({"unspecified/topic", "test",
                                             sabre::net::MqttQos::AT_LEAST_ONCE,
                                             sabre::net::MqttRetain::RETAIN}););

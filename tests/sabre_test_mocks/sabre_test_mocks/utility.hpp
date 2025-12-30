@@ -2,7 +2,7 @@
 
 #include <sabre/utility/wait_for.hpp>
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     using sabre::utility::WaitForPred;
 
@@ -15,4 +15,4 @@ namespace sabre::impl::sabre_testing
     public:
         StWaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime);
     };
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

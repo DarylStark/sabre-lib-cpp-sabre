@@ -1,8 +1,8 @@
 #include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
 
-using sabre::impl::sabre_testing::StFactory;
-using sabre::impl::sabre_testing::TestApp;
+using sabre::impl::sabre_test_mocks::StFactory;
+using sabre::impl::sabre_test_mocks::TestApp;
 
 TEST(App, AppSetFactory)
 {

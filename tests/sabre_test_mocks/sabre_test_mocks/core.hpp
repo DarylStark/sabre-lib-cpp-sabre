@@ -3,7 +3,7 @@
 #include <sabre/core/factory.hpp>
 #include <sabre/runtime/app.hpp>
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     using namespace sabre::core;
 
@@ -37,4 +37,4 @@ namespace sabre::impl::sabre_testing
         TestApp(sabre::core::Factory::UniquePtr factory);
         void start() override;
     };
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

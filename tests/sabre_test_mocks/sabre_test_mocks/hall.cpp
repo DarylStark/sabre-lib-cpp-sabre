@@ -1,6 +1,6 @@
 #include "hal.hpp"
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     bool StInputGpio::_getLevel() const
     {
@@ -42,4 +42,4 @@ namespace sabre::impl::sabre_testing
     {
         // No-op for test implementation
     }
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

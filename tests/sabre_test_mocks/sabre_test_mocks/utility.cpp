@@ -5,7 +5,7 @@
 // All times in this implementation are in microseconds to get the tests to
 // finish quickly. In a _real_ implementation, they should be in milliseconds!
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     uint64_t StWaitFor::_getCurrentTime() const
     {
@@ -24,4 +24,4 @@ namespace sabre::impl::sabre_testing
     {
         std::this_thread::sleep_for(std::chrono::microseconds(_sleepTime));
     }
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

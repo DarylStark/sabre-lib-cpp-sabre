@@ -1,6 +1,6 @@
 #include "os.hpp"
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     StService::StService(ServiceHandler fn) : sabre::os::Service(fn) {}
 
@@ -10,4 +10,4 @@ namespace sabre::impl::sabre_testing
     }
 
     void StService::stop() {}
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

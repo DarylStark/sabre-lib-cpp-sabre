@@ -2,7 +2,7 @@
 
 #include <sabre/os/service.hpp>
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     using sabre::os::ServiceHandler;
 
@@ -13,4 +13,4 @@ namespace sabre::impl::sabre_testing
         void start() override;
         void stop() override;
     };
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

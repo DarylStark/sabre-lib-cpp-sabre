@@ -1,7 +1,7 @@
 #include "core.hpp"
 #include "hal.hpp"
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     StFactory::StFactory(bool uartShouldBeNullptr)
         : _uart_should_be_nullptr(uartShouldBeNullptr)
@@ -77,4 +77,4 @@ namespace sabre::impl::sabre_testing
     {
         // TestApp start implementation
     }
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

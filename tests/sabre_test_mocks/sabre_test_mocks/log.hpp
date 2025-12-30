@@ -2,7 +2,7 @@
 
 #include <sabre/log/logging.hpp>
 
-namespace sabre::impl::sabre_testing
+namespace sabre::impl::sabre_test_mocks
 {
     using sabre::log::LoggingLevel;
 
@@ -20,4 +20,4 @@ namespace sabre::impl::sabre_testing
         std::string getLastLoggerName() const;
         std::string getLastMessage() const;
     };
-} // namespace sabre::impl::sabre_testing
+} // namespace sabre::impl::sabre_test_mocks

@@ -4,8 +4,8 @@
 
 TEST(Logging, DebugLogging)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "Testlogger",
@@ -18,8 +18,8 @@ TEST(Logging, DebugLogging)
 
 TEST(Logging, InfoLogging)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::INFO);
     sabre::log::Logging::addHandler(handler);
     sabre::log::Logging::log(sabre::log::LoggingLevel::INFO, "Testlogger",
@@ -44,8 +44,8 @@ TEST(Logging, RetrieveLevel)
 
 TEST(Logging, Logger)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::INFO);
     sabre::log::Logging::addHandler(handler);
 
@@ -59,8 +59,8 @@ TEST(Logging, Logger)
 
 TEST(Logging, LoggerDebug)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -74,8 +74,8 @@ TEST(Logging, LoggerDebug)
 
 TEST(Logging, LoggerInfo)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -89,8 +89,8 @@ TEST(Logging, LoggerInfo)
 
 TEST(Logging, LoggerNotice)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -104,8 +104,8 @@ TEST(Logging, LoggerNotice)
 
 TEST(Logging, LoggerWarning)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -119,8 +119,8 @@ TEST(Logging, LoggerWarning)
 
 TEST(Logging, LoggerError)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -134,8 +134,8 @@ TEST(Logging, LoggerError)
 
 TEST(Logging, LoggerCritical)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -149,8 +149,8 @@ TEST(Logging, LoggerCritical)
 
 TEST(Logging, LoggerAlert)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
@@ -164,8 +164,8 @@ TEST(Logging, LoggerAlert)
 
 TEST(Logging, LoggerEmergency)
 {
-    std::shared_ptr<sabre::impl::sabre_testing::TestHandler> handler =
-        std::make_shared<sabre::impl::sabre_testing::TestHandler>();
+    std::shared_ptr<sabre::impl::sabre_test_mocks::TestHandler> handler =
+        std::make_shared<sabre::impl::sabre_test_mocks::TestHandler>();
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);
     sabre::log::Logging::addHandler(handler);
 
