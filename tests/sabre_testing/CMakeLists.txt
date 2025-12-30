@@ -1,4 +1,4 @@
-file(GLOB SOURCES CONFIGURE_DEPENDS *.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS sabre_testing/*.cpp)
 add_library(sabre_testing STATIC ${SOURCES})
 
 target_compile_options(sabre_testing PRIVATE --coverage)
