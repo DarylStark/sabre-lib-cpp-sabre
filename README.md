@@ -53,6 +53,28 @@ The `pilot` library is an auxiliary tool that simulates MCU hardware on your dev
 
 Pilot uses the same Factory pattern as real MCU implementations, so your application code remains unchanged when switching between the simulator and actual hardware.
 
+## Development Environment
+
+### Using the Dev Container
+
+The easiest way to get started with Sabre development is using the provided dev container. The dev container comes pre-configured with all necessary tools and dependencies.
+
+**Prerequisites:**
+- [Docker](https://www.docker.com/) installed and running
+- [Visual Studio Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+**Getting Started:**
+
+1. Open the repository in Visual Studio Code
+2. When prompted, click "Reopen in Container" (or use the command palette: `Dev Containers: Reopen in Container`)
+3. The container will build and start automatically, installing all required dependencies including:
+   - CMake and Ninja build system
+   - C++ compiler toolchain
+   - GLFW development libraries
+   - All necessary build tools
+
+Once the container is running, you can build and test the project directly from within the containerized environment. All commands in this README will work seamlessly inside the dev container.
+
 ## Building the Project
 
 Sabre uses CMake with presets for easy configuration. **CMake 3.20 or newer is required.**
