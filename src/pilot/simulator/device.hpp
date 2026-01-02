@@ -93,7 +93,7 @@ namespace sabre::impl::pilot
 
         // Event control
         void register_event_callback(DeviceEventType type,
-                                     DeviceEventCallback callback);
+                                     const DeviceEventCallback &callback);
 
         // GPIO management
         DeviceGPIO &get_gpio(size_t index);

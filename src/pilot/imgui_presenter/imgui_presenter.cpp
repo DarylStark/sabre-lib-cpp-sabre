@@ -135,13 +135,13 @@ namespace sabre::impl::pilot
 
     void ImGuiPresenter::_createWindow()
     {
-        std::clog << "Creating GLFW window..." << std::endl;
+        std::clog << "Creating GLFW window..." << '\n' << std::flush;
         if (glfwInit() != GLFW_TRUE)
             return;
         _window = glfwCreateWindow(1024, 768, "Sabre Pilot", NULL, NULL);
         if (!_window)
         {
-            std::cerr << "Failed to create GLFW window" << std::endl;
+            std::cerr << "Failed to create GLFW window" << '\n' << std::flush;
             glfwTerminate();
             return;
         }
@@ -150,7 +150,7 @@ namespace sabre::impl::pilot
 
     void ImGuiPresenter::_createImGuiContext()
     {
-        std::clog << "Creating ImGui context..." << std::endl;
+        std::clog << "Creating ImGui context..." << '\n' << std::flush;
 
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -164,7 +164,7 @@ namespace sabre::impl::pilot
 
     void ImGuiPresenter::_destroyWindow()
     {
-        std::clog << "Destroying GLFW window..." << std::endl;
+        std::clog << "Destroying GLFW window..." << '\n' << std::flush;
         if (_window)
         {
             glfwDestroyWindow(_window);
@@ -195,7 +195,7 @@ namespace sabre::impl::pilot
 
     void ImGuiPresenter::_loop()
     {
-        std::clog << "Starting Loop..." << std::endl;
+        std::clog << "Starting Loop..." << '\n' << std::flush;
         ImGuiIO &io = ImGui::GetIO();
         while (!glfwWindowShouldClose(_window))
         {
@@ -227,7 +227,7 @@ namespace sabre::impl::pilot
 
     void ImGuiPresenter::start()
     {
-        std::clog << "Starting GUI..." << std::endl;
+        std::clog << "Starting GUI..." << '\n' << std::flush;
 
         _createWindow();
         _createImGuiContext();

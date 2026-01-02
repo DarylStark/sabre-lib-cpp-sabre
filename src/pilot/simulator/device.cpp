@@ -39,7 +39,7 @@ namespace sabre::impl::pilot
     }
 
     void Device::register_event_callback(DeviceEventType type,
-                                         DeviceEventCallback callback)
+                                         const DeviceEventCallback &callback)
     {
         _eventCallback.emplace(type, callback);
     }
