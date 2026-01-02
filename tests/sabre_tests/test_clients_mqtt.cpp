@@ -119,7 +119,7 @@ TEST(MQTTTopic, ReceiveForSubscription)
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
-        [&callcount](const sabre::net::MqttEvent) { ++callcount; };
+        [&callcount](const sabre::net::MqttEvent &) { ++callcount; };
 
     topic1->subscribe(callback);
 
@@ -137,7 +137,7 @@ TEST(MQTTTopic, DontReceiveForNoneSubscription)
     sabre::net::MqttTopic::SharedPtr topic1 =
         client.getTopic("sabre/testing/topic1");
     sabre::net::MqttCallback callback =
-        [&callcount](const sabre::net::MqttEvent) { ++callcount; };
+        [&callcount](const sabre::net::MqttEvent &) { ++callcount; };
 
     topic1->subscribe(callback);
 
@@ -153,7 +153,7 @@ TEST(MQTTTopic, ReceiveUnsubscribedToDefaultHandler)
     int callcount = 0;
     sabre::impl::sabre_test_mocks::StMQTTClient client;
     sabre::net::MqttCallback default_handler =
-        [&callcount](const sabre::net::MqttEvent) { ++callcount; };
+        [&callcount](const sabre::net::MqttEvent &) { ++callcount; };
     client.setDefaultHandler(default_handler);
 
     client.processReceived({"unspecified/topic", "test",
