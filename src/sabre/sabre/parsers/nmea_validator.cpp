@@ -21,12 +21,14 @@ namespace sabre::parsers
             }
         }
         else if (_state == NmeaValidationState::WAITING_FOR_END)
+        {
             if (character == '\r' || character == '\n')
                 _state = NmeaValidationState::ACCEPTED;
             else if (character == '$' || _NmeaSentence.length() >= 82)
                 _state = NmeaValidationState::ERROR;
             else
                 _NmeaSentence.push_back(character);
+        }
     }
 
     void NmeaValidator::reset()

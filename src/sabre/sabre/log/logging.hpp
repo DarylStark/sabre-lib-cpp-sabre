@@ -210,7 +210,7 @@ namespace sabre::log
          * This method allows the user to register a log handler that will
          * receive log messages.
          */
-        static void addHandler(LogHandler::SharedPtr handler);
+        static void addHandler(const LogHandler::SharedPtr &handler);
 
         /**
          * @brief Remove a log handler from the logging system.
@@ -220,6 +220,6 @@ namespace sabre::log
          *
          * @param handler The log handler to be removed.
          */
-        static void removeHandler(LogHandler::SharedPtr handler);
+        static void removeHandler(const LogHandler::SharedPtr &handler);
     };
 }; // namespace sabre::log

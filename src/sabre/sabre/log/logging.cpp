@@ -70,12 +70,12 @@ namespace sabre::log
                 handler->handleLog(level, loggerName, message);
     }
 
-    void Logging::addHandler(LogHandler::SharedPtr handler)
+    void Logging::addHandler(const LogHandler::SharedPtr &handler)
     {
         _handlers.push_front(handler);
     }
 
-    void Logging::removeHandler(LogHandler::SharedPtr handler)
+    void Logging::removeHandler(const LogHandler::SharedPtr &handler)
     {
         _handlers.remove(handler);
     }

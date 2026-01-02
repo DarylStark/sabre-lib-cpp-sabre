@@ -36,7 +36,7 @@ namespace sabre::os
          *
          * @param function The function to be called when the service starts.
          */
-        Service(ServiceHandler function);
+        Service(const ServiceHandler &function);
 
         /**
          * @brief Start the service.
