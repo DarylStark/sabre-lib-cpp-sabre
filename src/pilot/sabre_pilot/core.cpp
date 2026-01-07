@@ -6,7 +6,8 @@ namespace sabre::impl::pilot
 {
     Factory::Factory(Device *device) : _device(device)
     {
-        std::cout << "Factory created for device at " << device << std::endl;
+        std::cout << "Factory created for device at " << device << '\n'
+                  << std::flush;
     }
 
     sabre::hal::Uart::UniquePtr
@@ -21,7 +22,8 @@ namespace sabre::impl::pilot
     sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const
     {
         std::cout << "Creating InputGPIO on pin " << pin << " for device at "
-                  << _device << std::endl;
+                  << _device << '\n'
+                  << std::flush;
         return std::make_unique<sabre::impl::pilot::InputGpio>(_device, pin);
     }
 
@@ -29,7 +31,8 @@ namespace sabre::impl::pilot
     Factory::createOutputGpio(int32_t pin) const
     {
         std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
-                  << _device << std::endl;
+                  << _device << '\n'
+                  << std::flush;
         return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
     }
 

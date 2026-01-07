@@ -11,7 +11,7 @@ namespace sabre::impl::pilot
             DeviceEventType::UART_DATA_SEND,
             [this](const DeviceEvent &event)
             {
-                auto *data = dynamic_cast<UartEventData *>(event.data.get());
+                auto *data = dynamic_cast<UartEventData *>(event.data);
                 if (data && data->uartNumber == _uartNumberA)
                     _deviceB.add_to_input_uart_buffer(
                         _uartNumberB, std::string(1, data->data));

@@ -64,7 +64,7 @@ namespace sabre::impl::pilot
     {
         DeviceEventType type;
         Device *device;
-        std::unique_ptr<DeviceEventData> data;
+        DeviceEventData *data;
     };
 
     using GPIOVector = std::vector<DeviceGPIO>;
@@ -93,7 +93,7 @@ namespace sabre::impl::pilot
 
         // Event control
         void register_event_callback(DeviceEventType type,
-                                     DeviceEventCallback callback);
+                                     const DeviceEventCallback &callback);
 
         // GPIO management
         DeviceGPIO &get_gpio(size_t index);

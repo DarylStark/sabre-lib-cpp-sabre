@@ -28,7 +28,7 @@ namespace sabre::impl::pilot
         {
             DeviceEventCallback callback = it->second;
             if (callback)
-                callback({type, this, std::move(data)});
+                callback({type, this, data.get()});
         }
     }
 
@@ -39,7 +39,7 @@ namespace sabre::impl::pilot
     }
 
     void Device::register_event_callback(DeviceEventType type,
-                                         DeviceEventCallback callback)
+                                         const DeviceEventCallback &callback)
     {
         _eventCallback.emplace(type, callback);
     }

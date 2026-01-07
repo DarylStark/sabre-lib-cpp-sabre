@@ -59,6 +59,11 @@ namespace sabre::hal
 
     public:
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~InputGpio() = default;
+
+        /**
          * @brief Default constructor for InputGpio.
          *
          * This constructor initializes the InputGpio object with default

@@ -18,7 +18,7 @@ namespace sabre::net
         _client.publish(_topic, message, qos, retain);
     }
 
-    void MqttTopic::subscribe(MqttCallback fn, MqttQos qos)
+    void MqttTopic::subscribe(const MqttCallback &fn, MqttQos qos)
     {
         _client.subscribe(_topic, fn, qos);
     }
@@ -37,11 +37,12 @@ namespace sabre::net
         _defaultRetain = retain;
     }
 
-    void MqttClient::subscribe(const std::string &topic, MqttCallback fn,
+    void MqttClient::subscribe(const std::string &topic, const MqttCallback &fn,
                                MqttQos qos)
     {
         if (qos == MqttQos::UNDEFINED)
-            qos = MqttQos::EXACTLY_ONCE;
+            qos = MqttQos:: // NOLINT(clang-analyzer-deadcode.DeadStores)
+                EXACTLY_ONCE;
 
         _subscriptions[topic] = fn;
     }
@@ -51,7 +52,7 @@ namespace sabre::net
         return std::make_unique<MqttTopic>(*this, topicName);
     }
 
-    void MqttClient::processReceived(MqttEvent event)
+    void MqttClient::processReceived(const MqttEvent &event)
     {
         if (_subscriptions.find(event.topic) != _subscriptions.end())
             _subscriptions[event.topic](event);
@@ -59,7 +60,7 @@ namespace sabre::net
             _defaultHandler(event);
     }
 
-    void MqttClient::setDefaultHandler(MqttCallback handler)
+    void MqttClient::setDefaultHandler(const MqttCallback &handler)
     {
         _defaultHandler = handler;
     }

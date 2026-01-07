@@ -27,14 +27,14 @@ namespace sabre
              * @param sentence The NMEA sentence.
              * @return The type string.
              */
-            std::string _get_type(std::string sentence) const;
+            std::string _get_type(const std::string &sentence) const;
 
             /**
              * @brief Extracts the talker ID (e.g., GP, GN).
              * @param sentence The NMEA sentence.
              * @return The talker string.
              */
-            std::string _get_talker(std::string sentence) const;
+            std::string _get_talker(const std::string &sentence) const;
 
             bool _is_valid_checksum(const std::string &sentence) const;
 
@@ -43,28 +43,29 @@ namespace sabre
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_rmc(std::string sentence);
+            bool _parse_rmc(const std::string &sentence);
 
             /**
              * @brief Parse GLL sentence.
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gll(std::string sentence);
+            bool _parse_gll(const std::string &sentence);
 
             /**
              * @brief Parse GGA sentence.
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gga(std::string sentence);
+            bool _parse_gga(const std::string &sentence);
 
             /**
              * @brief Split a sentence into fields.
              * @param sentence The NMEA sentence.
              * @return Vector of fields.
              */
-            std::vector<std::string> _get_fields(std::string sentence) const;
+            std::vector<std::string>
+            _get_fields(const std::string &sentence) const;
 
             /**
              * @brief Helper to extract coordinates from fields.
@@ -85,11 +86,6 @@ namespace sabre
             void _updateLastPosition(Position &newPosition);
 
         public:
-            /**
-             * @brief Default constructor.
-             */
-            NmeaParser();
-
             /**
              * @brief Add a sentence to the buffer.
              * @param sentence The NMEA sentence.

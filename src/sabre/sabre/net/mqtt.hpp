@@ -84,6 +84,11 @@ namespace sabre::net
         MqttTopic(MqttClient &client, const std::string &topic);
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~MqttTopic() = default;
+
+        /**
          * @brief Publish a message to the topic.
          *
          * @param message the message to publish.
@@ -103,7 +108,7 @@ namespace sabre::net
          * @param qos the QoS for the subscription. If set the `UNDEFINED`, it
          * will be set to `FIRE_AND_FORGET`.
          */
-        virtual void subscribe(MqttCallback fn,
+        virtual void subscribe(const MqttCallback &fn,
                                MqttQos qos = MqttQos::UNDEFINED);
 
         /**
@@ -141,6 +146,11 @@ namespace sabre::net
         MqttCallback _defaultHandler;
 
     public:
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~MqttClient() = default;
+
         /**
          * @brief Connect to a specific MQTT broker.
          *
@@ -193,7 +203,7 @@ namespace sabre::net
          * @param qos the QoS for the subscription. If set the `UNDEFINED`, it
          * will be set to `FIRE_AND_FORGET`.
          */
-        virtual void subscribe(const std::string &topic, MqttCallback fn,
+        virtual void subscribe(const std::string &topic, const MqttCallback &fn,
                                MqttQos qos = MqttQos::UNDEFINED);
 
         /**
@@ -205,14 +215,14 @@ namespace sabre::net
          *
          * @param handler the callback for the subscription.
          */
-        virtual void setDefaultHandler(MqttCallback handler);
+        virtual void setDefaultHandler(const MqttCallback &handler);
 
         /**
          * @brief Method to process a received message.
          *
          * @param event the event that is raised.
          */
-        void processReceived(MqttEvent event);
+        void processReceived(const MqttEvent &event);
 
         /**
          * @brief Get a Topic object from this client for a MQTT topic.

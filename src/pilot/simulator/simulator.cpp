@@ -29,7 +29,8 @@ namespace sabre::impl::pilot
     {
         if (simDevice.thread == nullptr)
         {
-            std::clog << "Starting device in new thread..." << std::endl;
+            std::clog << "Starting device in new thread..." << '\n'
+                      << std::flush;
             simDevice.thread = std::make_unique<std::jthread>(
                 &Simulator::_thread_device_start, this, simDevice.device);
             simDevice.thread->detach();
@@ -48,7 +49,7 @@ namespace sabre::impl::pilot
         _start_device(it->second);
     }
 
-    void Simulator::_thread_device_start(std::shared_ptr<Device> device)
+    void Simulator::_thread_device_start(const std::shared_ptr<Device> &device)
     {
         while (true)
             device->start();

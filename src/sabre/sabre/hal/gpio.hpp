@@ -19,6 +19,11 @@ namespace sabre::hal
 
     public:
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~Gpio() = default;
+
+        /**
          * @brief Default constructor for GPIO.
          *
          * This constructor initializes the GPIO object with default settings.

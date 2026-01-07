@@ -14,7 +14,6 @@ namespace sabre::io
 
     UartStreamBuf::~UartStreamBuf()
     {
-        sync();
         delete[] _buffer;
     }
 

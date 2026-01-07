@@ -44,6 +44,12 @@ namespace sabre::core
         using Ptr = Factory *;
         using SharedPtr = std::shared_ptr<Factory>;
         using UniquePtr = std::unique_ptr<Factory>;
+
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~Factory() = default;
+
         /**
          * @brief Create a `UART` object.
          *

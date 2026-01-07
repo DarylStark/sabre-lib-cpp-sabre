@@ -13,7 +13,8 @@ namespace sabre::log
     {
         _stream << "[" << loggerName << "] - " << std::left << std::setw(10)
                 << std::setfill('.') << LoggingLevelToString(level) << " - "
-                << message << std::endl;
+                << message << '\n'
+                << std::flush;
     }
 
     LogBufferHandler::LogBufferHandler(size_t size) : _buffer(0), _maxSize(size)

@@ -10,7 +10,8 @@ namespace sabre::utility
         return result;
     }
 
-    WaitFor::WaitFor(WaitForPred fn, uint64_t timeoutInMs, uint64_t sleepTime)
+    WaitFor::WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
+                     uint64_t sleepTime)
         : _timeoutInMs(timeoutInMs), _fn(fn), _sleepTime(sleepTime)
     {
     }
