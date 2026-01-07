@@ -74,7 +74,5 @@ int main()
 
     presenter.start();
 
-    int *x = new int[256];
-
     return 0;
 }
