@@ -3,11 +3,24 @@ on:
   push:
 
 jobs:
+
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install dependencies
+        run: sudo apt-get install clang-tidy cmake g++
+      - name: Configure CMake
+        run: cmake --preset dbg-sabre-pilot-tests -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      - name: Run clang-tidy
+        run: |
+          find ./src -name '*.cpp' | xargs -P $(nproc) clang-tidy -p build
+  
   unit-testing:
     name: Unit Testing
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
       - name: Install build tools
         run: sudo apt install cmake ninja-build
       - name: Build project

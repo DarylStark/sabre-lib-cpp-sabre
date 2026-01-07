@@ -1,4 +1,4 @@
 Checks: 'modernize-,readability-,performance-*,-modernize-use-trailing-return-type'
-WarningsAsErrors: ''
+WarningsAsErrors: '*'
 HeaderFilterRegex: '^(src/|tests/)'
 FormatStyle: file
