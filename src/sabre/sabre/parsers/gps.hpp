@@ -16,7 +16,8 @@ namespace sabre
         class NmeaParser
         {
         private:
-            sabre::models::geo::Position _last_position; /**< Last parsed position. */
+            sabre::models::geo::Position
+                _last_position; /**< Last parsed position. */
             std::map<std::string, std::string>
                 _sentences; /**< Buffered sentences. */
 
@@ -75,11 +76,10 @@ namespace sabre
              * @param outPosition Output position.
              * @return True if extraction was successful.
              */
-            bool
-            _extractPositionFromFields(const std::vector<std::string> &fields,
-                                       size_t latIndex, size_t latDirIndex,
-                                       size_t lonIndex, size_t lonDirIndex,
-                                       sabre::models::geo::Position &outPosition) const;
+            bool _extractPositionFromFields(
+                const std::vector<std::string> &fields, size_t latIndex,
+                size_t latDirIndex, size_t lonIndex, size_t lonDirIndex,
+                sabre::models::geo::Position &outPosition) const;
 
             void _updateLastPosition(sabre::models::geo::Position &newPosition);
 

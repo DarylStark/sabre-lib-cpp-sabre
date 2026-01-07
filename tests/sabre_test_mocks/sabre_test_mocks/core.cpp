@@ -8,22 +8,24 @@ namespace sabre::impl::sabre_test_mocks
     {
     }
 
-    sabre::core::Uart::UniquePtr StFactory::createUartObject(uint32_t uartNumber,
-                                                int32_t baudRate, int32_t txPin,
-                                                int32_t rxPin,
-                                                size_t bufferSize) const
+    sabre::core::Uart::UniquePtr
+    StFactory::createUartObject(uint32_t uartNumber, int32_t baudRate,
+                                int32_t txPin, int32_t rxPin,
+                                size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
         return std::make_unique<TestUART>();
     }
 
-    sabre::core::InputGpio::UniquePtr StFactory::createInputGpio(int32_t pin) const
+    sabre::core::InputGpio::UniquePtr
+    StFactory::createInputGpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    sabre::core::OutputGpio::UniquePtr StFactory::createOutputGpio(int32_t pin) const
+    sabre::core::OutputGpio::UniquePtr
+    StFactory::createOutputGpio(int32_t pin) const
     {
         return nullptr;
     }
@@ -43,14 +45,15 @@ namespace sabre::impl::sabre_test_mocks
         return nullptr;
     }
 
-    sabre::core::WaitFor::UniquePtr StFactory::createWaitFor(sabre::core::WaitForPred fn,
-                                                uint64_t timeoutInMs,
-                                                uint64_t sleepTime) const
+    sabre::core::WaitFor::UniquePtr
+    StFactory::createWaitFor(sabre::core::WaitForPred fn, uint64_t timeoutInMs,
+                             uint64_t sleepTime) const
     {
         return nullptr;
     }
 
-    sabre::core::Service::UniquePtr StFactory::createService(sabre::core::ServiceHandler fn) const
+    sabre::core::Service::UniquePtr
+    StFactory::createService(sabre::core::ServiceHandler fn) const
     {
         return nullptr;
     }
