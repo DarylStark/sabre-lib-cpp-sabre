@@ -64,6 +64,11 @@ namespace sabre::utility
                 uint64_t sleepTime);
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~WaitFor() = default;
+
+        /**
          * @brief Start the waiting process.
          *
          * This method begins the process of waiting for the predicate function

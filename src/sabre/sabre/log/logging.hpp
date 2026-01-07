@@ -137,6 +137,11 @@ namespace sabre::log
         using UniquePtr = std::unique_ptr<LogHandler>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~LogHandler() = default;
+
+        /**
          * @brief Abstract method to handle log messages.
          *
          * @param level The logging level of the message.

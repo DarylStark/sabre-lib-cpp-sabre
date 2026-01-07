@@ -12,6 +12,11 @@ namespace sabre::time
         using UniquePtr = std::unique_ptr<NtpClient>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~NtpClient() = default;
+
+        /**
          * @brief Starts the NTP client.
          *
          * This will initialize the NTP client and start synchronizing time

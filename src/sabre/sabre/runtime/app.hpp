@@ -22,10 +22,13 @@ namespace sabre::runtime
         App &operator=(const App &) = delete;
         App(App &&) = default;
 
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~App() = default;
+
         void setFactory(sabre::core::Factory::UniquePtr factory);
         const sabre::core::Factory::UniquePtr &getFactory() const;
-
-        virtual ~App() = default;
 
         virtual void start() = 0;
     };

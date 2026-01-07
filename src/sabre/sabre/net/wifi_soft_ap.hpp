@@ -17,6 +17,11 @@ namespace sabre::net
         using UniquePtr = std::unique_ptr<WifiSoftAp>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~WifiSoftAp() = default;
+
+        /**
          * @brief Initialize the Wi-Fi Soft AP.
          */
         virtual void init() = 0;

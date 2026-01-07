@@ -39,6 +39,11 @@ namespace sabre::os
         Service(const ServiceHandler &function);
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~Service() = default;
+
+        /**
          * @brief Start the service.
          */
         virtual void start() = 0;

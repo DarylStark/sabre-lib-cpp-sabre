@@ -19,6 +19,11 @@ namespace sabre::devices
         SerialNmeaGpsDevice();
         SerialNmeaGpsDevice(Uart::Ptr uartPtr);
 
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~SerialNmeaGpsDevice() = default;
+
         void setUartPtr(Uart::Ptr uartPtr);
         void setOutputUartPtr(Uart::Ptr uartPtr);
 

@@ -18,6 +18,11 @@ namespace sabre::hal
         using UniquePtr = std::unique_ptr<OutputGpio>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~OutputGpio() = default;
+
+        /**
          * @brief Set the GPIO pin to high level.
          */
         virtual void setHigh() = 0;

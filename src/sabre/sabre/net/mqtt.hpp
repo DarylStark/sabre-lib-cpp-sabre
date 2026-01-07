@@ -84,6 +84,11 @@ namespace sabre::net
         MqttTopic(MqttClient &client, const std::string &topic);
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~MqttTopic() = default;
+
+        /**
          * @brief Publish a message to the topic.
          *
          * @param message the message to publish.
@@ -141,6 +146,11 @@ namespace sabre::net
         MqttCallback _defaultHandler;
 
     public:
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~MqttClient() = default;
+
         /**
          * @brief Connect to a specific MQTT broker.
          *

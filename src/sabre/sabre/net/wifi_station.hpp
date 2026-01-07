@@ -19,6 +19,11 @@ namespace sabre::net
         using UniquePtr = std::unique_ptr<WifiStation>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~WifiStation() = default;
+
+        /**
          * @brief Initialize the Wi-Fi Station.
          *
          * This method is called to set up the Wi-Fi Station before any

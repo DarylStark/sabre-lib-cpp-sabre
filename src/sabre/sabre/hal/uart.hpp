@@ -21,6 +21,11 @@ namespace sabre::hal
         using UniquePtr = std::unique_ptr<Uart>;
 
         /**
+         * @brief Virtual destructor.
+         */
+        virtual ~Uart() = default;
+
+        /**
          * @brief Initialize the UART device.
          *
          * This method is used to initialize the UART device, setting up any
