@@ -74,8 +74,5 @@ int main()
 
     presenter.start();
 
-
-
-    
     return 0;
 }
