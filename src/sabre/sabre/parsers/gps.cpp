@@ -90,7 +90,7 @@ namespace sabre::parsers
         return true;
     }
 
-    void NmeaParser::_updateLastPosition(Position &new_position)
+    void NmeaParser::_updateLastPosition(sabre::models::geo::Position &new_position)
     {
         if (new_position == _last_position)
             return;
@@ -193,7 +193,7 @@ namespace sabre::parsers
         _sentences.clear();
     }
 
-    Position NmeaParser::getLastPosition() const
+    sabre::models::geo::Position NmeaParser::getLastPosition() const
     {
         return _last_position;
     }

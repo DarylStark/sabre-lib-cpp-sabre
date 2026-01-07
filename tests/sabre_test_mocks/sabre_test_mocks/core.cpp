@@ -8,7 +8,7 @@ namespace sabre::impl::sabre_test_mocks
     {
     }
 
-    Uart::UniquePtr StFactory::createUartObject(uint32_t uartNumber,
+    sabre::core::Uart::UniquePtr StFactory::createUartObject(uint32_t uartNumber,
                                                 int32_t baudRate, int32_t txPin,
                                                 int32_t rxPin,
                                                 size_t bufferSize) const
@@ -18,50 +18,50 @@ namespace sabre::impl::sabre_test_mocks
         return std::make_unique<TestUART>();
     }
 
-    InputGpio::UniquePtr StFactory::createInputGpio(int32_t pin) const
+    sabre::core::InputGpio::UniquePtr StFactory::createInputGpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    OutputGpio::UniquePtr StFactory::createOutputGpio(int32_t pin) const
+    sabre::core::OutputGpio::UniquePtr StFactory::createOutputGpio(int32_t pin) const
     {
         return nullptr;
     }
 
-    WifiStation::UniquePtr StFactory::createWifiStation() const
+    sabre::core::WifiStation::UniquePtr StFactory::createWifiStation() const
     {
         return nullptr;
     }
 
-    WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
+    sabre::core::WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
     {
         return nullptr;
     }
 
-    MqttClient::UniquePtr StFactory::createMqttClient() const
+    sabre::core::MqttClient::UniquePtr StFactory::createMqttClient() const
     {
         return nullptr;
     }
 
-    WaitFor::UniquePtr StFactory::createWaitFor(WaitForPred fn,
+    sabre::core::WaitFor::UniquePtr StFactory::createWaitFor(sabre::core::WaitForPred fn,
                                                 uint64_t timeoutInMs,
                                                 uint64_t sleepTime) const
     {
         return nullptr;
     }
 
-    Service::UniquePtr StFactory::createService(ServiceHandler fn) const
+    sabre::core::Service::UniquePtr StFactory::createService(sabre::core::ServiceHandler fn) const
     {
         return nullptr;
     }
 
-    NtpClient::UniquePtr
+    sabre::core::NtpClient::UniquePtr
     StFactory::createNtpClient(const std::string &server) const
     {
         return nullptr;
     }
 
-    WallClock::UniquePtr StFactory::createWallClock() const
+    sabre::core::WallClock::UniquePtr StFactory::createWallClock() const
     {
         return nullptr;
     }

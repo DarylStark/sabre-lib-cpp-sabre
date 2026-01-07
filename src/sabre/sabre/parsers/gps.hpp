@@ -10,15 +10,13 @@ namespace sabre
 {
     namespace parsers
     {
-        using namespace sabre::models::geo;
-
         /**
          * @brief NMEA sentence parser for extracting position data.
          */
         class NmeaParser
         {
         private:
-            Position _last_position; /**< Last parsed position. */
+            sabre::models::geo::Position _last_position; /**< Last parsed position. */
             std::map<std::string, std::string>
                 _sentences; /**< Buffered sentences. */
 
@@ -81,9 +79,9 @@ namespace sabre
             _extractPositionFromFields(const std::vector<std::string> &fields,
                                        size_t latIndex, size_t latDirIndex,
                                        size_t lonIndex, size_t lonDirIndex,
-                                       Position &outPosition) const;
+                                       sabre::models::geo::Position &outPosition) const;
 
-            void _updateLastPosition(Position &newPosition);
+            void _updateLastPosition(sabre::models::geo::Position &newPosition);
 
         public:
             /**
@@ -101,7 +99,7 @@ namespace sabre
              * @brief Get the last parsed position.
              * @return Last position.
              */
-            Position getLastPosition() const;
+            sabre::models::geo::Position getLastPosition() const;
 
             /**
              * @brief Get the number of buffered sentences.
