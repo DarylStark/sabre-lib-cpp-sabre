@@ -4,6 +4,18 @@ on:
 
 jobs:
 
+  clang-format:
+    name: Clang Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install clang-format
+        run: sudo apt-get install clang-format
+      - name: Check formatting
+        run: |
+          find src tests \( -name '*.cpp' -o -name '*.hpp' -o -name '*.h' \) \
+            | xargs clang-format --dry-run --Werror
+
   unit-testing:
     name: Unit Testing
     runs-on: ubuntu-latest
