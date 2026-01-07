@@ -5,8 +5,5 @@
         "PROMPTNAME": "Sabre",
         "LIBGL_ALWAYS_SOFTWARE": "1"
     },
-    "postCreateCommand": "sudo apt update && sudo apt install -y libglfw3-dev ninja-build",
-    "mounts": [
-        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-    ]
+    "postCreateCommand": "sudo apt update && sudo apt install -y libglfw3-dev ninja-build"
 }
