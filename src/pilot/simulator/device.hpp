@@ -64,7 +64,7 @@ namespace sabre::impl::pilot
     {
         DeviceEventType type;
         Device *device;
-        std::unique_ptr<DeviceEventData> data;
+        DeviceEventData *data;
     };
 
     using GPIOVector = std::vector<DeviceGPIO>;

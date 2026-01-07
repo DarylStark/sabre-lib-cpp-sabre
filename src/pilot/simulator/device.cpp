@@ -28,7 +28,7 @@ namespace sabre::impl::pilot
         {
             DeviceEventCallback callback = it->second;
             if (callback)
-                callback({type, this, std::move(data)});
+                callback({type, this, data.get()});
         }
     }
 
