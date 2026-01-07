@@ -81,8 +81,9 @@ namespace sabre::impl::pilot
             if (ImGui::MenuItem("Zoom out", "Ctrl + -", false, _scale != 1.0f))
                 _zoomOut();
             ImGui::Separator();
-            for (float scale = 1; scale <= 5; scale += 0.5f)
+            for (int i = 0; i <= 8; ++i)
             {
+                float scale = 1.0f + i * 0.5f;
                 std::string label =
                     std::to_string(static_cast<int>(scale * 100)) + "%";
                 if (ImGui::MenuItem(label.c_str(), nullptr,
