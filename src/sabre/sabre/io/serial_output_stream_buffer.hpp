@@ -14,14 +14,14 @@ namespace sabre::io
      * for output operations. It allows for buffered writing to Serial, which
      * can improve performance by reducing the number of write operations.
      */
-    class UartStreamBuf : public std::streambuf
+    class SerialStreamBuf : public std::streambuf
     {
     public:
         using int_type = std::streambuf::traits_type::int_type;
 
-        using Ptr = UartStreamBuf *;
-        using SharedPtr = std::shared_ptr<UartStreamBuf>;
-        using UniquePtr = std::unique_ptr<UartStreamBuf>;
+        using Ptr = SerialStreamBuf *;
+        using SharedPtr = std::shared_ptr<SerialStreamBuf>;
+        using UniquePtr = std::unique_ptr<SerialStreamBuf>;
 
     private:
         Serial::UniquePtr _uartPtr;
@@ -57,7 +57,7 @@ namespace sabre::io
 
     public:
         /**
-         * @brief Constructor for the UARTStreamBuf class.
+         * @brief Constructor for the SerialStreamBuf class.
          *
          * This constructor initializes the stream buffer with a Serial device
          * and a specified buffer size.
@@ -65,14 +65,14 @@ namespace sabre::io
          * @param uart The Serial device to use for output operations.
          * @param bufferSize The size of the internal buffer (default is 512).
          */
-        UartStreamBuf(Serial::UniquePtr uartPtr, size_t bufferSize = 512);
+        SerialStreamBuf(Serial::UniquePtr uartPtr, size_t bufferSize = 512);
 
         /**
-         * @brief Destructor for the UARTStreamBuf class.
+         * @brief Destructor for the SerialStreamBuf class.
          *
          * This destructor flushes the buffer and releases any allocated
          * resources.
          */
-        ~UartStreamBuf();
+        ~SerialStreamBuf();
     };
 } // namespace sabre::io
