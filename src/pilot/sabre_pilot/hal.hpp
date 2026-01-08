@@ -1,11 +1,11 @@
 #pragma once
 
 #include "../simulator/device.hpp"
-#include <sabre/hal/uart.hpp>
+#include <sabre/hal/serial.hpp>
 
 namespace sabre::impl::pilot
 {
-    class Uart : public sabre::hal::Uart
+    class Serial : public sabre::hal::Serial
     {
     private:
         Device *_device;
@@ -13,7 +13,7 @@ namespace sabre::impl::pilot
         size_t _bufferSize;
 
     public:
-        Uart(Device *device, uint32_t number, size_t bufferSize);
+        Serial(Device *device, uint32_t number, size_t bufferSize);
         void initialize() override;
         int writeByte(char data) const override;
         std::string readBytes(size_t maxBytes, uint32_t timeoutInMs) override;

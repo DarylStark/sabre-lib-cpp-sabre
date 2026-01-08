@@ -1,7 +1,7 @@
 #pragma once
 
 #include <sabre/hal/input_gpio.hpp>
-#include <sabre/hal/uart.hpp>
+#include <sabre/hal/serial.hpp>
 #include <string>
 
 namespace sabre::impl::sabre_test_mocks
@@ -25,7 +25,7 @@ namespace sabre::impl::sabre_test_mocks
         bool level = true;
     };
 
-    class TestUART : public sabre::hal::Uart
+    class TestUART : public sabre::hal::Serial
     {
     public:
         void initialize();

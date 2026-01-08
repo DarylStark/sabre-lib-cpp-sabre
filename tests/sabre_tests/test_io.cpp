@@ -1,6 +1,6 @@
 #include "sabre_test_mocks/hal.hpp"
 #include <gtest/gtest.h>
-#include <sabre/hal/uart.hpp>
+#include <sabre/hal/serial.hpp>
 #include <sabre/io/uart_output_stream_buffer.hpp>
 #include <string>
 

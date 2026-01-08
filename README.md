@@ -21,7 +21,7 @@ The Sabre library is organized into several namespaces:
 - **`sabre::runtime::App`**: Base class for your applications that uses the factory to access hardware
 
 ### Hardware Abstraction Layer (HAL)
-- **`sabre::hal::Uart`**: Serial communication interface
+- **`sabre::hal::Serial`**: Serial communication interface (UART, USB CDC, etc.)
 - **`sabre::hal::InputGpio`**: Input GPIO pin interface
 - **`sabre::hal::OutputGpio`**: Output GPIO pin interface
 

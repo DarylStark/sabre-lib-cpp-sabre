@@ -1,31 +1,31 @@
 #pragma once
 
-#include "../hal/uart.hpp"
+#include "../hal/serial.hpp"
 #include "../parsers/nmea_validator.hpp"
 #include "./gps_device.hpp"
 
 namespace sabre::devices
 {
-    using sabre::hal::Uart;
+    using sabre::hal::Serial;
     class SerialNmeaGpsDevice : public GpsDevice
     {
     private:
-        sabre::hal::Uart::Ptr _uartPtr;
-        sabre::hal::Uart::Ptr _outputUartPtr;
+        sabre::hal::Serial::Ptr _uartPtr;
+        sabre::hal::Serial::Ptr _outputUartPtr;
         sabre::parsers::NmeaValidator _nmeaValidator;
         sabre::parsers::NmeaParser _nmeaParser;
 
     public:
         SerialNmeaGpsDevice();
-        SerialNmeaGpsDevice(Uart::Ptr uartPtr);
+        SerialNmeaGpsDevice(Serial::Ptr uartPtr);
 
         /**
          * @brief Virtual destructor.
          */
         virtual ~SerialNmeaGpsDevice() = default;
 
-        void setUartPtr(Uart::Ptr uartPtr);
-        void setOutputUartPtr(Uart::Ptr uartPtr);
+        void setUartPtr(Serial::Ptr uartPtr);
+        void setOutputUartPtr(Serial::Ptr uartPtr);
 
         sabre::models::geo::Position getLastPosition() const override;
         bool isValidPosition() const override;

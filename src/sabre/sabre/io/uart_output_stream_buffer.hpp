@@ -1,17 +1,17 @@
 #pragma once
 
-#include "../hal/uart.hpp"
+#include "../hal/serial.hpp"
 #include <memory>
 #include <streambuf>
 
 namespace sabre::io
 {
-    using sabre::hal::Uart;
+    using sabre::hal::Serial;
     /**
-     * @brief A stream buffer for UART output.
+     * @brief A stream buffer for Serial output.
      *
-     * This class provides a stream buffer that can be used with UART devices
-     * for output operations. It allows for buffered writing to UART, which can
+     * This class provides a stream buffer that can be used with Serial devices
+     * for output operations. It allows for buffered writing to Serial, which can
      * improve performance by reducing the number of write operations.
      */
     class UartStreamBuf : public std::streambuf
@@ -24,7 +24,7 @@ namespace sabre::io
         using UniquePtr = std::unique_ptr<UartStreamBuf>;
 
     private:
-        Uart::UniquePtr _uartPtr;
+        Serial::UniquePtr _uartPtr;
         char *_buffer;
         size_t _bufferSize;
 
@@ -32,7 +32,7 @@ namespace sabre::io
 
     protected:
         /**
-         * @brief Write a character to the UART device.
+         * @brief Write a character to the Serial device.
          *
          * This method is called when the connected `std::ostream` object tries
          * to write a character to the stream buffer but when the stream buffer
@@ -46,7 +46,7 @@ namespace sabre::io
         int_type overflow(int_type c) override;
 
         /**
-         * @brief Write a sequence of characters to the UART device.
+         * @brief Write a sequence of characters to the Serial device.
          *
          * This method is called when the connected `std::ostream` object tries
          * to write a sequence of characters to the stream buffer.
@@ -59,13 +59,13 @@ namespace sabre::io
         /**
          * @brief Constructor for the UARTStreamBuf class.
          *
-         * This constructor initializes the stream buffer with a UART device
+         * This constructor initializes the stream buffer with a Serial device
          * and a specified buffer size.
          *
-         * @param uart The UART device to use for output operations.
+         * @param uart The Serial device to use for output operations.
          * @param bufferSize The size of the internal buffer (default is 512).
          */
-        UartStreamBuf(Uart::UniquePtr uartPtr, size_t bufferSize = 512);
+        UartStreamBuf(Serial::UniquePtr uartPtr, size_t bufferSize = 512);
 
         /**
          * @brief Destructor for the UARTStreamBuf class.

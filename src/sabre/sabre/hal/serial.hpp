@@ -7,37 +7,37 @@
 namespace sabre::hal
 {
     /**
-     * @brief Abstract base class for UART communication.
+     * @brief Abstract base class for Serial communication.
      *
-     * This class defines the interface for UART communication, providing
-     * methods to write a byte and flush the output buffer. It is intended to be
-     * implemented by specific UART communication classes.
+     * This class defines the interface for Serial communication (UART, USB CDC, etc.),
+     * providing methods to write a byte and flush the output buffer. It is intended to be
+     * implemented by specific Serial communication classes.
      */
-    class Uart
+    class Serial
     {
     public:
-        using Ptr = Uart *;
-        using SharedPtr = std::shared_ptr<Uart>;
-        using UniquePtr = std::unique_ptr<Uart>;
+        using Ptr = Serial *;
+        using SharedPtr = std::shared_ptr<Serial>;
+        using UniquePtr = std::unique_ptr<Serial>;
 
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Uart() = default;
+        virtual ~Serial() = default;
 
         /**
-         * @brief Initialize the UART device.
+         * @brief Initialize the Serial device.
          *
-         * This method is used to initialize the UART device, setting up any
+         * This method is used to initialize the Serial device, setting up any
          * necessary resources and configuration. It should be called before
          * any communication operations are performed.
          */
         virtual void initialize() = 0;
 
         /**
-         * @brief Write a byte to the UART device.
+         * @brief Write a byte to the Serial device.
          *
-         * This method is used to send a single byte of data over the UART
+         * This method is used to send a single byte of data over the Serial
          * interface.
          *
          * @param data The byte of data to be sent.
@@ -47,9 +47,9 @@ namespace sabre::hal
         virtual int writeByte(char data) const = 0;
 
         /**
-         * @brief Read input data from the UART device.
+         * @brief Read input data from the Serial device.
          *
-         * This method is used to read incoming data from the UART interface. If
+         * This method is used to read incoming data from the Serial interface. If
          * no data is available within the specified timeout, an empty string is
          * returned. If only partial data is available during the timeout
          * period, it will be returned.
@@ -63,19 +63,19 @@ namespace sabre::hal
                                       uint32_t timeoutInMs) = 0;
 
         /**
-         * @brief Flush the output buffer of the UART device.
+         * @brief Flush the output buffer of the Serial device.
          *
          * This method is used to ensure that all data in the output buffer is
-         * sent to the UART device. It is typically called after writing
+         * sent to the Serial device. It is typically called after writing
          * multiple bytes to ensure that they are transmitted.
          */
         virtual void flush() = 0;
 
         /**
-         * @brief Deinitialize the UART device.
+         * @brief Deinitialize the Serial device.
          *
-         * This method is used to deinitialize the UART device, releasing any
-         * resources and cleaning up. It should be called when the UART device
+         * This method is used to deinitialize the Serial device, releasing any
+         * resources and cleaning up. It should be called when the Serial device
          * is no longer needed.
          */
         virtual void deinitialize() = 0;

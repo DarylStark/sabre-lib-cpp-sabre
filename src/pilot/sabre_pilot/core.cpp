@@ -10,13 +10,13 @@ namespace sabre::impl::pilot
                   << std::flush;
     }
 
-    sabre::hal::Uart::UniquePtr
+    sabre::hal::Serial::UniquePtr
     Factory::createUartObject(uint32_t uartNumber, int32_t baudRate,
                               int32_t txPin, int32_t rxPin,
                               size_t bufferSize) const
     {
         // Implementation specific code to create a UART object
-        return std::make_unique<Uart>(_device, uartNumber, bufferSize);
+        return std::make_unique<Serial>(_device, uartNumber, bufferSize);
     }
 
     sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const

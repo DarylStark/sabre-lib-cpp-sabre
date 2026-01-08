@@ -9,7 +9,7 @@
 class MyApp : public sabre::runtime::App
 {
 private:
-    sabre::hal::Uart::UniquePtr _uart0;
+    sabre::hal::Serial::UniquePtr _uart0;
     bool _stop = false;
 
 public:
