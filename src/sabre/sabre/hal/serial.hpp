@@ -9,9 +9,9 @@ namespace sabre::hal
     /**
      * @brief Abstract base class for Serial communication.
      *
-     * This class defines the interface for Serial communication (UART, USB CDC, etc.),
-     * providing methods to write a byte and flush the output buffer. It is intended to be
-     * implemented by specific Serial communication classes.
+     * This class defines the interface for Serial communication (UART, USB CDC,
+     * etc.), providing methods to write a byte and flush the output buffer. It
+     * is intended to be implemented by specific Serial communication classes.
      */
     class Serial
     {
@@ -49,9 +49,9 @@ namespace sabre::hal
         /**
          * @brief Read input data from the Serial device.
          *
-         * This method is used to read incoming data from the Serial interface. If
-         * no data is available within the specified timeout, an empty string is
-         * returned. If only partial data is available during the timeout
+         * This method is used to read incoming data from the Serial interface.
+         * If no data is available within the specified timeout, an empty string
+         * is returned. If only partial data is available during the timeout
          * period, it will be returned.
          *
          * @param maxBytes The maximum number of bytes to read.

@@ -18,6 +18,14 @@ namespace sabre::impl::sabre_test_mocks
         return std::make_unique<TestUART>();
     }
 
+    sabre::core::Serial::UniquePtr
+    StFactory::createUsbCdc(size_t bufferSize) const
+    {
+        if (_uart_should_be_nullptr)
+            return nullptr;
+        return std::make_unique<TestUART>();
+    }
+
     sabre::core::InputGpio::UniquePtr
     StFactory::createInputGpio(int32_t pin) const
     {

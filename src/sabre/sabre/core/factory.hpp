@@ -70,6 +70,18 @@ namespace sabre::core
                                                    size_t bufferSize) const = 0;
 
         /**
+         * @brief Create a `Serial` object for USB CDC communication.
+         *
+         * @param bufferSize the size of the input buffer in bytes. The
+         * specific implementation may choose to use this value to allocate
+         * internal buffers. If the hardware does not support input buffering,
+         * this value may be ignored.
+         *
+         * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
+         */
+        virtual Serial::UniquePtr createUsbCdc(size_t bufferSize) const = 0;
+
+        /**
          * @brief Create a `InputGpio` object.
          *
          * @param pin the pin number for the GPIO.

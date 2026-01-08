@@ -11,8 +11,8 @@ namespace sabre::io
      * @brief A stream buffer for Serial output.
      *
      * This class provides a stream buffer that can be used with Serial devices
-     * for output operations. It allows for buffered writing to Serial, which can
-     * improve performance by reducing the number of write operations.
+     * for output operations. It allows for buffered writing to Serial, which
+     * can improve performance by reducing the number of write operations.
      */
     class UartStreamBuf : public std::streambuf
     {
