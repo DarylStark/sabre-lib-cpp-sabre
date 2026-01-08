@@ -1,9 +1,9 @@
-#include "sabre_test_mocks/log.hpp"
 #include "sabre_test_mocks/hal.hpp"
+#include "sabre_test_mocks/log.hpp"
 #include <gtest/gtest.h>
-#include <sabre/log/logging.hpp>
 #include <sabre/io/uart_output_stream_buffer.hpp>
 #include <sabre/log/log_handlers.hpp>
+#include <sabre/log/logging.hpp>
 
 #include <iostream>
 
