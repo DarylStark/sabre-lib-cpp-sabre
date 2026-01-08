@@ -7,17 +7,17 @@ namespace sabre::devices
     {
     }
 
-    SerialNmeaGpsDevice::SerialNmeaGpsDevice(Uart::Ptr uartPtr)
+    SerialNmeaGpsDevice::SerialNmeaGpsDevice(Serial::Ptr uartPtr)
         : _uartPtr(uartPtr), _outputUartPtr(nullptr)
     {
     }
 
-    void SerialNmeaGpsDevice::setUartPtr(Uart::Ptr uartPtr)
+    void SerialNmeaGpsDevice::setUartPtr(Serial::Ptr uartPtr)
     {
         _uartPtr = uartPtr;
     }
 
-    void SerialNmeaGpsDevice::setOutputUartPtr(Uart::Ptr uartPtr)
+    void SerialNmeaGpsDevice::setOutputUartPtr(Serial::Ptr uartPtr)
     {
         _outputUartPtr = uartPtr;
     }

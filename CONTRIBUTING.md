@@ -14,7 +14,7 @@ The Sabre framework is structured as follows:
 | ---------------- | ---------------------------------------------------------------------- | :------------: | :-----: | -------------------------------------- | ----------------------------- |
 | `sabre::core`    | Core abstractions and lifecycle                                        |     **No**     |         | All interface only and pure namespaces | Shouldn't depend on concretes |
 | `sabre::devices` | High-level device facades (GPS, LTE, sensors) – use HAL underneath     |     **No**     |         | `hal`, `net`, `time`, `model`          |                               |
-| `sabre::hal`     | Pure hardware abstraction interfaces (GPIO, UART, I2C, SPI, etc.)      |    **Yes**     |         | None                                   |                               |
+| `sabre::hal`     | Pure hardware abstraction interfaces (GPIO, Serial, I2C, SPI, etc.)    |    **Yes**     |         | None                                   |                               |
 | `sabre::impl`    | Platform implementations for interfaces                                |     **No**     |         | `hal`, `net`, `os`, `time`             |                               |
 | `sabre::io`      | Streams, logging sinks, files if any (desktop only)                    |    **Yes**     |         | `hal`                                  |                               |
 | `sabre::log`     | Log handlers                                                           |     **No**     |         | `io`                                   |                               |
@@ -47,7 +47,7 @@ Sabre follows C++ naming practices broadly aligned with the LLVM coding style, w
 ### Types (classes, structs, enums)
 
 -   Use PascalCase for types:
-    -   Examples: `IPv4Address`, `MQTTClient`, `WaitFor`, `UartStreamBuf`.
+    -   Examples: `IPv4Address`, `MQTTClient`, `WaitFor`, `SerialStreamBuf`.
 -   Prefer nouns or noun phrases that describe what the type *is*.
 -   Use `enum class` where appropriate; name enum types like other types (e.g. `LogLevel`).
 

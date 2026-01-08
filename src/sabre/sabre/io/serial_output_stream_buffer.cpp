@@ -1,10 +1,11 @@
 #include <streambuf>
 
-#include "uart_output_stream_buffer.hpp"
+#include "serial_output_stream_buffer.hpp"
 
 namespace sabre::io
 {
-    UartStreamBuf::UartStreamBuf(Uart::UniquePtr uartPtr, size_t bufferSize)
+    SerialStreamBuf::SerialStreamBuf(Serial::UniquePtr uartPtr,
+                                     size_t bufferSize)
         : _uartPtr(std::move(uartPtr))
     {
         _buffer = new char[bufferSize];
@@ -12,12 +13,12 @@ namespace sabre::io
         _resetPutBuffer();
     }
 
-    UartStreamBuf::~UartStreamBuf()
+    SerialStreamBuf::~SerialStreamBuf()
     {
         delete[] _buffer;
     }
 
-    UartStreamBuf::int_type UartStreamBuf::overflow(int_type c)
+    SerialStreamBuf::int_type SerialStreamBuf::overflow(int_type c)
     {
         if (c != traits_type::eof())
         {
@@ -32,7 +33,7 @@ namespace sabre::io
         return c;
     }
 
-    int UartStreamBuf::sync()
+    int SerialStreamBuf::sync()
     {
         size_t len = pptr() - pbase();
         if (len == 0)
@@ -44,7 +45,7 @@ namespace sabre::io
         return 0;
     }
 
-    void UartStreamBuf::_resetPutBuffer()
+    void SerialStreamBuf::_resetPutBuffer()
     {
         setp(_buffer, _buffer + _bufferSize);
     }

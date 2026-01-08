@@ -1,7 +1,7 @@
 #include "sabre_test_mocks/hal.hpp"
 #include "sabre_test_mocks/log.hpp"
 #include <gtest/gtest.h>
-#include <sabre/io/uart_output_stream_buffer.hpp>
+#include <sabre/io/serial_output_stream_buffer.hpp>
 #include <sabre/log/log_handlers.hpp>
 #include <sabre/log/logging.hpp>
 
@@ -255,7 +255,7 @@ TEST(OStreamLogHandler, Logging)
     std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
         std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
     auto *u_ptr = u.get();
-    sabre::io::UartStreamBuf buffer(std::move(u), 128);
+    sabre::io::SerialStreamBuf buffer(std::move(u), 128);
     std::ostream stream(&buffer);
 
     sabre::log::Logging::setLevel(sabre::log::LoggingLevel::DEBUG);

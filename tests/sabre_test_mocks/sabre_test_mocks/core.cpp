@@ -8,10 +8,18 @@ namespace sabre::impl::sabre_test_mocks
     {
     }
 
-    sabre::core::Uart::UniquePtr
+    sabre::core::Serial::UniquePtr
     StFactory::createUartObject(uint32_t uartNumber, int32_t baudRate,
                                 int32_t txPin, int32_t rxPin,
                                 size_t bufferSize) const
+    {
+        if (_uart_should_be_nullptr)
+            return nullptr;
+        return std::make_unique<TestUART>();
+    }
+
+    sabre::core::Serial::UniquePtr
+    StFactory::createUsbCdc(size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;

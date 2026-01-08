@@ -2,38 +2,38 @@
 
 namespace sabre::impl::pilot
 {
-    Uart::Uart(Device *device, uint32_t number, size_t bufferSize)
+    Serial::Serial(Device *device, uint32_t number, size_t bufferSize)
         : _device(device), _uartNumber(number), _bufferSize(bufferSize)
     {
     }
 
-    void Uart::initialize()
+    void Serial::initialize()
     {
         // TODO : Custom exception
         if (!_device->initialize_uart(_uartNumber, _bufferSize))
             throw std::runtime_error("UART already initialized");
     }
 
-    int Uart::writeByte(char data) const
+    int Serial::writeByte(char data) const
     {
         if (!_device->write_uart_data(_uartNumber, data))
             return -1; // UART not initialized
         return 0;      // Success
     }
 
-    std::string Uart::readBytes(size_t maxBytes, uint32_t timeoutInMs)
+    std::string Serial::readBytes(size_t maxBytes, uint32_t timeoutInMs)
     {
         return _device->read_uart_data(_uartNumber, maxBytes, timeoutInMs);
     }
 
-    void Uart::flush()
+    void Serial::flush()
     {
         // Implementation for flushing the UART output buffer
         // TODO: Implement something for this
         asm("nop");
     }
 
-    void Uart::deinitialize()
+    void Serial::deinitialize()
     {
         if (!_device->deinitialize_uart(_uartNumber))
             throw std::runtime_error("UART not initialized");

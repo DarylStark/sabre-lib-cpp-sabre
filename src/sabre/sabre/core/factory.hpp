@@ -2,8 +2,8 @@
 
 #include "../hal/input_gpio.hpp"
 #include "../hal/output_gpio.hpp"
-#include "../hal/uart.hpp"
-#include "../io/uart_output_stream_buffer.hpp"
+#include "../hal/serial.hpp"
+#include "../io/serial_output_stream_buffer.hpp"
 #include "../net/mqtt.hpp"
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
@@ -19,7 +19,7 @@ namespace sabre::core
 {
     using sabre::hal::InputGpio;
     using sabre::hal::OutputGpio;
-    using sabre::hal::Uart;
+    using sabre::hal::Serial;
     using sabre::net::MqttClient;
     using sabre::net::WifiSoftAp;
     using sabre::net::WifiStation;
@@ -51,7 +51,7 @@ namespace sabre::core
         virtual ~Factory() = default;
 
         /**
-         * @brief Create a `UART` object.
+         * @brief Create a `Serial` object for UART communication.
          *
          * @param uartNumber the UART number to configure the object with.
          * @param baudRate the baud rate for the serial interface.
@@ -62,12 +62,24 @@ namespace sabre::core
          * internal buffers. If the hardware does not support input buffering,
          * this value may be ignored.
          *
-         * @return A `UARTUniquePtr` unique pointer to a `UART` object.
+         * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
-        virtual Uart::UniquePtr createUartObject(uint32_t uartNumber,
-                                                 int32_t baudRate,
-                                                 int32_t txPin, int32_t rxPin,
-                                                 size_t bufferSize) const = 0;
+        virtual Serial::UniquePtr createUartObject(uint32_t uartNumber,
+                                                   int32_t baudRate,
+                                                   int32_t txPin, int32_t rxPin,
+                                                   size_t bufferSize) const = 0;
+
+        /**
+         * @brief Create a `Serial` object for USB CDC communication.
+         *
+         * @param bufferSize the size of the input buffer in bytes. The
+         * specific implementation may choose to use this value to allocate
+         * internal buffers. If the hardware does not support input buffering,
+         * this value may be ignored.
+         *
+         * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
+         */
+        virtual Serial::UniquePtr createUsbCdc(size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `InputGpio` object.
