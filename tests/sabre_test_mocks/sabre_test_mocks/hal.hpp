@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sabre/hal/input_gpio.hpp>
+#include <sabre/hal/output_gpio.hpp>
 #include <sabre/hal/serial.hpp>
 #include <string>
 
@@ -23,6 +24,15 @@ namespace sabre::impl::sabre_test_mocks
         void reset() override;
 
         bool level = true;
+    };
+
+    class StOutputGpio : public sabre::hal::OutputGpio
+    {
+    public:
+        void setLevel(bool level) override;
+        void setHigh() override;
+        void setLow() override;
+        void reset() override;
     };
 
     class TestUART : public sabre::hal::Serial

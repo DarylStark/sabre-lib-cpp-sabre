@@ -29,13 +29,13 @@ namespace sabre::impl::sabre_test_mocks
     sabre::core::InputGpio::UniquePtr
     StFactory::createInputGpio(int32_t pin) const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StInputGpio>();
     }
 
     sabre::core::OutputGpio::UniquePtr
     StFactory::createOutputGpio(int32_t pin) const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StOutputGpio>();
     }
 
     sabre::core::WifiStation::UniquePtr StFactory::createWifiStation() const

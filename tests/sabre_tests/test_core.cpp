@@ -26,7 +26,20 @@ TEST(SabreExceptionTest, APIErrorCustomMessage)
     ASSERT_STREQ(apiError.what(), "Specific API error occurred");
 }
 
-TEST(SabreGpioResourceManager, CreateObjectTwice)
+TEST(SabreGpioResourceManager, CreateDifferentInputGpios)
+{
+    using namespace sabre::core;
+
+    sabre::impl::sabre_test_mocks::StFactory factory(false);
+
+    GpioResourceManager manager = GpioResourceManager(factory, 26);
+    const auto &gpio1 = manager.getInputGpio(26);
+    const auto &gpio2 = manager.getInputGpio(27);
+
+    ASSERT_NE(&gpio1, &gpio2);
+}
+
+TEST(SabreGpioResourceManager, CreateInputGpioTwice)
 {
     using namespace sabre::core;
 
@@ -35,6 +48,32 @@ TEST(SabreGpioResourceManager, CreateObjectTwice)
     GpioResourceManager manager = GpioResourceManager(factory, 26);
     const auto &gpio1 = manager.getInputGpio(26);
     const auto &gpio2 = manager.getInputGpio(26);
+
+    ASSERT_EQ(&gpio1, &gpio2);
+}
+
+TEST(SabreGpioResourceManager, CreateDifferentOutputGpios)
+{
+    using namespace sabre::core;
+
+    sabre::impl::sabre_test_mocks::StFactory factory(false);
+
+    GpioResourceManager manager = GpioResourceManager(factory, 26);
+    const auto &gpio1 = manager.getOutputGpio(26);
+    const auto &gpio2 = manager.getOutputGpio(27);
+
+    ASSERT_NE(&gpio1, &gpio2);
+}
+
+TEST(SabreGpioResourceManager, CreateOutputGpioTwice)
+{
+    using namespace sabre::core;
+
+    sabre::impl::sabre_test_mocks::StFactory factory(false);
+
+    GpioResourceManager manager = GpioResourceManager(factory, 26);
+    const auto &gpio1 = manager.getOutputGpio(26);
+    const auto &gpio2 = manager.getOutputGpio(26);
 
     ASSERT_EQ(&gpio1, &gpio2);
 }
