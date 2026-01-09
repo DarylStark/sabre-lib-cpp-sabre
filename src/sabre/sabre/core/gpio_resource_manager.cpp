@@ -38,7 +38,7 @@ namespace sabre::core
         if (_pinInUse(pin) != GpioType::Output &&
             _pinInUse(pin) != GpioType::None)
         {
-            throw GpioInUseException("GPIO pin already in use as output");
+            throw GpioInUseException("GPIO pin already in use as input");
         }
 
         if (_output_gpios.find(pin) == _output_gpios.end())
