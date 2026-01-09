@@ -28,6 +28,10 @@ namespace sabre::core
         GpioType _pinInUse(int32_t pin) const;
 
     public:
+        using Ptr = GpioResourceManager *;
+        using SharedPtr = std::shared_ptr<GpioResourceManager>;
+        using UniquePtr = std::unique_ptr<GpioResourceManager>;
+
         GpioResourceManager(Factory &factory, int32_t max_gpios);
         InputGpio &getInputGpio(int32_t pin);
         OutputGpio &getOutputGpio(int32_t pin);

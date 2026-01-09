@@ -64,3 +64,10 @@ TEST_F(SabreGpioResourceManagerTest, CreateInputAfterOuput)
     const auto &gpio1 = _manager.getOutputGpio(26);
     ASSERT_THROW(_manager.getInputGpio(26), sabre::core::GpioInUseException);
 }
+
+TEST_F(SabreResourceManagerTest, AccessGpioResourceManagerTwice)
+{
+    const auto &gpio1 = _manager.gpio();
+    const auto &gpio2 = _manager.gpio();
+    ASSERT_EQ(&gpio1, &gpio2);
+}
