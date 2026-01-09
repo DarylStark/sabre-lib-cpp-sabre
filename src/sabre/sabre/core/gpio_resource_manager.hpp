@@ -25,6 +25,7 @@ namespace sabre::core
             Output
         };
 
+        bool _isValidGpio(int32_t pin) const;
         GpioType _pinInUse(int32_t pin) const;
 
     public:

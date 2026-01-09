@@ -9,12 +9,14 @@ namespace sabre::core
     {
     }
 
+    bool GpioResourceManager::_isValidGpio(int32_t pin) const
+    {
+        return pin >= 0 && pin <= _upperboundGpio;
+    }
+
     GpioResourceManager::GpioType
     GpioResourceManager::_pinInUse(int32_t pin) const
     {
-        if (pin < 0 || pin > _upperboundGpio)
-            throw GpioUnavailableException();
-
         if (_inputGpios.find(pin) != _inputGpios.end())
             return GpioType::Input;
         if (_outputGpios.find(pin) != _outputGpios.end())
@@ -24,6 +26,11 @@ namespace sabre::core
 
     sabre::hal::InputGpio &GpioResourceManager::getInputGpio(int32_t pin)
     {
+        if (!_isValidGpio(pin))
+        {
+            throw GpioUnavailableException();
+        }
+
         if (_pinInUse(pin) != GpioType::Input &&
             _pinInUse(pin) != GpioType::None)
         {
@@ -38,6 +45,11 @@ namespace sabre::core
 
     sabre::hal::OutputGpio &GpioResourceManager::getOutputGpio(int32_t pin)
     {
+        if (!_isValidGpio(pin))
+        {
+            throw GpioUnavailableException();
+        }
+
         if (_pinInUse(pin) != GpioType::Output &&
             _pinInUse(pin) != GpioType::None)
         {
