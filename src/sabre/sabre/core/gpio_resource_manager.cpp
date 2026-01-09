@@ -5,16 +5,19 @@ namespace sabre::core
 {
     GpioResourceManager::GpioResourceManager(Factory &factory,
                                              int32_t max_gpios)
-        : _factory(factory), _max_gpios(max_gpios)
+        : _factory(factory), _upperboundGpio(max_gpios)
     {
     }
 
     GpioResourceManager::GpioType
     GpioResourceManager::_pinInUse(int32_t pin) const
     {
-        if (_input_gpios.find(pin) != _input_gpios.end())
+        if (pin < 0 || pin > _upperboundGpio)
+            throw GpioUnavailableException();
+
+        if (_inputGpios.find(pin) != _inputGpios.end())
             return GpioType::Input;
-        if (_output_gpios.find(pin) != _output_gpios.end())
+        if (_outputGpios.find(pin) != _outputGpios.end())
             return GpioType::Output;
         return GpioType::None;
     }
@@ -27,10 +30,10 @@ namespace sabre::core
             throw GpioInUseException("GPIO pin already in use as output");
         }
 
-        if (_input_gpios.find(pin) == _input_gpios.end())
-            _input_gpios.try_emplace(pin, _factory.createInputGpio(pin));
+        if (_inputGpios.find(pin) == _inputGpios.end())
+            _inputGpios.try_emplace(pin, _factory.createInputGpio(pin));
 
-        return *_input_gpios[pin];
+        return *_inputGpios[pin];
     }
 
     sabre::hal::OutputGpio &GpioResourceManager::getOutputGpio(int32_t pin)
@@ -41,8 +44,8 @@ namespace sabre::core
             throw GpioInUseException("GPIO pin already in use as input");
         }
 
-        if (_output_gpios.find(pin) == _output_gpios.end())
-            _output_gpios.try_emplace(pin, _factory.createOutputGpio(pin));
-        return *_output_gpios[pin];
+        if (_outputGpios.find(pin) == _outputGpios.end())
+            _outputGpios.try_emplace(pin, _factory.createOutputGpio(pin));
+        return *_outputGpios[pin];
     }
 } // namespace sabre::core

@@ -13,10 +13,10 @@ namespace sabre::core
         using OutputGpioMap =
             std::unordered_map<int32_t, OutputGpio::SharedPtr>;
 
-        uint32_t _max_gpios;
+        int32_t _upperboundGpio;
         Factory &_factory;
-        InputGpioMap _input_gpios;
-        OutputGpioMap _output_gpios;
+        InputGpioMap _inputGpios;
+        OutputGpioMap _outputGpios;
 
         enum class GpioType
         {
@@ -32,7 +32,7 @@ namespace sabre::core
         using SharedPtr = std::shared_ptr<GpioResourceManager>;
         using UniquePtr = std::unique_ptr<GpioResourceManager>;
 
-        GpioResourceManager(Factory &factory, int32_t max_gpios);
+        GpioResourceManager(Factory &factory, int32_t upperboundGpio);
         InputGpio &getInputGpio(int32_t pin);
         OutputGpio &getOutputGpio(int32_t pin);
     };

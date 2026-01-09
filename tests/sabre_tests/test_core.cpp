@@ -28,7 +28,7 @@ TEST(SabreExceptionTest, APIErrorCustomMessage)
 TEST_F(SabreGpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _manager.getInputGpio(26);
-    const auto &gpio2 = _manager.getInputGpio(27);
+    const auto &gpio2 = _manager.getInputGpio(25);
     ASSERT_NE(&gpio1, &gpio2);
 }
 
@@ -42,7 +42,7 @@ TEST_F(SabreGpioResourceManagerTest, CreateInputGpioTwice)
 TEST_F(SabreGpioResourceManagerTest, CreateDifferentOutputGpios)
 {
     const auto &gpio1 = _manager.getOutputGpio(26);
-    const auto &gpio2 = _manager.getOutputGpio(27);
+    const auto &gpio2 = _manager.getOutputGpio(25);
     ASSERT_NE(&gpio1, &gpio2);
 }
 
@@ -63,6 +63,18 @@ TEST_F(SabreGpioResourceManagerTest, CreateInputAfterOuput)
 {
     const auto &gpio1 = _manager.getOutputGpio(26);
     ASSERT_THROW(_manager.getInputGpio(26), sabre::core::GpioInUseException);
+}
+
+TEST_F(SabreGpioResourceManagerTest, CreateInputGpioToHigh)
+{
+    ASSERT_THROW(const auto &gpio1 = _manager.getInputGpio(30),
+                 sabre::core::GpioUnavailableException);
+}
+
+TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioToHigh)
+{
+    ASSERT_THROW(const auto &gpio1 = _manager.getOutputGpio(30),
+                 sabre::core::GpioUnavailableException);
 }
 
 TEST_F(SabreResourceManagerTest, AccessGpioResourceManagerTwice)

@@ -35,6 +35,12 @@ namespace sabre::core
         explicit GpioInUseException(const std::string &message);
     };
 
+    class GpioUnavailableException : public ResourceManagerException
+    {
+    public:
+        explicit GpioUnavailableException();
+    };
+
     /**
      * @brief Exception thrown by implementation on API errors.
      *

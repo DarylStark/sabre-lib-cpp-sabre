@@ -17,6 +17,11 @@ namespace sabre::core
     {
     }
 
+    GpioUnavailableException::GpioUnavailableException()
+        : ResourceManagerException("GPIO unavailable")
+    {
+    }
+
     ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
 
     ApiError::ApiError() : SabreException("Unknown API error") {}
