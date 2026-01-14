@@ -4,35 +4,32 @@
 #include "../hal/output_gpio.hpp"
 #include "./factory.hpp"
 #include <unordered_map>
+#include <variant>
 
 namespace sabre::core
 {
     class GpioResourceManager
     {
-    private:
-        using InputGpioMap =
-            std::unordered_map<uint32_t, sabre::hal::InputGpio::SharedPtr>;
-        using OutputGpioMap =
-            std::unordered_map<int32_t, sabre::hal::OutputGpio::SharedPtr>;
-        using GpioMap =
-            std::unordered_map<int32_t, sabre::hal::Gpio::SharedPtr>;
+    public:
+        using ResourceVariant = std::variant<sabre::hal::InputGpio::UniquePtr,
+                                             sabre::hal::OutputGpio::UniquePtr,
+                                             sabre::hal::Gpio::UniquePtr>;
 
+    private:
         int32_t _upperboundGpio;
         Factory &_factory;
-        InputGpioMap _inputGpios;
-        OutputGpioMap _outputGpios;
-        GpioMap _gpios;
 
-        enum class GpioType
+        std::unordered_map<int32_t, ResourceVariant> _resources;
+
+        template <typename T> bool _isType(int32_t pin) const
         {
-            None,
-            Input,
-            Output,
-            Gpio
-        };
+            auto it = _resources.find(pin);
+            return it != _resources.end() &&
+                   std::holds_alternative<T>(it->second);
+        }
 
+        bool _isFreePin(int32_t pin) const;
         bool _isValidGpio(int32_t pin) const;
-        GpioType _pinInUse(int32_t pin) const;
 
     public:
         using Ptr = GpioResourceManager *;
