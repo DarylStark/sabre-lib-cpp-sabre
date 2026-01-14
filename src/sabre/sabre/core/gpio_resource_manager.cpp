@@ -34,7 +34,7 @@ namespace sabre::core
         if (_pinInUse(pin) != GpioType::Input &&
             _pinInUse(pin) != GpioType::None)
         {
-            throw GpioInUseException("GPIO pin already in use as output");
+            throw GpioInUseException("GPIO pin already in use");
         }
 
         if (_inputGpios.find(pin) == _inputGpios.end())
@@ -53,11 +53,29 @@ namespace sabre::core
         if (_pinInUse(pin) != GpioType::Output &&
             _pinInUse(pin) != GpioType::None)
         {
-            throw GpioInUseException("GPIO pin already in use as input");
+            throw GpioInUseException("GPIO pin already in use");
         }
 
         if (_outputGpios.find(pin) == _outputGpios.end())
             _outputGpios.try_emplace(pin, _factory.createOutputGpio(pin));
         return *_outputGpios[pin];
+    }
+
+    sabre::hal::Gpio &GpioResourceManager::getGpio(int32_t pin)
+    {
+        if (!_isValidGpio(pin))
+        {
+            throw GpioUnavailableException();
+        }
+
+        if (_pinInUse(pin) != GpioType::Gpio &&
+            _pinInUse(pin) != GpioType::None)
+        {
+            throw GpioInUseException("GPIO pin already in use");
+        }
+
+        if (_gpios.find(pin) == _gpios.end())
+            _gpios.try_emplace(pin, _factory.createOutputGpio(pin));
+        return *_gpios[pin];
     }
 } // namespace sabre::core

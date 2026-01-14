@@ -2,6 +2,8 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
+    void StGpio::reset() {}
+
     bool StInputGpio::_getLevel() const
     {
         return level;

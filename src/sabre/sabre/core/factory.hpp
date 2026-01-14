@@ -102,6 +102,16 @@ namespace sabre::core
         virtual OutputGpio::UniquePtr createOutputGpio(int32_t pin) const = 0;
 
         /**
+         * @brief Create a `Gpio` object.
+         *
+         * @param pin the pin number for the GPIO.
+         *
+         * @return A `GpioUniquePtr` unique pointer to a `Gpio`
+         * object.
+         */
+        virtual sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const = 0;
+
+        /**
          * @brief Create a `WifiStation` object.
          *
          * @return A `WifiStationUniquePtr` unique pointer to a `WifiStation`

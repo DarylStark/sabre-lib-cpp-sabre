@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sabre/hal/gpio.hpp>
 #include <sabre/hal/input_gpio.hpp>
 #include <sabre/hal/output_gpio.hpp>
 #include <sabre/hal/serial.hpp>
@@ -9,6 +10,11 @@ namespace sabre::impl::sabre_test_mocks
 {
     using sabre::hal::ISRHandler;
     using sabre::hal::ISRTrigger;
+
+    class StGpio : public sabre::hal::Gpio
+    {
+        void reset() override;
+    };
 
     class StInputGpio : public sabre::hal::InputGpio
     {

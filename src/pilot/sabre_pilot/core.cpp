@@ -42,6 +42,14 @@ namespace sabre::impl::pilot
         return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
     }
 
+    sabre::hal::Gpio::UniquePtr Factory::createGpio(int32_t pin) const
+    {
+        std::cout << "Creating generic GPIO on pin " << pin << " for device at "
+                  << _device << '\n'
+                  << std::flush;
+        return std::make_unique<sabre::impl::pilot::Gpio>(_device, pin);
+    }
+
     sabre::net::WifiStation::UniquePtr Factory::createWifiStation() const
     {
         // Implementation specific code to create a WifiStation object

@@ -19,6 +19,7 @@ namespace sabre::impl::pilot
         sabre::hal::Serial::UniquePtr createUsbCdc(size_t bufferSize) const;
         sabre::hal::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
         sabre::hal::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
+        sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const;
         sabre::net::WifiStation::UniquePtr createWifiStation() const;
         sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const;
         sabre::time::WallClock::UniquePtr createWallClock() const;

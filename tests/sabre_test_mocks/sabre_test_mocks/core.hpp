@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sabre/core/factory.hpp>
+#include <sabre/hal/gpio.hpp>
 #include <sabre/runtime/app.hpp>
 
 namespace sabre::impl::sabre_test_mocks
@@ -17,6 +18,7 @@ namespace sabre::impl::sabre_test_mocks
         sabre::core::Serial::UniquePtr createUsbCdc(size_t bufferSize) const;
         sabre::core::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
         sabre::core::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
+        sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const;
         sabre::core::WifiStation::UniquePtr createWifiStation() const;
         sabre::core::WifiSoftAp::UniquePtr createWifiSoftAp() const;
         sabre::core::MqttClient::UniquePtr createMqttClient() const;

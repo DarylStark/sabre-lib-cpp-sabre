@@ -39,9 +39,15 @@ namespace sabre::impl::pilot
             throw std::runtime_error("UART not initialized");
     }
 
+    Gpio::Gpio(Device *device, uint32_t pin) : _device(device), _pin(pin)
+    {
+        _device->set_gpio_type(pin, GPIOType::GENERIC);
+    }
+
     void Gpio::reset()
     {
         // Implementation specific code to reset the GPIO
+        _device->reset_gpio(_pin);
     }
 
     InputGpio::InputGpio(Device *device, uint32_t pin)
