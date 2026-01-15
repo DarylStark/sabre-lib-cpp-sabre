@@ -26,6 +26,20 @@ TEST(SabreExceptionTest, APIErrorCustomMessage)
     ASSERT_STREQ(apiError.what(), "Specific API error occurred");
 }
 
+TEST_F(ResourceManagerTest, RetrieveGpioResourceManager)
+{
+    auto &gpio_rm1 = _manager.gpio();
+    auto &gpio_rm2 = _manager.gpio();
+    ASSERT_EQ(&gpio_rm1, &gpio_rm2);
+}
+
+TEST_F(ResourceManagerTest, RetrieveSerialResourceManager)
+{
+    auto &serial_rm1 = _manager.serial();
+    auto &serial_rm2 = _manager.serial();
+    ASSERT_EQ(&serial_rm1, &serial_rm2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);
