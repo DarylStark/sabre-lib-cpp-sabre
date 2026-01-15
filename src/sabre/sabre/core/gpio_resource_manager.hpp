@@ -21,12 +21,9 @@ namespace sabre::core
 
         std::unordered_map<int32_t, ResourceVariant> _resources;
 
-        template <typename T> bool _isType(int32_t pin) const
-        {
-            auto it = _resources.find(pin);
-            return it != _resources.end() &&
-                   std::holds_alternative<T>(it->second);
-        }
+        template <typename T> bool _isType(int32_t pin) const;
+        template <typename T, typename FactoryFunc>
+        T &_getOrCreateGpio(int32_t pin, FactoryFunc factoryFunc);
 
         bool _isFreePin(int32_t pin) const;
         bool _isValidGpio(int32_t pin) const;
