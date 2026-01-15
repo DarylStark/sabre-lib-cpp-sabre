@@ -14,6 +14,8 @@ namespace sabre::core
 
         std::unordered_map<uint32_t, sabre::hal::Serial::UniquePtr>
             _uartResources;
+        std::unordered_map<uint32_t, sabre::hal::Serial::UniquePtr>
+            _usbCdcResources;
 
     public:
         using Ptr = SerialResourceManager *;
@@ -25,5 +27,8 @@ namespace sabre::core
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
         sabre::hal::Serial &getUart(uint32_t uartNumber) const;
+
+        void configureUsbCdc(uint32_t index, size_t bufferSize);
+        sabre::hal::Serial &getUsbCdc(uint32_t index) const;
     };
 } // namespace sabre::core

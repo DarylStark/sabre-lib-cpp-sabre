@@ -42,4 +42,29 @@ namespace sabre::core
         }
         return *(it->second);
     }
+
+    void SerialResourceManager::configureUsbCdc(uint32_t index,
+                                                size_t bufferSize)
+    {
+        if (_usbCdcResources.find(index) != _usbCdcResources.end())
+        {
+            throw std::runtime_error("USB CDC already configured");
+        }
+
+        auto usbCdc = _factory.createUsbCdc(index, bufferSize);
+        _usbCdcResources[index] = std::move(usbCdc);
+    }
+
+    sabre::hal::Serial &SerialResourceManager::getUsbCdc(uint32_t index) const
+    {
+        auto it = _usbCdcResources.find(index);
+        if (it == _usbCdcResources.end())
+        {
+            // TODO: Custom exception
+            throw std::runtime_error(
+                "USB CDC not configured. Please configure it "
+                "first using the configureUsbCdc method.");
+        }
+        return *(it->second);
+    }
 } // namespace sabre::core

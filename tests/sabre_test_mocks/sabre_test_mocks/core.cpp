@@ -19,7 +19,7 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::core::Serial::UniquePtr
-    StFactory::createUsbCdc(size_t bufferSize) const
+    StFactory::createUsbCdc(uint32_t index, size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;

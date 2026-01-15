@@ -189,3 +189,31 @@ TEST_F(SabreSerialResourceManagerTest, ConfigureUartOutsideBounds)
                      sabre::impl::sabre_test_mocks::StGpio(21), 128),
                  std::out_of_range);
 }
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveTheSameUsbCdc)
+{
+    _manager.configureUsbCdc(0, 128);
+    const auto &gpio1 = _manager.getUsbCdc(0);
+    const auto &gpio2 = _manager.getUsbCdc(0);
+    ASSERT_EQ(&gpio1, &gpio2);
+}
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveTheDifferentUsbCdc)
+{
+    _manager.configureUsbCdc(0, 128);
+    _manager.configureUsbCdc(1, 128);
+    const auto &gpio1 = _manager.getUsbCdc(0);
+    const auto &gpio2 = _manager.getUsbCdc(1);
+    ASSERT_NE(&gpio1, &gpio2);
+}
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveUsbCdcWithoutConfiguration)
+{
+    ASSERT_THROW(_manager.getUsbCdc(0), std::runtime_error);
+}
+
+TEST_F(SabreSerialResourceManagerTest, ConfigureUsbCdcTwice)
+{
+    _manager.configureUsbCdc(0, 128);
+    ASSERT_THROW(_manager.configureUsbCdc(0, 128), std::runtime_error);
+}

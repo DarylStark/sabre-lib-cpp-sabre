@@ -19,7 +19,8 @@ namespace sabre::impl::pilot
         return std::make_unique<Serial>(_device, uartNumber, bufferSize);
     }
 
-    sabre::hal::Serial::UniquePtr Factory::createUsbCdc(size_t bufferSize) const
+    sabre::hal::Serial::UniquePtr Factory::createUsbCdc(uint32_t index,
+                                                        size_t bufferSize) const
     {
         // Implementation specific code to create a USB CDC object
         return nullptr; // Placeholder
