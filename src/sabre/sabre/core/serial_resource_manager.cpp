@@ -30,7 +30,8 @@ namespace sabre::core
         _uartResources[uartNumber] = std::move(uart);
     }
 
-    sabre::hal::Serial &SerialResourceManager::getUart(uint32_t uartNumber)
+    sabre::hal::Serial &
+    SerialResourceManager::getUart(uint32_t uartNumber) const
     {
         auto it = _uartResources.find(uartNumber);
         if (it == _uartResources.end())

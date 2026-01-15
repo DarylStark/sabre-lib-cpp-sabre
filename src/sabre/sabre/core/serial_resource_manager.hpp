@@ -24,6 +24,6 @@ namespace sabre::core
         void configureUart(uint32_t uartNumber, int32_t baudRate,
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
-        sabre::hal::Serial &getUart(uint32_t uartNumber);
+        sabre::hal::Serial &getUart(uint32_t uartNumber) const;
     };
 } // namespace sabre::core
