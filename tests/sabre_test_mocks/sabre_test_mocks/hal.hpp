@@ -13,6 +13,8 @@ namespace sabre::impl::sabre_test_mocks
 
     class StGpio : public sabre::hal::Gpio
     {
+    public:
+        StGpio(int32_t pin);
         void reset() override;
     };
 

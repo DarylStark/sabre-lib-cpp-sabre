@@ -2,6 +2,8 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
+    StGpio::StGpio(int32_t pin) : sabre::hal::Gpio(pin) {}
+
     void StGpio::reset() {}
 
     bool StInputGpio::_getLevel() const

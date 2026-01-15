@@ -1,6 +1,7 @@
 #pragma once
 
 #include "./gpio_resource_manager.hpp"
+#include "./serial_resource_manager.hpp"
 
 namespace sabre::core
 {
@@ -14,6 +15,7 @@ namespace sabre::core
     {
     private:
         GpioResourceManager _gpio_manager;
+        SerialResourceManager _serial_manager;
 
     public:
         /**
@@ -21,8 +23,10 @@ namespace sabre::core
          */
         virtual ~ResourceManager() = default;
 
-        ResourceManager(Factory &factory, int32_t max_gpios);
+        ResourceManager(Factory &factory, int32_t max_gpios,
+                        uint32_t upperboundUart);
 
         GpioResourceManager &gpio();
+        SerialResourceManager &serial();
     };
 } // namespace sabre::core

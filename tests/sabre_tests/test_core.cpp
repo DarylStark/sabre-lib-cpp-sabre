@@ -1,6 +1,7 @@
 #include "test_core.hpp"
 #include "sabre/core/exceptions.hpp"
 #include <gtest/gtest.h>
+#include <sabre_test_mocks/hal.hpp>
 
 TEST(SabreExceptionTest, CustomMessage)
 {
@@ -144,4 +145,47 @@ TEST_F(SabreGpioResourceManagerTest, CreateGpioToLow)
 TEST_F(SabreGpioResourceManagerTest, CreateGpioZero)
 {
     ASSERT_NO_THROW(const auto &gpio1 = _manager.getGpio(0));
+}
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveTheSameUart)
+{
+    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    const auto &gpio1 = _manager.getUart(0);
+    const auto &gpio2 = _manager.getUart(0);
+    ASSERT_EQ(&gpio1, &gpio2);
+}
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveTheDifferentUart)
+{
+    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    _manager.configureUart(1, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                           sabre::impl::sabre_test_mocks::StGpio(21), 128);
+    const auto &gpio1 = _manager.getUart(0);
+    const auto &gpio2 = _manager.getUart(1);
+    ASSERT_NE(&gpio1, &gpio2);
+}
+
+TEST_F(SabreSerialResourceManagerTest, RetrieveUartWithoutConfiguration)
+{
+    ASSERT_THROW(_manager.getUart(0), std::runtime_error);
+}
+
+TEST_F(SabreSerialResourceManagerTest, ConfigureUartTwice)
+{
+    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    ASSERT_THROW(_manager.configureUart(
+                     0, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                     sabre::impl::sabre_test_mocks::StGpio(21), 128),
+                 std::runtime_error);
+}
+
+TEST_F(SabreSerialResourceManagerTest, ConfigureUartOutsideBounds)
+{
+    ASSERT_THROW(_manager.configureUart(
+                     4, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                     sabre::impl::sabre_test_mocks::StGpio(21), 128),
+                 std::out_of_range);
 }

@@ -12,12 +12,19 @@ namespace sabre::hal
      */
     class Gpio
     {
+    private:
+        int32_t _pinNumber = 0;
+
     public:
         using Ptr = Gpio *;
         using SharedPtr = std::shared_ptr<Gpio>;
         using UniquePtr = std::unique_ptr<Gpio>;
 
     public:
+        Gpio() = default;
+        Gpio(int32_t pinNumber);
+        int32_t getPinNumber() const;
+
         /**
          * @brief Virtual destructor.
          */

@@ -26,7 +26,6 @@ namespace sabre::impl::pilot
     {
     private:
         Device *_device;
-        uint32_t _pin;
 
     public:
         Gpio(Device *device, uint32_t pin);

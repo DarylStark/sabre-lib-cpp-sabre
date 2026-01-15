@@ -2,6 +2,7 @@
 
 #include "sabre/core/gpio_resource_manager.hpp"
 #include "sabre/core/resource_manager.hpp"
+#include "sabre/core/serial_resource_manager.hpp"
 #include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
 
@@ -12,9 +13,16 @@ protected:
     sabre::core::GpioResourceManager _manager{_factory, 26};
 };
 
+class SabreSerialResourceManagerTest : public ::testing::Test
+{
+protected:
+    sabre::impl::sabre_test_mocks::StFactory _factory{false};
+    sabre::core::SerialResourceManager _manager{_factory, 3};
+};
+
 class SabreResourceManagerTest : public ::testing::Test
 {
 protected:
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::ResourceManager _manager{_factory, 26};
+    sabre::core::ResourceManager _manager{_factory, 26, 3};
 };
