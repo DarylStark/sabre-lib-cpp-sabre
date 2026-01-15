@@ -26,194 +26,194 @@ TEST(SabreExceptionTest, APIErrorCustomMessage)
     ASSERT_STREQ(apiError.what(), "Specific API error occurred");
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateDifferentInputGpios)
+TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
-    const auto &gpio1 = _manager.getInputGpio(26);
-    const auto &gpio2 = _manager.getInputGpio(25);
+    const auto &gpio1 = _gpio_rm.getInputGpio(26);
+    const auto &gpio2 = _gpio_rm.getInputGpio(25);
     ASSERT_NE(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputGpioTwice)
+TEST_F(GpioResourceManagerTest, CreateInputGpioTwice)
 {
-    const auto &gpio1 = _manager.getInputGpio(26);
-    const auto &gpio2 = _manager.getInputGpio(26);
+    const auto &gpio1 = _gpio_rm.getInputGpio(26);
+    const auto &gpio2 = _gpio_rm.getInputGpio(26);
     ASSERT_EQ(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateDifferentOutputGpios)
+TEST_F(GpioResourceManagerTest, CreateDifferentOutputGpios)
 {
-    const auto &gpio1 = _manager.getOutputGpio(26);
-    const auto &gpio2 = _manager.getOutputGpio(25);
+    const auto &gpio1 = _gpio_rm.getOutputGpio(26);
+    const auto &gpio2 = _gpio_rm.getOutputGpio(25);
     ASSERT_NE(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioTwice)
+TEST_F(GpioResourceManagerTest, CreateOutputGpioTwice)
 {
-    const auto &gpio1 = _manager.getOutputGpio(26);
-    const auto &gpio2 = _manager.getOutputGpio(26);
+    const auto &gpio1 = _gpio_rm.getOutputGpio(26);
+    const auto &gpio2 = _gpio_rm.getOutputGpio(26);
     ASSERT_EQ(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputAfterInput)
+TEST_F(GpioResourceManagerTest, CreateOutputAfterInput)
 {
-    const auto &gpio1 = _manager.getInputGpio(26);
-    ASSERT_THROW(_manager.getOutputGpio(26), sabre::core::GpioInUseException);
+    const auto &gpio1 = _gpio_rm.getInputGpio(26);
+    ASSERT_THROW(_gpio_rm.getOutputGpio(26), sabre::core::GpioInUseException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputAfterOuput)
+TEST_F(GpioResourceManagerTest, CreateInputAfterOuput)
 {
-    const auto &gpio1 = _manager.getOutputGpio(26);
-    ASSERT_THROW(_manager.getInputGpio(26), sabre::core::GpioInUseException);
+    const auto &gpio1 = _gpio_rm.getOutputGpio(26);
+    ASSERT_THROW(_gpio_rm.getInputGpio(26), sabre::core::GpioInUseException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputGpioToHigh)
+TEST_F(GpioResourceManagerTest, CreateInputGpioToHigh)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getInputGpio(30),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getInputGpio(30),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioToHigh)
+TEST_F(GpioResourceManagerTest, CreateOutputGpioToHigh)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getOutputGpio(30),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getOutputGpio(30),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputGpioToLow)
+TEST_F(GpioResourceManagerTest, CreateInputGpioToLow)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getInputGpio(-1),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getInputGpio(-1),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioToLow)
+TEST_F(GpioResourceManagerTest, CreateOutputGpioToLow)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getOutputGpio(-1),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getOutputGpio(-1),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputGpioZero)
+TEST_F(GpioResourceManagerTest, CreateInputGpioZero)
 {
-    ASSERT_NO_THROW(const auto &gpio1 = _manager.getInputGpio(0));
+    ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getInputGpio(0));
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioZero)
+TEST_F(GpioResourceManagerTest, CreateOutputGpioZero)
 {
-    ASSERT_NO_THROW(const auto &gpio1 = _manager.getOutputGpio(0));
+    ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getOutputGpio(0));
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateInputGpioExactlyUpperBound)
+TEST_F(GpioResourceManagerTest, CreateInputGpioExactlyUpperBound)
 {
-    ASSERT_NO_THROW(const auto &gpio1 = _manager.getInputGpio(26));
+    ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getInputGpio(26));
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateOutputGpioExactlyUpperBound)
+TEST_F(GpioResourceManagerTest, CreateOutputGpioExactlyUpperBound)
 {
-    ASSERT_NO_THROW(const auto &gpio1 = _manager.getOutputGpio(26));
+    ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getOutputGpio(26));
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateGpioTwice)
+TEST_F(GpioResourceManagerTest, CreateGpioTwice)
 {
-    const auto &gpio1 = _manager.getGpio(26);
-    const auto &gpio2 = _manager.getGpio(26);
+    const auto &gpio1 = _gpio_rm.getGpio(26);
+    const auto &gpio2 = _gpio_rm.getGpio(26);
     ASSERT_EQ(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateDifferentGpios)
+TEST_F(GpioResourceManagerTest, CreateDifferentGpios)
 {
-    const auto &gpio1 = _manager.getGpio(26);
-    const auto &gpio2 = _manager.getGpio(25);
+    const auto &gpio1 = _gpio_rm.getGpio(26);
+    const auto &gpio2 = _gpio_rm.getGpio(25);
     ASSERT_NE(&gpio1, &gpio2);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateGpioAfterOuput)
+TEST_F(GpioResourceManagerTest, CreateGpioAfterOuput)
 {
-    const auto &gpio1 = _manager.getOutputGpio(26);
-    ASSERT_THROW(_manager.getGpio(26), sabre::core::GpioInUseException);
+    const auto &gpio1 = _gpio_rm.getOutputGpio(26);
+    ASSERT_THROW(_gpio_rm.getGpio(26), sabre::core::GpioInUseException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateGpioToHigh)
+TEST_F(GpioResourceManagerTest, CreateGpioToHigh)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getGpio(30),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getGpio(30),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateGpioToLow)
+TEST_F(GpioResourceManagerTest, CreateGpioToLow)
 {
-    ASSERT_THROW(const auto &gpio1 = _manager.getGpio(-1),
+    ASSERT_THROW(const auto &gpio1 = _gpio_rm.getGpio(-1),
                  sabre::core::GpioUnavailableException);
 }
 
-TEST_F(SabreGpioResourceManagerTest, CreateGpioZero)
+TEST_F(GpioResourceManagerTest, CreateGpioZero)
 {
-    ASSERT_NO_THROW(const auto &gpio1 = _manager.getGpio(0));
+    ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getGpio(0));
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveTheSameUart)
+TEST_F(SerialResourceManagerTest, RetrieveTheSameUart)
 {
-    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
-                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
-    const auto &gpio1 = _manager.getUart(0);
-    const auto &gpio2 = _manager.getUart(0);
-    ASSERT_EQ(&gpio1, &gpio2);
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    const auto &uart1 = _serial_rm.getUart(0);
+    const auto &uart2 = _serial_rm.getUart(0);
+    ASSERT_EQ(&uart1, &uart2);
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveTheDifferentUart)
+TEST_F(SerialResourceManagerTest, RetrieveTheDifferentUart)
 {
-    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
-                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
-    _manager.configureUart(1, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
-                           sabre::impl::sabre_test_mocks::StGpio(21), 128);
-    const auto &gpio1 = _manager.getUart(0);
-    const auto &gpio2 = _manager.getUart(1);
-    ASSERT_NE(&gpio1, &gpio2);
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    _serial_rm.configureUart(1, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                             sabre::impl::sabre_test_mocks::StGpio(21), 128);
+    const auto &uart1 = _serial_rm.getUart(0);
+    const auto &uart2 = _serial_rm.getUart(1);
+    ASSERT_NE(&uart1, &uart2);
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveUartWithoutConfiguration)
+TEST_F(SerialResourceManagerTest, RetrieveUartWithoutConfiguration)
 {
-    ASSERT_THROW(_manager.getUart(0), std::runtime_error);
+    ASSERT_THROW(_serial_rm.getUart(0), std::runtime_error);
 }
 
-TEST_F(SabreSerialResourceManagerTest, ConfigureUartTwice)
+TEST_F(SerialResourceManagerTest, ConfigureUartTwice)
 {
-    _manager.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
-                           sabre::impl::sabre_test_mocks::StGpio(25), 128);
-    ASSERT_THROW(_manager.configureUart(
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    ASSERT_THROW(_serial_rm.configureUart(
                      0, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
                      sabre::impl::sabre_test_mocks::StGpio(21), 128),
                  std::runtime_error);
 }
 
-TEST_F(SabreSerialResourceManagerTest, ConfigureUartOutsideBounds)
+TEST_F(SerialResourceManagerTest, ConfigureUartOutsideBounds)
 {
-    ASSERT_THROW(_manager.configureUart(
+    ASSERT_THROW(_serial_rm.configureUart(
                      4, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
                      sabre::impl::sabre_test_mocks::StGpio(21), 128),
                  std::out_of_range);
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveTheSameUsbCdc)
+TEST_F(SerialResourceManagerTest, RetrieveTheSameUsbCdc)
 {
-    _manager.configureUsbCdc(0, 128);
-    const auto &gpio1 = _manager.getUsbCdc(0);
-    const auto &gpio2 = _manager.getUsbCdc(0);
-    ASSERT_EQ(&gpio1, &gpio2);
+    _serial_rm.configureUsbCdc(0, 128);
+    const auto &usbcdc1 = _serial_rm.getUsbCdc(0);
+    const auto &usbcdc2 = _serial_rm.getUsbCdc(0);
+    ASSERT_EQ(&usbcdc1, &usbcdc2);
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveTheDifferentUsbCdc)
+TEST_F(SerialResourceManagerTest, RetrieveTheDifferentUsbCdc)
 {
-    _manager.configureUsbCdc(0, 128);
-    _manager.configureUsbCdc(1, 128);
-    const auto &gpio1 = _manager.getUsbCdc(0);
-    const auto &gpio2 = _manager.getUsbCdc(1);
-    ASSERT_NE(&gpio1, &gpio2);
+    _serial_rm.configureUsbCdc(0, 128);
+    _serial_rm.configureUsbCdc(1, 128);
+    const auto &usbcdc1 = _serial_rm.getUsbCdc(0);
+    const auto &usbcdc2 = _serial_rm.getUsbCdc(1);
+    ASSERT_NE(&usbcdc1, &usbcdc2);
 }
 
-TEST_F(SabreSerialResourceManagerTest, RetrieveUsbCdcWithoutConfiguration)
+TEST_F(SerialResourceManagerTest, RetrieveUsbCdcWithoutConfiguration)
 {
-    ASSERT_THROW(_manager.getUsbCdc(0), std::runtime_error);
+    ASSERT_THROW(_serial_rm.getUsbCdc(0), std::runtime_error);
 }
 
-TEST_F(SabreSerialResourceManagerTest, ConfigureUsbCdcTwice)
+TEST_F(SerialResourceManagerTest, ConfigureUsbCdcTwice)
 {
-    _manager.configureUsbCdc(0, 128);
-    ASSERT_THROW(_manager.configureUsbCdc(0, 128), std::runtime_error);
+    _serial_rm.configureUsbCdc(0, 128);
+    ASSERT_THROW(_serial_rm.configureUsbCdc(0, 128), std::runtime_error);
 }

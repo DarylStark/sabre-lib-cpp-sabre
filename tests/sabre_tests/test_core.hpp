@@ -6,21 +6,21 @@
 #include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
 
-class SabreGpioResourceManagerTest : public ::testing::Test
+class GpioResourceManagerTest : public ::testing::Test
 {
 protected:
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::GpioResourceManager _manager{_factory, 26};
+    sabre::core::GpioResourceManager _gpio_rm{_factory, 26};
 };
 
-class SabreSerialResourceManagerTest : public ::testing::Test
+class SerialResourceManagerTest : public ::testing::Test
 {
 protected:
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::SerialResourceManager _manager{_factory, 3};
+    sabre::core::SerialResourceManager _serial_rm{_factory, 3};
 };
 
-class SabreResourceManagerTest : public ::testing::Test
+class ResourceManagerTest : public ::testing::Test
 {
 protected:
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
