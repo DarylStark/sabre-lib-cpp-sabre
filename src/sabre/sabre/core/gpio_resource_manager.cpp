@@ -19,7 +19,8 @@ namespace sabre::core
         return _resources.find(pin) == _resources.end();
     }
 
-    template <typename T> bool GpioResourceManager::_isType(int32_t pin) const
+    template <typename T>
+    bool GpioResourceManager::_isType(int32_t pin) const
     {
         auto it = _resources.find(pin);
         return it != _resources.end() && std::holds_alternative<T>(it->second);
