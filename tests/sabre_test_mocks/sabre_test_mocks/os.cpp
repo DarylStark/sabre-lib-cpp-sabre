@@ -2,7 +2,10 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    StService::StService(const ServiceHandler &fn) : sabre::os::Service(fn) {}
+    StService::StService(const sabre::os::ServiceHandler &fn)
+        : sabre::os::Service(fn)
+    {
+    }
 
     void StService::start()
     {

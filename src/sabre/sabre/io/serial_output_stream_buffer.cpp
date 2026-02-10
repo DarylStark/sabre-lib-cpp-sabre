@@ -4,7 +4,7 @@
 
 namespace sabre::io
 {
-    SerialStreamBuf::SerialStreamBuf(Serial::UniquePtr uartPtr,
+    SerialStreamBuf::SerialStreamBuf(sabre::hal::Serial::UniquePtr uartPtr,
                                      size_t bufferSize)
         : _uartPtr(std::move(uartPtr))
     {

@@ -8,9 +8,6 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    using sabre::hal::ISRHandler;
-    using sabre::hal::ISRTrigger;
-
     class StGpio : public sabre::hal::Gpio
     {
     public:
@@ -28,7 +25,8 @@ namespace sabre::impl::sabre_test_mocks
         void enablePulldown() override;
         void disablePullup() override;
         void disablePulldown() override;
-        void addInterruptHandler(ISRHandler, ISRTrigger) override;
+        void addInterruptHandler(sabre::hal::ISRHandler,
+                                 sabre::hal::ISRTrigger) override;
         void reset() override;
 
         bool level = true;
