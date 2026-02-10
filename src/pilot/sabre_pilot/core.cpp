@@ -19,7 +19,8 @@ namespace sabre::impl::pilot
         return std::make_unique<Serial>(_device, uartNumber, bufferSize);
     }
 
-    sabre::hal::Serial::UniquePtr Factory::createUsbCdc(size_t bufferSize) const
+    sabre::hal::Serial::UniquePtr Factory::createUsbCdc(uint32_t index,
+                                                        size_t bufferSize) const
     {
         // Implementation specific code to create a USB CDC object
         return nullptr; // Placeholder
@@ -40,6 +41,14 @@ namespace sabre::impl::pilot
                   << _device << '\n'
                   << std::flush;
         return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
+    }
+
+    sabre::hal::Gpio::UniquePtr Factory::createGpio(int32_t pin) const
+    {
+        std::cout << "Creating generic GPIO on pin " << pin << " for device at "
+                  << _device << '\n'
+                  << std::flush;
+        return std::make_unique<sabre::impl::pilot::Gpio>(_device, pin);
     }
 
     sabre::net::WifiStation::UniquePtr Factory::createWifiStation() const

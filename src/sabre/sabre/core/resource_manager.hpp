@@ -1,0 +1,32 @@
+#pragma once
+
+#include "./gpio_resource_manager.hpp"
+#include "./serial_resource_manager.hpp"
+
+namespace sabre::core
+{
+    /**
+     * @brief Resource manager for Sabre core resources.
+     *
+     * Manages resources such as GPIOs to ensure that multiple components
+     * do not attempt to use the same resource at the same time.
+     */
+    class ResourceManager
+    {
+    private:
+        GpioResourceManager _gpio_manager;
+        SerialResourceManager _serial_manager;
+
+    public:
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~ResourceManager() = default;
+
+        ResourceManager(Factory &factory, int32_t max_gpios,
+                        uint32_t upperboundUart);
+
+        GpioResourceManager &gpio();
+        SerialResourceManager &serial();
+    };
+} // namespace sabre::core

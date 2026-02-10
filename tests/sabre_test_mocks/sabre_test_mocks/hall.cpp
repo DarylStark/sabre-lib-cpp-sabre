@@ -2,6 +2,10 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
+    StGpio::StGpio(int32_t pin) : sabre::hal::Gpio(pin) {}
+
+    void StGpio::reset() {}
+
     bool StInputGpio::_getLevel() const
     {
         return level;
@@ -14,10 +18,12 @@ namespace sabre::impl::sabre_test_mocks
     void StInputGpio::addInterruptHandler(ISRHandler, ISRTrigger) {}
     void StInputGpio::reset() {}
 
-    void TestUART::initialize()
-    {
-        // No-op for test implementation
-    }
+    void StOutputGpio::setLevel(bool level) {}
+    void StOutputGpio::setHigh() {}
+    void StOutputGpio::setLow() {}
+    void StOutputGpio::reset() {}
+
+    void TestUART::initialize() {}
 
     int TestUART::writeByte(char data) const
     {
@@ -38,8 +44,5 @@ namespace sabre::impl::sabre_test_mocks
         _buf.clear();
     }
 
-    void TestUART::deinitialize()
-    {
-        // No-op for test implementation
-    }
+    void TestUART::deinitialize() {}
 } // namespace sabre::impl::sabre_test_mocks

@@ -10,3 +10,4 @@ RemoveBracesLLVM: false
 AlignAfterOpenBracket: Align
 NamespaceIndentation: All
 AccessModifierOffset: -4
+AlwaysBreakTemplateDeclarations: Yes

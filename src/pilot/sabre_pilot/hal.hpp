@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../simulator/device.hpp"
+#include <sabre/hal/gpio.hpp>
 #include <sabre/hal/serial.hpp>
 
 namespace sabre::impl::pilot
@@ -23,7 +24,11 @@ namespace sabre::impl::pilot
 
     class Gpio : public sabre::hal::Gpio
     {
+    private:
+        Device *_device;
+
     public:
+        Gpio(Device *device, uint32_t pin);
         void reset() override;
     };
 

@@ -19,7 +19,7 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::core::Serial::UniquePtr
-    StFactory::createUsbCdc(size_t bufferSize) const
+    StFactory::createUsbCdc(uint32_t index, size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -29,13 +29,18 @@ namespace sabre::impl::sabre_test_mocks
     sabre::core::InputGpio::UniquePtr
     StFactory::createInputGpio(int32_t pin) const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StInputGpio>();
     }
 
     sabre::core::OutputGpio::UniquePtr
     StFactory::createOutputGpio(int32_t pin) const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StOutputGpio>();
+    }
+
+    sabre::hal::Gpio::UniquePtr StFactory::createGpio(int32_t pin) const
+    {
+        return std::make_unique<sabre::impl::sabre_test_mocks::StGpio>(pin);
     }
 
     sabre::core::WifiStation::UniquePtr StFactory::createWifiStation() const
