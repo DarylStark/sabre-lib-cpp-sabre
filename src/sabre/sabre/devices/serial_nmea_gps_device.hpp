@@ -6,7 +6,6 @@
 
 namespace sabre::devices
 {
-    using sabre::hal::Serial;
     class SerialNmeaGpsDevice : public GpsDevice
     {
     private:
@@ -17,15 +16,15 @@ namespace sabre::devices
 
     public:
         SerialNmeaGpsDevice();
-        SerialNmeaGpsDevice(Serial::Ptr uartPtr);
+        SerialNmeaGpsDevice(sabre::hal::Serial::Ptr uartPtr);
 
         /**
          * @brief Virtual destructor.
          */
         virtual ~SerialNmeaGpsDevice() = default;
 
-        void setUartPtr(Serial::Ptr uartPtr);
-        void setOutputUartPtr(Serial::Ptr uartPtr);
+        void setUartPtr(sabre::hal::Serial::Ptr uartPtr);
+        void setOutputUartPtr(sabre::hal::Serial::Ptr uartPtr);
 
         sabre::models::geo::Position getLastPosition() const override;
         bool isValidPosition() const override;

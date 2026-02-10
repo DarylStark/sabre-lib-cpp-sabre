@@ -4,12 +4,10 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    using sabre::os::ServiceHandler;
-
     class StService : public sabre::os::Service
     {
     public:
-        StService(const ServiceHandler &fn);
+        StService(const sabre::os::ServiceHandler &fn);
         void start() override;
         void stop() override;
     };

@@ -5,15 +5,12 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    using sabre::net::MqttQos;
-    using sabre::net::MqttRetain;
-
     struct MQTTMessage
     {
         std::string topic;
         std::string message;
-        MqttQos qos;
-        MqttRetain retain;
+        sabre::net::MqttQos qos;
+        sabre::net::MqttRetain retain;
     };
 
     class StMQTTClient : public sabre::net::MqttClient
@@ -30,7 +27,7 @@ namespace sabre::impl::sabre_test_mocks
         bool isConnected() const;
 
         void publish(const std::string &topic, const std::string &message,
-                     MqttQos qos, MqttRetain retain);
+                     sabre::net::MqttQos qos, sabre::net::MqttRetain retain);
 
         std::vector<MQTTMessage> _published_messages;
     };
