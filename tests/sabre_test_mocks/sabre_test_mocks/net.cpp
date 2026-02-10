@@ -27,7 +27,8 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     void StMQTTClient::publish(const std::string &topic,
-                               const std::string &message, sabre::net::MqttQos qos,
+                               const std::string &message,
+                               sabre::net::MqttQos qos,
                                sabre::net::MqttRetain retain)
     {
         _published_messages.emplace_back(topic, message, qos, retain);

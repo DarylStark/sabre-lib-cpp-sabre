@@ -25,7 +25,8 @@ namespace sabre::impl::sabre_test_mocks
         void enablePulldown() override;
         void disablePullup() override;
         void disablePulldown() override;
-        void addInterruptHandler(sabre::hal::ISRHandler, sabre::hal::ISRTrigger) override;
+        void addInterruptHandler(sabre::hal::ISRHandler,
+                                 sabre::hal::ISRTrigger) override;
         void reset() override;
 
         bool level = true;

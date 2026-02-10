@@ -16,7 +16,7 @@ namespace sabre::impl::sabre_test_mocks
         createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
                          int32_t rxPin, size_t bufferSize) const;
         sabre::hal::Serial::UniquePtr createUsbCdc(uint32_t index,
-                                                    size_t bufferSize) const;
+                                                   size_t bufferSize) const;
         sabre::hal::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
         sabre::hal::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
         sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const;

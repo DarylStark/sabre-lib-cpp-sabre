@@ -59,8 +59,8 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::utility::WaitFor::UniquePtr
-    StFactory::createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                             uint64_t sleepTime) const
+    StFactory::createWaitFor(sabre::utility::WaitForPred fn,
+                             uint64_t timeoutInMs, uint64_t sleepTime) const
     {
         return nullptr;
     }

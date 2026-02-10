@@ -15,7 +15,10 @@ namespace sabre::impl::sabre_test_mocks
     void StInputGpio::enablePulldown() {}
     void StInputGpio::disablePullup() {}
     void StInputGpio::disablePulldown() {}
-    void StInputGpio::addInterruptHandler(sabre::hal::ISRHandler, sabre::hal::ISRTrigger) {}
+    void StInputGpio::addInterruptHandler(sabre::hal::ISRHandler,
+                                          sabre::hal::ISRTrigger)
+    {
+    }
     void StInputGpio::reset() {}
 
     void StOutputGpio::setLevel(bool level) {}

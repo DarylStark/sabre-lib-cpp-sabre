@@ -12,7 +12,8 @@ namespace sabre::impl::sabre_test_mocks
         std::string _message;
 
     public:
-        void handleLog(const sabre::log::LoggingLevel level, const std::string &loggerName,
+        void handleLog(const sabre::log::LoggingLevel level,
+                       const std::string &loggerName,
                        const std::string &message);
         sabre::log::LoggingLevel getLastLevel() const;
         std::string getLastLoggerName() const;
