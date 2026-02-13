@@ -2,8 +2,8 @@
 
 namespace sabre::core
 {
-    SerialResourceManager::SerialResourceManager(Factory &factory,
-                                                 uint32_t upperboundUart)
+    SerialResourceManager::SerialResourceManager(
+        Factory &factory, uint32_t upperboundUart) noexcept
         : _factory(factory), _upperboundUart(upperboundUart)
     {
     }

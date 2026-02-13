@@ -4,17 +4,17 @@
 namespace sabre::core
 {
     GpioResourceManager::GpioResourceManager(Factory &factory,
-                                             int32_t max_gpios)
+                                             int32_t max_gpios) noexcept
         : _factory(factory), _upperboundGpio(max_gpios)
     {
     }
 
-    bool GpioResourceManager::_isValidGpio(int32_t pin) const
+    bool GpioResourceManager::_isValidGpio(int32_t pin) const noexcept
     {
         return pin >= 0 && pin <= _upperboundGpio;
     }
 
-    bool GpioResourceManager::_isFreePin(int32_t pin) const
+    bool GpioResourceManager::_isFreePin(int32_t pin) const noexcept
     {
         return _resources.find(pin) == _resources.end();
     }
