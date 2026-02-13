@@ -11,7 +11,7 @@ namespace sabre::impl::sabre_test_mocks
     sabre::hal::Serial::UniquePtr
     StFactory::createUartObject(uint32_t uartNumber, int32_t baudRate,
                                 int32_t txPin, int32_t rxPin,
-                                size_t bufferSize) const
+                                size_t bufferSize) const noexcept
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -19,7 +19,7 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::hal::Serial::UniquePtr
-    StFactory::createUsbCdc(uint32_t index, size_t bufferSize) const
+    StFactory::createUsbCdc(uint32_t index, size_t bufferSize) const noexcept
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -27,57 +27,63 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::hal::InputGpio::UniquePtr
-    StFactory::createInputGpio(int32_t pin) const
+    StFactory::createInputGpio(int32_t pin) const noexcept
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StInputGpio>();
     }
 
     sabre::hal::OutputGpio::UniquePtr
-    StFactory::createOutputGpio(int32_t pin) const
+    StFactory::createOutputGpio(int32_t pin) const noexcept
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StOutputGpio>();
     }
 
-    sabre::hal::Gpio::UniquePtr StFactory::createGpio(int32_t pin) const
+    sabre::hal::Gpio::UniquePtr
+    StFactory::createGpio(int32_t pin) const noexcept
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StGpio>(pin);
     }
 
-    sabre::net::WifiStation::UniquePtr StFactory::createWifiStation() const
+    sabre::net::WifiStation::UniquePtr
+    StFactory::createWifiStation() const noexcept
     {
         return nullptr;
     }
 
-    sabre::net::WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
+    sabre::net::WifiSoftAp::UniquePtr
+    StFactory::createWifiSoftAp() const noexcept
     {
         return nullptr;
     }
 
-    sabre::net::MqttClient::UniquePtr StFactory::createMqttClient() const
+    sabre::net::MqttClient::UniquePtr
+    StFactory::createMqttClient() const noexcept
     {
         return nullptr;
     }
 
     sabre::utility::WaitFor::UniquePtr
     StFactory::createWaitFor(sabre::utility::WaitForPred fn,
-                             uint64_t timeoutInMs, uint64_t sleepTime) const
+                             uint64_t timeoutInMs,
+                             uint64_t sleepTime) const noexcept
     {
         return nullptr;
     }
 
     sabre::os::Service::UniquePtr
-    StFactory::createService(sabre::os::ServiceHandler fn) const
+    StFactory::createService(sabre::os::ServiceHandler fn) const noexcept
     {
         return nullptr;
     }
 
     sabre::time::NtpClient::UniquePtr
-    StFactory::createNtpClient(const std::string &server) const
+    StFactory::createNtpClient(const std::string &server) const noexcept
     {
         return nullptr;
     }
 
-    sabre::time::WallClock::UniquePtr StFactory::createWallClock() const
+    sabre::time::WallClock::UniquePtr
+    StFactory::createWallClock() const noexcept
     {
         return nullptr;
     }

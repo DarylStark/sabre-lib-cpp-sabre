@@ -13,20 +13,21 @@ namespace sabre::impl::pilot
     sabre::hal::Serial::UniquePtr
     Factory::createUartObject(uint32_t uartNumber, int32_t baudRate,
                               int32_t txPin, int32_t rxPin,
-                              size_t bufferSize) const
+                              size_t bufferSize) const noexcept
     {
         // Implementation specific code to create a UART object
         return std::make_unique<Serial>(_device, uartNumber, bufferSize);
     }
 
-    sabre::hal::Serial::UniquePtr Factory::createUsbCdc(uint32_t index,
-                                                        size_t bufferSize) const
+    sabre::hal::Serial::UniquePtr
+    Factory::createUsbCdc(uint32_t index, size_t bufferSize) const noexcept
     {
         // Implementation specific code to create a USB CDC object
         return nullptr; // Placeholder
     }
 
-    sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const
+    sabre::hal::InputGpio::UniquePtr
+    Factory::createInputGpio(int32_t pin) const noexcept
     {
         std::cout << "Creating InputGPIO on pin " << pin << " for device at "
                   << _device << '\n'
@@ -35,7 +36,7 @@ namespace sabre::impl::pilot
     }
 
     sabre::hal::OutputGpio::UniquePtr
-    Factory::createOutputGpio(int32_t pin) const
+    Factory::createOutputGpio(int32_t pin) const noexcept
     {
         std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
                   << _device << '\n'
@@ -43,7 +44,7 @@ namespace sabre::impl::pilot
         return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
     }
 
-    sabre::hal::Gpio::UniquePtr Factory::createGpio(int32_t pin) const
+    sabre::hal::Gpio::UniquePtr Factory::createGpio(int32_t pin) const noexcept
     {
         std::cout << "Creating generic GPIO on pin " << pin << " for device at "
                   << _device << '\n'
@@ -51,32 +52,33 @@ namespace sabre::impl::pilot
         return std::make_unique<sabre::impl::pilot::Gpio>(_device, pin);
     }
 
-    sabre::net::WifiStation::UniquePtr Factory::createWifiStation() const
+    sabre::net::WifiStation::UniquePtr
+    Factory::createWifiStation() const noexcept
     {
         // Implementation specific code to create a WifiStation object
         return nullptr; // Placeholder
     }
 
-    sabre::net::WifiSoftAp::UniquePtr Factory::createWifiSoftAp() const
+    sabre::net::WifiSoftAp::UniquePtr Factory::createWifiSoftAp() const noexcept
     {
         // Implementation specific code to create a WifiSoftAP object
         return nullptr; // Placeholder
     }
 
-    sabre::time::WallClock::UniquePtr Factory::createWallClock() const
+    sabre::time::WallClock::UniquePtr Factory::createWallClock() const noexcept
     {
         // Implementation specific code to create a WallClock object
         return nullptr; // Placeholder
     }
 
     sabre::time::NtpClient::UniquePtr
-    Factory::createNtpClient(const std::string &server) const
+    Factory::createNtpClient(const std::string &server) const noexcept
     {
         // Implementation specific code to create an NTPClient object
         return nullptr; // Placeholder
     }
 
-    sabre::net::MqttClient::UniquePtr Factory::createMqttClient() const
+    sabre::net::MqttClient::UniquePtr Factory::createMqttClient() const noexcept
     {
         // Implementation specific code to create an MQTTClient object
         return nullptr; // Placeholder
@@ -84,14 +86,14 @@ namespace sabre::impl::pilot
 
     sabre::utility::WaitFor::UniquePtr
     Factory::createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                           uint64_t sleepTime) const
+                           uint64_t sleepTime) const noexcept
     {
         // Implementation specific code to create a WaitFor object
         return nullptr; // Placeholder
     }
 
     sabre::os::Service::UniquePtr
-    Factory::createService(sabre::os::ServiceHandler fn) const
+    Factory::createService(sabre::os::ServiceHandler fn) const noexcept
     {
         // Implementation specific code to create a Service object
         return nullptr; // Placeholder

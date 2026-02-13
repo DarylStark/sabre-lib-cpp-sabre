@@ -35,7 +35,7 @@ namespace sabre::core
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Factory() = default;
+        virtual ~Factory() noexcept = default;
 
         /**
          * @brief Create a `Serial` object for UART communication.
@@ -53,7 +53,7 @@ namespace sabre::core
          */
         virtual sabre::hal::Serial::UniquePtr
         createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
-                         int32_t rxPin, size_t bufferSize) const = 0;
+                         int32_t rxPin, size_t bufferSize) const noexcept = 0;
 
         /**
          * @brief Create a `Serial` object for USB CDC communication.
@@ -68,7 +68,7 @@ namespace sabre::core
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
         virtual sabre::hal::Serial::UniquePtr
-        createUsbCdc(uint32_t index, size_t bufferSize) const = 0;
+        createUsbCdc(uint32_t index, size_t bufferSize) const noexcept = 0;
 
         /**
          * @brief Create a `InputGpio` object.
@@ -79,7 +79,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::InputGpio::UniquePtr
-        createInputGpio(int32_t pin) const = 0;
+        createInputGpio(int32_t pin) const noexcept = 0;
 
         /**
          * @brief Create a `OutputGpio` object.
@@ -90,7 +90,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::OutputGpio::UniquePtr
-        createOutputGpio(int32_t pin) const = 0;
+        createOutputGpio(int32_t pin) const noexcept = 0;
 
         /**
          * @brief Create a `Gpio` object.
@@ -100,7 +100,8 @@ namespace sabre::core
          * @return A `GpioUniquePtr` unique pointer to a `Gpio`
          * object.
          */
-        virtual sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const = 0;
+        virtual sabre::hal::Gpio::UniquePtr
+        createGpio(int32_t pin) const noexcept = 0;
 
         /**
          * @brief Create a `WifiStation` object.
@@ -109,7 +110,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::net::WifiStation::UniquePtr
-        createWifiStation() const = 0;
+        createWifiStation() const noexcept = 0;
 
         /**
          * @brief Create a `WifiSoftAP` object.
@@ -117,7 +118,8 @@ namespace sabre::core
          * @return A `WifiSoftAPUniquePtr` unique pointer to a `WifiSoftAP`
          * object.
          */
-        virtual sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const = 0;
+        virtual sabre::net::WifiSoftAp::UniquePtr
+        createWifiSoftAp() const noexcept = 0;
 
         /**
          * @brief Create a `MQTTClient` object.
@@ -132,7 +134,8 @@ namespace sabre::core
          * @return A `WallClockUniquePtr` unique pointer to a `WallClock`
          * object.
          */
-        virtual sabre::time::WallClock::UniquePtr createWallClock() const = 0;
+        virtual sabre::time::WallClock::UniquePtr
+        createWallClock() const noexcept = 0;
 
         /**
          * @brief Create a `NTPClient` object.
@@ -145,7 +148,8 @@ namespace sabre::core
         virtual sabre::time::NtpClient::UniquePtr
         createNtpClient(const std::string &server) const = 0;
 
-        virtual sabre::net::MqttClient::UniquePtr createMqttClient() const = 0;
+        virtual sabre::net::MqttClient::UniquePtr
+        createMqttClient() const noexcept = 0;
 
         /**
          * @brief Create a `WaitFor` object.
@@ -160,7 +164,7 @@ namespace sabre::core
          */
         virtual sabre::utility::WaitFor::UniquePtr
         createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                      uint64_t sleepTime) const = 0;
+                      uint64_t sleepTime) const noexcept = 0;
 
         /**
          * @brief Create a `Service` object.
@@ -171,6 +175,6 @@ namespace sabre::core
          * object.
          */
         virtual sabre::os::Service::UniquePtr
-        createService(sabre::os::ServiceHandler fn) const = 0;
+        createService(sabre::os::ServiceHandler fn) const noexcept = 0;
     };
 } // namespace sabre::core
