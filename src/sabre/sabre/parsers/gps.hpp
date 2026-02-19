@@ -26,37 +26,37 @@ namespace sabre
              * @param sentence The NMEA sentence.
              * @return The type string.
              */
-            std::string _get_type(const std::string &sentence) const noexcept;
+            std::string _get_type(const std::string &sentence) const;
 
             /**
              * @brief Extracts the talker ID (e.g., GP, GN).
              * @param sentence The NMEA sentence.
              * @return The talker string.
              */
-            std::string _get_talker(const std::string &sentence) const noexcept;
+            std::string _get_talker(const std::string &sentence) const;
 
-            bool _is_valid_checksum(const std::string &sentence) const noexcept;
+            bool _is_valid_checksum(const std::string &sentence) const;
 
             /**
              * @brief Parse RMC sentence.
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_rmc(const std::string &sentence) noexcept;
+            bool _parse_rmc(const std::string &sentence);
 
             /**
              * @brief Parse GLL sentence.
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gll(const std::string &sentence) noexcept;
+            bool _parse_gll(const std::string &sentence);
 
             /**
              * @brief Parse GGA sentence.
              * @param sentence The NMEA sentence.
              * @return True if valid and parsed.
              */
-            bool _parse_gga(const std::string &sentence) noexcept;
+            bool _parse_gga(const std::string &sentence);
 
             /**
              * @brief Split a sentence into fields.
@@ -64,7 +64,7 @@ namespace sabre
              * @return Vector of fields.
              */
             std::vector<std::string>
-            _get_fields(const std::string &sentence) const noexcept;
+            _get_fields(const std::string &sentence) const;
 
             /**
              * @brief Helper to extract coordinates from fields.
@@ -79,7 +79,7 @@ namespace sabre
             bool _extractPositionFromFields(
                 const std::vector<std::string> &fields, size_t latIndex,
                 size_t latDirIndex, size_t lonIndex, size_t lonDirIndex,
-                sabre::models::geo::Position &outPosition) const noexcept;
+                sabre::models::geo::Position &outPosition) const;
 
             void _updateLastPosition(
                 sabre::models::geo::Position &newPosition) noexcept;
@@ -89,12 +89,12 @@ namespace sabre
              * @brief Add a sentence to the buffer.
              * @param sentence The NMEA sentence.
              */
-            void addSentence(const std::string &sentence) noexcept;
+            void addSentence(const std::string &sentence);
 
             /**
              * @brief Parse buffered sentences and update last position.
              */
-            void parse() noexcept;
+            void parse();
 
             /**
              * @brief Get the last parsed position.

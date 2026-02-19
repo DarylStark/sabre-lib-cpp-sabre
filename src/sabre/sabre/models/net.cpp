@@ -22,7 +22,7 @@ namespace sabre::models::net
         return _address;
     }
 
-    IPv4Address::operator std::string() const noexcept
+    IPv4Address::operator std::string() const
     {
         std::string result;
         for (int i = 0; i < 4; ++i)
@@ -34,7 +34,7 @@ namespace sabre::models::net
         return result;
     }
 
-    std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4) noexcept
+    std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4)
     {
         os << static_cast<std::string>(ipv4);
         return os;

@@ -11,7 +11,7 @@ namespace sabre::utility
     }
 
     WaitFor::WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
-                     uint64_t sleepTime) noexcept
+                     uint64_t sleepTime)
         : _timeoutInMs(timeoutInMs), _fn(fn), _sleepTime(sleepTime)
     {
     }

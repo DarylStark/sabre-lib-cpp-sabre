@@ -20,25 +20,25 @@ namespace sabre::core
          *
          * This constructor initializes the exception with a default message.
          */
-        explicit SabreException(const std::string &message) noexcept;
+        explicit SabreException(const std::string &message);
     };
 
     class ResourceManagerException : public SabreException
     {
     public:
-        explicit ResourceManagerException(const std::string &message) noexcept;
+        explicit ResourceManagerException(const std::string &message);
     };
 
     class GpioInUseException : public ResourceManagerException
     {
     public:
-        explicit GpioInUseException(const std::string &message) noexcept;
+        explicit GpioInUseException(const std::string &message);
     };
 
     class GpioUnavailableException : public ResourceManagerException
     {
     public:
-        explicit GpioUnavailableException() noexcept;
+        explicit GpioUnavailableException();
     };
 
     /**
@@ -60,7 +60,7 @@ namespace sabre::core
          *
          * @param msg The error message to be associated with the exception.
          */
-        explicit ApiError(const std::string &msg) noexcept;
+        explicit ApiError(const std::string &msg);
 
     public:
         /**
@@ -69,6 +69,6 @@ namespace sabre::core
          * This constructor initializes the exception with a default message
          * indicating an unknown API error.
          */
-        explicit ApiError() noexcept;
+        explicit ApiError();
     };
 } // namespace sabre::core

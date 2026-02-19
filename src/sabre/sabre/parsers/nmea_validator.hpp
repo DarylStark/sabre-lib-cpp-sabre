@@ -19,13 +19,13 @@ namespace sabre::parsers
         NmeaValidationState _state;
 
     public:
-        NmeaValidator() noexcept;
+        NmeaValidator();
         ~NmeaValidator() noexcept;
 
-        void addCharacter(char character) noexcept;
+        void addCharacter(char character);
 
         void reset() noexcept;
-        std::string getBuffer() const noexcept;
+        std::string getBuffer() const;
 
         bool isError() const noexcept;
         bool isAccepted() const noexcept;

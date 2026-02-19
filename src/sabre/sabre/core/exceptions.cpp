@@ -2,28 +2,27 @@
 
 namespace sabre::core
 {
-    SabreException::SabreException(const std::string &message) noexcept
+    SabreException::SabreException(const std::string &message)
         : std::runtime_error(message)
     {
     }
 
-    ResourceManagerException::ResourceManagerException(
-        const std::string &msg) noexcept
+    ResourceManagerException::ResourceManagerException(const std::string &msg)
         : SabreException(msg)
     {
     }
 
-    GpioInUseException::GpioInUseException(const std::string &msg) noexcept
+    GpioInUseException::GpioInUseException(const std::string &msg)
         : ResourceManagerException(msg)
     {
     }
 
-    GpioUnavailableException::GpioUnavailableException() noexcept
+    GpioUnavailableException::GpioUnavailableException()
         : ResourceManagerException("GPIO unavailable")
     {
     }
 
-    ApiError::ApiError(const std::string &msg) noexcept : SabreException(msg) {}
+    ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
 
-    ApiError::ApiError() noexcept : SabreException("Unknown API error") {}
+    ApiError::ApiError() : SabreException("Unknown API error") {}
 } // namespace sabre::core
