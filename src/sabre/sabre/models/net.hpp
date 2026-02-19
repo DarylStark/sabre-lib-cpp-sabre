@@ -64,9 +64,8 @@ namespace sabre::models::net
          *
          * @return The IPv4 address as a string (e.g., "192.168.1.1").
          */
-        operator std::string() const noexcept;
+        operator std::string() const;
     };
 
-    std::ostream &operator<<(std::ostream &os,
-                             const IPv4Address &ipv4) noexcept;
+    std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4);
 }; // namespace sabre::models::net

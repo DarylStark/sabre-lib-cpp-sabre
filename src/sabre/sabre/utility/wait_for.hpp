@@ -61,7 +61,7 @@ namespace sabre::utility
          * @param sleepTime The time to sleep between checks in milliseconds.
          */
         WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
-                uint64_t sleepTime) noexcept;
+                uint64_t sleepTime);
 
         /**
          * @brief Virtual destructor.

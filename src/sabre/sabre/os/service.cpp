@@ -2,5 +2,5 @@
 
 namespace sabre::os
 {
-    Service::Service(const ServiceHandler &fn) noexcept : _fn(fn) {}
+    Service::Service(const ServiceHandler &fn) : _fn(fn) {}
 } // namespace sabre::os

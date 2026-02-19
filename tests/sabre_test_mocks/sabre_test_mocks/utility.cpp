@@ -15,7 +15,7 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     StWaitFor::StWaitFor(const sabre::utility::WaitForPred &fn,
-                         uint64_t timeoutInMs, uint64_t sleepTime) noexcept
+                         uint64_t timeoutInMs, uint64_t sleepTime)
         : sabre::utility::WaitFor(fn, timeoutInMs, sleepTime)
     {
     }

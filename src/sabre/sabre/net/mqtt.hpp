@@ -81,7 +81,7 @@ namespace sabre::net
          * @param client the MQTT client to use.
          * @param topic the MQTT topic for this object.
          */
-        MqttTopic(MqttClient &client, const std::string &topic) noexcept;
+        MqttTopic(MqttClient &client, const std::string &topic);
 
         /**
          * @brief Virtual destructor.
@@ -215,7 +215,7 @@ namespace sabre::net
          *
          * @param handler the callback for the subscription.
          */
-        virtual void setDefaultHandler(const MqttCallback &handler) noexcept;
+        virtual void setDefaultHandler(const MqttCallback &handler);
 
         /**
          * @brief Method to process a received message.
@@ -232,6 +232,6 @@ namespace sabre::net
          * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
-        MqttTopic::UniquePtr getTopic(const std::string &topicName) noexcept;
+        MqttTopic::UniquePtr getTopic(const std::string &topicName);
     };
 }; // namespace sabre::net

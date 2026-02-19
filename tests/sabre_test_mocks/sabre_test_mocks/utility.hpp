@@ -12,6 +12,6 @@ namespace sabre::impl::sabre_test_mocks
 
     public:
         StWaitFor(const sabre::utility::WaitForPred &fn, uint64_t timeoutInMs,
-                  uint64_t sleepTime) noexcept;
+                  uint64_t sleepTime);
     };
 } // namespace sabre::impl::sabre_test_mocks

@@ -7,20 +7,17 @@
 namespace sabre::parsers
 {
 
-    std::string
-    NmeaParser::_get_type(const std::string &scentence) const noexcept
+    std::string NmeaParser::_get_type(const std::string &scentence) const
     {
         return std::string(scentence.substr(3, 3));
     }
 
-    std::string
-    NmeaParser::_get_talker(const std::string &scentence) const noexcept
+    std::string NmeaParser::_get_talker(const std::string &scentence) const
     {
         return std::string(scentence.substr(1, 2));
     }
 
-    bool
-    NmeaParser::_is_valid_checksum(const std::string &scentence) const noexcept
+    bool NmeaParser::_is_valid_checksum(const std::string &scentence) const
     {
         uint32_t total_xor = 0;
 
@@ -42,7 +39,7 @@ namespace sabre::parsers
     }
 
     std::vector<std::string>
-    NmeaParser::_get_fields(const std::string &scentence) const noexcept
+    NmeaParser::_get_fields(const std::string &scentence) const
     {
         std::vector<std::string> fields;
         size_t start = 0;
@@ -63,7 +60,7 @@ namespace sabre::parsers
     bool NmeaParser::_extractPositionFromFields(
         const std::vector<std::string> &fields, size_t lat_idx,
         size_t lat_dir_idx, size_t lon_idx, size_t lon_dir_idx,
-        models::geo::Position &out_position) const noexcept
+        models::geo::Position &out_position) const
     {
         static const std::map<char, models::geo::CoordinatesDirection> dir_map =
             {{'N', models::geo::CoordinatesDirection::NORTH},
@@ -104,7 +101,7 @@ namespace sabre::parsers
         _last_position.setVersion(version + 1);
     }
 
-    bool NmeaParser::_parse_rmc(const std::string &scentence) noexcept
+    bool NmeaParser::_parse_rmc(const std::string &scentence)
     {
         auto fields = _get_fields(scentence);
         if (fields.size() < 13 || fields[2] != "A")
@@ -116,7 +113,7 @@ namespace sabre::parsers
         return true;
     }
 
-    bool NmeaParser::_parse_gll(const std::string &scentence) noexcept
+    bool NmeaParser::_parse_gll(const std::string &scentence)
     {
         auto fields = _get_fields(scentence);
         if (fields.size() < 8 || fields[6] != "A")
@@ -128,7 +125,7 @@ namespace sabre::parsers
         return true;
     }
 
-    bool NmeaParser::_parse_gga(const std::string &scentence) noexcept
+    bool NmeaParser::_parse_gga(const std::string &scentence)
     {
         auto fields = _get_fields(scentence);
         if (fields.size() < 15 || fields[6] == "0")
@@ -140,7 +137,7 @@ namespace sabre::parsers
         return true;
     }
 
-    void NmeaParser::addSentence(const std::string &scentence) noexcept
+    void NmeaParser::addSentence(const std::string &scentence)
     {
         std::string type = _get_type(scentence);
         std::string talker = _get_talker(scentence);
@@ -158,7 +155,7 @@ namespace sabre::parsers
             parse();
     }
 
-    void NmeaParser::parse() noexcept
+    void NmeaParser::parse()
     {
         using ParseFunc = bool (NmeaParser::*)(const std::string &);
         // Priority list: pair of sentence type and member function pointer

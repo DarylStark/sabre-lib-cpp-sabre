@@ -2,7 +2,7 @@
 
 namespace sabre::parsers
 {
-    NmeaValidator::NmeaValidator() noexcept
+    NmeaValidator::NmeaValidator()
         : _state(NmeaValidationState::WAITING_FOR_START)
     {
         _NmeaSentence.reserve(82);
@@ -10,7 +10,7 @@ namespace sabre::parsers
 
     NmeaValidator::~NmeaValidator() noexcept {}
 
-    void NmeaValidator::addCharacter(char character) noexcept
+    void NmeaValidator::addCharacter(char character)
     {
         if (_state == NmeaValidationState::WAITING_FOR_START)
         {
@@ -37,7 +37,7 @@ namespace sabre::parsers
         _NmeaSentence.clear();
     }
 
-    std::string NmeaValidator::getBuffer() const noexcept
+    std::string NmeaValidator::getBuffer() const
     {
         return _NmeaSentence;
     }
