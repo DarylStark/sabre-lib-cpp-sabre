@@ -23,7 +23,7 @@ namespace sabre::hal
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Serial() = default;
+        virtual ~Serial() noexcept = default;
 
         /**
          * @brief Initialize the Serial device.
