@@ -41,7 +41,7 @@ namespace sabre::os
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Service() = default;
+        virtual ~Service() noexcept = default;
 
         /**
          * @brief Start the service.

@@ -60,7 +60,7 @@ namespace sabre::core
          *
          * @param msg The error message to be associated with the exception.
          */
-        ApiError(const std::string &msg);
+        explicit ApiError(const std::string &msg);
 
     public:
         /**
@@ -69,6 +69,6 @@ namespace sabre::core
          * This constructor initializes the exception with a default message
          * indicating an unknown API error.
          */
-        ApiError();
+        explicit ApiError();
     };
 } // namespace sabre::core

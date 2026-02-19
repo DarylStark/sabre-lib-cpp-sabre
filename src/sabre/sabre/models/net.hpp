@@ -27,7 +27,7 @@ namespace sabre::models::net
         /**
          * @brief Default constructor; initializes the address to 0.
          */
-        IPv4Address();
+        IPv4Address() noexcept;
 
         /**
          * @brief Constructor that initializes the address with a specific
@@ -35,14 +35,14 @@ namespace sabre::models::net
          *
          * @param address The IPv4 address as a uint32_t.
          */
-        IPv4Address(uint32_t address);
+        IPv4Address(uint32_t address) noexcept;
 
         /**
          * @brief Sets the IPv4 address to a specific value.
          *
          * @param address The IPv4 address as a uint32_t.
          */
-        void set(uint32_t address);
+        void set(uint32_t address) noexcept;
 
         /**
          * @brief Gets the octet at the specified index.
@@ -50,14 +50,14 @@ namespace sabre::models::net
          * @param octet The index of the octet (0-3).
          * @return The value of the octet as a uint16_t.
          */
-        uint16_t operator[](uint8_t octet) const;
+        uint16_t operator[](uint8_t octet) const noexcept;
 
         /**
          * @brief Converts the IPv4 address to a uint32_t.
          *
          * @return The IPv4 address as a uint32_t.
          */
-        operator uint32_t() const;
+        operator uint32_t() const noexcept;
 
         /**
          * @brief Converts the IPv4 address to a string.

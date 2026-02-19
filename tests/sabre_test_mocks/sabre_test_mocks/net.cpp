@@ -21,7 +21,7 @@ namespace sabre::impl::sabre_test_mocks
         _is_started = false;
     }
 
-    bool StMQTTClient::isConnected() const
+    bool StMQTTClient::isConnected() const noexcept
     {
         return _is_connected;
     }

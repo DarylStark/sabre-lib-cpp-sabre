@@ -20,15 +20,15 @@ namespace sabre::parsers
 
     public:
         NmeaValidator();
-        ~NmeaValidator();
+        ~NmeaValidator() noexcept;
 
         void addCharacter(char character);
 
-        void reset();
+        void reset() noexcept;
         std::string getBuffer() const;
 
-        bool isError() const;
-        bool isAccepted() const;
-        bool isStarted() const;
+        bool isError() const noexcept;
+        bool isAccepted() const noexcept;
+        bool isStarted() const noexcept;
     };
 } // namespace sabre::parsers

@@ -7,12 +7,12 @@ namespace sabre::hal
         return _getLevel() == !_inverseLevel;
     }
 
-    void InputGpio::setInverseLevel(bool level)
+    void InputGpio::setInverseLevel(bool level) noexcept
     {
         _inverseLevel = level;
     }
 
-    bool InputGpio::getInverseLevel() const
+    bool InputGpio::getInverseLevel() const noexcept
     {
         return _inverseLevel;
     }

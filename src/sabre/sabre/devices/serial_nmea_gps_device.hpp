@@ -26,8 +26,8 @@ namespace sabre::devices
         void setUartPtr(sabre::hal::Serial::Ptr uartPtr);
         void setOutputUartPtr(sabre::hal::Serial::Ptr uartPtr);
 
-        sabre::models::geo::Position getLastPosition() const override;
-        bool isValidPosition() const override;
+        sabre::models::geo::Position getLastPosition() const noexcept override;
+        bool isValidPosition() const noexcept override;
         bool readData() override;
     };
 } // namespace sabre::devices

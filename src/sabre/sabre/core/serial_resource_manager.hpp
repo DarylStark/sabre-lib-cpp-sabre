@@ -22,7 +22,8 @@ namespace sabre::core
         using SharedPtr = std::shared_ptr<SerialResourceManager>;
         using UniquePtr = std::unique_ptr<SerialResourceManager>;
 
-        SerialResourceManager(Factory &factory, uint32_t upperboundUart);
+        SerialResourceManager(Factory &factory,
+                              uint32_t upperboundUart) noexcept;
         void configureUart(uint32_t uartNumber, int32_t baudRate,
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);

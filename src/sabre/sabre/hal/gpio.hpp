@@ -21,14 +21,14 @@ namespace sabre::hal
         using UniquePtr = std::unique_ptr<Gpio>;
 
     public:
-        Gpio() = default;
-        Gpio(int32_t pinNumber);
-        int32_t getPinNumber() const;
+        Gpio() noexcept = default;
+        Gpio(int32_t pinNumber) noexcept;
+        int32_t getPinNumber() const noexcept;
 
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Gpio() = default;
+        virtual ~Gpio() noexcept = default;
 
         /**
          * @brief Default constructor for GPIO.

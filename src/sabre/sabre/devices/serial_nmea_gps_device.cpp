@@ -22,12 +22,13 @@ namespace sabre::devices
         _outputUartPtr = uartPtr;
     }
 
-    sabre::models::geo::Position SerialNmeaGpsDevice::getLastPosition() const
+    sabre::models::geo::Position
+    SerialNmeaGpsDevice::getLastPosition() const noexcept
     {
         return _nmeaParser.getLastPosition();
     }
 
-    bool SerialNmeaGpsDevice::isValidPosition() const
+    bool SerialNmeaGpsDevice::isValidPosition() const noexcept
     {
         return _nmeaParser.getLastPosition().isValid();
     }

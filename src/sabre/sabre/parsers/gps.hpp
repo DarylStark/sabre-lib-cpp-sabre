@@ -81,7 +81,8 @@ namespace sabre
                 size_t latDirIndex, size_t lonIndex, size_t lonDirIndex,
                 sabre::models::geo::Position &outPosition) const;
 
-            void _updateLastPosition(sabre::models::geo::Position &newPosition);
+            void _updateLastPosition(
+                sabre::models::geo::Position &newPosition) noexcept;
 
         public:
             /**
@@ -99,13 +100,13 @@ namespace sabre
              * @brief Get the last parsed position.
              * @return Last position.
              */
-            sabre::models::geo::Position getLastPosition() const;
+            sabre::models::geo::Position getLastPosition() const noexcept;
 
             /**
              * @brief Get the number of buffered sentences.
              * @return Sentence count.
              */
-            size_t getSentenceCount() const;
+            size_t getSentenceCount() const noexcept;
         };
     } // namespace parsers
 } // namespace sabre

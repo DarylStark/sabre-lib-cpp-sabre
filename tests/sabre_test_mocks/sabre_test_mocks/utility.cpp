@@ -7,7 +7,7 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    uint64_t StWaitFor::_getCurrentTime() const
+    uint64_t StWaitFor::_getCurrentTime() const noexcept
     {
         return std::chrono::duration_cast<std::chrono::microseconds>(
                    std::chrono::steady_clock::now().time_since_epoch())
@@ -20,7 +20,7 @@ namespace sabre::impl::sabre_test_mocks
     {
     }
 
-    void StWaitFor::_sleep() const
+    void StWaitFor::_sleep() const noexcept
     {
         std::this_thread::sleep_for(std::chrono::microseconds(_sleepTime));
     }

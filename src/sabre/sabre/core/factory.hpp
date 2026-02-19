@@ -35,7 +35,7 @@ namespace sabre::core
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Factory() = default;
+        virtual ~Factory() noexcept = default;
 
         /**
          * @brief Create a `Serial` object for UART communication.

@@ -86,7 +86,7 @@ namespace sabre::net
         /**
          * @brief Virtual destructor.
          */
-        virtual ~MqttTopic() = default;
+        virtual ~MqttTopic() noexcept = default;
 
         /**
          * @brief Publish a message to the topic.
@@ -117,7 +117,7 @@ namespace sabre::net
          * @param qos the default QoS for the outgoing messages. If set the
          * `UNDEFINED`, it will be set to `FIRE_AND_FORGET`.
          */
-        void setDefaultQos(MqttQos qos);
+        void setDefaultQos(MqttQos qos) noexcept;
 
         /**
          * @brief Set the default retain value for outgoing messages.
@@ -125,7 +125,7 @@ namespace sabre::net
          * @param retain the default retain value for the outgoing messages. If
          * set the `UNDEFINED`, it will be set to `DONT_RETAIN`.
          */
-        void setDefaultRetain(MqttRetain retain);
+        void setDefaultRetain(MqttRetain retain) noexcept;
     };
 
     /**
@@ -149,7 +149,7 @@ namespace sabre::net
         /**
          * @brief Virtual destructor.
          */
-        virtual ~MqttClient() = default;
+        virtual ~MqttClient() noexcept = default;
 
         /**
          * @brief Connect to a specific MQTT broker.
@@ -179,7 +179,7 @@ namespace sabre::net
          *
          * @return `true` if it is connected, otherwise `false`.
          */
-        virtual bool isConnected() const = 0;
+        virtual bool isConnected() const noexcept = 0;
 
         /**
          * @brief Publish a message to a topic.

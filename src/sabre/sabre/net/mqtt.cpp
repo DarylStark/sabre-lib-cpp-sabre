@@ -23,14 +23,14 @@ namespace sabre::net
         _client.subscribe(_topic, fn, qos);
     }
 
-    void MqttTopic::setDefaultQos(MqttQos qos)
+    void MqttTopic::setDefaultQos(MqttQos qos) noexcept
     {
         if (qos == MqttQos::UNDEFINED)
             return;
         _defaultQos = qos;
     }
 
-    void MqttTopic::setDefaultRetain(MqttRetain retain)
+    void MqttTopic::setDefaultRetain(MqttRetain retain) noexcept
     {
         if (retain == MqttRetain::UNDEFINED)
             return;

@@ -15,22 +15,24 @@ namespace sabre::impl::pilot
         Factory(Device *device);
         sabre::hal::Serial::UniquePtr
         createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
-                         int32_t rxPin, size_t bufferSize) const;
-        sabre::hal::Serial::UniquePtr createUsbCdc(uint32_t index,
-                                                   size_t bufferSize) const;
-        sabre::hal::InputGpio::UniquePtr createInputGpio(int32_t pin) const;
-        sabre::hal::OutputGpio::UniquePtr createOutputGpio(int32_t pin) const;
-        sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const;
-        sabre::net::WifiStation::UniquePtr createWifiStation() const;
-        sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const;
-        sabre::time::WallClock::UniquePtr createWallClock() const;
+                         int32_t rxPin, size_t bufferSize) const override;
+        sabre::hal::Serial::UniquePtr
+        createUsbCdc(uint32_t index, size_t bufferSize) const override;
+        sabre::hal::InputGpio::UniquePtr
+        createInputGpio(int32_t pin) const override;
+        sabre::hal::OutputGpio::UniquePtr
+        createOutputGpio(int32_t pin) const override;
+        sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const override;
+        sabre::net::WifiStation::UniquePtr createWifiStation() const override;
+        sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const override;
+        sabre::time::WallClock::UniquePtr createWallClock() const override;
         sabre::time::NtpClient::UniquePtr
-        createNtpClient(const std::string &server) const;
-        sabre::net::MqttClient::UniquePtr createMqttClient() const;
+        createNtpClient(const std::string &server) const override;
+        sabre::net::MqttClient::UniquePtr createMqttClient() const override;
         sabre::utility::WaitFor::UniquePtr
         createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                      uint64_t sleepTime) const;
+                      uint64_t sleepTime) const override;
         sabre::os::Service::UniquePtr
-        createService(sabre::os::ServiceHandler fn) const;
+        createService(sabre::os::ServiceHandler fn) const override;
     };
 } // namespace sabre::impl::pilot

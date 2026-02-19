@@ -28,7 +28,7 @@ namespace sabre::time
          *
          * @return The current time since 1970-01-01 00:00:00 in milliseconds.
          */
-        virtual uint64_t nowMs() const = 0;
+        virtual uint64_t nowMs() const noexcept = 0;
 
         /**
          * @brief Set the current time in ms since 1970-01-01

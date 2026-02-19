@@ -16,8 +16,8 @@ namespace sabre::runtime
         sabre::core::Factory::UniquePtr _factory;
 
     public:
-        App();
-        App(sabre::core::Factory::UniquePtr factory);
+        App() noexcept;
+        App(sabre::core::Factory::UniquePtr factory) noexcept;
         App(const App &) = delete;
         App &operator=(const App &) = delete;
         App(App &&) = default;
@@ -25,10 +25,10 @@ namespace sabre::runtime
         /**
          * @brief Virtual destructor.
          */
-        virtual ~App() = default;
+        virtual ~App() noexcept = default;
 
-        void setFactory(sabre::core::Factory::UniquePtr factory);
-        const sabre::core::Factory::UniquePtr &getFactory() const;
+        void setFactory(sabre::core::Factory::UniquePtr factory) noexcept;
+        const sabre::core::Factory::UniquePtr &getFactory() const noexcept;
 
         virtual void start() = 0;
     };

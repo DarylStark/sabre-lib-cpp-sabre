@@ -26,15 +26,15 @@ namespace sabre::core
         template <typename T, typename FactoryFunc>
         T &_getOrCreateGpio(int32_t pin, FactoryFunc factoryFunc);
 
-        bool _isFreePin(int32_t pin) const;
-        bool _isValidGpio(int32_t pin) const;
+        bool _isFreePin(int32_t pin) const noexcept;
+        bool _isValidGpio(int32_t pin) const noexcept;
 
     public:
         using Ptr = GpioResourceManager *;
         using SharedPtr = std::shared_ptr<GpioResourceManager>;
         using UniquePtr = std::unique_ptr<GpioResourceManager>;
 
-        GpioResourceManager(Factory &factory, int32_t upperboundGpio);
+        GpioResourceManager(Factory &factory, int32_t upperboundGpio) noexcept;
         sabre::hal::InputGpio &getInputGpio(int32_t pin);
         sabre::hal::OutputGpio &getOutputGpio(int32_t pin);
         sabre::hal::Gpio &getGpio(int32_t pin);

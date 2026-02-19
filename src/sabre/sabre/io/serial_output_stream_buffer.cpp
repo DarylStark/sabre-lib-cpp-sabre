@@ -13,7 +13,7 @@ namespace sabre::io
         _resetPutBuffer();
     }
 
-    SerialStreamBuf::~SerialStreamBuf()
+    SerialStreamBuf::~SerialStreamBuf() noexcept
     {
         delete[] _buffer;
     }

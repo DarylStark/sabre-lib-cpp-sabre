@@ -90,8 +90,8 @@ namespace sabre::parsers
         return true;
     }
 
-    void
-    NmeaParser::_updateLastPosition(sabre::models::geo::Position &new_position)
+    void NmeaParser::_updateLastPosition(
+        sabre::models::geo::Position &new_position) noexcept
     {
         if (new_position == _last_position)
             return;
@@ -194,12 +194,12 @@ namespace sabre::parsers
         _sentences.clear();
     }
 
-    sabre::models::geo::Position NmeaParser::getLastPosition() const
+    sabre::models::geo::Position NmeaParser::getLastPosition() const noexcept
     {
         return _last_position;
     }
 
-    size_t NmeaParser::getSentenceCount() const
+    size_t NmeaParser::getSentenceCount() const noexcept
     {
         return _sentences.size();
     }

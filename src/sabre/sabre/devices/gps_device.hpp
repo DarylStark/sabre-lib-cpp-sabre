@@ -10,10 +10,11 @@ namespace sabre::devices
         /**
          * @brief Virtual destructor.
          */
-        virtual ~GpsDevice() = default;
+        virtual ~GpsDevice() noexcept = default;
 
-        virtual sabre::models::geo::Position getLastPosition() const = 0;
-        virtual bool isValidPosition() const = 0;
+        virtual sabre::models::geo::Position
+        getLastPosition() const noexcept = 0;
+        virtual bool isValidPosition() const noexcept = 0;
         virtual bool readData() = 0;
     };
 } // namespace sabre::devices

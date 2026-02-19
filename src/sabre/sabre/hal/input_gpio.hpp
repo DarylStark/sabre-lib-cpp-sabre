@@ -81,7 +81,7 @@ namespace sabre::hal
          * @param level A boolean value indicating whether to invert the level.
          *              Default is false, meaning no inversion.
          */
-        virtual void setInverseLevel(bool level = false);
+        virtual void setInverseLevel(bool level = false) noexcept;
 
         /**
          * @brief Gets the current level inversion setting.
@@ -92,7 +92,7 @@ namespace sabre::hal
          *
          * @return A boolean indicating whether the level is inverted.
          */
-        virtual bool getInverseLevel() const;
+        virtual bool getInverseLevel() const noexcept;
 
         /**
          * @brief Enable pull up resistor for the GPIO pin.

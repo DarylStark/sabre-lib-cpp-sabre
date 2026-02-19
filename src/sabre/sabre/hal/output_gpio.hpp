@@ -20,7 +20,7 @@ namespace sabre::hal
         /**
          * @brief Virtual destructor.
          */
-        virtual ~OutputGpio() = default;
+        virtual ~OutputGpio() noexcept = default;
 
         /**
          * @brief Set the GPIO pin to high level.
