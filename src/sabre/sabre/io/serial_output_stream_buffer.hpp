@@ -73,6 +73,6 @@ namespace sabre::io
          * This destructor flushes the buffer and releases any allocated
          * resources.
          */
-        ~SerialStreamBuf();
+        ~SerialStreamBuf() noexcept;
     };
 } // namespace sabre::io
