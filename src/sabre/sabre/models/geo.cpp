@@ -6,12 +6,13 @@
 
 namespace sabre::models::geo
 {
-    Coordinate::Coordinate() : _coordinate(0), _type(CoordinateType::LATITUDE)
+    Coordinate::Coordinate() noexcept
+        : _coordinate(0), _type(CoordinateType::LATITUDE)
     {
     }
 
     Coordinate::Coordinate(uint16_t degrees, uint16_t minutes, double seconds,
-                           CoordinatesDirection direction)
+                           CoordinatesDirection direction) noexcept
     {
         _coordinate = degrees + (static_cast<double>(minutes) / 60.0) +
                       (seconds / 3600.0);
@@ -26,7 +27,7 @@ namespace sabre::models::geo
     }
 
     Coordinate::Coordinate(uint16_t degrees, float minutes,
-                           CoordinatesDirection direction)
+                           CoordinatesDirection direction) noexcept
     {
         _coordinate = degrees + (static_cast<double>(minutes) / 60.0);
         if (direction == CoordinatesDirection::SOUTH ||
@@ -39,27 +40,27 @@ namespace sabre::models::geo
             _type = CoordinateType::LATITUDE;
     }
 
-    Coordinate::Coordinate(double coordinate, CoordinateType type)
+    Coordinate::Coordinate(double coordinate, CoordinateType type) noexcept
         : _coordinate(coordinate), _type(type)
     {
     }
 
-    bool Coordinate::operator==(const Coordinate &other) const
+    bool Coordinate::operator==(const Coordinate &other) const noexcept
     {
         return other._coordinate == _coordinate && other._type == _type;
     }
 
-    double Coordinate::getDD() const
+    double Coordinate::getDD() const noexcept
     {
         return _coordinate;
     }
 
-    CoordinateType Coordinate::getType() const
+    CoordinateType Coordinate::getType() const noexcept
     {
         return _type;
     }
 
-    CoordinatesDirection Coordinate::getDirection() const
+    CoordinatesDirection Coordinate::getDirection() const noexcept
     {
 
         if (_type == CoordinateType::LONGITUDE)
@@ -69,19 +70,19 @@ namespace sabre::models::geo
                                 : CoordinatesDirection::SOUTH;
     }
 
-    uint16_t Coordinate::getDegrees() const
+    uint16_t Coordinate::getDegrees() const noexcept
     {
         return static_cast<uint16_t>(std::floor(std::abs(_coordinate)));
     }
 
-    uint16_t Coordinate::getMinutes() const
+    uint16_t Coordinate::getMinutes() const noexcept
     {
         double abs_coord = std::abs(_coordinate);
         double fractional = abs_coord - std::floor(abs_coord);
         return static_cast<uint16_t>(std::floor(fractional * 60.0));
     }
 
-    double Coordinate::getSeconds() const
+    double Coordinate::getSeconds() const noexcept
     {
         double abs_coord = std::abs(_coordinate);
         double fractional = abs_coord - std::floor(abs_coord);
@@ -91,58 +92,61 @@ namespace sabre::models::geo
         return std::round(min_fractional * 60.0 * 1000.0) / 1000.0;
     }
 
-    Position::Position() : _latitude(), _longitude(), _version(0) {}
+    Position::Position() noexcept : _latitude(), _longitude(), _version(0) {}
 
-    Position::Position(Coordinate latitude, Coordinate longitude)
+    Position::Position(Coordinate latitude, Coordinate longitude) noexcept
         : _latitude(latitude), _longitude(longitude), _version(0)
     {
     }
 
-    bool Position::operator==(const Position &other) const
+    bool Position::operator==(const Position &other) const noexcept
     {
         return other._latitude == _latitude && other._longitude == _longitude;
     }
 
-    Coordinate Position::getLatitude() const
+    Coordinate Position::getLatitude() const noexcept
     {
         return _latitude;
     }
 
-    Coordinate Position::getLongitude() const
+    Coordinate Position::getLongitude() const noexcept
     {
         return _longitude;
     }
 
-    Distance::Distance() : _distanceInMm(0) {}
+    Distance::Distance() noexcept : _distanceInMm(0) {}
 
-    Distance::Distance(uint64_t distanceInMM) : _distanceInMm(distanceInMM) {}
+    Distance::Distance(uint64_t distanceInMM) noexcept
+        : _distanceInMm(distanceInMM)
+    {
+    }
 
-    uint64_t Distance::millimeters() const
+    uint64_t Distance::millimeters() const noexcept
     {
         return _distanceInMm;
     }
 
-    float Distance::centimeters() const
+    float Distance::centimeters() const noexcept
     {
         return static_cast<float>(_distanceInMm) / 10.0f;
     }
 
-    float Distance::meters() const
+    float Distance::meters() const noexcept
     {
         return static_cast<float>(_distanceInMm) / 1000.0f;
     }
 
-    float Distance::kilometers() const
+    float Distance::kilometers() const noexcept
     {
         return static_cast<float>(_distanceInMm) / 1'000'000.0f;
     }
 
-    Distance::operator uint64_t() const
+    Distance::operator uint64_t() const noexcept
     {
         return _distanceInMm;
     }
 
-    Distance Position::getDistance(const Position &other) const
+    Distance Position::getDistance(const Position &other) const noexcept
     {
         const double R = 6371000; // Radius of the Earth in meters
         double lat1_rad = _latitude.getDD() * M_PI / 180.0;
@@ -160,17 +164,17 @@ namespace sabre::models::geo
         return Distance(static_cast<uint64_t>(R * c * 100.0 * 10.0));
     }
 
-    bool Position::isValid() const
+    bool Position::isValid() const noexcept
     {
         return _latitude.getDD() != 0.0 || _longitude.getDD() != 0.0;
     }
 
-    uint32_t Position::getVersion() const
+    uint32_t Position::getVersion() const noexcept
     {
         return _version;
     }
 
-    void Position::setVersion(uint32_t version)
+    void Position::setVersion(uint32_t version) noexcept
     {
         _version = version;
     }
