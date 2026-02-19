@@ -14,7 +14,7 @@ namespace sabre::time
         /**
          * @brief Virtual destructor.
          */
-        virtual ~NtpClient() = default;
+        virtual ~NtpClient() noexcept = default;
 
         /**
          * @brief Starts the NTP client.
@@ -36,6 +36,6 @@ namespace sabre::time
          *
          * @returns true if the NTP client is synchronized, false otherwise.
          */
-        virtual bool isSynchronized() const = 0;
+        virtual bool isSynchronized() const noexcept = 0;
     };
 } // namespace sabre::time
