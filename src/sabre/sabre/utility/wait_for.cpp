@@ -3,7 +3,7 @@
 namespace sabre::utility
 {
 
-    bool WaitFor::_done(bool result, uint64_t totalRuntime)
+    bool WaitFor::_done(bool result, uint64_t totalRuntime) noexcept
     {
         _runtime = totalRuntime;
         _result = result;
@@ -11,7 +11,7 @@ namespace sabre::utility
     }
 
     WaitFor::WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
-                     uint64_t sleepTime)
+                     uint64_t sleepTime) noexcept
         : _timeoutInMs(timeoutInMs), _fn(fn), _sleepTime(sleepTime)
     {
     }
@@ -29,12 +29,12 @@ namespace sabre::utility
         return _done(false, _getCurrentTime() - starttime);
     }
 
-    bool WaitFor::getResult() const
+    bool WaitFor::getResult() const noexcept
     {
         return _result;
     }
 
-    uint64_t WaitFor::getResultRuntime() const
+    uint64_t WaitFor::getResultRuntime() const noexcept
     {
         return _runtime;
     }

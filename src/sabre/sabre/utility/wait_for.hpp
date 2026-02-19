@@ -24,7 +24,7 @@ namespace sabre::utility
         using UniquePtr = std::unique_ptr<WaitFor>;
 
     private:
-        bool _done(bool result, uint64_t totalRuntime);
+        bool _done(bool result, uint64_t totalRuntime) noexcept;
 
     protected:
         uint64_t _timeoutInMs;
@@ -41,7 +41,7 @@ namespace sabre::utility
          * the current time in milliseconds since the epoch or a similar
          * reference point.
          */
-        virtual uint64_t _getCurrentTime() const = 0;
+        virtual uint64_t _getCurrentTime() const noexcept = 0;
 
         /**
          * @brief Sleep for a specified duration.
@@ -50,7 +50,7 @@ namespace sabre::utility
          * a sleep mechanism that pauses execution for the specified
          * duration in milliseconds.
          */
-        virtual void _sleep() const = 0;
+        virtual void _sleep() const noexcept = 0;
 
     public:
         /**
@@ -61,12 +61,12 @@ namespace sabre::utility
          * @param sleepTime The time to sleep between checks in milliseconds.
          */
         WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
-                uint64_t sleepTime);
+                uint64_t sleepTime) noexcept;
 
         /**
          * @brief Virtual destructor.
          */
-        virtual ~WaitFor() = default;
+        virtual ~WaitFor() noexcept = default;
 
         /**
          * @brief Start the waiting process.
@@ -88,7 +88,7 @@ namespace sabre::utility
          * @return True if the predicate function returned true, false
          * otherwise.
          */
-        bool getResult() const;
+        bool getResult() const noexcept;
 
         /**
          * @brief Get the runtime of the last wait operation.
@@ -98,6 +98,6 @@ namespace sabre::utility
          *
          * @return The runtime in milliseconds.
          */
-        uint64_t getResultRuntime() const;
+        uint64_t getResultRuntime() const noexcept;
     };
 }; // namespace sabre::utility
