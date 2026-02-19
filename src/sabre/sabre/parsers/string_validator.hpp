@@ -7,15 +7,15 @@ namespace sabre::parsers
     class StringValidator
     {
     public:
-        virtual ~StringValidator() = default;
+        virtual ~StringValidator() noexcept = default;
 
-        virtual void addCharacter(char character) = 0;
+        virtual void addCharacter(char character) noexcept = 0;
 
-        virtual void reset() = 0;
-        virtual std::string getBuffer() const = 0;
+        virtual void reset() noexcept = 0;
+        virtual std::string getBuffer() const noexcept = 0;
 
-        virtual bool isError() const = 0;
-        virtual bool isAccepted() const = 0;
-        virtual bool isStarted() const = 0;
+        virtual bool isError() const noexcept = 0;
+        virtual bool isAccepted() const noexcept = 0;
+        virtual bool isStarted() const noexcept = 0;
     };
 } // namespace sabre::parsers

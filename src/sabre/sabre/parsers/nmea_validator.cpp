@@ -2,15 +2,15 @@
 
 namespace sabre::parsers
 {
-    NmeaValidator::NmeaValidator()
+    NmeaValidator::NmeaValidator() noexcept
         : _state(NmeaValidationState::WAITING_FOR_START)
     {
         _NmeaSentence.reserve(82);
     }
 
-    NmeaValidator::~NmeaValidator() {}
+    NmeaValidator::~NmeaValidator() noexcept {}
 
-    void NmeaValidator::addCharacter(char character)
+    void NmeaValidator::addCharacter(char character) noexcept
     {
         if (_state == NmeaValidationState::WAITING_FOR_START)
         {
@@ -31,28 +31,28 @@ namespace sabre::parsers
         }
     }
 
-    void NmeaValidator::reset()
+    void NmeaValidator::reset() noexcept
     {
         _state = NmeaValidationState::WAITING_FOR_START;
         _NmeaSentence.clear();
     }
 
-    std::string NmeaValidator::getBuffer() const
+    std::string NmeaValidator::getBuffer() const noexcept
     {
         return _NmeaSentence;
     }
 
-    bool NmeaValidator::isError() const
+    bool NmeaValidator::isError() const noexcept
     {
         return _state == NmeaValidationState::ERROR;
     }
 
-    bool NmeaValidator::isAccepted() const
+    bool NmeaValidator::isAccepted() const noexcept
     {
         return _state == NmeaValidationState::ACCEPTED;
     }
 
-    bool NmeaValidator::isStarted() const
+    bool NmeaValidator::isStarted() const noexcept
     {
         return _state == NmeaValidationState::WAITING_FOR_END;
     }
