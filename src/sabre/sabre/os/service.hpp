@@ -36,12 +36,12 @@ namespace sabre::os
          *
          * @param function The function to be called when the service starts.
          */
-        Service(const ServiceHandler &function);
+        Service(const ServiceHandler &function) noexcept;
 
         /**
          * @brief Virtual destructor.
          */
-        virtual ~Service() = default;
+        virtual ~Service() noexcept = default;
 
         /**
          * @brief Start the service.
