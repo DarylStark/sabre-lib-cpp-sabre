@@ -24,7 +24,7 @@ namespace sabre::impl::sabre_test_mocks
                      const std::string &username, const std::string &password);
         void disconnect();
         void stop();
-        bool isConnected() const;
+        bool isConnected() const noexcept;
 
         void publish(const std::string &topic, const std::string &message,
                      sabre::net::MqttQos qos, sabre::net::MqttRetain retain);

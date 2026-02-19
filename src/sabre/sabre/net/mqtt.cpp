@@ -2,7 +2,7 @@
 
 namespace sabre::net
 {
-    MqttTopic::MqttTopic(MqttClient &client, const std::string &topic)
+    MqttTopic::MqttTopic(MqttClient &client, const std::string &topic) noexcept
         : _client(client), _topic(topic)
     {
     }
@@ -23,14 +23,14 @@ namespace sabre::net
         _client.subscribe(_topic, fn, qos);
     }
 
-    void MqttTopic::setDefaultQos(MqttQos qos)
+    void MqttTopic::setDefaultQos(MqttQos qos) noexcept
     {
         if (qos == MqttQos::UNDEFINED)
             return;
         _defaultQos = qos;
     }
 
-    void MqttTopic::setDefaultRetain(MqttRetain retain)
+    void MqttTopic::setDefaultRetain(MqttRetain retain) noexcept
     {
         if (retain == MqttRetain::UNDEFINED)
             return;
@@ -47,7 +47,8 @@ namespace sabre::net
         _subscriptions[topic] = fn;
     }
 
-    MqttTopic::UniquePtr MqttClient::getTopic(const std::string &topicName)
+    MqttTopic::UniquePtr
+    MqttClient::getTopic(const std::string &topicName) noexcept
     {
         return std::make_unique<MqttTopic>(*this, topicName);
     }
@@ -60,7 +61,7 @@ namespace sabre::net
             _defaultHandler(event);
     }
 
-    void MqttClient::setDefaultHandler(const MqttCallback &handler)
+    void MqttClient::setDefaultHandler(const MqttCallback &handler) noexcept
     {
         _defaultHandler = handler;
     }

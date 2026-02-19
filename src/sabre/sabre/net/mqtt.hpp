@@ -81,12 +81,12 @@ namespace sabre::net
          * @param client the MQTT client to use.
          * @param topic the MQTT topic for this object.
          */
-        MqttTopic(MqttClient &client, const std::string &topic);
+        MqttTopic(MqttClient &client, const std::string &topic) noexcept;
 
         /**
          * @brief Virtual destructor.
          */
-        virtual ~MqttTopic() = default;
+        virtual ~MqttTopic() noexcept = default;
 
         /**
          * @brief Publish a message to the topic.
@@ -117,7 +117,7 @@ namespace sabre::net
          * @param qos the default QoS for the outgoing messages. If set the
          * `UNDEFINED`, it will be set to `FIRE_AND_FORGET`.
          */
-        void setDefaultQos(MqttQos qos);
+        void setDefaultQos(MqttQos qos) noexcept;
 
         /**
          * @brief Set the default retain value for outgoing messages.
@@ -125,7 +125,7 @@ namespace sabre::net
          * @param retain the default retain value for the outgoing messages. If
          * set the `UNDEFINED`, it will be set to `DONT_RETAIN`.
          */
-        void setDefaultRetain(MqttRetain retain);
+        void setDefaultRetain(MqttRetain retain) noexcept;
     };
 
     /**
@@ -149,7 +149,7 @@ namespace sabre::net
         /**
          * @brief Virtual destructor.
          */
-        virtual ~MqttClient() = default;
+        virtual ~MqttClient() noexcept = default;
 
         /**
          * @brief Connect to a specific MQTT broker.
@@ -179,7 +179,7 @@ namespace sabre::net
          *
          * @return `true` if it is connected, otherwise `false`.
          */
-        virtual bool isConnected() const = 0;
+        virtual bool isConnected() const noexcept = 0;
 
         /**
          * @brief Publish a message to a topic.
@@ -215,7 +215,7 @@ namespace sabre::net
          *
          * @param handler the callback for the subscription.
          */
-        virtual void setDefaultHandler(const MqttCallback &handler);
+        virtual void setDefaultHandler(const MqttCallback &handler) noexcept;
 
         /**
          * @brief Method to process a received message.
@@ -232,6 +232,6 @@ namespace sabre::net
          * @return A `MQTTTopic::UniquePtr` unique pointer to a `MQTTTopic`
          * object.
          */
-        MqttTopic::UniquePtr getTopic(const std::string &topicName);
+        MqttTopic::UniquePtr getTopic(const std::string &topicName) noexcept;
     };
 }; // namespace sabre::net
