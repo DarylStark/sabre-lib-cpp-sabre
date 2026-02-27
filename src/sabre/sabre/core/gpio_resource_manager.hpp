@@ -22,7 +22,7 @@ namespace sabre::core
         std::unordered_map<sabre::hal::PinNumber, ResourceVariant> _resources;
 
         template <typename T>
-        bool _isType(sabre::hal::PinNumber) const;
+        bool _isType(sabre::hal::PinNumber pin) const;
         template <typename T, typename FactoryFunc>
         T &_getOrCreateGpio(sabre::hal::PinNumber pin, FactoryFunc factoryFunc);
 

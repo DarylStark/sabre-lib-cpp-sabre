@@ -114,8 +114,9 @@ namespace sabre::impl::pilot
         return true;
     }
 
-    std::string Device::read_uart_data(uint32_t uartNumber, size_t maxBytes,
-                                       uint32_t timeoutInMs)
+    std::string Device::read_uart_data(sabre::hal::UartNumber uartNumber,
+                                       size_t maxBytes,
+                                       sabre::types::MsTime timeoutInMs)
     {
         auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())

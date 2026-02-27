@@ -31,8 +31,7 @@ namespace sabre::core
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
         sabre::hal::Serial &getUart(sabre::hal::UartNumber uartNumber) const;
 
-        void configureUsbCdc(sabre::hal::UsbIndex index,
-                             sabre::types::MsTime bufferSize);
+        void configureUsbCdc(sabre::hal::UsbIndex index, size_t bufferSize);
         sabre::hal::Serial &getUsbCdc(sabre::hal::UsbIndex index) const;
     };
 } // namespace sabre::core

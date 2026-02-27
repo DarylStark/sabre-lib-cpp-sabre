@@ -17,7 +17,8 @@ namespace sabre::impl::sabre_test_mocks
             sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
             size_t bufferSize) const override;
         sabre::hal::Serial::UniquePtr
-        createUsbCdc(uint32_t index, size_t bufferSize) const override;
+        createUsbCdc(sabre::hal::UsbIndex index,
+                     size_t bufferSize) const override;
         sabre::hal::InputGpio::UniquePtr
         createInputGpio(sabre::hal::PinNumber pin) const override;
         sabre::hal::OutputGpio::UniquePtr

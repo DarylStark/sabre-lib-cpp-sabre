@@ -106,8 +106,9 @@ namespace sabre::impl::pilot
         bool initialize_uart(uint32_t uartNumber, size_t inputBufferSize);
         bool deinitialize_uart(uint32_t uartNumber);
         bool write_uart_data(uint32_t uartNumber, char data);
-        std::string read_uart_data(uint32_t uartNumber, size_t maxBytes,
-                                   uint32_t timeoutInMs);
+        std::string read_uart_data(sabre::hal::UartNumber uartNumber,
+                                   size_t maxBytes,
+                                   sabre::types::MsTime timeoutInMs);
         void add_to_input_uart_buffer(uint32_t uartNumber,
                                       const std::string &data);
         const UARTMap &get_uart_map() const;
