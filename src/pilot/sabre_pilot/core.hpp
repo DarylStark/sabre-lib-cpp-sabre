@@ -13,16 +13,17 @@ namespace sabre::impl::pilot
 
     public:
         Factory(Device *device);
-        sabre::hal::Serial::UniquePtr
-        createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
-                         int32_t rxPin, size_t bufferSize) const override;
+        sabre::hal::Serial::UniquePtr createUartObject(
+            uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
+            sabre::hal::PinNumber rxPin, size_t bufferSize) const override;
         sabre::hal::Serial::UniquePtr
         createUsbCdc(uint32_t index, size_t bufferSize) const override;
         sabre::hal::InputGpio::UniquePtr
-        createInputGpio(int32_t pin) const override;
+        createInputGpio(sabre::hal::PinNumber pin) const override;
         sabre::hal::OutputGpio::UniquePtr
-        createOutputGpio(int32_t pin) const override;
-        sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const override;
+        createOutputGpio(sabre::hal::PinNumber pin) const override;
+        sabre::hal::Gpio::UniquePtr
+        createGpio(sabre::hal::PinNumber pin) const override;
         sabre::net::WifiStation::UniquePtr createWifiStation() const override;
         sabre::net::WifiSoftAp::UniquePtr createWifiSoftAp() const override;
         sabre::time::WallClock::UniquePtr createWallClock() const override;

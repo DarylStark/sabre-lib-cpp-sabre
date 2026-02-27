@@ -51,9 +51,9 @@ namespace sabre::core
          *
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
-        virtual sabre::hal::Serial::UniquePtr
-        createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
-                         int32_t rxPin, size_t bufferSize) const = 0;
+        virtual sabre::hal::Serial::UniquePtr createUartObject(
+            uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
+            sabre::hal::PinNumber rxPin, size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `Serial` object for USB CDC communication.
@@ -79,7 +79,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::InputGpio::UniquePtr
-        createInputGpio(int32_t pin) const = 0;
+        createInputGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `OutputGpio` object.
@@ -90,7 +90,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::OutputGpio::UniquePtr
-        createOutputGpio(int32_t pin) const = 0;
+        createOutputGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `Gpio` object.
@@ -100,7 +100,8 @@ namespace sabre::core
          * @return A `GpioUniquePtr` unique pointer to a `Gpio`
          * object.
          */
-        virtual sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const = 0;
+        virtual sabre::hal::Gpio::UniquePtr
+        createGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `WifiStation` object.

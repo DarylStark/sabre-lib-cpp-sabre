@@ -10,10 +10,9 @@ namespace sabre::impl::pilot
                   << std::flush;
     }
 
-    sabre::hal::Serial::UniquePtr
-    Factory::createUartObject(uint32_t uartNumber, int32_t baudRate,
-                              int32_t txPin, int32_t rxPin,
-                              size_t bufferSize) const
+    sabre::hal::Serial::UniquePtr Factory::createUartObject(
+        uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
+        sabre::hal::PinNumber rxPin, size_t bufferSize) const
     {
         // Implementation specific code to create a UART object
         return std::make_unique<Serial>(_device, uartNumber, bufferSize);
@@ -26,7 +25,8 @@ namespace sabre::impl::pilot
         return nullptr; // Placeholder
     }
 
-    sabre::hal::InputGpio::UniquePtr Factory::createInputGpio(int32_t pin) const
+    sabre::hal::InputGpio::UniquePtr
+    Factory::createInputGpio(sabre::hal::PinNumber pin) const
     {
         std::cout << "Creating InputGPIO on pin " << pin << " for device at "
                   << _device << '\n'
@@ -35,7 +35,7 @@ namespace sabre::impl::pilot
     }
 
     sabre::hal::OutputGpio::UniquePtr
-    Factory::createOutputGpio(int32_t pin) const
+    Factory::createOutputGpio(sabre::hal::PinNumber pin) const
     {
         std::cout << "Creating OutputGPIO on pin " << pin << " for device at "
                   << _device << '\n'
@@ -43,7 +43,8 @@ namespace sabre::impl::pilot
         return std::make_unique<sabre::impl::pilot::OutputGpio>(_device, pin);
     }
 
-    sabre::hal::Gpio::UniquePtr Factory::createGpio(int32_t pin) const
+    sabre::hal::Gpio::UniquePtr
+    Factory::createGpio(sabre::hal::PinNumber pin) const
     {
         std::cout << "Creating generic GPIO on pin " << pin << " for device at "
                   << _device << '\n'

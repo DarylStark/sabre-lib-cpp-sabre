@@ -8,10 +8,9 @@ namespace sabre::impl::sabre_test_mocks
     {
     }
 
-    sabre::hal::Serial::UniquePtr
-    StFactory::createUartObject(uint32_t uartNumber, int32_t baudRate,
-                                int32_t txPin, int32_t rxPin,
-                                size_t bufferSize) const
+    sabre::hal::Serial::UniquePtr StFactory::createUartObject(
+        uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
+        sabre::hal::PinNumber rxPin, size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;
@@ -27,18 +26,19 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::hal::InputGpio::UniquePtr
-    StFactory::createInputGpio(int32_t pin) const
+    StFactory::createInputGpio(sabre::hal::PinNumber pin) const
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StInputGpio>();
     }
 
     sabre::hal::OutputGpio::UniquePtr
-    StFactory::createOutputGpio(int32_t pin) const
+    StFactory::createOutputGpio(sabre::hal::PinNumber pin) const
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StOutputGpio>();
     }
 
-    sabre::hal::Gpio::UniquePtr StFactory::createGpio(int32_t pin) const
+    sabre::hal::Gpio::UniquePtr
+    StFactory::createGpio(sabre::hal::PinNumber pin) const
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StGpio>(pin);
     }
