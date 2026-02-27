@@ -6,7 +6,7 @@ namespace sabre::impl::pilot
 {
     DeviceEventData::~DeviceEventData() {}
 
-    UartEventData::UartEventData(uint32_t uartNumber, char data)
+    UartEventData::UartEventData(sabre::hal::UartNumber uartNumber, char data)
         : uartNumber(uartNumber), data(data)
     {
     }
@@ -77,7 +77,8 @@ namespace sabre::impl::pilot
         return gpios;
     }
 
-    bool Device::initialize_uart(uint32_t uartNumber, size_t inputBufferSize)
+    bool Device::initialize_uart(sabre::hal::UartNumber uartNumber,
+                                 size_t inputBufferSize)
     {
         if (uartNumber >= _config.uartCount)
             return false;
@@ -90,7 +91,7 @@ namespace sabre::impl::pilot
         return true;
     }
 
-    bool Device::deinitialize_uart(uint32_t uartNumber)
+    bool Device::deinitialize_uart(sabre::hal::UartNumber uartNumber)
     {
         auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
@@ -100,7 +101,7 @@ namespace sabre::impl::pilot
         return true;
     }
 
-    bool Device::write_uart_data(uint32_t uartNumber, char data)
+    bool Device::write_uart_data(sabre::hal::UartNumber uartNumber, char data)
     {
         auto it = _uartMap.find(uartNumber);
         if (it == _uartMap.end())
@@ -129,7 +130,7 @@ namespace sabre::impl::pilot
         return result;
     }
 
-    void Device::add_to_input_uart_buffer(uint32_t uartNumber,
+    void Device::add_to_input_uart_buffer(sabre::hal::UartNumber uartNumber,
                                           const std::string &data)
     {
         auto it = _uartMap.find(uartNumber);
