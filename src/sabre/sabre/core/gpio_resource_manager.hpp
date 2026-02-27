@@ -16,10 +16,10 @@ namespace sabre::core
                                              sabre::hal::Gpio::UniquePtr>;
 
     private:
-        int32_t _upperboundGpio;
+        sabre::hal::PinNumber _upperboundGpio;
         Factory &_factory;
 
-        std::unordered_map<int32_t, ResourceVariant> _resources;
+        std::unordered_map<sabre::hal::PinNumber, ResourceVariant> _resources;
 
         template <typename T>
         bool _isType(sabre::hal::PinNumber) const;

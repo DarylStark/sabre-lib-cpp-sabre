@@ -24,7 +24,7 @@ namespace sabre::core
         virtual ~ResourceManager() = default;
 
         ResourceManager(Factory &factory, sabre::hal::PinNumber max_gpios,
-                        uint32_t upperboundUart) noexcept;
+                        sabre::hal::UartNumber upperboundUart) noexcept;
 
         GpioResourceManager &gpio() noexcept;
         SerialResourceManager &serial() noexcept;

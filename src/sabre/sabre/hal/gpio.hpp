@@ -4,7 +4,7 @@
 
 namespace sabre::hal
 {
-    using PinNumber = uint32_t;
+    using PinNumber = int32_t;
     /**
      * @brief Base class for Gpio operations.
      *

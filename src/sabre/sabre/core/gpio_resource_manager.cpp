@@ -53,19 +53,22 @@ namespace sabre::core
     GpioResourceManager::getInputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::InputGpio>(
-            pin, [this](int32_t p) { return _factory.createInputGpio(p); });
+            pin, [this](sabre::hal::PinNumber p)
+            { return _factory.createInputGpio(p); });
     }
 
     sabre::hal::OutputGpio &
     GpioResourceManager::getOutputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::OutputGpio>(
-            pin, [this](int32_t p) { return _factory.createOutputGpio(p); });
+            pin, [this](sabre::hal::PinNumber p)
+            { return _factory.createOutputGpio(p); });
     }
 
     sabre::hal::Gpio &GpioResourceManager::getGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::Gpio>(
-            pin, [this](int32_t p) { return _factory.createGpio(p); });
+            pin,
+            [this](sabre::hal::PinNumber p) { return _factory.createGpio(p); });
     }
 } // namespace sabre::core

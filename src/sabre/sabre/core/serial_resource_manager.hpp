@@ -10,7 +10,7 @@ namespace sabre::core
     {
     private:
         Factory &_factory;
-        uint32_t _upperboundUart;
+        sabre::hal::UartNumber _upperboundUart;
 
         std::unordered_map<sabre::hal::UartNumber,
                            sabre::hal::Serial::UniquePtr>
