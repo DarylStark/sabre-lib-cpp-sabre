@@ -14,10 +14,12 @@ namespace sabre::impl::pilot
         size_t _bufferSize;
 
     public:
-        Serial(Device *device, uint32_t number, size_t bufferSize);
+        Serial(Device *device, sabre::hal::UartNumber number,
+               size_t bufferSize);
         void initialize() override;
         int writeByte(char data) const override;
-        std::string readBytes(size_t maxBytes, uint32_t timeoutInMs) override;
+        std::string readBytes(size_t maxBytes,
+                              sabre::types::MsTime timeoutInMs) override;
         void flush() override;
         void deinitialize() override;
     };

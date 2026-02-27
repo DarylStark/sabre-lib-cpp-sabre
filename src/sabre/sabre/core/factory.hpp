@@ -51,9 +51,11 @@ namespace sabre::core
          *
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
-        virtual sabre::hal::Serial::UniquePtr createUartObject(
-            uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
-            sabre::hal::PinNumber rxPin, size_t bufferSize) const = 0;
+        virtual sabre::hal::Serial::UniquePtr
+        createUartObject(sabre::hal::UartNumber uartNumber, int32_t baudRate,
+                         sabre::hal::PinNumber txPin,
+                         sabre::hal::PinNumber rxPin,
+                         size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `Serial` object for USB CDC communication.
@@ -68,7 +70,7 @@ namespace sabre::core
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
         virtual sabre::hal::Serial::UniquePtr
-        createUsbCdc(uint32_t index, size_t bufferSize) const = 0;
+        createUsbCdc(sabre::hal::UsbIndex index, size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `InputGpio` object.

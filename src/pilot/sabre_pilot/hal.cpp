@@ -2,7 +2,8 @@
 
 namespace sabre::impl::pilot
 {
-    Serial::Serial(Device *device, uint32_t number, size_t bufferSize)
+    Serial::Serial(Device *device, sabre::hal::UartNumber number,
+                   size_t bufferSize)
         : _device(device), _uartNumber(number), _bufferSize(bufferSize)
     {
     }
@@ -21,7 +22,8 @@ namespace sabre::impl::pilot
         return 0;      // Success
     }
 
-    std::string Serial::readBytes(size_t maxBytes, uint32_t timeoutInMs)
+    std::string Serial::readBytes(size_t maxBytes,
+                                  sabre::types::MsTime timeoutInMs)
     {
         return _device->read_uart_data(_uartNumber, maxBytes, timeoutInMs);
     }

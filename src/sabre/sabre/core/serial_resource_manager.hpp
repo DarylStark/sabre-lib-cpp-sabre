@@ -12,9 +12,10 @@ namespace sabre::core
         Factory &_factory;
         uint32_t _upperboundUart;
 
-        std::unordered_map<uint32_t, sabre::hal::Serial::UniquePtr>
+        std::unordered_map<sabre::hal::UartNumber,
+                           sabre::hal::Serial::UniquePtr>
             _uartResources;
-        std::unordered_map<uint32_t, sabre::hal::Serial::UniquePtr>
+        std::unordered_map<sabre::hal::UsbIndex, sabre::hal::Serial::UniquePtr>
             _usbCdcResources;
 
     public:
@@ -23,13 +24,14 @@ namespace sabre::core
         using UniquePtr = std::unique_ptr<SerialResourceManager>;
 
         SerialResourceManager(Factory &factory,
-                              uint32_t upperboundUart) noexcept;
-        void configureUart(uint32_t uartNumber, int32_t baudRate,
+                              sabre::hal::UartNumber upperboundUart) noexcept;
+        void configureUart(sabre::hal::UartNumber uartNumber, int32_t baudRate,
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
-        sabre::hal::Serial &getUart(uint32_t uartNumber) const;
+        sabre::hal::Serial &getUart(sabre::hal::UartNumber uartNumber) const;
 
-        void configureUsbCdc(uint32_t index, size_t bufferSize);
-        sabre::hal::Serial &getUsbCdc(uint32_t index) const;
+        void configureUsbCdc(sabre::hal::UsbIndex index,
+                             sabre::types::MsTime bufferSize);
+        sabre::hal::Serial &getUsbCdc(sabre::hal::UsbIndex index) const;
     };
 } // namespace sabre::core
