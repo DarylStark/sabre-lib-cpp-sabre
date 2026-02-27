@@ -51,11 +51,10 @@ namespace sabre::core
          *
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
-        virtual sabre::hal::Serial::UniquePtr
-        createUartObject(sabre::hal::UartNumber uartNumber, int32_t baudRate,
-                         sabre::hal::PinNumber txPin,
-                         sabre::hal::PinNumber rxPin,
-                         size_t bufferSize) const = 0;
+        virtual sabre::hal::Serial::UniquePtr createUartObject(
+            sabre::hal::UartNumber uartNumber, sabre::hal::BaudRate baudRate,
+            sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
+            size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `Serial` object for USB CDC communication.
@@ -162,8 +161,9 @@ namespace sabre::core
          * object.
          */
         virtual sabre::utility::WaitFor::UniquePtr
-        createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                      uint64_t sleepTime) const = 0;
+        createWaitFor(sabre::utility::WaitForPred fn,
+                      sabre::types::MsTime timeoutInMs,
+                      sabre::types::MsTime sleepTime) const = 0;
 
         /**
          * @brief Create a `Service` object.

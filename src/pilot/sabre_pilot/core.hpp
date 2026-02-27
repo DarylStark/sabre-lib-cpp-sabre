@@ -14,8 +14,9 @@ namespace sabre::impl::pilot
     public:
         Factory(Device *device);
         sabre::hal::Serial::UniquePtr createUartObject(
-            uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
-            sabre::hal::PinNumber rxPin, size_t bufferSize) const override;
+            sabre::hal::UartNumber uartNumber, sabre::hal::BaudRate baudRate,
+            sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
+            size_t bufferSize) const override;
         sabre::hal::Serial::UniquePtr
         createUsbCdc(uint32_t index, size_t bufferSize) const override;
         sabre::hal::InputGpio::UniquePtr

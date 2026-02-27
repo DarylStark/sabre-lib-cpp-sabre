@@ -25,7 +25,8 @@ namespace sabre::core
 
         SerialResourceManager(Factory &factory,
                               sabre::hal::UartNumber upperboundUart) noexcept;
-        void configureUart(sabre::hal::UartNumber uartNumber, int32_t baudRate,
+        void configureUart(sabre::hal::UartNumber uartNumber,
+                           sabre::hal::BaudRate baudRate,
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
         sabre::hal::Serial &getUart(sabre::hal::UartNumber uartNumber) const;

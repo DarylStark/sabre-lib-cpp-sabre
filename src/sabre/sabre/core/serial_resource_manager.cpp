@@ -9,7 +9,7 @@ namespace sabre::core
     }
 
     void SerialResourceManager::configureUart(sabre::hal::UartNumber uartNumber,
-                                              int32_t baudRate,
+                                              sabre::hal::BaudRate baudRate,
                                               const sabre::hal::Gpio &txPin,
                                               const sabre::hal::Gpio &rxPin,
                                               size_t bufferSize)

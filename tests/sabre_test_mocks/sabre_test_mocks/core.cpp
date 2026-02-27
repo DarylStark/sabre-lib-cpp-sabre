@@ -9,8 +9,9 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     sabre::hal::Serial::UniquePtr StFactory::createUartObject(
-        uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
-        sabre::hal::PinNumber rxPin, size_t bufferSize) const
+        sabre::hal::UartNumber uartNumber, sabre::hal::BaudRate baudRate,
+        sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
+        size_t bufferSize) const
     {
         if (_uart_should_be_nullptr)
             return nullptr;

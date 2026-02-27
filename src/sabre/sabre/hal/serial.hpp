@@ -9,6 +9,8 @@ namespace sabre::hal
 {
     using UartNumber = uint32_t;
     using UsbIndex = uint32_t;
+    using BaudRate = uint32_t;
+
     /**
      * @brief Abstract base class for Serial communication.
      *

@@ -11,8 +11,9 @@ namespace sabre::impl::pilot
     }
 
     sabre::hal::Serial::UniquePtr Factory::createUartObject(
-        uint32_t uartNumber, int32_t baudRate, sabre::hal::PinNumber txPin,
-        sabre::hal::PinNumber rxPin, size_t bufferSize) const
+        sabre::hal::UartNumber uartNumber, sabre::hal::BaudRate baudRate,
+        sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
+        size_t bufferSize) const
     {
         // Implementation specific code to create a UART object
         return std::make_unique<Serial>(_device, uartNumber, bufferSize);
