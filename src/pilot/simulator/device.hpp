@@ -21,7 +21,7 @@ namespace sabre::impl::pilot
 
     struct DeviceGPIO
     {
-        uint32_t number;
+        sabre::hal::PinNumber number;
         GPIOType type;
         uint32_t state = 0;
     };
@@ -54,10 +54,10 @@ namespace sabre::impl::pilot
     class UartEventData : public DeviceEventData
     {
     public:
-        uint32_t uartNumber;
+        sabre::hal::UartNumber uartNumber;
         char data;
 
-        UartEventData(uint32_t uartNumber, char data);
+        UartEventData(sabre::hal::UartNumber uartNumber, char data);
     };
 
     struct DeviceEvent
@@ -68,7 +68,7 @@ namespace sabre::impl::pilot
     };
 
     using GPIOVector = std::vector<DeviceGPIO>;
-    using UARTMap = std::map<uint32_t, UartBuffers>;
+    using UARTMap = std::map<sabre::hal::UartNumber, UartBuffers>;
     using DeviceEventCallback = std::function<void(const DeviceEvent &)>;
     using EventCallbacks =
         std::unordered_multimap<DeviceEventType, DeviceEventCallback>;
@@ -103,12 +103,14 @@ namespace sabre::impl::pilot
         GPIOVector get_gpios(GPIOType type) const;
 
         // UART management
-        bool initialize_uart(uint32_t uartNumber, size_t inputBufferSize);
-        bool deinitialize_uart(uint32_t uartNumber);
-        bool write_uart_data(uint32_t uartNumber, char data);
-        std::string read_uart_data(uint32_t uartNumber, size_t maxBytes,
-                                   uint32_t timeoutInMs);
-        void add_to_input_uart_buffer(uint32_t uartNumber,
+        bool initialize_uart(sabre::hal::UartNumber uartNumber,
+                             size_t inputBufferSize);
+        bool deinitialize_uart(sabre::hal::UartNumber uartNumber);
+        bool write_uart_data(sabre::hal::UartNumber uartNumber, char data);
+        std::string read_uart_data(sabre::hal::UartNumber uartNumber,
+                                   size_t maxBytes,
+                                   sabre::types::MsTime timeoutInMs);
+        void add_to_input_uart_buffer(sabre::hal::UartNumber uartNumber,
                                       const std::string &data);
         const UARTMap &get_uart_map() const;
 

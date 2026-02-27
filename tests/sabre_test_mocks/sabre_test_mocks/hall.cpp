@@ -34,7 +34,8 @@ namespace sabre::impl::sabre_test_mocks
         return static_cast<int>(data);
     }
 
-    std::string TestUART::readBytes(size_t maxBytes, uint32_t timeoutMs)
+    std::string TestUART::readBytes(size_t maxBytes,
+                                    sabre::types::MsTime timeoutMs)
     {
         // For testing purposes, return up to maxBytes from the buffer
         std::string result = _buf.substr(0, maxBytes);

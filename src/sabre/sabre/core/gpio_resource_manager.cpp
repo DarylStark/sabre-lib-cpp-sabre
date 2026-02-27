@@ -3,31 +3,33 @@
 
 namespace sabre::core
 {
-    GpioResourceManager::GpioResourceManager(Factory &factory,
-                                             int32_t max_gpios) noexcept
+    GpioResourceManager::GpioResourceManager(
+        Factory &factory, sabre::hal::PinNumber max_gpios) noexcept
         : _factory(factory), _upperboundGpio(max_gpios)
     {
     }
 
-    bool GpioResourceManager::_isValidGpio(int32_t pin) const noexcept
+    bool
+    GpioResourceManager::_isValidGpio(sabre::hal::PinNumber pin) const noexcept
     {
         return pin >= 0 && pin <= _upperboundGpio;
     }
 
-    bool GpioResourceManager::_isFreePin(int32_t pin) const noexcept
+    bool
+    GpioResourceManager::_isFreePin(sabre::hal::PinNumber pin) const noexcept
     {
         return _resources.find(pin) == _resources.end();
     }
 
     template <typename T>
-    bool GpioResourceManager::_isType(int32_t pin) const
+    bool GpioResourceManager::_isType(sabre::hal::PinNumber pin) const
     {
         auto it = _resources.find(pin);
         return it != _resources.end() && std::holds_alternative<T>(it->second);
     }
 
     template <typename T, typename FactoryFunc>
-    T &GpioResourceManager::_getOrCreateGpio(int32_t pin,
+    T &GpioResourceManager::_getOrCreateGpio(sabre::hal::PinNumber pin,
                                              FactoryFunc factoryFunc)
     {
         using UniquePtrType = typename T::UniquePtr;
@@ -47,21 +49,26 @@ namespace sabre::core
         throw GpioInUseException("GPIO pin already in use");
     }
 
-    sabre::hal::InputGpio &GpioResourceManager::getInputGpio(int32_t pin)
+    sabre::hal::InputGpio &
+    GpioResourceManager::getInputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::InputGpio>(
-            pin, [this](int32_t p) { return _factory.createInputGpio(p); });
+            pin, [this](sabre::hal::PinNumber p)
+            { return _factory.createInputGpio(p); });
     }
 
-    sabre::hal::OutputGpio &GpioResourceManager::getOutputGpio(int32_t pin)
+    sabre::hal::OutputGpio &
+    GpioResourceManager::getOutputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::OutputGpio>(
-            pin, [this](int32_t p) { return _factory.createOutputGpio(p); });
+            pin, [this](sabre::hal::PinNumber p)
+            { return _factory.createOutputGpio(p); });
     }
 
-    sabre::hal::Gpio &GpioResourceManager::getGpio(int32_t pin)
+    sabre::hal::Gpio &GpioResourceManager::getGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::Gpio>(
-            pin, [this](int32_t p) { return _factory.createGpio(p); });
+            pin,
+            [this](sabre::hal::PinNumber p) { return _factory.createGpio(p); });
     }
 } // namespace sabre::core

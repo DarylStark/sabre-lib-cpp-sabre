@@ -16,27 +16,28 @@ namespace sabre::core
                                              sabre::hal::Gpio::UniquePtr>;
 
     private:
-        int32_t _upperboundGpio;
+        sabre::hal::PinNumber _upperboundGpio;
         Factory &_factory;
 
-        std::unordered_map<int32_t, ResourceVariant> _resources;
+        std::unordered_map<sabre::hal::PinNumber, ResourceVariant> _resources;
 
         template <typename T>
-        bool _isType(int32_t pin) const;
+        bool _isType(sabre::hal::PinNumber pin) const;
         template <typename T, typename FactoryFunc>
-        T &_getOrCreateGpio(int32_t pin, FactoryFunc factoryFunc);
+        T &_getOrCreateGpio(sabre::hal::PinNumber pin, FactoryFunc factoryFunc);
 
-        bool _isFreePin(int32_t pin) const noexcept;
-        bool _isValidGpio(int32_t pin) const noexcept;
+        bool _isFreePin(sabre::hal::PinNumber pin) const noexcept;
+        bool _isValidGpio(sabre::hal::PinNumber pin) const noexcept;
 
     public:
         using Ptr = GpioResourceManager *;
         using SharedPtr = std::shared_ptr<GpioResourceManager>;
         using UniquePtr = std::unique_ptr<GpioResourceManager>;
 
-        GpioResourceManager(Factory &factory, int32_t upperboundGpio) noexcept;
-        sabre::hal::InputGpio &getInputGpio(int32_t pin);
-        sabre::hal::OutputGpio &getOutputGpio(int32_t pin);
-        sabre::hal::Gpio &getGpio(int32_t pin);
+        GpioResourceManager(Factory &factory,
+                            sabre::hal::PinNumber upperboundGpio) noexcept;
+        sabre::hal::InputGpio &getInputGpio(sabre::hal::PinNumber pin);
+        sabre::hal::OutputGpio &getOutputGpio(sabre::hal::PinNumber pin);
+        sabre::hal::Gpio &getGpio(sabre::hal::PinNumber pin);
     };
 } // namespace sabre::core

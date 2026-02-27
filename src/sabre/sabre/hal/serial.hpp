@@ -1,11 +1,16 @@
 #pragma once
 
+#include "../types/types.hpp"
 #include <cstddef> // For size_t
 #include <cstdint> // For uint32_t
 #include <memory>
 
 namespace sabre::hal
 {
+    using UartNumber = uint32_t;
+    using UsbIndex = uint32_t;
+    using BaudRate = uint32_t;
+
     /**
      * @brief Abstract base class for Serial communication.
      *
@@ -60,7 +65,7 @@ namespace sabre::hal
          * @return A string containing the received data.
          */
         virtual std::string readBytes(size_t maxBytes,
-                                      uint32_t timeoutInMs) = 0;
+                                      sabre::types::MsTime timeoutInMs) = 0;
 
         /**
          * @brief Flush the output buffer of the Serial device.

@@ -4,6 +4,7 @@
 
 namespace sabre::hal
 {
+    using PinNumber = int32_t;
     /**
      * @brief Base class for Gpio operations.
      *
@@ -13,7 +14,7 @@ namespace sabre::hal
     class Gpio
     {
     private:
-        int32_t _pinNumber = 0;
+        PinNumber _pinNumber = 0;
 
     public:
         using Ptr = Gpio *;
@@ -22,8 +23,8 @@ namespace sabre::hal
 
     public:
         Gpio() noexcept = default;
-        Gpio(int32_t pinNumber) noexcept;
-        int32_t getPinNumber() const noexcept;
+        Gpio(PinNumber pinNumber) noexcept;
+        PinNumber getPinNumber() const noexcept;
 
         /**
          * @brief Virtual destructor.

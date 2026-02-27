@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../types/types.hpp"
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -24,15 +25,15 @@ namespace sabre::utility
         using UniquePtr = std::unique_ptr<WaitFor>;
 
     private:
-        bool _done(bool result, uint64_t totalRuntime) noexcept;
+        bool _done(bool result, sabre::types::MsTime totalRuntime) noexcept;
 
     protected:
-        uint64_t _timeoutInMs;
+        sabre::types::MsTime _timeoutInMs;
         WaitForPred _fn;
-        uint64_t _sleepTime = 0;
+        sabre::types::MsTime _sleepTime = 0;
 
         bool _result = false;
-        uint64_t _runtime = 0;
+        sabre::types::MsTime _runtime = 0;
 
         /**
          * @brief Get the current time in milliseconds.
@@ -41,7 +42,7 @@ namespace sabre::utility
          * the current time in milliseconds since the epoch or a similar
          * reference point.
          */
-        virtual uint64_t _getCurrentTime() const noexcept = 0;
+        virtual sabre::types::MsTime _getCurrentTime() const noexcept = 0;
 
         /**
          * @brief Sleep for a specified duration.
@@ -60,8 +61,8 @@ namespace sabre::utility
          * @param timeoutInMs The maximum time to wait in milliseconds.
          * @param sleepTime The time to sleep between checks in milliseconds.
          */
-        WaitFor(const WaitForPred &fn, uint64_t timeoutInMs,
-                uint64_t sleepTime);
+        WaitFor(const WaitForPred &fn, sabre::types::MsTime timeoutInMs,
+                sabre::types::MsTime sleepTime);
 
         /**
          * @brief Virtual destructor.
@@ -98,6 +99,6 @@ namespace sabre::utility
          *
          * @return The runtime in milliseconds.
          */
-        uint64_t getResultRuntime() const noexcept;
+        sabre::types::MsTime getResultRuntime() const noexcept;
     };
 }; // namespace sabre::utility

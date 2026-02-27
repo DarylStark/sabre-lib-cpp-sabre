@@ -3,13 +3,13 @@
 namespace sabre::core
 {
     SerialResourceManager::SerialResourceManager(
-        Factory &factory, uint32_t upperboundUart) noexcept
+        Factory &factory, sabre::hal::UartNumber upperboundUart) noexcept
         : _factory(factory), _upperboundUart(upperboundUart)
     {
     }
 
-    void SerialResourceManager::configureUart(uint32_t uartNumber,
-                                              int32_t baudRate,
+    void SerialResourceManager::configureUart(sabre::hal::UartNumber uartNumber,
+                                              sabre::hal::BaudRate baudRate,
                                               const sabre::hal::Gpio &txPin,
                                               const sabre::hal::Gpio &rxPin,
                                               size_t bufferSize)
@@ -31,7 +31,7 @@ namespace sabre::core
     }
 
     sabre::hal::Serial &
-    SerialResourceManager::getUart(uint32_t uartNumber) const
+    SerialResourceManager::getUart(sabre::hal::UartNumber uartNumber) const
     {
         auto it = _uartResources.find(uartNumber);
         if (it == _uartResources.end())
@@ -43,7 +43,7 @@ namespace sabre::core
         return *(it->second);
     }
 
-    void SerialResourceManager::configureUsbCdc(uint32_t index,
+    void SerialResourceManager::configureUsbCdc(sabre::hal::UsbIndex index,
                                                 size_t bufferSize)
     {
         if (_usbCdcResources.find(index) != _usbCdcResources.end())
@@ -55,7 +55,8 @@ namespace sabre::core
         _usbCdcResources[index] = std::move(usbCdc);
     }
 
-    sabre::hal::Serial &SerialResourceManager::getUsbCdc(uint32_t index) const
+    sabre::hal::Serial &
+    SerialResourceManager::getUsbCdc(sabre::hal::UsbIndex index) const
     {
         auto it = _usbCdcResources.find(index);
         if (it == _usbCdcResources.end())

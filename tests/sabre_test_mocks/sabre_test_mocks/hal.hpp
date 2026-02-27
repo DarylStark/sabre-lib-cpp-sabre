@@ -46,7 +46,8 @@ namespace sabre::impl::sabre_test_mocks
     public:
         void initialize();
         int writeByte(char data) const;
-        std::string readBytes(size_t maxBytes, uint32_t timeoutMs) override;
+        std::string readBytes(size_t maxBytes,
+                              sabre::types::MsTime timeoutMs) override;
         void flush();
         void deinitialize();
 

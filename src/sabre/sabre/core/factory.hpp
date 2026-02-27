@@ -51,9 +51,10 @@ namespace sabre::core
          *
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
-        virtual sabre::hal::Serial::UniquePtr
-        createUartObject(uint32_t uartNumber, int32_t baudRate, int32_t txPin,
-                         int32_t rxPin, size_t bufferSize) const = 0;
+        virtual sabre::hal::Serial::UniquePtr createUartObject(
+            sabre::hal::UartNumber uartNumber, sabre::hal::BaudRate baudRate,
+            sabre::hal::PinNumber txPin, sabre::hal::PinNumber rxPin,
+            size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `Serial` object for USB CDC communication.
@@ -68,7 +69,7 @@ namespace sabre::core
          * @return A `Serial::UniquePtr` unique pointer to a `Serial` object.
          */
         virtual sabre::hal::Serial::UniquePtr
-        createUsbCdc(uint32_t index, size_t bufferSize) const = 0;
+        createUsbCdc(sabre::hal::UsbIndex index, size_t bufferSize) const = 0;
 
         /**
          * @brief Create a `InputGpio` object.
@@ -79,7 +80,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::InputGpio::UniquePtr
-        createInputGpio(int32_t pin) const = 0;
+        createInputGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `OutputGpio` object.
@@ -90,7 +91,7 @@ namespace sabre::core
          * object.
          */
         virtual sabre::hal::OutputGpio::UniquePtr
-        createOutputGpio(int32_t pin) const = 0;
+        createOutputGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `Gpio` object.
@@ -100,7 +101,8 @@ namespace sabre::core
          * @return A `GpioUniquePtr` unique pointer to a `Gpio`
          * object.
          */
-        virtual sabre::hal::Gpio::UniquePtr createGpio(int32_t pin) const = 0;
+        virtual sabre::hal::Gpio::UniquePtr
+        createGpio(sabre::hal::PinNumber pin) const = 0;
 
         /**
          * @brief Create a `WifiStation` object.
@@ -159,8 +161,9 @@ namespace sabre::core
          * object.
          */
         virtual sabre::utility::WaitFor::UniquePtr
-        createWaitFor(sabre::utility::WaitForPred fn, uint64_t timeoutInMs,
-                      uint64_t sleepTime) const = 0;
+        createWaitFor(sabre::utility::WaitForPred fn,
+                      sabre::types::MsTime timeoutInMs,
+                      sabre::types::MsTime sleepTime) const = 0;
 
         /**
          * @brief Create a `Service` object.
