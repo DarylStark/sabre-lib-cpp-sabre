@@ -2,11 +2,11 @@
 
 namespace sabre::log
 {
-    LoggingLevel Logging::_level = LoggingLevel::NOTSET;
+    Logger::Logger(const std::string &name) : _name(name) {}
 
     void Logger::log(const LoggingLevel level, const std::string &message)
     {
-        Logging::log(level, _name, message);
+        // TODO: Log to locally configured logger
     }
 
     void Logger::debug(const std::string &message)
@@ -59,24 +59,32 @@ namespace sabre::log
         return _level;
     }
 
-    Logger::Logger(const std::string &name) : _name(name) {}
-    std::forward_list<LogHandler::SharedPtr> Logging::_handlers;
-
     void Logging::log(const LoggingLevel level, const std::string &loggerName,
                       const std::string &message)
     {
         if (level <= _level)
-            for (const auto &handler : _handlers)
-                handler->handleLog(level, loggerName, message);
+            for (const auto &pair : _handlers)
+                pair.second->handleLog(level, loggerName, message);
     }
 
-    void Logging::addHandler(const LogHandler::SharedPtr &handler)
+    void Logging::log(const LoggingLevel level, const std::string &message)
     {
-        _handlers.push_front(handler);
+        log(level, "", message);
     }
 
-    void Logging::removeHandler(const LogHandler::SharedPtr &handler)
+    void Logging::addHandler(const std::string &identifier,
+                             LogHandler::UniquePtr handler)
     {
-        _handlers.remove(handler);
+        _handlers[identifier] = std::move(handler);
+    }
+
+    void Logging::removeHandler(const std::string &identifier)
+    {
+        _handlers.erase(identifier);
+    }
+
+    size_t Logging::getHandlerCount() const
+    {
+        return _handlers.size();
     }
 } // namespace sabre::log

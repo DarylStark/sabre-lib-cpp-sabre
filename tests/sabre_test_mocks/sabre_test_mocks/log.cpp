@@ -2,6 +2,14 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
+    TestHandler::TestHandler(sabre::log::LoggingLevel &levelStorage,
+                             std::string &loggerNameStorage,
+                             std::string &messageStorage)
+        : _level(levelStorage), _logger_name(loggerNameStorage),
+          _message(messageStorage)
+    {
+    }
+
     void TestHandler::handleLog(const sabre::log::LoggingLevel level,
                                 const std::string &loggerName,
                                 const std::string &message)
@@ -11,18 +19,4 @@ namespace sabre::impl::sabre_test_mocks
         _message = message;
     }
 
-    sabre::log::LoggingLevel TestHandler::getLastLevel() const
-    {
-        return _level;
-    }
-
-    std::string TestHandler::getLastLoggerName() const
-    {
-        return _logger_name;
-    }
-
-    std::string TestHandler::getLastMessage() const
-    {
-        return _message;
-    }
 } // namespace sabre::impl::sabre_test_mocks

@@ -1,8 +1,9 @@
 #pragma once
 
-#include <forward_list>
+#include <cstddef>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 namespace sabre::log
 {
@@ -166,15 +167,15 @@ namespace sabre::log
     class Logging
     {
     private:
-        Logging() = delete;
+        LoggingLevel _level = LoggingLevel::INFO;
+        std::unordered_map<std::string, std::unique_ptr<LogHandler>> _handlers;
+
+    public:
+        Logging() = default;
         Logging(const Logging &) = delete;
         Logging(Logging &&) = delete;
         Logging &operator=(const Logging &) = delete;
 
-        static LoggingLevel _level;
-        static std::forward_list<LogHandler::SharedPtr> _handlers;
-
-    public:
         /**
          * @brief Set the logging level for the application.
          *
@@ -183,7 +184,7 @@ namespace sabre::log
          *
          * @param level The desired logging level.
          */
-        static void setLevel(LoggingLevel level);
+        void setLevel(LoggingLevel level);
 
         /**
          * @brief Get the current logging level.
@@ -193,7 +194,7 @@ namespace sabre::log
          *
          * @return The current logging level.
          */
-        static LoggingLevel getLevel();
+        LoggingLevel getLevel();
 
         /**
          * @brief Log a message at the specified logging level.
@@ -206,8 +207,10 @@ namespace sabre::log
          * @param loggerName The name of the logger that generated the message.
          * @param message The message to be logged.
          */
-        static void log(const LoggingLevel level, const std::string &loggerName,
-                        const std::string &message);
+        void log(const LoggingLevel level, const std::string &loggerName,
+                 const std::string &message);
+
+        void log(const LoggingLevel level, const std::string &message);
 
         /**
          * @brief Add a log handler to the logging system.
@@ -215,16 +218,11 @@ namespace sabre::log
          * This method allows the user to register a log handler that will
          * receive log messages.
          */
-        static void addHandler(const LogHandler::SharedPtr &handler);
+        void addHandler(const std::string &identifier,
+                        LogHandler::UniquePtr handler);
 
-        /**
-         * @brief Remove a log handler from the logging system.
-         *
-         * This method allows the user to unregister a log handler, stopping it
-         * from receiving further log messages.
-         *
-         * @param handler The log handler to be removed.
-         */
-        static void removeHandler(const LogHandler::SharedPtr &handler);
+        void removeHandler(const std::string &identifier);
+
+        size_t getHandlerCount() const;
     };
 }; // namespace sabre::log
