@@ -82,46 +82,6 @@ namespace sabre::log
          * @param message The message to be logged.
          */
         void log(const LoggingLevel level, const std::string &message);
-
-        /**
-         * @brief Log a debug message.
-         */
-        void debug(const std::string &message);
-
-        /**
-         * @brief Log an info message.
-         */
-        void info(const std::string &message);
-
-        /**
-         * @brief Log a notice message.
-         */
-        void notice(const std::string &message);
-
-        /**
-         * @brief Log a warning message.
-         */
-        void warning(const std::string &message);
-
-        /**
-         * @brief Log a error message.
-         */
-        void error(const std::string &message);
-
-        /**
-         * @brief Log a critical message.
-         */
-        void critical(const std::string &message);
-
-        /**
-         * @brief Log an alert message.
-         */
-        void alert(const std::string &message);
-
-        /**
-         * @brief Log an emergency message.
-         */
-        void emergency(const std::string &message);
     };
 
     /**
