@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <sabre/core/exceptions.hpp>
+#include <sabre/io/serial_output_stream_buffer.hpp>
+#include <sabre/log/log_handlers.hpp>
 #include <sabre/log/logging.hpp>
+#include <sabre_test_mocks/hal.hpp>
 #include <sabre_test_mocks/log.hpp>
 
 using namespace sabre::log;
@@ -239,4 +242,49 @@ TEST(LogHelperTest, TestLoggerReset)
     ASSERT_EQ(lastLevel, LoggingLevel::DEBUG);
     ASSERT_EQ(lastMessage, "");
     ASSERT_EQ(lastLoggerName, "");
+}
+
+TEST(OStreamLogHandler, Logging)
+{
+    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
+        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
+    auto *u_ptr = u.get();
+    sabre::io::SerialStreamBuf buffer(std::move(u), 128);
+    std::ostream stream(&buffer);
+
+    LogManager l;
+    l.addHandler("uart", std::make_unique<OStreamLogHandler>(stream));
+
+    l.log(LoggingLevel::INFO, "TestLogger", "Testmessage");
+
+    ASSERT_TRUE(u_ptr->_buf.contains("TestLogger"));
+    ASSERT_TRUE(u_ptr->_buf.contains("Testmessage"));
+}
+
+TEST(LogBufferHandler, Logging)
+{
+    LogManager l;
+    l.setLevel(LoggingLevel::DEBUG);
+    l.addHandler("buffer", std::make_unique<LogBufferHandler>(1));
+    auto &handler = l.getHandler("buffer");
+    LogBufferHandler *bufferHandler =
+        static_cast<LogBufferHandler *>(handler.get());
+
+    l.log(LoggingLevel::INFO, "Testmessage");
+
+    ASSERT_TRUE(bufferHandler->getBuffer()[0].contains("Testmessage"));
+}
+
+TEST(LogBufferHandler, Overflow)
+{
+    LogManager l;
+    l.setLevel(LoggingLevel::DEBUG);
+    l.addHandler("buffer", std::make_unique<LogBufferHandler>(2));
+    auto &handler = l.getHandler("buffer");
+    LogBufferHandler *bufferHandler =
+        static_cast<LogBufferHandler *>(handler.get());
+
+    for (uint32_t i = 0; i < 5; ++i)
+        l.log(sabre::log::LoggingLevel::INFO, "TestLogger", "Testmessage");
+    ASSERT_TRUE(bufferHandler->getBuffer().size() == 2);
 }
