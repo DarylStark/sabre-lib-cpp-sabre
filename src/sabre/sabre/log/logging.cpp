@@ -68,4 +68,21 @@ namespace sabre::log
     {
         return Logger(*this, name);
     }
+
+    void LogHelper::createLogger(LogManager &logManager,
+                                 const std::string &name)
+    {
+        _logger = std::make_unique<Logger>(logManager, name);
+    }
+
+    void LogHelper::log(LoggingLevel level, const std::string &message)
+    {
+        if (_logger)
+            _logger->log(level, message);
+    }
+
+    void LogHelper::reset()
+    {
+        _logger.reset();
+    }
 } // namespace sabre::log

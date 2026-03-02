@@ -140,7 +140,7 @@ TEST(LogManagerTest, RetrievingIncorrectHandler)
                  sabre::core::LogHandlerNotAvailableException);
 }
 
-TEST(LogManagerTest, LoggerFunctionality)
+TEST(LoggerTest, LoggerFunctionality)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
@@ -158,7 +158,7 @@ TEST(LogManagerTest, LoggerFunctionality)
     ASSERT_EQ(lastLoggerName, "TestLogger1");
 }
 
-TEST(LogManagerTest, LoggerFunctionalityTwoLoggers)
+TEST(LoggerTest, LoggerFunctionalityTwoLoggers)
 {
     LoggingLevel lastLevel_1 = LoggingLevel::DEBUG;
     LoggingLevel lastLevel_2 = LoggingLevel::DEBUG;
@@ -198,4 +198,45 @@ TEST(LogManagerTest, LoggerFunctionalityTwoLoggers)
     ASSERT_EQ(lastLevel_2, LoggingLevel::INFO);
     ASSERT_EQ(lastMessage_2, "Testmessage_2");
     ASSERT_EQ(lastLoggerName_2, "TestLogger2");
+}
+
+TEST(LogHelperTest, TestLoggerCreation)
+{
+    LoggingLevel lastLevel = LoggingLevel::DEBUG;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    LogManager l;
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+
+    LogHelper h;
+
+    h.createLogger(l, "TestLogger1");
+    h.log(LoggingLevel::INFO, "Testmessage_1");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::INFO);
+    ASSERT_EQ(lastMessage, "Testmessage_1");
+    ASSERT_EQ(lastLoggerName, "TestLogger1");
+}
+
+TEST(LogHelperTest, TestLoggerReset)
+{
+    LoggingLevel lastLevel = LoggingLevel::DEBUG;
+    std::string lastLoggerName = "";
+    std::string lastMessage = "";
+
+    LogManager l;
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+
+    LogHelper h;
+
+    h.createLogger(l, "TestLogger1");
+    h.reset();
+    h.log(LoggingLevel::INFO, "Testmessage_1");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::DEBUG);
+    ASSERT_EQ(lastMessage, "");
+    ASSERT_EQ(lastLoggerName, "");
 }

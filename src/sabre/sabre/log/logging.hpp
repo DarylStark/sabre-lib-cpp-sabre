@@ -191,4 +191,15 @@ namespace sabre::log
 
         Logger getLogger(const std::string &name);
     };
+
+    class LogHelper
+    {
+    private:
+        Logger::UniquePtr _logger = nullptr;
+
+    public:
+        void createLogger(LogManager &logManager, const std::string &name);
+        void log(LoggingLevel level, const std::string &message);
+        void reset();
+    };
 }; // namespace sabre::log
