@@ -3,11 +3,14 @@
 
 namespace sabre::log
 {
-    Logger::Logger(const std::string &name) : _name(name) {}
+    Logger::Logger(LogManager &manager, const std::string &name)
+        : _manager(manager), _name(name)
+    {
+    }
 
     void Logger::log(const LoggingLevel level, const std::string &message)
     {
-        // TODO: Log to locally configured logger
+        _manager.log(level, _name, message);
     }
 
     void LogManager::setLevel(LoggingLevel level)
@@ -59,5 +62,10 @@ namespace sabre::log
                 "LogHandler not available");
         }
         return _handlers.at(identifier);
+    }
+
+    Logger LogManager::getLogger(const std::string &name)
+    {
+        return Logger(*this, name);
     }
 } // namespace sabre::log

@@ -39,6 +39,8 @@ namespace sabre::log
         return LoggingLevelNames[idx];
     }
 
+    class LogManager;
+
     /**
      * @brief Class for logging messages for specific components.
      *
@@ -62,6 +64,7 @@ namespace sabre::log
         using UniquePtr = std::unique_ptr<Logger>;
 
     private:
+        LogManager &_manager;
         std::string _name;
 
     public:
@@ -70,7 +73,7 @@ namespace sabre::log
          *
          * This constructor initializes the Logger object with a specific name.
          */
-        Logger(const std::string &name);
+        Logger(LogManager &manager, const std::string &name);
 
         /**
          * @brief Logs a message at the specified logging level.
@@ -185,5 +188,7 @@ namespace sabre::log
         LogHandler::UniquePtr &getHandler(const std::string &identifier);
 
         size_t getHandlerCount() const;
+
+        Logger getLogger(const std::string &name);
     };
 }; // namespace sabre::log

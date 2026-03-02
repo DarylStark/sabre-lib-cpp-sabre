@@ -139,3 +139,63 @@ TEST(LogManagerTest, RetrievingIncorrectHandler)
     ASSERT_THROW(auto &handler = l.getHandler("non_existing_handler"),
                  sabre::core::LogHandlerNotAvailableException);
 }
+
+TEST(LogManagerTest, LoggerFunctionality)
+{
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    LogManager l;
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+
+    auto logger = l.getLogger("TestLogger1");
+
+    logger.log(LoggingLevel::INFO, "Testmessage_1");
+    ASSERT_EQ(lastLevel, LoggingLevel::INFO);
+    ASSERT_EQ(lastMessage, "Testmessage_1");
+    ASSERT_EQ(lastLoggerName, "TestLogger1");
+}
+
+TEST(LogManagerTest, LoggerFunctionalityTwoLoggers)
+{
+    LoggingLevel lastLevel_1 = LoggingLevel::DEBUG;
+    LoggingLevel lastLevel_2 = LoggingLevel::DEBUG;
+    std::string lastLoggerName_1;
+    std::string lastLoggerName_2;
+    std::string lastMessage_1;
+    std::string lastMessage_2;
+
+    LogManager l1;
+    LogManager l2;
+    l1.addHandler("testHandler_1",
+                  std::make_unique<TestHandler>(lastLevel_1, lastLoggerName_1,
+                                                lastMessage_1));
+    l2.addHandler("testHandler_2",
+                  std::make_unique<TestHandler>(lastLevel_2, lastLoggerName_2,
+                                                lastMessage_2));
+
+    auto logger_1 = l1.getLogger("TestLogger1");
+    auto logger_2 = l2.getLogger("TestLogger2");
+
+    logger_1.log(LoggingLevel::INFO, "Testmessage_1");
+    ASSERT_EQ(lastLevel_1, LoggingLevel::INFO);
+    ASSERT_EQ(lastMessage_1, "Testmessage_1");
+    ASSERT_EQ(lastLoggerName_1, "TestLogger1");
+    ASSERT_EQ(lastLevel_2, LoggingLevel::DEBUG);
+    ASSERT_EQ(lastMessage_2, "");
+    ASSERT_EQ(lastLoggerName_2, "");
+
+    lastLevel_1 = LoggingLevel::DEBUG;
+    lastMessage_1 = "";
+    lastLoggerName_1 = "";
+
+    logger_2.log(LoggingLevel::INFO, "Testmessage_2");
+    ASSERT_EQ(lastLevel_1, LoggingLevel::DEBUG);
+    ASSERT_EQ(lastMessage_1, "");
+    ASSERT_EQ(lastLoggerName_1, "");
+    ASSERT_EQ(lastLevel_2, LoggingLevel::INFO);
+    ASSERT_EQ(lastMessage_2, "Testmessage_2");
+    ASSERT_EQ(lastLoggerName_2, "TestLogger2");
+}
