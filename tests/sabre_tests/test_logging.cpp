@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <sabre/core/exceptions.hpp>
 #include <sabre/log/logging.hpp>
 #include <sabre_test_mocks/log.hpp>
 
@@ -73,12 +74,12 @@ TEST(LogManagerTest, AddHandlers)
     std::string lastMessage;
 
     LogManager l;
-    l.addHandler("testLogger_1", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_2", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_3", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_2", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_3", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
 
     ASSERT_EQ(l.getHandlerCount(), 3);
 }
@@ -90,14 +91,14 @@ TEST(LogManagerTest, RemoveExistingHandlers)
     std::string lastMessage;
 
     LogManager l;
-    l.addHandler("testLogger_1", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_2", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_3", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_2", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_3", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
 
-    l.removeHandler("testLogger_2");
+    l.removeHandler("testHandler_2");
     ASSERT_EQ(l.getHandlerCount(), 2);
 }
 
@@ -108,13 +109,33 @@ TEST(LogManagerTest, RemoveNonExistingHandlers)
     std::string lastMessage;
 
     LogManager l;
-    l.addHandler("testLogger_1", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_2", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
-    l.addHandler("testLogger_3", std::make_unique<TestHandler>(
-                                     lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_2", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+    l.addHandler("testHandler_3", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
 
-    l.removeHandler("testLogger_4");
+    l.removeHandler("testHandler_4");
     ASSERT_EQ(l.getHandlerCount(), 3);
+}
+
+TEST(LogManagerTest, RetrievingLogHandlers)
+{
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    LogManager l;
+    l.addHandler("testHandler_1", std::make_unique<TestHandler>(
+                                      lastLevel, lastLoggerName, lastMessage));
+
+    ASSERT_NO_THROW(auto &handler = l.getHandler("testHandler_1"));
+}
+
+TEST(LogManagerTest, RetrievingIncorrectHandler)
+{
+    LogManager l;
+    ASSERT_THROW(auto &handler = l.getHandler("non_existing_handler"),
+                 sabre::core::LogHandlerNotAvailableException);
 }

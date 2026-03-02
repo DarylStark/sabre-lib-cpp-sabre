@@ -41,6 +41,12 @@ namespace sabre::core
         explicit GpioUnavailableException();
     };
 
+    class LogHandlerNotAvailableException : public SabreException
+    {
+    public:
+        explicit LogHandlerNotAvailableException(const std::string &message);
+    };
+
     /**
      * @brief Exception thrown by implementation on API errors.
      *

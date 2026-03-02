@@ -22,6 +22,12 @@ namespace sabre::core
     {
     }
 
+    LogHandlerNotAvailableException::LogHandlerNotAvailableException(
+        const std::string &msg)
+        : SabreException(msg)
+    {
+    }
+
     ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
 
     ApiError::ApiError() : SabreException("Unknown API error") {}

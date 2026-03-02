@@ -222,6 +222,7 @@ namespace sabre::log
                         LogHandler::UniquePtr handler);
 
         void removeHandler(const std::string &identifier);
+        LogHandler::UniquePtr &getHandler(const std::string &identifier);
 
         size_t getHandlerCount() const;
     };

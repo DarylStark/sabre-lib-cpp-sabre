@@ -1,4 +1,5 @@
 #include "logging.hpp"
+#include "../core/exceptions.hpp"
 
 namespace sabre::log
 {
@@ -87,5 +88,16 @@ namespace sabre::log
     size_t LogManager::getHandlerCount() const
     {
         return _handlers.size();
+    }
+
+    LogHandler::UniquePtr &LogManager::getHandler(const std::string &identifier)
+    {
+        if (_handlers.find(identifier) == _handlers.end())
+        {
+            // TODO: Custom exception
+            throw sabre::core::LogHandlerNotAvailableException(
+                "LogHandler not available");
+        }
+        return _handlers.at(identifier);
     }
 } // namespace sabre::log
