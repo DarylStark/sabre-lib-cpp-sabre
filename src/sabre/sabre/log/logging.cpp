@@ -49,41 +49,42 @@ namespace sabre::log
         log(LoggingLevel::EMERGENCY, message);
     }
 
-    void Logging::setLevel(LoggingLevel level)
+    void LogManager::setLevel(LoggingLevel level)
     {
         _level = level;
     }
 
-    LoggingLevel Logging::getLevel()
+    LoggingLevel LogManager::getLevel()
     {
         return _level;
     }
 
-    void Logging::log(const LoggingLevel level, const std::string &loggerName,
-                      const std::string &message)
+    void LogManager::log(const LoggingLevel level,
+                         const std::string &loggerName,
+                         const std::string &message)
     {
         if (level <= _level)
             for (const auto &pair : _handlers)
                 pair.second->handleLog(level, loggerName, message);
     }
 
-    void Logging::log(const LoggingLevel level, const std::string &message)
+    void LogManager::log(const LoggingLevel level, const std::string &message)
     {
         log(level, "", message);
     }
 
-    void Logging::addHandler(const std::string &identifier,
-                             LogHandler::UniquePtr handler)
+    void LogManager::addHandler(const std::string &identifier,
+                                LogHandler::UniquePtr handler)
     {
         _handlers[identifier] = std::move(handler);
     }
 
-    void Logging::removeHandler(const std::string &identifier)
+    void LogManager::removeHandler(const std::string &identifier)
     {
         _handlers.erase(identifier);
     }
 
-    size_t Logging::getHandlerCount() const
+    size_t LogManager::getHandlerCount() const
     {
         return _handlers.size();
     }

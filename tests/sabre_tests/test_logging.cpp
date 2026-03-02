@@ -5,20 +5,20 @@
 using namespace sabre::log;
 using sabre::impl::sabre_test_mocks::TestHandler;
 
-TEST(LoggingTest, Defaults)
+TEST(LogManagerTest, Defaults)
 {
-    Logging l;
+    LogManager l;
     ASSERT_EQ(l.getLevel(), LoggingLevel::INFO);
     ASSERT_EQ(l.getHandlerCount(), 0);
 }
 
-class LoggingTest : public ::testing::TestWithParam<LoggingLevel>
+class LogManagerTest : public ::testing::TestWithParam<LoggingLevel>
 {
 };
 
-TEST_P(LoggingTest, SetLevel)
+TEST_P(LogManagerTest, SetLevel)
 {
-    Logging l;
+    LogManager l;
 
     LoggingLevel level = GetParam();
 
@@ -27,20 +27,20 @@ TEST_P(LoggingTest, SetLevel)
 }
 
 INSTANTIATE_TEST_SUITE_P(
-    LoggingLevels, LoggingTest,
+    LoggingLevels, LogManagerTest,
     ::testing::Values(LoggingLevel::NOTSET, LoggingLevel::EMERGENCY,
                       LoggingLevel::ALERT, LoggingLevel::CRITICAL,
                       LoggingLevel::ERROR, LoggingLevel::WARNING,
                       LoggingLevel::NOTICE, LoggingLevel::INFO,
                       LoggingLevel::DEBUG));
 
-TEST(LoggingTest, LogWithHandlerName)
+TEST(LogManagerTest, LogWithHandlerName)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
     std::string lastMessage;
 
-    Logging l;
+    LogManager l;
     l.addHandler("testLogger", std::make_unique<TestHandler>(
                                    lastLevel, lastLoggerName, lastMessage));
     l.log(LoggingLevel::ERROR, "TestLogger", "TestMessage");
@@ -50,13 +50,13 @@ TEST(LoggingTest, LogWithHandlerName)
     ASSERT_EQ(lastMessage, "TestMessage");
 }
 
-TEST(LoggingTest, LogWithoutHandlerName)
+TEST(LogManagerTest, LogWithoutHandlerName)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
     std::string lastMessage;
 
-    Logging l;
+    LogManager l;
     l.addHandler("testLogger", std::make_unique<TestHandler>(
                                    lastLevel, lastLoggerName, lastMessage));
     l.log(LoggingLevel::ERROR, "TestMessage");
@@ -66,13 +66,13 @@ TEST(LoggingTest, LogWithoutHandlerName)
     ASSERT_EQ(lastMessage, "TestMessage");
 }
 
-TEST(LoggingTest, AddHandlers)
+TEST(LogManagerTest, AddHandlers)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
     std::string lastMessage;
 
-    Logging l;
+    LogManager l;
     l.addHandler("testLogger_1", std::make_unique<TestHandler>(
                                      lastLevel, lastLoggerName, lastMessage));
     l.addHandler("testLogger_2", std::make_unique<TestHandler>(
@@ -83,13 +83,13 @@ TEST(LoggingTest, AddHandlers)
     ASSERT_EQ(l.getHandlerCount(), 3);
 }
 
-TEST(LoggingTest, RemoveExistingHandlers)
+TEST(LogManagerTest, RemoveExistingHandlers)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
     std::string lastMessage;
 
-    Logging l;
+    LogManager l;
     l.addHandler("testLogger_1", std::make_unique<TestHandler>(
                                      lastLevel, lastLoggerName, lastMessage));
     l.addHandler("testLogger_2", std::make_unique<TestHandler>(
@@ -101,13 +101,13 @@ TEST(LoggingTest, RemoveExistingHandlers)
     ASSERT_EQ(l.getHandlerCount(), 2);
 }
 
-TEST(LoggingTest, RemoveNonExistingHandlers)
+TEST(LogManagerTest, RemoveNonExistingHandlers)
 {
     LoggingLevel lastLevel;
     std::string lastLoggerName;
     std::string lastMessage;
 
-    Logging l;
+    LogManager l;
     l.addHandler("testLogger_1", std::make_unique<TestHandler>(
                                      lastLevel, lastLoggerName, lastMessage));
     l.addHandler("testLogger_2", std::make_unique<TestHandler>(

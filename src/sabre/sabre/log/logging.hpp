@@ -164,17 +164,17 @@ namespace sabre::log
      *
      * This class only has `static` members and cannot be initiated.
      */
-    class Logging
+    class LogManager
     {
     private:
         LoggingLevel _level = LoggingLevel::INFO;
         std::unordered_map<std::string, std::unique_ptr<LogHandler>> _handlers;
 
     public:
-        Logging() = default;
-        Logging(const Logging &) = delete;
-        Logging(Logging &&) = delete;
-        Logging &operator=(const Logging &) = delete;
+        LogManager() = default;
+        LogManager(const LogManager &) = delete;
+        LogManager(LogManager &&) = delete;
+        LogManager &operator=(const LogManager &) = delete;
 
         /**
          * @brief Set the logging level for the application.
