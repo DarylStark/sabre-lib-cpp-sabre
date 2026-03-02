@@ -5,8 +5,8 @@ namespace sabre::core
     ResourceManager::ResourceManager(
         Factory &factory, sabre::hal::PinNumber max_gpios,
         sabre::hal::UartNumber upperboundUart) noexcept
-        : _gpio_manager(factory, max_gpios),
-          _serial_manager(factory, upperboundUart)
+        : _gpio_manager(factory, max_gpios, _logManager),
+          _serial_manager(factory, upperboundUart, _logManager)
     {
     }
 
@@ -18,5 +18,10 @@ namespace sabre::core
     SerialResourceManager &ResourceManager::serial() noexcept
     {
         return _serial_manager;
+    }
+
+    sabre::log::LogManager &ResourceManager::getLogManager()
+    {
+        return _logManager;
     }
 } // namespace sabre::core

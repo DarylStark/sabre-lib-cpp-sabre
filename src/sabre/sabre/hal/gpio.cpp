@@ -8,4 +8,9 @@ namespace sabre::hal
     {
         return _pinNumber;
     }
+
+    sabre::log::LogHelper &Gpio::getLogHelper()
+    {
+        return _log_helper;
+    }
 } // namespace sabre::hal

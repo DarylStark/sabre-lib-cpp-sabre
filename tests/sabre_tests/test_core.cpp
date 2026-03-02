@@ -40,6 +40,13 @@ TEST_F(ResourceManagerTest, RetrieveSerialResourceManager)
     ASSERT_EQ(&serial_rm1, &serial_rm2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveLogManager)
+{
+    auto &log_manager1 = _manager.getLogManager();
+    auto &log_manager2 = _manager.getLogManager();
+    ASSERT_EQ(&log_manager1, &log_manager2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);

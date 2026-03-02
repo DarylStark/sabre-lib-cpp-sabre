@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include "./gpio_resource_manager.hpp"
 #include "./serial_resource_manager.hpp"
 
@@ -14,6 +15,10 @@ namespace sabre::core
     class ResourceManager
     {
     private:
+        // Local resources
+        sabre::log::LogManager _logManager;
+
+        // Categorized resource managers
         GpioResourceManager _gpio_manager;
         SerialResourceManager _serial_manager;
 
@@ -26,6 +31,10 @@ namespace sabre::core
         ResourceManager(Factory &factory, sabre::hal::PinNumber max_gpios,
                         sabre::hal::UartNumber upperboundUart) noexcept;
 
+        // Local resources
+        sabre::log::LogManager &getLogManager();
+
+        // Categorized resource managers
         GpioResourceManager &gpio() noexcept;
         SerialResourceManager &serial() noexcept;
     };

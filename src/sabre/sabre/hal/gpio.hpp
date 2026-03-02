@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include <memory>
 
 namespace sabre::hal
@@ -15,6 +16,7 @@ namespace sabre::hal
     {
     private:
         PinNumber _pinNumber = 0;
+        sabre::log::LogHelper _log_helper;
 
     public:
         using Ptr = Gpio *;
@@ -25,6 +27,7 @@ namespace sabre::hal
         Gpio() noexcept = default;
         Gpio(PinNumber pinNumber) noexcept;
         PinNumber getPinNumber() const noexcept;
+        sabre::log::LogHelper &getLogHelper();
 
         /**
          * @brief Virtual destructor.
