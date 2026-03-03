@@ -39,11 +39,4 @@ namespace sabre::impl::sabre_test_mocks
         sabre::time::WallClock::UniquePtr createWallClock() const override;
     };
 
-    class TestApp : public sabre::runtime::App
-    {
-    public:
-        TestApp();
-        TestApp(sabre::core::Factory::UniquePtr factory);
-        void start() override;
-    };
 } // namespace sabre::impl::sabre_test_mocks

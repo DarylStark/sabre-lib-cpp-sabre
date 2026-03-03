@@ -82,16 +82,4 @@ namespace sabre::impl::sabre_test_mocks
     {
         return nullptr;
     }
-
-    TestApp::TestApp() : sabre::runtime::App() {}
-
-    TestApp::TestApp(sabre::core::Factory::UniquePtr factory)
-        : sabre::runtime::App(std::move(factory))
-    {
-    }
-
-    void TestApp::start()
-    {
-        // TestApp start implementation
-    }
 } // namespace sabre::impl::sabre_test_mocks
