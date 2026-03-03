@@ -29,13 +29,16 @@ namespace sabre::core
         bool _isFreePin(sabre::hal::PinNumber pin) const noexcept;
         bool _isValidGpio(sabre::hal::PinNumber pin) const noexcept;
 
+        sabre::log::LogManager &_logManager;
+
     public:
         using Ptr = GpioResourceManager *;
         using SharedPtr = std::shared_ptr<GpioResourceManager>;
         using UniquePtr = std::unique_ptr<GpioResourceManager>;
 
         GpioResourceManager(Factory &factory,
-                            sabre::hal::PinNumber upperboundGpio) noexcept;
+                            sabre::hal::PinNumber upperboundGpio,
+                            sabre::log::LogManager &logManager) noexcept;
         sabre::hal::InputGpio &getInputGpio(sabre::hal::PinNumber pin);
         sabre::hal::OutputGpio &getOutputGpio(sabre::hal::PinNumber pin);
         sabre::hal::Gpio &getGpio(sabre::hal::PinNumber pin);

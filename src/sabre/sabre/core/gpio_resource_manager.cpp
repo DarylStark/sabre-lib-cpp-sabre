@@ -4,8 +4,9 @@
 namespace sabre::core
 {
     GpioResourceManager::GpioResourceManager(
-        Factory &factory, sabre::hal::PinNumber max_gpios) noexcept
-        : _factory(factory), _upperboundGpio(max_gpios)
+        Factory &factory, sabre::hal::PinNumber max_gpios,
+        sabre::log::LogManager &logManager) noexcept
+        : _logManager(logManager), _factory(factory), _upperboundGpio(max_gpios)
     {
     }
 
@@ -38,7 +39,9 @@ namespace sabre::core
             throw GpioUnavailableException();
 
         if (_isFreePin(pin))
+        {
             _resources[pin] = factoryFunc(pin);
+        }
 
         if (_isType<UniquePtrType>(pin))
         {
@@ -53,22 +56,42 @@ namespace sabre::core
     GpioResourceManager::getInputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::InputGpio>(
-            pin, [this](sabre::hal::PinNumber p)
-            { return _factory.createInputGpio(p); });
+            pin,
+            [this](sabre::hal::PinNumber p)
+            {
+                sabre::hal::InputGpio::UniquePtr gpio =
+                    _factory.createInputGpio(p);
+                gpio->getLogHelper().createLogger(
+                    _logManager, "InputGpio_" + std::to_string(p));
+                return gpio;
+            });
     }
 
     sabre::hal::OutputGpio &
     GpioResourceManager::getOutputGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::OutputGpio>(
-            pin, [this](sabre::hal::PinNumber p)
-            { return _factory.createOutputGpio(p); });
+            pin,
+            [this](sabre::hal::PinNumber p)
+            {
+                sabre::hal::OutputGpio::UniquePtr gpio =
+                    _factory.createOutputGpio(p);
+                gpio->getLogHelper().createLogger(
+                    _logManager, "OutputGpio_" + std::to_string(p));
+                return gpio;
+            });
     }
 
     sabre::hal::Gpio &GpioResourceManager::getGpio(sabre::hal::PinNumber pin)
     {
         return _getOrCreateGpio<sabre::hal::Gpio>(
             pin,
-            [this](sabre::hal::PinNumber p) { return _factory.createGpio(p); });
+            [this](sabre::hal::PinNumber p)
+            {
+                sabre::hal::Gpio::UniquePtr gpio = _factory.createGpio(p);
+                gpio->getLogHelper().createLogger(_logManager,
+                                                  "Gpio_" + std::to_string(p));
+                return gpio;
+            });
     }
 } // namespace sabre::core

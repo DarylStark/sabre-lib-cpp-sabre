@@ -1,82 +1,88 @@
 #include "logging.hpp"
+#include "../core/exceptions.hpp"
 
 namespace sabre::log
 {
-    LoggingLevel Logging::_level = LoggingLevel::NOTSET;
+    Logger::Logger(LogManager &manager, const std::string &name)
+        : _manager(manager), _name(name)
+    {
+    }
 
     void Logger::log(const LoggingLevel level, const std::string &message)
     {
-        Logging::log(level, _name, message);
+        _manager.log(level, _name, message);
     }
 
-    void Logger::debug(const std::string &message)
-    {
-        log(LoggingLevel::DEBUG, message);
-    }
-
-    void Logger::info(const std::string &message)
-    {
-        log(LoggingLevel::INFO, message);
-    }
-
-    void Logger::notice(const std::string &message)
-    {
-        log(LoggingLevel::NOTICE, message);
-    }
-
-    void Logger::warning(const std::string &message)
-    {
-        log(LoggingLevel::WARNING, message);
-    }
-
-    void Logger::error(const std::string &message)
-    {
-        log(LoggingLevel::ERROR, message);
-    }
-
-    void Logger::critical(const std::string &message)
-    {
-        log(LoggingLevel::CRITICAL, message);
-    }
-
-    void Logger::alert(const std::string &message)
-    {
-        log(LoggingLevel::ALERT, message);
-    }
-
-    void Logger::emergency(const std::string &message)
-    {
-        log(LoggingLevel::EMERGENCY, message);
-    }
-
-    void Logging::setLevel(LoggingLevel level)
+    void LogManager::setLevel(LoggingLevel level)
     {
         _level = level;
     }
 
-    LoggingLevel Logging::getLevel()
+    LoggingLevel LogManager::getLevel()
     {
         return _level;
     }
 
-    Logger::Logger(const std::string &name) : _name(name) {}
-    std::forward_list<LogHandler::SharedPtr> Logging::_handlers;
-
-    void Logging::log(const LoggingLevel level, const std::string &loggerName,
-                      const std::string &message)
+    void LogManager::log(const LoggingLevel level,
+                         const std::string &loggerName,
+                         const std::string &message)
     {
         if (level <= _level)
-            for (const auto &handler : _handlers)
-                handler->handleLog(level, loggerName, message);
+            for (const auto &pair : _handlers)
+                pair.second->handleLog(level, loggerName, message);
     }
 
-    void Logging::addHandler(const LogHandler::SharedPtr &handler)
+    void LogManager::log(const LoggingLevel level, const std::string &message)
     {
-        _handlers.push_front(handler);
+        log(level, "", message);
     }
 
-    void Logging::removeHandler(const LogHandler::SharedPtr &handler)
+    void LogManager::addHandler(const std::string &identifier,
+                                LogHandler::UniquePtr handler)
     {
-        _handlers.remove(handler);
+        _handlers[identifier] = std::move(handler);
+    }
+
+    void LogManager::removeHandler(const std::string &identifier)
+    {
+        _handlers.erase(identifier);
+    }
+
+    size_t LogManager::getHandlerCount() const
+    {
+        return _handlers.size();
+    }
+
+    LogHandler::UniquePtr &LogManager::getHandler(const std::string &identifier)
+    {
+        if (_handlers.find(identifier) == _handlers.end())
+        {
+            // TODO: Custom exception
+            throw sabre::core::LogHandlerNotAvailableException(
+                "LogHandler not available");
+        }
+        return _handlers.at(identifier);
+    }
+
+    Logger LogManager::getLogger(const std::string &name)
+    {
+        return Logger(*this, name);
+    }
+
+    void LogHelper::createLogger(LogManager &logManager,
+                                 const std::string &name)
+    {
+        _logger = std::make_unique<Logger>(logManager, name);
+    }
+
+    void LogHelper::log(LoggingLevel level, const std::string &message)
+    {
+        if (_logger)
+            _logger->log(level, message);
+    }
+
+    void LogHelper::reset()
+    {
+        _logger.reset();
     }
 } // namespace sabre::log

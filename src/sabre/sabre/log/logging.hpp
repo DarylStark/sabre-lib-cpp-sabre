@@ -1,8 +1,9 @@
 #pragma once
 
-#include <forward_list>
+#include <cstddef>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 namespace sabre::log
 {
@@ -38,6 +39,8 @@ namespace sabre::log
         return LoggingLevelNames[idx];
     }
 
+    class LogManager;
+
     /**
      * @brief Class for logging messages for specific components.
      *
@@ -61,6 +64,7 @@ namespace sabre::log
         using UniquePtr = std::unique_ptr<Logger>;
 
     private:
+        LogManager &_manager;
         std::string _name;
 
     public:
@@ -69,7 +73,7 @@ namespace sabre::log
          *
          * This constructor initializes the Logger object with a specific name.
          */
-        Logger(const std::string &name);
+        Logger(LogManager &manager, const std::string &name);
 
         /**
          * @brief Logs a message at the specified logging level.
@@ -81,46 +85,6 @@ namespace sabre::log
          * @param message The message to be logged.
          */
         void log(const LoggingLevel level, const std::string &message);
-
-        /**
-         * @brief Log a debug message.
-         */
-        void debug(const std::string &message);
-
-        /**
-         * @brief Log an info message.
-         */
-        void info(const std::string &message);
-
-        /**
-         * @brief Log a notice message.
-         */
-        void notice(const std::string &message);
-
-        /**
-         * @brief Log a warning message.
-         */
-        void warning(const std::string &message);
-
-        /**
-         * @brief Log a error message.
-         */
-        void error(const std::string &message);
-
-        /**
-         * @brief Log a critical message.
-         */
-        void critical(const std::string &message);
-
-        /**
-         * @brief Log an alert message.
-         */
-        void alert(const std::string &message);
-
-        /**
-         * @brief Log an emergency message.
-         */
-        void emergency(const std::string &message);
     };
 
     /**
@@ -163,18 +127,18 @@ namespace sabre::log
      *
      * This class only has `static` members and cannot be initiated.
      */
-    class Logging
+    class LogManager
     {
     private:
-        Logging() = delete;
-        Logging(const Logging &) = delete;
-        Logging(Logging &&) = delete;
-        Logging &operator=(const Logging &) = delete;
-
-        static LoggingLevel _level;
-        static std::forward_list<LogHandler::SharedPtr> _handlers;
+        LoggingLevel _level = LoggingLevel::INFO;
+        std::unordered_map<std::string, std::unique_ptr<LogHandler>> _handlers;
 
     public:
+        LogManager() = default;
+        LogManager(const LogManager &) = delete;
+        LogManager(LogManager &&) = delete;
+        LogManager &operator=(const LogManager &) = delete;
+
         /**
          * @brief Set the logging level for the application.
          *
@@ -183,7 +147,7 @@ namespace sabre::log
          *
          * @param level The desired logging level.
          */
-        static void setLevel(LoggingLevel level);
+        void setLevel(LoggingLevel level);
 
         /**
          * @brief Get the current logging level.
@@ -193,7 +157,7 @@ namespace sabre::log
          *
          * @return The current logging level.
          */
-        static LoggingLevel getLevel();
+        LoggingLevel getLevel();
 
         /**
          * @brief Log a message at the specified logging level.
@@ -206,8 +170,10 @@ namespace sabre::log
          * @param loggerName The name of the logger that generated the message.
          * @param message The message to be logged.
          */
-        static void log(const LoggingLevel level, const std::string &loggerName,
-                        const std::string &message);
+        void log(const LoggingLevel level, const std::string &loggerName,
+                 const std::string &message);
+
+        void log(const LoggingLevel level, const std::string &message);
 
         /**
          * @brief Add a log handler to the logging system.
@@ -215,16 +181,25 @@ namespace sabre::log
          * This method allows the user to register a log handler that will
          * receive log messages.
          */
-        static void addHandler(const LogHandler::SharedPtr &handler);
+        void addHandler(const std::string &identifier,
+                        LogHandler::UniquePtr handler);
 
-        /**
-         * @brief Remove a log handler from the logging system.
-         *
-         * This method allows the user to unregister a log handler, stopping it
-         * from receiving further log messages.
-         *
-         * @param handler The log handler to be removed.
-         */
-        static void removeHandler(const LogHandler::SharedPtr &handler);
+        void removeHandler(const std::string &identifier);
+        LogHandler::UniquePtr &getHandler(const std::string &identifier);
+
+        size_t getHandlerCount() const;
+
+        Logger getLogger(const std::string &name);
+    };
+
+    class LogHelper
+    {
+    private:
+        Logger::UniquePtr _logger = nullptr;
+
+    public:
+        void createLogger(LogManager &logManager, const std::string &name);
+        void log(LoggingLevel level, const std::string &message);
+        void reset();
     };
 }; // namespace sabre::log

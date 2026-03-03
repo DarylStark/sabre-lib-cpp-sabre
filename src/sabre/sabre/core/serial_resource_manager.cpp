@@ -3,8 +3,10 @@
 namespace sabre::core
 {
     SerialResourceManager::SerialResourceManager(
-        Factory &factory, sabre::hal::UartNumber upperboundUart) noexcept
-        : _factory(factory), _upperboundUart(upperboundUart)
+        Factory &factory, sabre::hal::UartNumber upperboundUart,
+        sabre::log::LogManager &logManager) noexcept
+        : _logManager(logManager), _factory(factory),
+          _upperboundUart(upperboundUart)
     {
     }
 
@@ -27,6 +29,8 @@ namespace sabre::core
         auto uart = _factory.createUartObject(uartNumber, baudRate,
                                               txPin.getPinNumber(),
                                               rxPin.getPinNumber(), bufferSize);
+        uart->getLogHelper().createLogger(_logManager,
+                                          "Uart_" + std::to_string(uartNumber));
         _uartResources[uartNumber] = std::move(uart);
     }
 
@@ -52,6 +56,8 @@ namespace sabre::core
         }
 
         auto usbCdc = _factory.createUsbCdc(index, bufferSize);
+        usbCdc->getLogHelper().createLogger(_logManager,
+                                            "UsbCdc_" + std::to_string(index));
         _usbCdcResources[index] = std::move(usbCdc);
     }
 

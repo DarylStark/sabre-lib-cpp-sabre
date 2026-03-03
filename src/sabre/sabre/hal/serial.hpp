@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include "../types/types.hpp"
-#include <cstddef> // For size_t
-#include <cstdint> // For uint32_t
+#include <cstddef>
+#include <cstdint>
 #include <memory>
 
 namespace sabre::hal
@@ -20,6 +21,9 @@ namespace sabre::hal
      */
     class Serial
     {
+    private:
+        sabre::log::LogHelper _log_helper;
+
     public:
         using Ptr = Serial *;
         using SharedPtr = std::shared_ptr<Serial>;
@@ -29,6 +33,8 @@ namespace sabre::hal
          * @brief Virtual destructor.
          */
         virtual ~Serial() noexcept = default;
+
+        sabre::log::LogHelper &getLogHelper();
 
         /**
          * @brief Initialize the Serial device.
