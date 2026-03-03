@@ -77,7 +77,7 @@ namespace sabre::core
                 sabre::hal::OutputGpio::UniquePtr gpio =
                     _factory.createOutputGpio(p);
                 gpio->getLogHelper().createLogger(
-                    _logManager, "InputGpio_" + std::to_string(p));
+                    _logManager, "OutputGpio_" + std::to_string(p));
                 return gpio;
             });
     }
@@ -89,8 +89,8 @@ namespace sabre::core
             [this](sabre::hal::PinNumber p)
             {
                 sabre::hal::Gpio::UniquePtr gpio = _factory.createGpio(p);
-                gpio->getLogHelper().createLogger(
-                    _logManager, "InputGpio_" + std::to_string(p));
+                gpio->getLogHelper().createLogger(_logManager,
+                                                  "Gpio_" + std::to_string(p));
                 return gpio;
             });
     }

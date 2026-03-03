@@ -1,7 +1,9 @@
 #include "test_core.hpp"
 #include "sabre/core/exceptions.hpp"
 #include <gtest/gtest.h>
+#include <sabre/log/logging.hpp>
 #include <sabre_test_mocks/hal.hpp>
+#include <sabre_test_mocks/log.hpp>
 
 TEST(SabreExceptionTest, CustomMessage)
 {
@@ -166,6 +168,69 @@ TEST_F(GpioResourceManagerTest, CreateGpioToLow)
 TEST_F(GpioResourceManagerTest, CreateGpioZero)
 {
     ASSERT_NO_THROW(const auto &gpio1 = _gpio_rm.getGpio(0));
+}
+
+TEST_F(GpioResourceManagerTest, LoggerAttachedToGpio)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &gpio1 = _gpio_rm.getGpio(26);
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    gpio1.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "Gpio_26");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(GpioResourceManagerTest, LoggerAttachedToInputGpio)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &gpio1 = _gpio_rm.getInputGpio(26);
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    gpio1.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "InputGpio_26");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(GpioResourceManagerTest, LoggerAttachedToOutputGpio)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &gpio1 = _gpio_rm.getOutputGpio(26);
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    gpio1.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "OutputGpio_26");
+    ASSERT_EQ(lastMessage, "TestMessage");
 }
 
 TEST_F(SerialResourceManagerTest, RetrieveTheSameUart)

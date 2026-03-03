@@ -9,9 +9,9 @@
 class GpioResourceManagerTest : public ::testing::Test
 {
 protected:
-    sabre::log::LogManager logManager;
+    sabre::log::LogManager _logManager;
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::GpioResourceManager _gpio_rm{_factory, 26, logManager};
+    sabre::core::GpioResourceManager _gpio_rm{_factory, 26, _logManager};
 };
 
 class SerialResourceManagerTest : public ::testing::Test
