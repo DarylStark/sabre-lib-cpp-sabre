@@ -1,10 +1,9 @@
 #pragma once
 
-#include "../core/factory.hpp"
+#include "../core/resource_manager.hpp"
 
 namespace sabre::runtime
 {
-
     class App
     {
     public:
@@ -13,25 +12,18 @@ namespace sabre::runtime
         using UniquePtr = std::unique_ptr<App>;
 
     protected:
-        sabre::core::Factory::UniquePtr _factory;
+        sabre::core::ResourceManager &_resourceManager;
 
     public:
-        App() noexcept;
-        App(sabre::core::Factory::UniquePtr factory) noexcept;
-        App(const App &) = delete;
-        App &operator=(const App &) = delete;
-        App(App &&) = default;
+        App(sabre::core::ResourceManager &resourceManager) noexcept;
 
         /**
          * @brief Virtual destructor.
          */
         virtual ~App() noexcept = default;
 
-        void setFactory(sabre::core::Factory::UniquePtr factory) noexcept;
-        const sabre::core::Factory::UniquePtr &getFactory() const noexcept;
+        const sabre::core::ResourceManager &getResourceManager() const noexcept;
 
-        virtual void start() = 0;
+        virtual void run() = 0;
     };
-
-    void runApp(App &app);
 } // namespace sabre::runtime
