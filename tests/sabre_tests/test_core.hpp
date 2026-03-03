@@ -17,9 +17,9 @@ protected:
 class SerialResourceManagerTest : public ::testing::Test
 {
 protected:
-    sabre::log::LogManager logManager;
+    sabre::log::LogManager _logManager;
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::SerialResourceManager _serial_rm{_factory, 3, logManager};
+    sabre::core::SerialResourceManager _serial_rm{_factory, 3, _logManager};
 };
 
 class ResourceManagerTest : public ::testing::Test

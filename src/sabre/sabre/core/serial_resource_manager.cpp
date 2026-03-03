@@ -29,8 +29,8 @@ namespace sabre::core
         auto uart = _factory.createUartObject(uartNumber, baudRate,
                                               txPin.getPinNumber(),
                                               rxPin.getPinNumber(), bufferSize);
-        uart->getLogHelper().createLogger(
-            _logManager, "USB-CDC" + std::to_string(uartNumber));
+        uart->getLogHelper().createLogger(_logManager,
+                                          "Uart_" + std::to_string(uartNumber));
         _uartResources[uartNumber] = std::move(uart);
     }
 
@@ -57,7 +57,7 @@ namespace sabre::core
 
         auto usbCdc = _factory.createUsbCdc(index, bufferSize);
         usbCdc->getLogHelper().createLogger(_logManager,
-                                            "USB-CDC" + std::to_string(index));
+                                            "UsbCdc_" + std::to_string(index));
         _usbCdcResources[index] = std::move(usbCdc);
     }
 

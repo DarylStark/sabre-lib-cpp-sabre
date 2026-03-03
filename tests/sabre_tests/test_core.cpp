@@ -303,3 +303,48 @@ TEST_F(SerialResourceManagerTest, ConfigureUsbCdcTwice)
     _serial_rm.configureUsbCdc(0, 128);
     ASSERT_THROW(_serial_rm.configureUsbCdc(0, 128), std::runtime_error);
 }
+
+TEST_F(SerialResourceManagerTest, LoggerAttachedToUart)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _serial_rm.configureUart(1, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                             sabre::impl::sabre_test_mocks::StGpio(21), 512);
+    auto &uart1 = _serial_rm.getUart(1);
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    uart1.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "Uart_1");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(SerialResourceManagerTest, LoggerAttachedToUsbCdc)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _serial_rm.configureUsbCdc(1, 128);
+    auto &usbcdc1 = _serial_rm.getUsbCdc(1);
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    usbcdc1.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "UsbCdc_1");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
