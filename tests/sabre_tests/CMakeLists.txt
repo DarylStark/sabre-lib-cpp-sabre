@@ -9,7 +9,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-target_link_libraries(sabre_tests PRIVATE sabre sabre_test_mocks gtest gtest_main)
+target_link_libraries(sabre_tests PRIVATE sabre sabre_test_mocks sabre_test_app gtest gtest_main)
 
 target_compile_options(sabre_tests PRIVATE --coverage)
 target_link_options(sabre_tests PRIVATE --coverage)
@@ -19,6 +19,7 @@ target_include_directories(
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/../../src/sabre
         ${CMAKE_CURRENT_SOURCE_DIR}/../sabre_test_mocks
+        ${CMAKE_CURRENT_SOURCE_DIR}/../sabre_test_app
 )
 
 include(GoogleTest)

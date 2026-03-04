@@ -1,28 +1,37 @@
-#include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
+#include <sabre_test_app/test_app.hpp>
+#include <sabre_test_mocks/runtime.hpp>
 
-using sabre::impl::sabre_test_mocks::StFactory;
-using sabre::impl::sabre_test_mocks::TestApp;
+#include <sabre/runtime/run_app.hpp>
 
-TEST(App, AppSetFactory)
+using namespace sabre::impl::sabre_test_mocks;
+
+TEST(RuntimeTest, TestAppStartWithoutArguments)
 {
-    TestApp app;
-    auto factory = std::make_unique<StFactory>();
-    auto factory_ptr = factory.get();
-    app.setFactory(std::move(factory));
-    EXPECT_EQ(app.getFactory().get(), factory_ptr);
+    ASSERT_NO_THROW(RunApp<MyAppNoArgs>());
 }
 
-TEST(App, AppConstructorWithFactory)
+TEST(RuntimeTest, TestAppStartWithOneArgument)
 {
-    auto factory = std::make_unique<StFactory>();
-    auto factory_ptr = factory.get();
-    TestApp app(std::move(factory));
-    EXPECT_EQ(app.getFactory().get(), factory_ptr);
+    ASSERT_NO_THROW(RunApp<MyAppOneArg>(10));
 }
 
-TEST(App, AppDefaultConstructor)
+TEST(RuntimeTest, TestAppWithReturnValue)
 {
-    TestApp app;
-    EXPECT_EQ(app.getFactory(), nullptr);
+    uint32_t retval = RunApp<MyAppOneArgReturnValue>(2610);
+    ASSERT_EQ(retval, 2610);
+}
+
+TEST(RuntimeTest, TestAppWithReturnSmartPointer)
+{
+    std::shared_ptr<ReturnData> retval = nullptr;
+
+    {
+        retval = RunApp<MyAppReturnSmartPointer>();
+    }
+
+    ASSERT_NE(retval, nullptr);
+
+    ASSERT_EQ(retval->returnValue, 20);
+    ASSERT_EQ(retval->returnString, "Sabre framework tests");
 }
