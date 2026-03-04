@@ -11,12 +11,10 @@ concept ValidSabreApp =
 
 namespace sabre::runtime
 {
-    template <ValidSabreApp AppType, typename FactoryType, typename... Args>
-    void RunApp(Args &&...args)
+    template <ValidSabreApp AppType, typename... Args>
+    void RunApp(sabre::core::ResourceManager &resourceManager, Args &&...args)
     {
-        FactoryType factory;
-        sabre::core::ResourceManager resourceManager(factory, 10, 2);
-        auto app = AppType(resourceManager);
-        app(std::forward<Args>(args)...);
+        auto app = AppType(resourceManager, std::forward<Args>(args)...);
+        app.run();
     }
 } // namespace sabre::runtime
