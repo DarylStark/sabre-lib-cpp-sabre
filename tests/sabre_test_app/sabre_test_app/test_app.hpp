@@ -1,6 +1,9 @@
 #pragma once
 
+#include <cstdint>
+#include <memory>
 #include <sabre/runtime/app.hpp>
+#include <string>
 
 class MyAppNoArgs : public sabre::runtime::App<void>
 {

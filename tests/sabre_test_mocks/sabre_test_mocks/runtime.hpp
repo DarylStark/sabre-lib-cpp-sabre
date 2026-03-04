@@ -1,10 +1,12 @@
+#pragma once
+
 #include "core.hpp"
 #include <sabre/runtime/run_app.hpp>
 
 namespace sabre::impl::sabre_test_mocks
 {
     template <typename AppType, typename... Args>
-        requires ValidSabreApp<AppType, Args...>
+        requires sabre::runtime::ValidSabreApp<AppType, Args...>
     auto RunApp(Args &&...args)
     {
         StFactory factory;

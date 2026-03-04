@@ -11,7 +11,7 @@ TEST(RuntimeTest, TestAppStartWithoutArguments)
     ASSERT_NO_THROW(RunApp<MyAppNoArgs>());
 }
 
-TEST(RuntimeTest, TestAppStartWithOneArguments)
+TEST(RuntimeTest, TestAppStartWithOneArgument)
 {
     ASSERT_NO_THROW(RunApp<MyAppOneArg>(10));
 }

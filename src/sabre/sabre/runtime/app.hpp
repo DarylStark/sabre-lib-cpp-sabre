@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../core/resource_manager.hpp"
+#include <memory>
 
 namespace sabre::runtime
 {
