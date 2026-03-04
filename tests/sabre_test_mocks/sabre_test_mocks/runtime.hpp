@@ -3,13 +3,14 @@
 
 namespace sabre::impl::sabre_test_mocks
 {
-    template <ValidSabreApp AppType, typename... Args>
-    void RunApp(Args &&...args)
+    template <typename AppType, typename... Args>
+        requires ValidSabreApp<AppType, Args...>
+    auto RunApp(Args &&...args)
     {
         StFactory factory;
         sabre::core::ResourceManager resourceManager(factory, 10, 20);
 
-        sabre::runtime::RunApp<AppType>(resourceManager,
-                                        std::forward<Args>(args));
+        return sabre::runtime::RunApp<AppType>(resourceManager,
+                                               std::forward<Args>(args)...);
     }
 } // namespace sabre::impl::sabre_test_mocks

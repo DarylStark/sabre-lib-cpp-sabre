@@ -1,3 +1,37 @@
-#include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
+#include <sabre_test_app/test_app.hpp>
+#include <sabre_test_mocks/runtime.hpp>
+
 #include <sabre/runtime/run_app.hpp>
+
+using namespace sabre::impl::sabre_test_mocks;
+
+TEST(RuntimeTest, TestAppStartWithoutArguments)
+{
+    ASSERT_NO_THROW(RunApp<MyAppNoArgs>());
+}
+
+TEST(RuntimeTest, TestAppStartWithOneArguments)
+{
+    ASSERT_NO_THROW(RunApp<MyAppOneArg>(10));
+}
+
+TEST(RuntimeTest, TestAppWithReturnValue)
+{
+    uint32_t retval = RunApp<MyAppOneArgReturnValue>(2610);
+    ASSERT_EQ(retval, 2610);
+}
+
+TEST(RuntimeTest, TestAppWithReturnSmartPointer)
+{
+    std::shared_ptr<ReturnData> retval = nullptr;
+
+    {
+        retval = RunApp<MyAppReturnSmartPointer>();
+    }
+
+    ASSERT_NE(retval, nullptr);
+
+    ASSERT_EQ(retval->returnValue, 20);
+    ASSERT_EQ(retval->returnString, "Sabre framework tests");
+}

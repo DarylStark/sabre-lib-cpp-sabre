@@ -6,15 +6,18 @@
 
 template <typename AppType, typename... Args>
 concept ValidSabreApp =
-    std::derived_from<AppType, sabre::runtime::App> &&
-    std::constructible_from<AppType, sabre::core::ResourceManager &, Args...>;
+    std::constructible_from<AppType, sabre::core::ResourceManager &, Args...> &&
+    requires(AppType a) {
+        { a.run() };
+    };
 
 namespace sabre::runtime
 {
-    template <ValidSabreApp AppType, typename... Args>
-    void RunApp(sabre::core::ResourceManager &resourceManager, Args &&...args)
+    template <typename AppType, typename... Args>
+        requires ValidSabreApp<AppType, Args...>
+    auto RunApp(sabre::core::ResourceManager &resourceManager, Args &&...args)
     {
-        auto app = AppType(resourceManager, std::forward<Args>(args)...);
-        app.run();
+        AppType app(resourceManager, std::forward<Args>(args)...);
+        return app.run();
     }
 } // namespace sabre::runtime
