@@ -61,10 +61,10 @@ namespace sabre::io
          * This constructor initializes the stream buffer with a Serial device
          * and a specified buffer size.
          *
-         * @param uartPtr The Serial device to use for output operations.
+         * @param serialPtr The Serial device to use for output operations.
          * @param bufferSize The size of the internal buffer (default is 512).
          */
-        SerialStreamBuf(sabre::hal::Serial::Ptr uartPtr,
+        SerialStreamBuf(sabre::hal::Serial::Ptr serialPtr,
                         size_t bufferSize = 512);
 
         /**
