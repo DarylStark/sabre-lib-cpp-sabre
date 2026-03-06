@@ -246,10 +246,8 @@ TEST(LogHelperTest, TestLoggerReset)
 
 TEST(OStreamLogHandler, Logging)
 {
-    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
-        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
-    auto *u_ptr = u.get();
-    sabre::io::SerialStreamBuf buffer(std::move(u), 128);
+    sabre::impl::sabre_test_mocks::TestUART u;
+    sabre::io::SerialStreamBuf buffer(&u, 128);
     std::ostream stream(&buffer);
 
     LogManager l;
@@ -257,8 +255,8 @@ TEST(OStreamLogHandler, Logging)
 
     l.log(LoggingLevel::INFO, "TestLogger", "Testmessage");
 
-    ASSERT_TRUE(u_ptr->_buf.contains("TestLogger"));
-    ASSERT_TRUE(u_ptr->_buf.contains("Testmessage"));
+    ASSERT_TRUE(u._buf.contains("TestLogger"));
+    ASSERT_TRUE(u._buf.contains("Testmessage"));
 }
 
 TEST(LogBufferHandler, Logging)

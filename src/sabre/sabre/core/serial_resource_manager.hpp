@@ -15,8 +15,15 @@ namespace sabre::core
         std::unordered_map<sabre::hal::UartNumber,
                            sabre::hal::Serial::UniquePtr>
             _uartResources;
+        std::unordered_map<sabre::hal::UartNumber,
+                           sabre::io::SerialStreamBuf::UniquePtr>
+            _uartSerialStreamBuffers;
+
         std::unordered_map<sabre::hal::UsbIndex, sabre::hal::Serial::UniquePtr>
             _usbCdcResources;
+        std::unordered_map<sabre::hal::UsbIndex,
+                           sabre::io::SerialStreamBuf::UniquePtr>
+            _usbSerialStreamBuffers;
 
         sabre::log::LogManager &_logManager;
 
@@ -33,8 +40,14 @@ namespace sabre::core
                            const sabre::hal::Gpio &txPin,
                            const sabre::hal::Gpio &rxPin, size_t bufferSize);
         sabre::hal::Serial &getUart(sabre::hal::UartNumber uartNumber) const;
+        sabre::io::SerialStreamBuf &
+        getSerialStreamBufForUart(sabre::hal::UartNumber uartNumber);
+        std::ostream getOutputStreamForUart(sabre::hal::UartNumber uartNumber);
 
         void configureUsbCdc(sabre::hal::UsbIndex index, size_t bufferSize);
         sabre::hal::Serial &getUsbCdc(sabre::hal::UsbIndex index) const;
+        sabre::io::SerialStreamBuf &
+        getSerialStreamBufForUsbCdc(sabre::hal::UsbIndex index);
+        std::ostream getOutputStreamForUsbCdc(sabre::hal::UsbIndex index);
     };
 } // namespace sabre::core

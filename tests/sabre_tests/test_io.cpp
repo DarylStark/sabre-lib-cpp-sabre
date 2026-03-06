@@ -6,26 +6,24 @@
 
 TEST(SerialStreamBuf, UseAsOStreamObject)
 {
-    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
-        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
-    auto *u_ptr = u.get();
-    sabre::io::SerialStreamBuf buffer(std::move(u), 128);
+    sabre::impl::sabre_test_mocks::TestUART uart;
+    sabre::io::SerialStreamBuf buffer(&uart, 128);
 
     auto oldbuf = std::cout.rdbuf(&buffer);
+    std::cout << std::flush;
     std::cout << "Testtext" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u_ptr->_buf, "Testtext");
+    ASSERT_EQ(uart._buf, "Testtext");
 }
 
 TEST(SerialStreamBuf, OverflowBuffer)
 {
-    std::unique_ptr<sabre::impl::sabre_test_mocks::TestUART> u =
-        std::make_unique<sabre::impl::sabre_test_mocks::TestUART>();
-    auto *u_ptr = u.get();
-    sabre::io::SerialStreamBuf buffer(std::move(u), 10);
+    sabre::impl::sabre_test_mocks::TestUART u;
+    sabre::io::SerialStreamBuf buffer(&u, 10);
 
     auto oldbuf = std::cout.rdbuf(&buffer);
+    std::cout << std::flush;
     std::cout << "Testtext123456" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u_ptr->_buf, "3456");
+    ASSERT_EQ(u._buf, "3456");
 }
