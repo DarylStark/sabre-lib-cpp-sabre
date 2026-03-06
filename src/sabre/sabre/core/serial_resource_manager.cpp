@@ -61,6 +61,13 @@ namespace sabre::core
         return *_uartSerialStreamBuffers[index];
     }
 
+    std::ostream SerialResourceManager::getOutputStreamForUart(
+        sabre::hal::UartNumber uartNumber)
+    {
+        auto &serial = getSerialStreamBufForUart(uartNumber);
+        return std::ostream(&serial);
+    }
+
     void SerialResourceManager::configureUsbCdc(sabre::hal::UsbIndex index,
                                                 size_t bufferSize)
     {
@@ -101,5 +108,12 @@ namespace sabre::core
                 std::make_unique<sabre::io::SerialStreamBuf>(&usbCdc);
         }
         return *_usbSerialStreamBuffers[index];
+    }
+
+    std::ostream
+    SerialResourceManager::getOutputStreamForUsbCdc(sabre::hal::UsbIndex index)
+    {
+        auto &serial = getSerialStreamBufForUsbCdc(index);
+        return std::ostream(&serial);
     }
 } // namespace sabre::core

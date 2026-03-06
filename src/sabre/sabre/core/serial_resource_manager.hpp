@@ -42,10 +42,12 @@ namespace sabre::core
         sabre::hal::Serial &getUart(sabre::hal::UartNumber uartNumber) const;
         sabre::io::SerialStreamBuf &
         getSerialStreamBufForUart(sabre::hal::UartNumber uartNumber);
+        std::ostream getOutputStreamForUart(sabre::hal::UartNumber uartNumber);
 
         void configureUsbCdc(sabre::hal::UsbIndex index, size_t bufferSize);
         sabre::hal::Serial &getUsbCdc(sabre::hal::UsbIndex index) const;
         sabre::io::SerialStreamBuf &
         getSerialStreamBufForUsbCdc(sabre::hal::UsbIndex index);
+        std::ostream getOutputStreamForUsbCdc(sabre::hal::UsbIndex index);
     };
 } // namespace sabre::core

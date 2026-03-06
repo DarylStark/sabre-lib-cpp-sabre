@@ -394,7 +394,34 @@ TEST_F(SerialResourceManagerTest, RetrieveTheDifferentSerialBufferUart)
     ASSERT_NE(&streambuf1, &streambuf2);
 }
 
-TEST_F(SerialResourceManagerTest, RetrieveSerialBufferUUartWithoutConfiguration)
+TEST_F(SerialResourceManagerTest, RetrieveSerialBufferUartWithoutConfiguration)
 {
     ASSERT_THROW(_serial_rm.getSerialStreamBufForUart(0), std::runtime_error);
+}
+
+TEST_F(SerialResourceManagerTest, RetrieveOutputStreamForUart)
+{
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    auto &uart = _serial_rm.getUart(0);
+    sabre::impl::sabre_test_mocks::TestUART *uart_impl =
+        dynamic_cast<sabre::impl::sabre_test_mocks::TestUART *>(&uart);
+
+    std::ostream stream1 = _serial_rm.getOutputStreamForUart(0);
+    stream1 << "TEST" << std::flush;
+
+    ASSERT_EQ(uart_impl->_buf, "TEST");
+}
+
+TEST_F(SerialResourceManagerTest, RetrieveOutputStreamForUsbCdc)
+{
+    _serial_rm.configureUsbCdc(0, 128);
+    auto &usb = _serial_rm.getUsbCdc(0);
+    sabre::impl::sabre_test_mocks::TestUART *uart_impl =
+        dynamic_cast<sabre::impl::sabre_test_mocks::TestUART *>(&usb);
+
+    std::ostream stream1 = _serial_rm.getOutputStreamForUsbCdc(0);
+    stream1 << "TEST" << std::flush;
+
+    ASSERT_EQ(uart_impl->_buf, "TEST");
 }
