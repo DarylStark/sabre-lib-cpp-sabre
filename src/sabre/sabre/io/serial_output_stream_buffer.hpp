@@ -23,7 +23,7 @@ namespace sabre::io
         using UniquePtr = std::unique_ptr<SerialStreamBuf>;
 
     private:
-        sabre::hal::Serial::UniquePtr _uartPtr;
+        sabre::hal::Serial::Ptr _serialPtr;
         char *_buffer;
         size_t _bufferSize;
 
@@ -64,7 +64,7 @@ namespace sabre::io
          * @param uartPtr The Serial device to use for output operations.
          * @param bufferSize The size of the internal buffer (default is 512).
          */
-        SerialStreamBuf(sabre::hal::Serial::UniquePtr uartPtr,
+        SerialStreamBuf(sabre::hal::Serial::Ptr uartPtr,
                         size_t bufferSize = 512);
 
         /**

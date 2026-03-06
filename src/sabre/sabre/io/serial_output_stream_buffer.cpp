@@ -4,9 +4,9 @@
 
 namespace sabre::io
 {
-    SerialStreamBuf::SerialStreamBuf(sabre::hal::Serial::UniquePtr uartPtr,
+    SerialStreamBuf::SerialStreamBuf(sabre::hal::Serial::Ptr serialPtr,
                                      size_t bufferSize)
-        : _uartPtr(std::move(uartPtr))
+        : _serialPtr(serialPtr)
     {
         _buffer = new char[bufferSize];
         _bufferSize = bufferSize;
@@ -25,7 +25,7 @@ namespace sabre::io
             if (pptr() >= epptr())
             {
                 sync();
-                _uartPtr->flush();
+                _serialPtr->flush();
             }
             *pptr() = c;
             pbump(1);
@@ -40,7 +40,7 @@ namespace sabre::io
             return 0;
 
         for (size_t i = 0; i < len; ++i)
-            _uartPtr->writeByte(pbase()[i]);
+            _serialPtr->writeByte(pbase()[i]);
         _resetPutBuffer();
         return 0;
     }
