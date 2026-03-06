@@ -348,3 +348,53 @@ TEST_F(SerialResourceManagerTest, LoggerAttachedToUsbCdc)
     ASSERT_EQ(lastLoggerName, "UsbCdc_1");
     ASSERT_EQ(lastMessage, "TestMessage");
 }
+
+TEST_F(SerialResourceManagerTest, RetrieveTheSameSerialBufferUsbCdc)
+{
+    _serial_rm.configureUsbCdc(0, 128);
+    const auto &streambuf1 = _serial_rm.getSerialStreamBufForUsbCdc(0);
+    const auto &streambuf2 = _serial_rm.getSerialStreamBufForUsbCdc(0);
+    ASSERT_EQ(&streambuf1, &streambuf2);
+}
+
+TEST_F(SerialResourceManagerTest, RetrieveTheDifferentSerialBufferUsbCdc)
+{
+    _serial_rm.configureUsbCdc(0, 128);
+    _serial_rm.configureUsbCdc(1, 128);
+    const auto &streambuf1 = _serial_rm.getSerialStreamBufForUsbCdc(0);
+    const auto &streambuf2 = _serial_rm.getSerialStreamBufForUsbCdc(1);
+    ASSERT_NE(&streambuf1, &streambuf2);
+}
+
+TEST_F(SerialResourceManagerTest,
+       RetrieveSerialBufferUsbCdcWithoutConfiguration)
+{
+    ASSERT_THROW(_serial_rm.getSerialStreamBufForUsbCdc(0), std::runtime_error);
+}
+
+/****************** */
+
+TEST_F(SerialResourceManagerTest, RetrieveTheSameSerialBufferUart)
+{
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    const auto &streambuf1 = _serial_rm.getSerialStreamBufForUart(0);
+    const auto &streambuf2 = _serial_rm.getSerialStreamBufForUart(0);
+    ASSERT_EQ(&streambuf1, &streambuf2);
+}
+
+TEST_F(SerialResourceManagerTest, RetrieveTheDifferentSerialBufferUart)
+{
+    _serial_rm.configureUart(0, 9600, sabre::impl::sabre_test_mocks::StGpio(24),
+                             sabre::impl::sabre_test_mocks::StGpio(25), 128);
+    _serial_rm.configureUart(1, 9600, sabre::impl::sabre_test_mocks::StGpio(20),
+                             sabre::impl::sabre_test_mocks::StGpio(21), 128);
+    const auto &streambuf1 = _serial_rm.getSerialStreamBufForUart(0);
+    const auto &streambuf2 = _serial_rm.getSerialStreamBufForUart(1);
+    ASSERT_NE(&streambuf1, &streambuf2);
+}
+
+TEST_F(SerialResourceManagerTest, RetrieveSerialBufferUUartWithoutConfiguration)
+{
+    ASSERT_THROW(_serial_rm.getSerialStreamBufForUart(0), std::runtime_error);
+}

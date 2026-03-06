@@ -47,6 +47,20 @@ namespace sabre::core
         return *(it->second);
     }
 
+    sabre::io::SerialStreamBuf &
+    SerialResourceManager::getSerialStreamBufForUart(
+        sabre::hal::UartNumber index)
+    {
+        if (_uartSerialStreamBuffers.find(index) ==
+            _uartSerialStreamBuffers.end())
+        {
+            sabre::hal::Serial &uart = getUart(index);
+            _uartSerialStreamBuffers[index] =
+                std::make_unique<sabre::io::SerialStreamBuf>(&uart);
+        }
+        return *_uartSerialStreamBuffers[index];
+    }
+
     void SerialResourceManager::configureUsbCdc(sabre::hal::UsbIndex index,
                                                 size_t bufferSize)
     {
@@ -73,5 +87,19 @@ namespace sabre::core
                 "first using the configureUsbCdc method.");
         }
         return *(it->second);
+    }
+
+    sabre::io::SerialStreamBuf &
+    SerialResourceManager::getSerialStreamBufForUsbCdc(
+        sabre::hal::UsbIndex index)
+    {
+        if (_usbSerialStreamBuffers.find(index) ==
+            _usbSerialStreamBuffers.end())
+        {
+            sabre::hal::Serial &usbCdc = getUsbCdc(index);
+            _usbSerialStreamBuffers[index] =
+                std::make_unique<sabre::io::SerialStreamBuf>(&usbCdc);
+        }
+        return *_usbSerialStreamBuffers[index];
     }
 } // namespace sabre::core
