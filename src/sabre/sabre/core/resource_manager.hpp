@@ -16,6 +16,7 @@ namespace sabre::core
     {
     private:
         // Local resources
+        sabre::core::Factory &_factory;
         sabre::log::LogManager _logManager;
 
         // Categorized resource managers
@@ -33,6 +34,7 @@ namespace sabre::core
 
         // Local resources
         sabre::log::LogManager &getLogManager();
+        const sabre::core::Factory &getFactory() const;
 
         // Categorized resource managers
         GpioResourceManager &gpio() noexcept;

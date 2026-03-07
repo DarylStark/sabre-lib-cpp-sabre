@@ -49,6 +49,13 @@ TEST_F(ResourceManagerTest, RetrieveLogManager)
     ASSERT_EQ(&log_manager1, &log_manager2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveFactory)
+{
+    auto &factory1 = _manager.getFactory();
+    auto &factory2 = _manager.getFactory();
+    ASSERT_EQ(&factory1, &factory2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);
