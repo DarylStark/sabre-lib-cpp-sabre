@@ -1,5 +1,6 @@
 #include "core.hpp"
 #include "hal.hpp"
+#include "time.hpp"
 
 namespace sabre::impl::sabre_test_mocks
 {
@@ -80,6 +81,6 @@ namespace sabre::impl::sabre_test_mocks
 
     sabre::time::WallClock::UniquePtr StFactory::createWallClock() const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StWallClock>();
     }
 } // namespace sabre::impl::sabre_test_mocks

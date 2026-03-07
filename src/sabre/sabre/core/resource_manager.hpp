@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../log/logging.hpp"
+#include "../time/wall_clock.hpp"
 #include "./gpio_resource_manager.hpp"
 #include "./serial_resource_manager.hpp"
 
@@ -19,6 +20,9 @@ namespace sabre::core
         sabre::core::Factory &_factory;
         sabre::log::LogManager _logManager;
 
+        // Local lazy resources
+        sabre::time::WallClock::UniquePtr _wallClock;
+
         // Categorized resource managers
         GpioResourceManager _gpio_manager;
         SerialResourceManager _serial_manager;
@@ -35,6 +39,9 @@ namespace sabre::core
         // Local resources
         sabre::log::LogManager &getLogManager();
         const sabre::core::Factory &getFactory() const;
+
+        // Local lazy resources
+        sabre::time::WallClock &getWallClock();
 
         // Categorized resource managers
         GpioResourceManager &gpio() noexcept;

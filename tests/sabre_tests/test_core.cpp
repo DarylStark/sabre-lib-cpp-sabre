@@ -56,6 +56,15 @@ TEST_F(ResourceManagerTest, RetrieveFactory)
     ASSERT_EQ(&factory1, &factory2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveWallClock)
+{
+    auto &wallclock1 = _manager.getWallClock();
+    auto &wallclock2 = _manager.getWallClock();
+    ASSERT_EQ(&wallclock1, &wallclock2);
+    ASSERT_NE(&wallclock1, nullptr);
+    ASSERT_NE(&wallclock2, nullptr);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);

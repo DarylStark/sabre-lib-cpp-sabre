@@ -29,4 +29,13 @@ namespace sabre::core
     {
         return _factory;
     }
+
+    sabre::time::WallClock &ResourceManager::getWallClock()
+    {
+        if (!_wallClock)
+        {
+            _wallClock = _factory.createWallClock();
+        }
+        return *_wallClock;
+    }
 } // namespace sabre::core

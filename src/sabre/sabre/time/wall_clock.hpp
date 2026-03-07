@@ -38,5 +38,10 @@ namespace sabre::time
          * 00:00:00.
          */
         virtual void setNowMs(sabre::types::MsTime timeInMs) = 0;
+
+        /**
+         * @brief Virtual destructor.
+         */
+        virtual ~WallClock() noexcept = default;
     };
 } // namespace sabre::time
