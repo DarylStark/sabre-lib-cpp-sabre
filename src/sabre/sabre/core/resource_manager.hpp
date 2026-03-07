@@ -4,6 +4,7 @@
 #include "../time/wall_clock.hpp"
 #include "./gpio_resource_manager.hpp"
 #include "./serial_resource_manager.hpp"
+#include "./time_resource_manager.hpp"
 
 namespace sabre::core
 {
@@ -20,12 +21,10 @@ namespace sabre::core
         sabre::core::Factory &_factory;
         sabre::log::LogManager _logManager;
 
-        // Local lazy resources
-        sabre::time::WallClock::UniquePtr _wallClock;
-
         // Categorized resource managers
         GpioResourceManager _gpio_manager;
         SerialResourceManager _serial_manager;
+        TimeResourceManager _time_manager;
 
     public:
         /**
@@ -40,11 +39,9 @@ namespace sabre::core
         sabre::log::LogManager &getLogManager();
         const sabre::core::Factory &getFactory() const;
 
-        // Local lazy resources
-        sabre::time::WallClock &getWallClock();
-
         // Categorized resource managers
         GpioResourceManager &gpio() noexcept;
         SerialResourceManager &serial() noexcept;
+        TimeResourceManager &time() noexcept;
     };
 } // namespace sabre::core

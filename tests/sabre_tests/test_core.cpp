@@ -56,13 +56,11 @@ TEST_F(ResourceManagerTest, RetrieveFactory)
     ASSERT_EQ(&factory1, &factory2);
 }
 
-TEST_F(ResourceManagerTest, RetrieveWallClock)
+TEST_F(ResourceManagerTest, RetrieveTimeResourceManager)
 {
-    auto &wallclock1 = _manager.getWallClock();
-    auto &wallclock2 = _manager.getWallClock();
-    ASSERT_EQ(&wallclock1, &wallclock2);
-    ASSERT_NE(&wallclock1, nullptr);
-    ASSERT_NE(&wallclock2, nullptr);
+    auto &time_rm1 = _manager.time();
+    auto &time_rm2 = _manager.time();
+    ASSERT_EQ(&time_rm1, &time_rm2);
 }
 
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
@@ -440,4 +438,13 @@ TEST_F(SerialResourceManagerTest, RetrieveOutputStreamForUsbCdc)
     stream1 << "TEST" << std::flush;
 
     ASSERT_EQ(uart_impl->_buf, "TEST");
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveWallClock)
+{
+    auto &wallclock1 = _time_rm.getWallClock();
+    auto &wallclock2 = _time_rm.getWallClock();
+    ASSERT_EQ(&wallclock1, &wallclock2);
+    ASSERT_NE(&wallclock1, nullptr);
+    ASSERT_NE(&wallclock2, nullptr);
 }

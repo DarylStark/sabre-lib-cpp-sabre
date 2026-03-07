@@ -6,7 +6,8 @@ namespace sabre::core
         Factory &factory, sabre::hal::PinNumber max_gpios,
         sabre::hal::UartNumber upperboundUart) noexcept
         : _factory(factory), _gpio_manager(factory, max_gpios, _logManager),
-          _serial_manager(factory, upperboundUart, _logManager)
+          _serial_manager(factory, upperboundUart, _logManager),
+          _time_manager(factory, _logManager)
     {
     }
 
@@ -20,6 +21,11 @@ namespace sabre::core
         return _serial_manager;
     }
 
+    TimeResourceManager &ResourceManager::time() noexcept
+    {
+        return _time_manager;
+    }
+
     sabre::log::LogManager &ResourceManager::getLogManager()
     {
         return _logManager;
@@ -28,14 +34,5 @@ namespace sabre::core
     const sabre::core::Factory &ResourceManager::getFactory() const
     {
         return _factory;
-    }
-
-    sabre::time::WallClock &ResourceManager::getWallClock()
-    {
-        if (!_wallClock)
-        {
-            _wallClock = _factory.createWallClock();
-        }
-        return *_wallClock;
     }
 } // namespace sabre::core

@@ -1,10 +1,11 @@
 #pragma once
 
-#include "sabre/core/gpio_resource_manager.hpp"
-#include "sabre/core/resource_manager.hpp"
-#include "sabre/core/serial_resource_manager.hpp"
 #include "sabre_test_mocks/core.hpp"
 #include <gtest/gtest.h>
+#include <sabre/core/gpio_resource_manager.hpp>
+#include <sabre/core/resource_manager.hpp>
+#include <sabre/core/serial_resource_manager.hpp>
+#include <sabre/core/time_resource_manager.hpp>
 
 class GpioResourceManagerTest : public ::testing::Test
 {
@@ -20,6 +21,14 @@ protected:
     sabre::log::LogManager _logManager;
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
     sabre::core::SerialResourceManager _serial_rm{_factory, 3, _logManager};
+};
+
+class TimeResourceManagerTest : public ::testing::Test
+{
+protected:
+    sabre::log::LogManager _logManager;
+    sabre::impl::sabre_test_mocks::StFactory _factory{false};
+    sabre::core::TimeResourceManager _time_rm{_factory, _logManager};
 };
 
 class ResourceManagerTest : public ::testing::Test
