@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include "../types/types.hpp"
 #include <cstdint>
 #include <memory>
@@ -19,15 +20,21 @@ namespace sabre::time
      */
     class WallClock
     {
+    private:
+        sabre::log::LogHelper _log_helper;
+
     public:
         using Ptr = WallClock *;
         using SharedPtr = std::shared_ptr<WallClock>;
         using UniquePtr = std::unique_ptr<WallClock>;
 
+        sabre::log::LogHelper &getLogHelper();
+
         /**
          * @brief Get the current time in ms since 1970-01-01
          *
-         * @return The current time since 1970-01-01 00:00:00 in milliseconds.
+         * @return The current time since 1970-01-01 00:00:00 in
+         * milliseconds.
          */
         virtual sabre::types::MsTime nowMs() const noexcept = 0;
 

@@ -13,6 +13,7 @@ namespace sabre::core
         if (!_wallClock)
         {
             _wallClock = _factory.createWallClock();
+            _wallClock->getLogHelper().createLogger(_logManager, "WallClock");
         }
         return *_wallClock;
     }

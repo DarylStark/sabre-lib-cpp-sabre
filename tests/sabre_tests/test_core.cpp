@@ -448,3 +448,24 @@ TEST_F(TimeResourceManagerTest, RetrieveWallClock)
     ASSERT_NE(&wallclock1, nullptr);
     ASSERT_NE(&wallclock2, nullptr);
 }
+
+TEST_F(TimeResourceManagerTest, LoggerAttachedToWallClock)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &wallblock = _time_rm.getWallClock();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    wallblock.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WallClock");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
