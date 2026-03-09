@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
+#include <sabre/core/factory.hpp>
 #include <sabre_test_app/test_app.hpp>
+#include <sabre_test_mocks/core.hpp>
 #include <sabre_test_mocks/runtime.hpp>
 
 #include <sabre/runtime/run_app.hpp>
@@ -34,4 +36,13 @@ TEST(RuntimeTest, TestAppWithReturnSmartPointer)
 
     ASSERT_EQ(retval->returnValue, 20);
     ASSERT_EQ(retval->returnString, "Sabre framework tests");
+}
+
+TEST(RuntimeTest, TestAppGetFactory)
+{
+    StFactory factory;
+    sabre::core::ResourceManager resourceManager(factory, 10, 20);
+    MyAppNoArgs app(resourceManager);
+
+    ASSERT_EQ(&app.getFactory(), &factory);
 }

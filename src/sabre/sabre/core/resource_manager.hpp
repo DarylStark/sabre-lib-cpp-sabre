@@ -15,6 +15,8 @@ namespace sabre::core
     class ResourceManager
     {
     private:
+        Factory &_factory;
+
         // Local resources
         sabre::log::LogManager _logManager;
 
@@ -30,6 +32,9 @@ namespace sabre::core
 
         ResourceManager(Factory &factory, sabre::hal::PinNumber max_gpios,
                         sabre::hal::UartNumber upperboundUart) noexcept;
+
+        // Factory
+        Factory &getFactory() noexcept;
 
         // Local resources
         sabre::log::LogManager &getLogManager();

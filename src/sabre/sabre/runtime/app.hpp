@@ -32,6 +32,11 @@ namespace sabre::runtime
             return _resourceManager;
         }
 
+        sabre::core::Factory &getFactory() const noexcept
+        {
+            return _resourceManager.getFactory();
+        }
+
         virtual ReturnType run() = 0;
     };
 } // namespace sabre::runtime
