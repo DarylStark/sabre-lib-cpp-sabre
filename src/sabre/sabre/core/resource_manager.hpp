@@ -3,6 +3,7 @@
 #include "../log/logging.hpp"
 #include "../time/wall_clock.hpp"
 #include "./gpio_resource_manager.hpp"
+#include "./network_resource_manager.hpp"
 #include "./serial_resource_manager.hpp"
 #include "./time_resource_manager.hpp"
 
@@ -25,6 +26,7 @@ namespace sabre::core
         GpioResourceManager _gpio_manager;
         SerialResourceManager _serial_manager;
         TimeResourceManager _time_manager;
+        NetworkResourceManager _network_manager;
 
     public:
         /**
@@ -43,5 +45,6 @@ namespace sabre::core
         GpioResourceManager &gpio() noexcept;
         SerialResourceManager &serial() noexcept;
         TimeResourceManager &time() noexcept;
+        NetworkResourceManager &network() noexcept;
     };
 } // namespace sabre::core

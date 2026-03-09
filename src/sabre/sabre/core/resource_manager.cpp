@@ -7,7 +7,8 @@ namespace sabre::core
         sabre::hal::UartNumber upperboundUart) noexcept
         : _factory(factory), _gpio_manager(factory, max_gpios, _logManager),
           _serial_manager(factory, upperboundUart, _logManager),
-          _time_manager(factory, _logManager)
+          _time_manager(factory, _logManager),
+          _network_manager(factory, _logManager)
     {
     }
 
@@ -24,6 +25,11 @@ namespace sabre::core
     TimeResourceManager &ResourceManager::time() noexcept
     {
         return _time_manager;
+    }
+
+    NetworkResourceManager &ResourceManager::network() noexcept
+    {
+        return _network_manager;
     }
 
     sabre::log::LogManager &ResourceManager::getLogManager()

@@ -1,5 +1,6 @@
 #include "core.hpp"
 #include "hal.hpp"
+#include "net.hpp"
 #include "time.hpp"
 
 namespace sabre::impl::sabre_test_mocks
@@ -47,12 +48,12 @@ namespace sabre::impl::sabre_test_mocks
 
     sabre::net::WifiStation::UniquePtr StFactory::createWifiStation() const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StWifiStation>();
     }
 
     sabre::net::WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StWifiSoftAp>();
     }
 
     sabre::net::MqttClient::UniquePtr StFactory::createMqttClient() const

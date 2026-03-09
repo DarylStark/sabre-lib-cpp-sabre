@@ -33,4 +33,35 @@ namespace sabre::impl::sabre_test_mocks
     {
         _published_messages.emplace_back(topic, message, qos, retain);
     }
+
+    void StWifiStation::initialize() {}
+
+    void StWifiStation::connect(const std::string &ssid,
+                                const std::string &password)
+    {
+    }
+
+    void StWifiStation::disconnect() {}
+
+    void StWifiStation::stop() {}
+
+    void StWifiStation::deinitialize() {}
+
+    bool StWifiStation::isConnected() const
+    {
+        return true;
+    }
+
+    bool StWifiStation::hasIPv4Address() const
+    {
+        return true;
+    }
+
+    void StWifiSoftAp::init() {}
+
+    void StWifiSoftAp::start(std::string ssid, std::string password) {}
+
+    void StWifiSoftAp::stop() {}
+
+    void StWifiSoftAp::deinitialize() {}
 } // namespace sabre::impl::sabre_test_mocks

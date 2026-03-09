@@ -63,6 +63,13 @@ TEST_F(ResourceManagerTest, RetrieveTimeResourceManager)
     ASSERT_EQ(&time_rm1, &time_rm2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveNetworkResourceManager)
+{
+    auto &network_rm1 = _manager.network();
+    auto &network_rm2 = _manager.network();
+    ASSERT_EQ(&network_rm1, &network_rm2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);
@@ -470,8 +477,6 @@ TEST_F(TimeResourceManagerTest, LoggerAttachedToWallClock)
     ASSERT_EQ(lastMessage, "TestMessage");
 }
 
-/******************************************************************************/
-
 TEST_F(TimeResourceManagerTest, RetrieveTheSameNtpClient)
 {
     _time_rm.configureNtpClient("default", "time.ntp.org");
@@ -520,5 +525,65 @@ TEST_F(TimeResourceManagerTest, LoggerAttachedToNtp)
 
     ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
     ASSERT_EQ(lastLoggerName, "NtpClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveWifiSoftAp)
+{
+    auto &soft_ap1 = _net_rm.getWifiSoftAp();
+    auto &soft_ap2 = _net_rm.getWifiSoftAp();
+    ASSERT_EQ(&soft_ap1, &soft_ap2);
+    ASSERT_NE(&soft_ap1, nullptr);
+    ASSERT_NE(&soft_ap2, nullptr);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiSoftAp)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &soft_ap = _net_rm.getWifiSoftAp();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    soft_ap.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WifiSoftAp");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveWifiStation)
+{
+    auto &station1 = _net_rm.getWifiStation();
+    auto &station2 = _net_rm.getWifiStation();
+    ASSERT_EQ(&station1, &station2);
+    ASSERT_NE(&station1, nullptr);
+    ASSERT_NE(&station2, nullptr);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiStation)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &station = _net_rm.getWifiStation();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    station.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WifiStation");
     ASSERT_EQ(lastMessage, "TestMessage");
 }
