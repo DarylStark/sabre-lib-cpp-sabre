@@ -8,4 +8,13 @@ namespace sabre::impl::sabre_test_mocks
     }
 
     void StWallClock::setNowMs(sabre::types::MsTime timeInMs) {}
+
+    void StNtpClient::start() {}
+
+    void StNtpClient::stop() {}
+
+    bool StNtpClient::isSynchronized() const noexcept
+    {
+        return true;
+    }
 } // namespace sabre::impl::sabre_test_mocks

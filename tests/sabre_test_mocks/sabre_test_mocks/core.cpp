@@ -76,7 +76,7 @@ namespace sabre::impl::sabre_test_mocks
     sabre::time::NtpClient::UniquePtr
     StFactory::createNtpClient(const std::string &server) const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StNtpClient>();
     }
 
     sabre::time::WallClock::UniquePtr StFactory::createWallClock() const

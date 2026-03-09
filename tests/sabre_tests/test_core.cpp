@@ -469,3 +469,56 @@ TEST_F(TimeResourceManagerTest, LoggerAttachedToWallClock)
     ASSERT_EQ(lastLoggerName, "WallClock");
     ASSERT_EQ(lastMessage, "TestMessage");
 }
+
+/******************************************************************************/
+
+TEST_F(TimeResourceManagerTest, RetrieveTheSameNtpClient)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    const auto &ntp1 = _time_rm.getNtpClient("default");
+    const auto &ntp2 = _time_rm.getNtpClient("default");
+    ASSERT_EQ(&ntp1, &ntp2);
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveTheDifferentNtp)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    _time_rm.configureNtpClient("secondary", "time.ntp.com");
+    const auto &ntp1 = _time_rm.getNtpClient("default");
+    const auto &ntp2 = _time_rm.getNtpClient("secondary");
+    ASSERT_NE(&ntp1, &ntp2);
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveUartWithoutConfiguration)
+{
+    ASSERT_THROW(_time_rm.getNtpClient("default"), std::runtime_error);
+}
+
+TEST_F(TimeResourceManagerTest, ConfigureNtpTwice)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    ASSERT_THROW(_time_rm.configureNtpClient("default", "time.ntp.org"),
+                 std::runtime_error);
+}
+
+TEST_F(TimeResourceManagerTest, LoggerAttachedToNtp)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    auto &ntp = _time_rm.getNtpClient("default");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    ntp.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "NtpClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
