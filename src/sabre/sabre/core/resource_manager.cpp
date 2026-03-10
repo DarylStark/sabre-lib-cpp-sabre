@@ -2,11 +2,12 @@
 
 namespace sabre::core
 {
-    ResourceManager::ResourceManager(
-        Factory &factory, sabre::hal::PinNumber max_gpios,
-        sabre::hal::UartNumber upperboundUart) noexcept
-        : _factory(factory), _gpio_manager(factory, max_gpios, _logManager),
-          _serial_manager(factory, upperboundUart, _logManager),
+
+    ResourceManager::ResourceManager(Factory &factory,
+                                     ResourceManagerConfig config)
+        : _config(config), _factory(factory),
+          _gpio_manager(factory, config.maxGpios, _logManager),
+          _serial_manager(factory, config.upperboundUart, _logManager),
           _time_manager(factory, _logManager),
           _network_manager(factory, _logManager)
     {

@@ -44,5 +44,5 @@ class ResourceManagerTest : public ::testing::Test
 {
 protected:
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
-    sabre::core::ResourceManager _manager{_factory, 26, 3};
+    sabre::core::ResourceManager _manager{_factory, {26, 3}};
 };

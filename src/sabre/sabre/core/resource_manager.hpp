@@ -9,6 +9,11 @@
 
 namespace sabre::core
 {
+    struct ResourceManagerConfig
+    {
+        sabre::hal::PinNumber maxGpios = 1;
+        sabre::hal::UartNumber upperboundUart = 1;
+    };
     /**
      * @brief Resource manager for Sabre core resources.
      *
@@ -18,6 +23,9 @@ namespace sabre::core
     class ResourceManager
     {
     private:
+        // Configuration
+        ResourceManagerConfig _config;
+
         // Local resources
         sabre::core::Factory &_factory;
         sabre::log::LogManager _logManager;
@@ -34,8 +42,7 @@ namespace sabre::core
          */
         virtual ~ResourceManager() = default;
 
-        ResourceManager(Factory &factory, sabre::hal::PinNumber max_gpios,
-                        sabre::hal::UartNumber upperboundUart) noexcept;
+        ResourceManager(Factory &factory, ResourceManagerConfig config);
 
         // Local resources
         sabre::log::LogManager &getLogManager();
