@@ -10,7 +10,7 @@ namespace sabre::impl::sabre_test_mocks
     auto RunApp(Args &&...args)
     {
         StFactory factory;
-        sabre::core::ResourceManager resourceManager(factory, 10, 20);
+        sabre::core::ResourceManager resourceManager(factory, {10, 20});
 
         return sabre::runtime::RunApp<AppType>(resourceManager,
                                                std::forward<Args>(args)...);

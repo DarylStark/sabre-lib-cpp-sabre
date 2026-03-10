@@ -49,6 +49,27 @@ TEST_F(ResourceManagerTest, RetrieveLogManager)
     ASSERT_EQ(&log_manager1, &log_manager2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveFactory)
+{
+    auto &factory1 = _manager.getFactory();
+    auto &factory2 = _manager.getFactory();
+    ASSERT_EQ(&factory1, &factory2);
+}
+
+TEST_F(ResourceManagerTest, RetrieveTimeResourceManager)
+{
+    auto &time_rm1 = _manager.time();
+    auto &time_rm2 = _manager.time();
+    ASSERT_EQ(&time_rm1, &time_rm2);
+}
+
+TEST_F(ResourceManagerTest, RetrieveNetworkResourceManager)
+{
+    auto &network_rm1 = _manager.network();
+    auto &network_rm2 = _manager.network();
+    ASSERT_EQ(&network_rm1, &network_rm2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);
@@ -424,4 +445,174 @@ TEST_F(SerialResourceManagerTest, RetrieveOutputStreamForUsbCdc)
     stream1 << "TEST" << std::flush;
 
     ASSERT_EQ(uart_impl->_buf, "TEST");
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveWallClock)
+{
+    auto &wallclock1 = _time_rm.getWallClock();
+    auto &wallclock2 = _time_rm.getWallClock();
+    ASSERT_EQ(&wallclock1, &wallclock2);
+}
+
+TEST_F(TimeResourceManagerTest, LoggerAttachedToWallClock)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &wallblock = _time_rm.getWallClock();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    wallblock.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WallClock");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveTheSameNtpClient)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    const auto &ntp1 = _time_rm.getNtpClient("default");
+    const auto &ntp2 = _time_rm.getNtpClient("default");
+    ASSERT_EQ(&ntp1, &ntp2);
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveTheDifferentNtp)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    _time_rm.configureNtpClient("secondary", "time.ntp.com");
+    const auto &ntp1 = _time_rm.getNtpClient("default");
+    const auto &ntp2 = _time_rm.getNtpClient("secondary");
+    ASSERT_NE(&ntp1, &ntp2);
+}
+
+TEST_F(TimeResourceManagerTest, RetrieveNtpClientWithoutConfiguration)
+{
+    ASSERT_THROW(_time_rm.getNtpClient("default"), std::runtime_error);
+}
+
+TEST_F(TimeResourceManagerTest, ConfigureNtpTwice)
+{
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    ASSERT_THROW(_time_rm.configureNtpClient("default", "time.ntp.org"),
+                 std::runtime_error);
+}
+
+TEST_F(TimeResourceManagerTest, LoggerAttachedToNtp)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _time_rm.configureNtpClient("default", "time.ntp.org");
+    auto &ntp = _time_rm.getNtpClient("default");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    ntp.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "NtpClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveWifiSoftAp)
+{
+    auto &soft_ap1 = _net_rm.getWifiSoftAp();
+    auto &soft_ap2 = _net_rm.getWifiSoftAp();
+    ASSERT_EQ(&soft_ap1, &soft_ap2);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiSoftAp)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &soft_ap = _net_rm.getWifiSoftAp();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    soft_ap.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WifiSoftAp");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveWifiStation)
+{
+    auto &station1 = _net_rm.getWifiStation();
+    auto &station2 = _net_rm.getWifiStation();
+    ASSERT_EQ(&station1, &station2);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiStation)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &station = _net_rm.getWifiStation();
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    station.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "WifiStation");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveTheSameMqttClient)
+{
+    auto &mqtt1 = _net_rm.getMqttClient("default");
+    auto &mqtt2 = _net_rm.getMqttClient("default");
+    ASSERT_EQ(&mqtt1, &mqtt2);
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveDifferentMqttClients)
+{
+    auto &mqtt1 = _net_rm.getMqttClient("default");
+    auto &mqtt2 = _net_rm.getMqttClient("secondary");
+    ASSERT_NE(&mqtt1, &mqtt2);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToMqttClient)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &wallblock = _net_rm.getMqttClient("default");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    wallblock.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "MqttClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
 }
