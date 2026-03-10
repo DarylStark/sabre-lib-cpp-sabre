@@ -29,4 +29,16 @@ namespace sabre::core
         }
         return *_wifi_station;
     }
+
+    sabre::net::MqttClient &
+    NetworkResourceManager::getMqttClient(const std::string &identifier)
+    {
+        if (_mqttClients.find(identifier) == _mqttClients.end())
+        {
+            _mqttClients[identifier] = _factory.createMqttClient();
+            _mqttClients[identifier]->getLogHelper().createLogger(
+                _logManager, "MqttClient_" + identifier);
+        }
+        return *_mqttClients[identifier];
+    }
 } // namespace sabre::core

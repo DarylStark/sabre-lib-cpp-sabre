@@ -58,7 +58,7 @@ namespace sabre::impl::sabre_test_mocks
 
     sabre::net::MqttClient::UniquePtr StFactory::createMqttClient() const
     {
-        return nullptr;
+        return std::make_unique<sabre::impl::sabre_test_mocks::StMQTTClient>();
     }
 
     sabre::utility::WaitFor::UniquePtr

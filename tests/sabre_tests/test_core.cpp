@@ -587,3 +587,42 @@ TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiStation)
     ASSERT_EQ(lastLoggerName, "WifiStation");
     ASSERT_EQ(lastMessage, "TestMessage");
 }
+
+TEST_F(NetworkResourceManagerTest, RetrieveTheSameMqttClient)
+{
+    auto &mqtt1 = _net_rm.getMqttClient("default");
+    auto &mqtt2 = _net_rm.getMqttClient("default");
+    ASSERT_EQ(&mqtt1, &mqtt2);
+    ASSERT_NE(&mqtt1, nullptr);
+    ASSERT_NE(&mqtt2, nullptr);
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveDifferentMqttClients)
+{
+    auto &mqtt1 = _net_rm.getMqttClient("default");
+    auto &mqtt2 = _net_rm.getMqttClient("secondary");
+    ASSERT_NE(&mqtt1, &mqtt2);
+    ASSERT_NE(&mqtt1, nullptr);
+    ASSERT_NE(&mqtt2, nullptr);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToMqttClient)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &wallblock = _net_rm.getMqttClient("default");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    wallblock.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "MqttClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}

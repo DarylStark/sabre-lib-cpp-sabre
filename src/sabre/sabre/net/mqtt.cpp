@@ -37,6 +37,11 @@ namespace sabre::net
         _defaultRetain = retain;
     }
 
+    sabre::log::LogHelper &MqttClient::getLogHelper()
+    {
+        return _log_helper;
+    }
+
     void MqttClient::subscribe(const std::string &topic, const MqttCallback &fn,
                                MqttQos qos)
     {
