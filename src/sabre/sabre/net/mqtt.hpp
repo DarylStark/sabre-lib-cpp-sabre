@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include <functional>
 #include <memory>
 #include <string>
@@ -144,12 +145,15 @@ namespace sabre::net
     private:
         std::unordered_map<std::string, MqttCallback> _subscriptions;
         MqttCallback _defaultHandler;
+        sabre::log::LogHelper _log_helper;
 
     public:
         /**
          * @brief Virtual destructor.
          */
         virtual ~MqttClient() noexcept = default;
+
+        sabre::log::LogHelper &getLogHelper();
 
         /**
          * @brief Connect to a specific MQTT broker.

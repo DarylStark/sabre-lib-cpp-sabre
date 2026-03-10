@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../log/logging.hpp"
+#include <memory>
+
 namespace sabre::net
 {
     /**
@@ -11,10 +14,15 @@ namespace sabre::net
      */
     class WifiSoftAp
     {
+    private:
+        sabre::log::LogHelper _log_helper;
+
     public:
         using Ptr = WifiSoftAp *;
         using SharedPtr = std::shared_ptr<WifiSoftAp>;
         using UniquePtr = std::unique_ptr<WifiSoftAp>;
+
+        sabre::log::LogHelper &getLogHelper();
 
         /**
          * @brief Virtual destructor.

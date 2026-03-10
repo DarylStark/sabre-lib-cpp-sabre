@@ -1,15 +1,21 @@
 #pragma once
 
 #include <memory>
+#include <sabre/log/logging.hpp>
 
 namespace sabre::time
 {
     class NtpClient
     {
+    private:
+        sabre::log::LogHelper _log_helper;
+
     public:
         using Ptr = NtpClient *;
         using SharedPtr = std::shared_ptr<NtpClient>;
         using UniquePtr = std::unique_ptr<NtpClient>;
+
+        sabre::log::LogHelper &getLogHelper();
 
         /**
          * @brief Virtual destructor.

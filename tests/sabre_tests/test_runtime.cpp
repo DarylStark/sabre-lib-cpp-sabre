@@ -41,7 +41,7 @@ TEST(RuntimeTest, TestAppWithReturnSmartPointer)
 TEST(RuntimeTest, TestAppGetFactory)
 {
     StFactory factory;
-    sabre::core::ResourceManager resourceManager(factory, 10, 20);
+    sabre::core::ResourceManager resourceManager(factory, {10, 20});
     MyAppNoArgs app(resourceManager);
 
     ASSERT_EQ(&app.getFactory(), &factory);

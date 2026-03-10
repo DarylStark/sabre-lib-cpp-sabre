@@ -32,7 +32,7 @@ namespace sabre::runtime
             return _resourceManager;
         }
 
-        sabre::core::Factory &getFactory() const noexcept
+        const sabre::core::Factory &getFactory() const noexcept
         {
             return _resourceManager.getFactory();
         }
