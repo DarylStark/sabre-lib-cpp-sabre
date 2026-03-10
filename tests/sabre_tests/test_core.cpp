@@ -452,8 +452,6 @@ TEST_F(TimeResourceManagerTest, RetrieveWallClock)
     auto &wallclock1 = _time_rm.getWallClock();
     auto &wallclock2 = _time_rm.getWallClock();
     ASSERT_EQ(&wallclock1, &wallclock2);
-    ASSERT_NE(&wallclock1, nullptr);
-    ASSERT_NE(&wallclock2, nullptr);
 }
 
 TEST_F(TimeResourceManagerTest, LoggerAttachedToWallClock)
@@ -494,7 +492,7 @@ TEST_F(TimeResourceManagerTest, RetrieveTheDifferentNtp)
     ASSERT_NE(&ntp1, &ntp2);
 }
 
-TEST_F(TimeResourceManagerTest, RetrieveUartWithoutConfiguration)
+TEST_F(TimeResourceManagerTest, RetrieveNtpClientWithoutConfiguration)
 {
     ASSERT_THROW(_time_rm.getNtpClient("default"), std::runtime_error);
 }
@@ -533,8 +531,6 @@ TEST_F(NetworkResourceManagerTest, RetrieveWifiSoftAp)
     auto &soft_ap1 = _net_rm.getWifiSoftAp();
     auto &soft_ap2 = _net_rm.getWifiSoftAp();
     ASSERT_EQ(&soft_ap1, &soft_ap2);
-    ASSERT_NE(&soft_ap1, nullptr);
-    ASSERT_NE(&soft_ap2, nullptr);
 }
 
 TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiSoftAp)
@@ -563,8 +559,6 @@ TEST_F(NetworkResourceManagerTest, RetrieveWifiStation)
     auto &station1 = _net_rm.getWifiStation();
     auto &station2 = _net_rm.getWifiStation();
     ASSERT_EQ(&station1, &station2);
-    ASSERT_NE(&station1, nullptr);
-    ASSERT_NE(&station2, nullptr);
 }
 
 TEST_F(NetworkResourceManagerTest, LoggerAttachedToWifiStation)
@@ -593,8 +587,6 @@ TEST_F(NetworkResourceManagerTest, RetrieveTheSameMqttClient)
     auto &mqtt1 = _net_rm.getMqttClient("default");
     auto &mqtt2 = _net_rm.getMqttClient("default");
     ASSERT_EQ(&mqtt1, &mqtt2);
-    ASSERT_NE(&mqtt1, nullptr);
-    ASSERT_NE(&mqtt2, nullptr);
 }
 
 TEST_F(NetworkResourceManagerTest, RetrieveDifferentMqttClients)
@@ -602,8 +594,6 @@ TEST_F(NetworkResourceManagerTest, RetrieveDifferentMqttClients)
     auto &mqtt1 = _net_rm.getMqttClient("default");
     auto &mqtt2 = _net_rm.getMqttClient("secondary");
     ASSERT_NE(&mqtt1, &mqtt2);
-    ASSERT_NE(&mqtt1, nullptr);
-    ASSERT_NE(&mqtt2, nullptr);
 }
 
 TEST_F(NetworkResourceManagerTest, LoggerAttachedToMqttClient)

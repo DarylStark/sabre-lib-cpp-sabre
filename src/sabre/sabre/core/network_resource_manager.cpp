@@ -3,8 +3,8 @@
 namespace sabre::core
 {
     NetworkResourceManager::NetworkResourceManager(
-        Factory &factory, sabre::log::LogManager &logManger)
-        : _factory(factory), _logManager(logManger)
+        Factory &factory, sabre::log::LogManager &logManager)
+        : _factory(factory), _logManager(logManager)
     {
     }
 
