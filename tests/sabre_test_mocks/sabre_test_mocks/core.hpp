@@ -37,6 +37,8 @@ namespace sabre::impl::sabre_test_mocks
         sabre::time::NtpClient::UniquePtr
         createNtpClient(const std::string &server) const override;
         sabre::time::WallClock::UniquePtr createWallClock() const override;
+
+        sabre::platform::Platform::UniquePtr createPlatform() const override;
     };
 
 } // namespace sabre::impl::sabre_test_mocks

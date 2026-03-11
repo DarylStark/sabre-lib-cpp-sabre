@@ -1,6 +1,7 @@
 #include "core.hpp"
 #include "hal.hpp"
 #include "net.hpp"
+#include "platform.hpp"
 #include "time.hpp"
 
 namespace sabre::impl::sabre_test_mocks
@@ -83,5 +84,10 @@ namespace sabre::impl::sabre_test_mocks
     sabre::time::WallClock::UniquePtr StFactory::createWallClock() const
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StWallClock>();
+    }
+
+    sabre::platform::Platform::UniquePtr StFactory::createPlatform() const
+    {
+        return std::make_unique<sabre::impl::sabre_test_mocks::StPlatform>();
     }
 } // namespace sabre::impl::sabre_test_mocks
