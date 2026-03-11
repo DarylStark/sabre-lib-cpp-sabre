@@ -42,4 +42,13 @@ namespace sabre::core
     {
         return _factory;
     }
+
+    sabre::platform::Platform &ResourceManager::getPlatform()
+    {
+        if (!_platform)
+        {
+            _platform = _factory.createPlatform();
+        }
+        return *_platform;
+    }
 } // namespace sabre::core
