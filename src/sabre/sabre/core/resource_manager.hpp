@@ -45,8 +45,8 @@ namespace sabre::core
         ResourceManager(Factory &factory, ResourceManagerConfig config);
 
         // Local resources
-        sabre::log::LogManager &getLogManager();
-        const sabre::core::Factory &getFactory() const;
+        sabre::log::LogManager &getLogManager() noexcept;
+        const sabre::core::Factory &getFactory() const noexcept;
 
         // Categorized resource managers
         GpioResourceManager &gpio() noexcept;

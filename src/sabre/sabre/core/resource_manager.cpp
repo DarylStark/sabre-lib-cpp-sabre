@@ -33,12 +33,12 @@ namespace sabre::core
         return _network_manager;
     }
 
-    sabre::log::LogManager &ResourceManager::getLogManager()
+    sabre::log::LogManager &ResourceManager::getLogManager() noexcept
     {
         return _logManager;
     }
 
-    const sabre::core::Factory &ResourceManager::getFactory() const
+    const sabre::core::Factory &ResourceManager::getFactory() const noexcept
     {
         return _factory;
     }
