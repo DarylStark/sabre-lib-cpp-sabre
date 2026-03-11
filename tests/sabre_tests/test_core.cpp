@@ -70,6 +70,13 @@ TEST_F(ResourceManagerTest, RetrieveNetworkResourceManager)
     ASSERT_EQ(&network_rm1, &network_rm2);
 }
 
+TEST_F(ResourceManagerTest, RetrievePlatform)
+{
+    auto &platform1 = _manager.getPlatform();
+    auto &platform2 = _manager.getPlatform();
+    ASSERT_EQ(&platform1, &platform2);
+}
+
 TEST_F(GpioResourceManagerTest, CreateDifferentInputGpios)
 {
     const auto &gpio1 = _gpio_rm.getInputGpio(26);

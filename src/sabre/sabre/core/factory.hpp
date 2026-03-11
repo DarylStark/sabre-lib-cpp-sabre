@@ -8,6 +8,7 @@
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
 #include "../os/service.hpp"
+#include "../platform/platform.hpp"
 #include "../time/ntp.hpp"
 #include "../time/wall_clock.hpp"
 #include "../utility/wait_for.hpp"
@@ -175,5 +176,7 @@ namespace sabre::core
          */
         virtual sabre::os::Service::UniquePtr
         createService(sabre::os::ServiceHandler fn) const = 0;
+
+        virtual sabre::platform::Platform::UniquePtr createPlatform() const = 0;
     };
 } // namespace sabre::core

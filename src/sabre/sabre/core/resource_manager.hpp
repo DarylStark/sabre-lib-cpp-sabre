@@ -30,6 +30,9 @@ namespace sabre::core
         sabre::core::Factory &_factory;
         sabre::log::LogManager _logManager;
 
+        // Local lazy resources
+        sabre::platform::Platform::UniquePtr _platform;
+
         // Categorized resource managers
         GpioResourceManager _gpio_manager;
         SerialResourceManager _serial_manager;
@@ -47,6 +50,9 @@ namespace sabre::core
         // Local resources
         sabre::log::LogManager &getLogManager() noexcept;
         const sabre::core::Factory &getFactory() const noexcept;
+
+        // Local lazy resources
+        sabre::platform::Platform &getPlatform();
 
         // Categorized resource managers
         GpioResourceManager &gpio() noexcept;
