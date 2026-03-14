@@ -7,7 +7,6 @@ Sabre is a platform-independent framework for programming microcontrollers in a 
 Sabre takes a modular approach to embedded development:
 
 - **Core Library (`sabre`)**: Provides platform-independent interfaces for common MCU functionality like GPIO, UART, WiFi, MQTT, time management, and OS services
-- **Auxiliary Library (`pilot`)**: A simulator that lets you test your application logic on your development machine without physical hardware
 - **Factory Pattern**: MCU-specific implementations create concrete instances of Sabre interfaces through a factory, making it easy to swap platforms
 
 By implementing Sabre's interfaces, hardware vendors and developers can create consistent APIs across different microcontroller platforms, reducing the learning curve and increasing code portability.
@@ -42,17 +41,6 @@ The Sabre library is organized into several namespaces:
 - **`sabre::models`**: Data models for networking and geographic data
 - **`sabre::utility`**: Helper utilities like wait-for operations
 
-## The Pilot Library
-
-The `pilot` library is an auxiliary tool that simulates MCU hardware on your development machine. It provides concrete implementations of all Sabre interfaces, allowing you to:
-
-- Test your application logic without physical hardware
-- Rapidly iterate on features during development
-- Run automated tests in CI/CD pipelines
-- Debug complex scenarios in a controlled environment
-
-Pilot uses the same Factory pattern as real MCU implementations, so your application code remains unchanged when switching between the simulator and actual hardware.
-
 ## Development Environment
 
 ### Using the Dev Container
@@ -83,17 +71,15 @@ Sabre uses CMake with presets for easy configuration. **CMake 3.20 or newer is r
 
 The following presets are available:
 
-- **`dbg-sabre-pilot-tests`**: Debug build with Sabre library, Pilot simulator, and tests enabled
-- **`dbg-sabre-tests`**: Debug build with Sabre library and tests, but without Pilot
-- **`dbg-sabre`**: Debug build with only the Sabre library (no tests, no Pilot)
-- **`rel-sabre-tests`**: Release build with Sabre library and tests, but without Pilot
+- **`dbg-sabre-tests`**: Debug build with Sabre library and tests
+- **`dbg-sabre`**: Debug build with only the Sabre library (no tests)
+- **`rel-sabre-tests`**: Release build with Sabre library and tests
 
 ### CMake Options
 
 Presets configure these CMake variables:
 
 - **`SABRE_BUILD_TESTS`**: Set to `ON` to build tests, `OFF` to skip them
-- **`SABRE_BUILD_PILOT`**: Set to `ON` to build the Pilot simulator, `OFF` to skip it
 
 ### Build Instructions
 
@@ -103,10 +89,10 @@ To build the project with a preset:
 
 ```bash
 # Configure with your chosen preset
-cmake --preset dbg-sabre-pilot-tests
+cmake --preset dbg-sabre-tests
 
 # Build the project
-cmake --build build/dbg-sabre-pilot-tests
+cmake --build build/dbg-sabre-tests
 ```
 
 For a release build with tests:
@@ -118,11 +104,11 @@ cmake --build build/rel-sabre-tests
 
 ## Running Tests
 
-After building with a preset that includes tests (e.g., `dbg-sabre-pilot-tests` or `rel-sabre-tests`), you can run the test suite using CTest:
+After building with a preset that includes tests (e.g., `dbg-sabre-tests` or `rel-sabre-tests`), you can run the test suite using CTest:
 
 ```bash
 # Navigate to the build directory
-cd build/dbg-sabre-pilot-tests
+cd build/dbg-sabre-tests
 
 # Run all tests
 ctest
