@@ -6,25 +6,13 @@
     },
     "configurePresets": [
         {
-            "name": "dbg-sabre-pilot-tests",
-            "displayName": "Debug - Sabre, Pilot, Tests",
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/build/dbg-sabre-pilot-tests",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "SABRE_BUILD_TESTS": "ON",
-                "SABRE_BUILD_PILOT": "ON"
-            }
-        },
-        {
             "name": "dbg-sabre-tests",
             "displayName": "Debug - Sabre, Tests",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/dbg-sabre-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "SABRE_BUILD_TESTS": "ON",
-                "SABRE_BUILD_PILOT": "OFF"
+                "SABRE_BUILD_TESTS": "ON"
             }
         },
         {
@@ -34,19 +22,27 @@
             "binaryDir": "${sourceDir}/build/dbg-sabre",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "SABRE_BUILD_TESTS": "OFF",
-                "SABRE_BUILD_PILOT": "OFF"
+                "SABRE_BUILD_TESTS": "OFF"
             }
         },
         {
-            "name": "rel-sabre-tests",
+            "name": "rel-sabre-tests-tests",
             "displayName": "Release - Sabre, Tests",
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/rel-sabre-tests",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "SABRE_BUILD_TESTS": "ON",
-                "SABRE_BUILD_PILOT": "OFF"
+                "SABRE_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "rel-sabre",
+            "displayName": "Release - Sabre",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/rel-sabre",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "SABRE_BUILD_TESTS": "OFF"
             }
         }
     ]
