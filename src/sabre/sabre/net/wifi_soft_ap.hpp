@@ -40,7 +40,8 @@ namespace sabre::net
          * @param ssid The SSID of the Wi-Fi network.
          * @param password The password for the Wi-Fi network.
          */
-        virtual void start(std::string ssid, std::string password) = 0;
+        virtual void start(const std::string &ssid,
+                           const std::string &password) = 0;
 
         /**
          * @brief Stop the Wi-Fi Soft AP.
