@@ -13,16 +13,6 @@
             },
             "group": "none",
             "problemMatcher": []
-        },
-        {
-            "type": "shell",
-            "label": "Remove all ImGui configuration",
-            "command": "find -name imgui.ini -exec rm {} \\;",
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "group": "none",
-            "problemMatcher": []
         }
     ]
 }
