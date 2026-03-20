@@ -1,4 +1,5 @@
 #include "serial_resource_manager.hpp"
+#include "exceptions.hpp"
 
 namespace sabre::core
 {
@@ -40,9 +41,9 @@ namespace sabre::core
         auto it = _uartResources.find(uartNumber);
         if (it == _uartResources.end())
         {
-            // TODO: Custom exception
-            throw std::runtime_error("UART not configured. Please configure it "
-                                     "first using the configureUart method.");
+            throw UartNotConfiguredException(
+                "UART not configured. Please configure it "
+                "first using the configureUart method.");
         }
         return *(it->second);
     }
@@ -88,8 +89,7 @@ namespace sabre::core
         auto it = _usbCdcResources.find(index);
         if (it == _usbCdcResources.end())
         {
-            // TODO: Custom exception
-            throw std::runtime_error(
+            throw UsbCdcNotConfiguredException(
                 "USB CDC not configured. Please configure it "
                 "first using the configureUsbCdc method.");
         }
