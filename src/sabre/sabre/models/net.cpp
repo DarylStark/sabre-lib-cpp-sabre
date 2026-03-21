@@ -32,7 +32,7 @@ namespace sabre::models::net
             result += std::to_string((*this)[i]);
         }
         return result;
-    }
+    } // LCOV_EXCL_LINE
 
     std::ostream &operator<<(std::ostream &os, const IPv4Address &ipv4)
     {
