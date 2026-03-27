@@ -1,4 +1,5 @@
 #include "time_resource_manager.hpp"
+#include "exceptions.hpp"
 
 namespace sabre::core
 {
@@ -24,9 +25,8 @@ namespace sabre::core
         auto it = _ntpClients.find(identifier);
         if (it != _ntpClients.end())
         {
-            // TODO: Custom exception
-            throw std::runtime_error("NtpClient " + identifier +
-                                     " is already configured");
+            throw NtpClientAlreadyConfiguredException(
+                "NtpClient " + identifier + " is already configured");
         }
         _ntpClients[identifier] = _factory.createNtpClient(server);
         _ntpClients[identifier]->getLogHelper().createLogger(
@@ -39,9 +39,8 @@ namespace sabre::core
         auto it = _ntpClients.find(identifier);
         if (it == _ntpClients.end())
         {
-            // TODO: Custom exception
-            throw std::runtime_error("NtpClient " + identifier +
-                                     " is not configured yet.");
+            throw NtpClientNotConfiguredException("NtpClient " + identifier +
+                                                  " is not configured yet.");
         }
         return *it->second;
     }

@@ -31,4 +31,28 @@ namespace sabre::core
     ApiError::ApiError(const std::string &msg) : SabreException(msg) {}
 
     ApiError::ApiError() : SabreException("Unknown API error") {}
+
+    UartNotConfiguredException::UartNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    UsbCdcNotConfiguredException::UsbCdcNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    NtpClientAlreadyConfiguredException::NtpClientAlreadyConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    NtpClientNotConfiguredException::NtpClientNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
 } // namespace sabre::core

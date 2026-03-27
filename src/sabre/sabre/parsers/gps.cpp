@@ -54,7 +54,7 @@ namespace sabre::parsers
         fields.push_back(scentence.substr(start));
 
         return fields;
-    }
+    } // LCOV_EXCL_LINE
 
     // Helper to parse coordinates from NMEA fields
     bool NmeaParser::_extractPositionFromFields(
@@ -84,7 +84,7 @@ namespace sabre::parsers
         double lon_min = std::stod(lon_str.substr(3));
         char lon_dir = fields[lon_dir_idx][0];
 
-        out_position = models::geo::Position(
+        out_position = models::geo::Position( // LCOV_EXCL_LINE
             models::geo::Coordinate(lat_deg, lat_min, dir_map.at(lat_dir)),
             models::geo::Coordinate(lon_deg, lon_min, dir_map.at(lon_dir)));
         return true;

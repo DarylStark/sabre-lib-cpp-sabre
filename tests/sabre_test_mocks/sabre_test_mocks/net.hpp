@@ -50,7 +50,7 @@ namespace sabre::impl::sabre_test_mocks
     {
     public:
         void init();
-        void start(std::string ssid, std::string password);
+        void start(const std::string &ssid, const std::string &password);
         void stop();
         void deinitialize();
     };

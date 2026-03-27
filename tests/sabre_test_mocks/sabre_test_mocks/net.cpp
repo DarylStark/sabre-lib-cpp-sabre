@@ -59,7 +59,10 @@ namespace sabre::impl::sabre_test_mocks
 
     void StWifiSoftAp::init() {}
 
-    void StWifiSoftAp::start(std::string ssid, std::string password) {}
+    void StWifiSoftAp::start(const std::string &ssid,
+                             const std::string &password)
+    {
+    }
 
     void StWifiSoftAp::stop() {}
 

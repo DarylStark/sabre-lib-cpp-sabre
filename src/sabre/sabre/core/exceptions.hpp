@@ -47,6 +47,31 @@ namespace sabre::core
         explicit LogHandlerNotAvailableException(const std::string &message);
     };
 
+    class UartNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit UartNotConfiguredException(const std::string &message);
+    };
+
+    class UsbCdcNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit UsbCdcNotConfiguredException(const std::string &message);
+    };
+
+    class NtpClientAlreadyConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit NtpClientAlreadyConfiguredException(
+            const std::string &message);
+    };
+
+    class NtpClientNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit NtpClientNotConfiguredException(const std::string &message);
+    };
+
     /**
      * @brief Exception thrown by implementation on API errors.
      *

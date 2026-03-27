@@ -57,7 +57,6 @@ namespace sabre::log
     {
         if (_handlers.find(identifier) == _handlers.end())
         {
-            // TODO: Custom exception
             throw sabre::core::LogHandlerNotAvailableException(
                 "LogHandler not available");
         }

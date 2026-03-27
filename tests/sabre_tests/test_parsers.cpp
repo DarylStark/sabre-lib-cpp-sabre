@@ -126,7 +126,7 @@ TEST(ParsersNMEA, InvalidRMC)
 TEST(ParsersNMEA, VoidGLL)
 {
     NmeaParser parser;
-    parser.addSentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,V,A*2A");
+    parser.addSentence("$GNGLL,3409.3251,N,11849.1290,W,120000.00,V*18");
     parser.parse();
     ASSERT_FALSE(parser.getLastPosition().isValid());
 }
@@ -148,6 +148,15 @@ TEST(ParsersNMEA, VoidGGA)
     ASSERT_FALSE(parser.getLastPosition().isValid());
 }
 
+TEST(ParsersNMEA, InvalidFieldSize)
+{
+    NmeaParser parser;
+    parser.addSentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,0,08,0.9,"
+                       "100.0,M,-34.0,M,*60");
+    parser.parse();
+    ASSERT_FALSE(parser.getLastPosition().isValid());
+}
+
 TEST(ParsersNMEA, InvalidGGA)
 {
     NmeaParser parser;
@@ -161,6 +170,24 @@ TEST(ParsersNMEA, InvalidChecksum)
 {
     NmeaParser parser;
     parser.addSentence("$GNGGA,120000.00,3409.3251,N,11849.1290,W,1,08,0.9,"
+                       "100.0,M,-34.0,M,,*AA");
+    parser.parse();
+    ASSERT_FALSE(parser.getLastPosition().isValid());
+}
+
+TEST(ParsersNMEA, InvalidChecksumToLittleFields)
+{
+    NmeaParser parser;
+    parser.addSentence("$GNGGA,3409.3251,N,11849.1290,W,1,08,0.9,"
+                       "100.0,M,-34.0,M,,*AA");
+    parser.parse();
+    ASSERT_FALSE(parser.getLastPosition().isValid());
+}
+
+TEST(ParsersNMEA, InvalidChecksumNoDollarSign)
+{
+    NmeaParser parser;
+    parser.addSentence("GNGGA,3409.3251,N,11849.1290,W,1,08,0.9,"
                        "100.0,M,-34.0,M,,*AA");
     parser.parse();
     ASSERT_FALSE(parser.getLastPosition().isValid());
