@@ -8,7 +8,7 @@ namespace sabre::parsers
         _NmeaSentence.reserve(82);
     }
 
-    NmeaValidator::~NmeaValidator() noexcept {}
+    NmeaValidator::~NmeaValidator() noexcept {} // LCOV_EXCL_LINE
 
     void NmeaValidator::addCharacter(char character)
     {
