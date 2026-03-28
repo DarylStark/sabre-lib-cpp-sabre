@@ -4,6 +4,7 @@
 #include "../hal/output_gpio.hpp"
 #include "../hal/serial.hpp"
 #include "../io/serial_output_stream_buffer.hpp"
+#include "../net/http_server.hpp"
 #include "../net/mqtt.hpp"
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
