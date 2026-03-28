@@ -90,4 +90,10 @@ namespace sabre::impl::sabre_test_mocks
     {
         return std::make_unique<sabre::impl::sabre_test_mocks::StPlatform>();
     }
+
+    sabre::os::Queue::UniquePtr
+    StFactory::createQueue(std::size_t capacity, std::size_t elementSize) const
+    {
+        return nullptr;
+    }
 } // namespace sabre::impl::sabre_test_mocks

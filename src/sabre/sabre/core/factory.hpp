@@ -7,6 +7,7 @@
 #include "../net/mqtt.hpp"
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
+#include "../os/queue.hpp"
 #include "../os/service.hpp"
 #include "../platform/platform.hpp"
 #include "../time/ntp.hpp"
@@ -178,5 +179,8 @@ namespace sabre::core
         createService(sabre::os::ServiceHandler fn) const = 0;
 
         virtual sabre::platform::Platform::UniquePtr createPlatform() const = 0;
+
+        virtual sabre::os::Queue::UniquePtr
+        createQueue(std::size_t capacity, std::size_t elementSize) const = 0;
     };
 } // namespace sabre::core
