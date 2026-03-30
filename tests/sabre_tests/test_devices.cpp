@@ -1,6 +1,10 @@
+#include "sabre_test_mocks/devices.hpp"
 #include "sabre_test_mocks/hal.hpp"
 #include <gtest/gtest.h>
+#include <sabre/core/exceptions.hpp>
 #include <sabre/devices/serial_nmea_gps_device.hpp>
+
+using sabre::impl::sabre_test_mocks::StRgbPixelStrip;
 
 TEST(SerialNmeaGpsDeviceTest, DefaultConstructor)
 {
@@ -191,4 +195,79 @@ TEST(SerialNmeaGpsDeviceTest, WriteToUart)
     while (device.readData())
         ;
     ASSERT_EQ(out_uart->readBytes(gnrmc.length(), 100), gnrmc);
+}
+
+TEST(RgbPixelStrip, Construction)
+{
+    StRgbPixelStrip rgb(10, 100);
+    ASSERT_EQ(rgb.getLength(), 100);
+}
+
+TEST(RgbPixelStrip, ConstructionNullSize)
+{
+    using sabre::core::RgbSizeTooSmallException;
+    ASSERT_THROW({ StRgbPixelStrip rgb(10, 0); }, RgbSizeTooSmallException);
+}
+
+TEST(RgbPixelStrip, SetPixel)
+{
+    StRgbPixelStrip rgb(10, 100);
+    sabre::types::Color red(255, 0, 0);
+
+    ASSERT_EQ(rgb.getPixel(10), sabre::types::Color(0, 0, 0));
+    rgb.setPixel(10, red);
+    ASSERT_EQ(rgb.getPixel(10), sabre::types::Color(255, 0, 0));
+}
+
+TEST(RgbPixelStrip, SetPixelTooHigh)
+{
+    using sabre::core::RgbIndexTooHighException;
+
+    StRgbPixelStrip rgb(10, 100);
+    sabre::types::Color red(255, 0, 0);
+
+    ASSERT_THROW({ rgb.setPixel(101, red); }, RgbIndexTooHighException);
+}
+
+TEST(RgbPixelStrip, ClearPixel)
+{
+    StRgbPixelStrip rgb(10, 100);
+    sabre::types::Color red(255, 0, 0);
+    rgb.setPixel(10, red);
+    rgb.clearPixel(10);
+
+    ASSERT_EQ(rgb.getPixel(10), sabre::types::Color(0, 0, 0));
+}
+
+TEST(RgbPixelStrip, ClearPixelTooHigh)
+{
+    using sabre::core::RgbIndexTooHighException;
+
+    StRgbPixelStrip rgb(10, 100);
+    ASSERT_THROW({ rgb.clearPixel(101); }, RgbIndexTooHighException);
+}
+
+TEST(RgbPixelStrip, SetAll)
+{
+    StRgbPixelStrip rgb(10, 100);
+    sabre::types::Color red(255, 0, 0);
+    rgb.setAll(red);
+
+    for (sabre::devices::PixelIndex idx = 0; idx < 100; idx++)
+    {
+        ASSERT_EQ(rgb.getPixel(idx), sabre::types::Color(255, 0, 0));
+    }
+}
+
+TEST(RgbPixelStrip, ClearAll)
+{
+    StRgbPixelStrip rgb(10, 100);
+    sabre::types::Color red(255, 0, 0);
+    rgb.setAll(red);
+    rgb.clear();
+
+    for (sabre::devices::PixelIndex idx = 0; idx < 100; idx++)
+    {
+        ASSERT_EQ(rgb.getPixel(idx), sabre::types::Color(0, 0, 0));
+    }
 }

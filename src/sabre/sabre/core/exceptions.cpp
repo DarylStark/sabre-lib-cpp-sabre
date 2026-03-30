@@ -7,6 +7,23 @@ namespace sabre::core
     {
     }
 
+    DeviceException::DeviceException(const std::string &message)
+        : SabreException(message)
+    {
+    }
+
+    RgbSizeTooSmallException::RgbSizeTooSmallException(
+        const std::string &message)
+        : DeviceException(message)
+    {
+    }
+
+    RgbIndexTooHighException::RgbIndexTooHighException(
+        const std::string &message)
+        : DeviceException(message)
+    {
+    }
+
     ResourceManagerException::ResourceManagerException(const std::string &msg)
         : SabreException(msg)
     {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../devices/rgb_led_strip.hpp"
 #include "../hal/input_gpio.hpp"
 #include "../hal/output_gpio.hpp"
 #include "../hal/serial.hpp"
@@ -185,5 +186,9 @@ namespace sabre::core
         createQueue(std::size_t capacity, std::size_t elementSize) const = 0;
 
         virtual sabre::net::HttpServer::UniquePtr createHttpServer() const = 0;
+
+        virtual sabre::devices::RgbPixelStrip::UniquePtr
+        createRgbPixelStrip(sabre::hal::PinNumber pinNumber,
+                            sabre::devices::PixelIndex length) const = 0;
     };
 } // namespace sabre::core

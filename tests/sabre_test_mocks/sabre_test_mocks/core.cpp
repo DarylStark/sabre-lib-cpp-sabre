@@ -1,4 +1,5 @@
 #include "core.hpp"
+#include "devices.hpp"
 #include "hal.hpp"
 #include "net.hpp"
 #include "platform.hpp"
@@ -100,5 +101,13 @@ namespace sabre::impl::sabre_test_mocks
     sabre::net::HttpServer::UniquePtr StFactory::createHttpServer() const
     {
         return nullptr;
+    }
+
+    sabre::devices::RgbPixelStrip::UniquePtr
+    StFactory::createRgbPixelStrip(sabre::hal::PinNumber pinNumber,
+                                   sabre::devices::PixelIndex length) const
+    {
+        return std::make_unique<sabre::impl::sabre_test_mocks::StRgbPixelStrip>(
+            pinNumber, length);
     }
 } // namespace sabre::impl::sabre_test_mocks
