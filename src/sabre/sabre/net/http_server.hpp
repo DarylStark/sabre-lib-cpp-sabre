@@ -54,6 +54,11 @@ namespace sabre
         class HttpServer
         {
         public:
+            using Ptr = HttpServer *;
+            using SharedPtr = std::shared_ptr<HttpServer>;
+            using UniquePtr = std::unique_ptr<HttpServer>;
+
+        public:
             virtual void addRoute(HttpMethod method, const std::string &uri,
                                   HttpServerPageHandler handler) = 0;
             virtual void removeRoute(HttpMethod method,

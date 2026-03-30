@@ -42,6 +42,7 @@ namespace sabre::impl::sabre_test_mocks
         sabre::os::Queue::UniquePtr
         createQueue(std::size_t capacity,
                     std::size_t elementSize) const override;
+        sabre::net::HttpServer::UniquePtr createHttpServer() const;
     };
 
 } // namespace sabre::impl::sabre_test_mocks

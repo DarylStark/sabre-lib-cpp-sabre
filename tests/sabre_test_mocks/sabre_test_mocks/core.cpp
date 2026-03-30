@@ -96,4 +96,9 @@ namespace sabre::impl::sabre_test_mocks
     {
         return nullptr;
     }
+
+    sabre::net::HttpServer::UniquePtr StFactory::createHttpServer() const
+    {
+        return nullptr;
+    }
 } // namespace sabre::impl::sabre_test_mocks

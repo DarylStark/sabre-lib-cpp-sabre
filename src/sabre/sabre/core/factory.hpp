@@ -183,5 +183,7 @@ namespace sabre::core
 
         virtual sabre::os::Queue::UniquePtr
         createQueue(std::size_t capacity, std::size_t elementSize) const = 0;
+
+        virtual sabre::net::HttpServer::UniquePtr createHttpServer() const = 0;
     };
 } // namespace sabre::core

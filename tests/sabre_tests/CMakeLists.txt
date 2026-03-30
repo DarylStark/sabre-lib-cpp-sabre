@@ -1,6 +1,7 @@
 file(GLOB SOURCES CONFIGURE_DEPENDS test_*.cpp)
 add_executable(sabre_tests ${SOURCES})
 
+set(BUILD_GMOCK OFF)
 include(FetchContent)
 FetchContent_Declare(
   googletest
