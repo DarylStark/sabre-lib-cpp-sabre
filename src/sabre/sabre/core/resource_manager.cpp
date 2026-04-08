@@ -9,7 +9,9 @@ namespace sabre::core
           _gpio_manager(factory, config.maxGpios, _logManager),
           _serial_manager(factory, config.upperboundUart, _logManager),
           _time_manager(factory, _logManager),
-          _network_manager(factory, _logManager)
+          _network_manager(factory, _logManager),
+          _os_manager(factory, _logManager),
+          _device_manager(factory, _logManager)
     {
     }
 
@@ -31,6 +33,16 @@ namespace sabre::core
     NetworkResourceManager &ResourceManager::network() noexcept
     {
         return _network_manager;
+    }
+
+    OsResourceManager &ResourceManager::os() noexcept
+    {
+        return _os_manager;
+    }
+
+    DeviceResourceManager &ResourceManager::devices() noexcept
+    {
+        return _device_manager;
     }
 
     sabre::log::LogManager &ResourceManager::getLogManager() noexcept

@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <sabre/core/gpio_resource_manager.hpp>
 #include <sabre/core/network_resource_manager.hpp>
+#include <sabre/core/os_resource_manager.hpp>
 #include <sabre/core/resource_manager.hpp>
 #include <sabre/core/serial_resource_manager.hpp>
 #include <sabre/core/time_resource_manager.hpp>
@@ -38,6 +39,22 @@ protected:
     sabre::log::LogManager _logManager;
     sabre::impl::sabre_test_mocks::StFactory _factory{false};
     sabre::core::NetworkResourceManager _net_rm{_factory, _logManager};
+};
+
+class OsResourceManagerTest : public ::testing::Test
+{
+protected:
+    sabre::log::LogManager _logManager;
+    sabre::impl::sabre_test_mocks::StFactory _factory{false};
+    sabre::core::OsResourceManager _os_rm{_factory, _logManager};
+};
+
+class DeviceResourceManagerTest : public ::testing::Test
+{
+protected:
+    sabre::log::LogManager _logManager;
+    sabre::impl::sabre_test_mocks::StFactory _factory{false};
+    sabre::core::DeviceResourceManager _device_rm{_factory, _logManager};
 };
 
 class ResourceManagerTest : public ::testing::Test

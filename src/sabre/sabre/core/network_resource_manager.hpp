@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../net/http_server.hpp"
 #include "../net/mqtt.hpp"
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
@@ -19,6 +20,8 @@ namespace sabre::core
         sabre::net::WifiStation::UniquePtr _wifi_station;
         std::unordered_map<std::string, sabre::net::MqttClient::UniquePtr>
             _mqttClients;
+        std::unordered_map<std::string, sabre::net::HttpServer::UniquePtr>
+            _httpServers;
 
     public:
         NetworkResourceManager(Factory &factory,
@@ -27,5 +30,6 @@ namespace sabre::core
         sabre::net::WifiSoftAp &getWifiSoftAp();
         sabre::net::WifiStation &getWifiStation();
         sabre::net::MqttClient &getMqttClient(const std::string &identifier);
+        sabre::net::HttpServer &getHttpServer(const std::string &identifier);
     };
 } // namespace sabre::core

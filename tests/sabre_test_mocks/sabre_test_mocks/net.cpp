@@ -67,4 +67,19 @@ namespace sabre::impl::sabre_test_mocks
     void StWifiSoftAp::stop() {}
 
     void StWifiSoftAp::deinitialize() {}
+
+    void StHttpServer::addRoute(sabre::net::HttpMethod method,
+                                const std::string &uri,
+                                sabre::net::HttpServerPageHandler handler)
+    {
+    }
+
+    void StHttpServer::removeRoute(sabre::net::HttpMethod method,
+                                   const std::string &uri)
+    {
+    }
+
+    void StHttpServer::start() {}
+
+    void StHttpServer::stop() {}
 } // namespace sabre::impl::sabre_test_mocks

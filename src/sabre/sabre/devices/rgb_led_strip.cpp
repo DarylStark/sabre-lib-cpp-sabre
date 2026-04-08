@@ -15,7 +15,12 @@ namespace sabre
             }
         }
 
-        RgbPixelStrip::~RgbPixelStrip() {}
+        RgbPixelStrip::~RgbPixelStrip() {} // LCOV_EXCL_LINE
+
+        sabre::log::LogHelper &RgbPixelStrip::getLogHelper()
+        {
+            return _log_helper;
+        }
 
         void RgbPixelStrip::_raiseOnExceedingLength(PixelIndex index) const
         {

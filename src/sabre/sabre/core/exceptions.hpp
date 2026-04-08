@@ -77,6 +77,33 @@ namespace sabre::core
         explicit UsbCdcNotConfiguredException(const std::string &message);
     };
 
+    class QueueAlreadyConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit QueueAlreadyConfiguredException(const std::string &message);
+    };
+
+    class QueueNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit QueueNotConfiguredException(const std::string &message);
+    };
+
+    class RgbPixelStripAlreadyConfiguredException
+        : public ResourceManagerException
+    {
+    public:
+        explicit RgbPixelStripAlreadyConfiguredException(
+            const std::string &message);
+    };
+
+    class RgbPixelStripNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit RgbPixelStripNotConfiguredException(
+            const std::string &message);
+    };
+
     class NtpClientAlreadyConfiguredException : public ResourceManagerException
     {
     public:

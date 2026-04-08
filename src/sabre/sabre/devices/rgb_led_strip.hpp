@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include "../types/types.hpp"
 #include <memory>
 
@@ -19,6 +20,7 @@ namespace sabre
         private:
             float _brightness;
             PixelIndex _length;
+            sabre::log::LogHelper _log_helper;
 
             void _raiseOnExceedingLength(PixelIndex index) const;
 
@@ -27,8 +29,9 @@ namespace sabre
 
         public:
             RgbPixelStrip(PixelIndex length);
-            ~RgbPixelStrip();
+            virtual ~RgbPixelStrip();
 
+            sabre::log::LogHelper &getLogHelper();
             void setPixel(PixelIndex index, const sabre::types::Color &color);
             PixelIndex getLength() const;
             void clearPixel(PixelIndex index);

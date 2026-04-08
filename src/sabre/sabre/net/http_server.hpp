@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include <cstdint>
 #include <functional>
 #include <string>
@@ -58,7 +59,11 @@ namespace sabre
             using SharedPtr = std::shared_ptr<HttpServer>;
             using UniquePtr = std::unique_ptr<HttpServer>;
 
+        private:
+            sabre::log::LogHelper _log_helper;
+
         public:
+            sabre::log::LogHelper &getLogHelper();
             virtual void addRoute(HttpMethod method, const std::string &uri,
                                   HttpServerPageHandler handler) = 0;
             virtual void removeRoute(HttpMethod method,

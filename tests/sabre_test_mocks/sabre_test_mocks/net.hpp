@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sabre/net/http_server.hpp>
 #include <sabre/net/mqtt.hpp>
 #include <sabre/net/wifi_soft_ap.hpp>
 #include <sabre/net/wifi_station.hpp>
@@ -53,5 +54,14 @@ namespace sabre::impl::sabre_test_mocks
         void start(const std::string &ssid, const std::string &password);
         void stop();
         void deinitialize();
+    };
+
+    class StHttpServer : public sabre::net::HttpServer
+    {
+        void addRoute(sabre::net::HttpMethod method, const std::string &uri,
+                      sabre::net::HttpServerPageHandler handler);
+        void removeRoute(sabre::net::HttpMethod method, const std::string &uri);
+        void start();
+        void stop();
     };
 } // namespace sabre::impl::sabre_test_mocks

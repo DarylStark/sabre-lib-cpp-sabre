@@ -61,6 +61,30 @@ namespace sabre::core
     {
     }
 
+    QueueAlreadyConfiguredException::QueueAlreadyConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    QueueNotConfiguredException::QueueNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    RgbPixelStripAlreadyConfiguredException::
+        RgbPixelStripAlreadyConfiguredException(const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    RgbPixelStripNotConfiguredException::RgbPixelStripNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
     NtpClientAlreadyConfiguredException::NtpClientAlreadyConfiguredException(
         const std::string &message)
         : ResourceManagerException(message)

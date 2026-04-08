@@ -41,4 +41,16 @@ namespace sabre::core
         }
         return *_mqttClients[identifier];
     }
+
+    sabre::net::HttpServer &
+    NetworkResourceManager::getHttpServer(const std::string &identifier)
+    {
+        if (_httpServers.find(identifier) == _httpServers.end())
+        {
+            _httpServers[identifier] = _factory.createHttpServer();
+            _httpServers[identifier]->getLogHelper().createLogger(
+                _logManager, "HttpServer_" + identifier);
+        }
+        return *_httpServers[identifier];
+    }
 } // namespace sabre::core

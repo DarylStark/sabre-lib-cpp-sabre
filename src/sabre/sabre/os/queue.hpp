@@ -1,6 +1,8 @@
 #pragma once
 
+#include "../log/logging.hpp"
 #include "../types/types.hpp"
+
 #include <memory>
 
 namespace sabre
@@ -14,7 +16,13 @@ namespace sabre
             using SharedPtr = std::shared_ptr<Queue>;
             using UniquePtr = std::unique_ptr<Queue>;
 
+        private:
+            sabre::log::LogHelper _log_helper;
+
         public:
+            virtual ~Queue();
+
+            sabre::log::LogHelper &getLogHelper();
             virtual void push(const void *item,
                               sabre::types::MsTime timeout) = 0;
             virtual void pushFromIsr(const void *item) = 0;
