@@ -1,12 +1,15 @@
 #pragma once
 
+#include "../devices/rgb_led_strip.hpp"
 #include "../hal/input_gpio.hpp"
 #include "../hal/output_gpio.hpp"
 #include "../hal/serial.hpp"
 #include "../io/serial_output_stream_buffer.hpp"
+#include "../net/http_server.hpp"
 #include "../net/mqtt.hpp"
 #include "../net/wifi_soft_ap.hpp"
 #include "../net/wifi_station.hpp"
+#include "../os/queue.hpp"
 #include "../os/service.hpp"
 #include "../platform/platform.hpp"
 #include "../time/ntp.hpp"
@@ -178,5 +181,14 @@ namespace sabre::core
         createService(sabre::os::ServiceHandler fn) const = 0;
 
         virtual sabre::platform::Platform::UniquePtr createPlatform() const = 0;
+
+        virtual sabre::os::Queue::UniquePtr
+        createQueue(std::size_t capacity, std::size_t elementSize) const = 0;
+
+        virtual sabre::net::HttpServer::UniquePtr createHttpServer() const = 0;
+
+        virtual sabre::devices::RgbPixelStrip::UniquePtr
+        createRgbPixelStrip(sabre::hal::PinNumber pinNumber,
+                            sabre::devices::PixelIndex length) const = 0;
     };
 } // namespace sabre::core

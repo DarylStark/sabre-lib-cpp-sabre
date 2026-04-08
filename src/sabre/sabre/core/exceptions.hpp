@@ -23,6 +23,24 @@ namespace sabre::core
         explicit SabreException(const std::string &message);
     };
 
+    class DeviceException : public SabreException
+    {
+    public:
+        explicit DeviceException(const std::string &message);
+    };
+
+    class RgbSizeTooSmallException : public DeviceException
+    {
+    public:
+        explicit RgbSizeTooSmallException(const std::string &message);
+    };
+
+    class RgbIndexTooHighException : public DeviceException
+    {
+    public:
+        explicit RgbIndexTooHighException(const std::string &message);
+    };
+
     class ResourceManagerException : public SabreException
     {
     public:
@@ -57,6 +75,33 @@ namespace sabre::core
     {
     public:
         explicit UsbCdcNotConfiguredException(const std::string &message);
+    };
+
+    class QueueAlreadyConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit QueueAlreadyConfiguredException(const std::string &message);
+    };
+
+    class QueueNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit QueueNotConfiguredException(const std::string &message);
+    };
+
+    class RgbPixelStripAlreadyConfiguredException
+        : public ResourceManagerException
+    {
+    public:
+        explicit RgbPixelStripAlreadyConfiguredException(
+            const std::string &message);
+    };
+
+    class RgbPixelStripNotConfiguredException : public ResourceManagerException
+    {
+    public:
+        explicit RgbPixelStripNotConfiguredException(
+            const std::string &message);
     };
 
     class NtpClientAlreadyConfiguredException : public ResourceManagerException

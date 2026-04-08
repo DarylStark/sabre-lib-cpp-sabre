@@ -7,6 +7,23 @@ namespace sabre::core
     {
     }
 
+    DeviceException::DeviceException(const std::string &message)
+        : SabreException(message)
+    {
+    }
+
+    RgbSizeTooSmallException::RgbSizeTooSmallException(
+        const std::string &message)
+        : DeviceException(message)
+    {
+    }
+
+    RgbIndexTooHighException::RgbIndexTooHighException(
+        const std::string &message)
+        : DeviceException(message)
+    {
+    }
+
     ResourceManagerException::ResourceManagerException(const std::string &msg)
         : SabreException(msg)
     {
@@ -39,6 +56,30 @@ namespace sabre::core
     }
 
     UsbCdcNotConfiguredException::UsbCdcNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    QueueAlreadyConfiguredException::QueueAlreadyConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    QueueNotConfiguredException::QueueNotConfiguredException(
+        const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    RgbPixelStripAlreadyConfiguredException::
+        RgbPixelStripAlreadyConfiguredException(const std::string &message)
+        : ResourceManagerException(message)
+    {
+    }
+
+    RgbPixelStripNotConfiguredException::RgbPixelStripNotConfiguredException(
         const std::string &message)
         : ResourceManagerException(message)
     {

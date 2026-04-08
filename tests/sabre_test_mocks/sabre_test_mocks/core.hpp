@@ -39,6 +39,14 @@ namespace sabre::impl::sabre_test_mocks
         sabre::time::WallClock::UniquePtr createWallClock() const override;
 
         sabre::platform::Platform::UniquePtr createPlatform() const override;
+        sabre::os::Queue::UniquePtr
+        createQueue(std::size_t capacity,
+                    std::size_t elementSize) const override;
+        sabre::net::HttpServer::UniquePtr createHttpServer() const override;
+
+        sabre::devices::RgbPixelStrip::UniquePtr
+        createRgbPixelStrip(sabre::hal::PinNumber pinNumber,
+                            sabre::devices::PixelIndex length) const override;
     };
 
 } // namespace sabre::impl::sabre_test_mocks

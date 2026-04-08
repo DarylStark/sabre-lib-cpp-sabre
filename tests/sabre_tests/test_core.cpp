@@ -42,6 +42,20 @@ TEST_F(ResourceManagerTest, RetrieveSerialResourceManager)
     ASSERT_EQ(&serial_rm1, &serial_rm2);
 }
 
+TEST_F(ResourceManagerTest, RetrieveOsResourceManager)
+{
+    auto &os_rm1 = _manager.os();
+    auto &os_rm2 = _manager.os();
+    ASSERT_EQ(&os_rm1, &os_rm2);
+}
+
+TEST_F(ResourceManagerTest, RetrieveDevicesResourceManager)
+{
+    auto &devices_rm1 = _manager.devices();
+    auto &devices_rm2 = _manager.devices();
+    ASSERT_EQ(&devices_rm1, &devices_rm2);
+}
+
 TEST_F(ResourceManagerTest, RetrieveLogManager)
 {
     auto &log_manager1 = _manager.getLogManager();
@@ -621,5 +635,144 @@ TEST_F(NetworkResourceManagerTest, LoggerAttachedToMqttClient)
 
     ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
     ASSERT_EQ(lastLoggerName, "MqttClient_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(OsResourceManagerTest, RetrieveTheSameQueue)
+{
+    _os_rm.configureQueue("primary", 10, 10);
+    const auto &queue1 = _os_rm.getQueue("primary");
+    const auto &queue2 = _os_rm.getQueue("primary");
+    ASSERT_EQ(&queue1, &queue2);
+}
+
+TEST_F(OsResourceManagerTest, RetrieveTheDifferentQueue)
+{
+    _os_rm.configureQueue("primary", 10, 10);
+    _os_rm.configureQueue("secnodary", 10, 10);
+    const auto &queue1 = _os_rm.getQueue("primary");
+    const auto &queue2 = _os_rm.getQueue("secnodary");
+    ASSERT_NE(&queue1, &queue2);
+}
+
+TEST_F(OsResourceManagerTest, RetrieveQueueWithoutConfiguration)
+{
+    ASSERT_THROW(_os_rm.getQueue("primary"),
+                 sabre::core::QueueNotConfiguredException);
+}
+
+TEST_F(OsResourceManagerTest, ConfigureQueueTwice)
+{
+    _os_rm.configureQueue("primary", 10, 10);
+    ASSERT_THROW(_os_rm.configureQueue("primary", 10, 10);
+                 , sabre::core::QueueAlreadyConfiguredException);
+}
+
+TEST_F(OsResourceManagerTest, LoggerAttachedToQueue)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _os_rm.configureQueue("primary", 10, 10);
+    auto &queue = _os_rm.getQueue("primary");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    queue.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "Queue_primary");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveTheSameHttpServer)
+{
+    auto &http1 = _net_rm.getHttpServer("default");
+    auto &http2 = _net_rm.getHttpServer("default");
+    ASSERT_EQ(&http1, &http2);
+}
+
+TEST_F(NetworkResourceManagerTest, RetrieveDifferentHttpServer)
+{
+    auto &http1 = _net_rm.getHttpServer("default");
+    auto &http2 = _net_rm.getHttpServer("secondary");
+    ASSERT_NE(&http1, &http2);
+}
+
+TEST_F(NetworkResourceManagerTest, LoggerAttachedToHttpServer)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    auto &http = _net_rm.getHttpServer("default");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    http.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "HttpServer_default");
+    ASSERT_EQ(lastMessage, "TestMessage");
+}
+
+TEST_F(DeviceResourceManagerTest, RetrieveTheSameRgbPixelStrip)
+{
+    _device_rm.configureRgbPixelStrip("primary", 1, 10);
+    const auto &rgb1 = _device_rm.getRgbPixelStrip("primary");
+    const auto &rgb2 = _device_rm.getRgbPixelStrip("primary");
+    ASSERT_EQ(&rgb1, &rgb2);
+}
+
+TEST_F(DeviceResourceManagerTest, RetrieveTheDifferentRgbPixelStrip)
+{
+    _device_rm.configureRgbPixelStrip("primary", 1, 10);
+    _device_rm.configureRgbPixelStrip("secnodary", 2, 10);
+    const auto &rgb1 = _device_rm.getRgbPixelStrip("primary");
+    const auto &rgb2 = _device_rm.getRgbPixelStrip("secnodary");
+    ASSERT_NE(&rgb1, &rgb2);
+}
+
+TEST_F(DeviceResourceManagerTest, RetrieveRgbPixelStripWithoutConfiguration)
+{
+    ASSERT_THROW(_device_rm.getRgbPixelStrip("primary"),
+                 sabre::core::RgbPixelStripNotConfiguredException);
+}
+
+TEST_F(DeviceResourceManagerTest, ConfigureRgbPixelStripTwice)
+{
+    _device_rm.configureRgbPixelStrip("primary", 10, 10);
+    ASSERT_THROW(_device_rm.configureRgbPixelStrip("primary", 10, 10);
+                 , sabre::core::RgbPixelStripAlreadyConfiguredException);
+}
+
+TEST_F(DeviceResourceManagerTest, LoggerAttachedToRgbPixelStrip)
+{
+    using namespace sabre::log;
+    using sabre::impl::sabre_test_mocks::TestHandler;
+
+    _device_rm.configureRgbPixelStrip("primary", 10, 10);
+    auto &queue = _device_rm.getRgbPixelStrip("primary");
+
+    LoggingLevel lastLevel;
+    std::string lastLoggerName;
+    std::string lastMessage;
+
+    _logManager.addHandler(
+        "testLogger",
+        std::make_unique<TestHandler>(lastLevel, lastLoggerName, lastMessage));
+    queue.getLogHelper().log(LoggingLevel::ERROR, "TestMessage");
+
+    ASSERT_EQ(lastLevel, LoggingLevel::ERROR);
+    ASSERT_EQ(lastLoggerName, "RgbPixelStrip_primary");
     ASSERT_EQ(lastMessage, "TestMessage");
 }

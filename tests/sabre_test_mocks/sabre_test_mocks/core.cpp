@@ -1,6 +1,8 @@
 #include "core.hpp"
+#include "devices.hpp"
 #include "hal.hpp"
 #include "net.hpp"
+#include "os.hpp"
 #include "platform.hpp"
 #include "time.hpp"
 
@@ -32,34 +34,34 @@ namespace sabre::impl::sabre_test_mocks
     sabre::hal::InputGpio::UniquePtr
     StFactory::createInputGpio(sabre::hal::PinNumber pin) const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StInputGpio>();
+        return std::make_unique<StInputGpio>();
     }
 
     sabre::hal::OutputGpio::UniquePtr
     StFactory::createOutputGpio(sabre::hal::PinNumber pin) const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StOutputGpio>();
+        return std::make_unique<StOutputGpio>();
     }
 
     sabre::hal::Gpio::UniquePtr
     StFactory::createGpio(sabre::hal::PinNumber pin) const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StGpio>(pin);
+        return std::make_unique<StGpio>(pin);
     }
 
     sabre::net::WifiStation::UniquePtr StFactory::createWifiStation() const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StWifiStation>();
+        return std::make_unique<StWifiStation>();
     }
 
     sabre::net::WifiSoftAp::UniquePtr StFactory::createWifiSoftAp() const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StWifiSoftAp>();
+        return std::make_unique<StWifiSoftAp>();
     }
 
     sabre::net::MqttClient::UniquePtr StFactory::createMqttClient() const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StMQTTClient>();
+        return std::make_unique<StMQTTClient>();
     }
 
     sabre::utility::WaitFor::UniquePtr
@@ -78,16 +80,34 @@ namespace sabre::impl::sabre_test_mocks
     sabre::time::NtpClient::UniquePtr
     StFactory::createNtpClient(const std::string &server) const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StNtpClient>();
+        return std::make_unique<StNtpClient>();
     }
 
     sabre::time::WallClock::UniquePtr StFactory::createWallClock() const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StWallClock>();
+        return std::make_unique<StWallClock>();
     }
 
     sabre::platform::Platform::UniquePtr StFactory::createPlatform() const
     {
-        return std::make_unique<sabre::impl::sabre_test_mocks::StPlatform>();
+        return std::make_unique<StPlatform>();
+    }
+
+    sabre::os::Queue::UniquePtr
+    StFactory::createQueue(std::size_t capacity, std::size_t elementSize) const
+    {
+        return std::make_unique<StQueue>(capacity, elementSize);
+    }
+
+    sabre::net::HttpServer::UniquePtr StFactory::createHttpServer() const
+    {
+        return std::make_unique<sabre::impl::sabre_test_mocks::StHttpServer>();
+    }
+
+    sabre::devices::RgbPixelStrip::UniquePtr
+    StFactory::createRgbPixelStrip(sabre::hal::PinNumber pinNumber,
+                                   sabre::devices::PixelIndex length) const
+    {
+        return std::make_unique<StRgbPixelStrip>(pinNumber, length);
     }
 } // namespace sabre::impl::sabre_test_mocks
