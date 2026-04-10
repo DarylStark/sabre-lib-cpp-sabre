@@ -13,11 +13,15 @@ author = 'Daryl Stark'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ['breathe']
 
 templates_path = ['_templates']
 exclude_patterns = []
 
+breathe_projects = {
+    "Sabre": "../doxygen/xml"
+}
+breathe_default_project = "Sabre"
 
 
 # -- Options for HTML output -------------------------------------------------

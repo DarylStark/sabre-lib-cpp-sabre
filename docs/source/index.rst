@@ -12,6 +12,7 @@ Welcome to the Sabre documentation! This documentation provides comprehensive in
    :maxdepth: 1
    :caption: Contents:
 
-   ../00-library-introduction/00-introduction
-   ../01-implementations/00-introduction
-   ../02-applications/00-introduction
+   ./00-library-introduction/00-introduction
+   ./01-implementations/00-introduction
+   ./02-applications/00-introduction
+   ./99-api/00-api-docs
