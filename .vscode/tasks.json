@@ -16,7 +16,7 @@
         },
         {
             "type": "shell",
-            "label": "Docs / Build HTML",
+            "label": "Docs / Build Sphinx (HTML)",
             "command": "uv",
             "args": [
                 "run",
@@ -30,6 +30,28 @@
                 }
             },
             "group": "none",
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "Docs / Build Dogxygen",
+            "command": "doxygen",
+            "options": {
+                "cwd": "${workspaceFolder}/docs/",
+                "env": {
+                    "LC_ALL": "C"
+                }
+            },
+            "group": "none",
+            "problemMatcher": []
+        },
+        {
+            "label": "Docs / Build all",
+            "dependsOn": [
+                "Docs / Build Doxygen",
+                "Docs / Build Sphinx (HTML)"
+            ],
+            "dependsOrder": "sequence",
             "problemMatcher": []
         }
     ]
