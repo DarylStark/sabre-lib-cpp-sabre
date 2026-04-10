@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../devices/rgb_led_strip.hpp"
+#include "../devices/rgb_pixel_strip.hpp"
 #include "factory.hpp"
 #include <unordered_map>
 

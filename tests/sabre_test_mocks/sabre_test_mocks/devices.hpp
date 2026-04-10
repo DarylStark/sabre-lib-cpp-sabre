@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sabre/devices/rgb_led_strip.hpp>
+#include <sabre/devices/rgb_pixel_strip.hpp>
 #include <sabre/hal/gpio.hpp>
 
 namespace sabre::impl::sabre_test_mocks
