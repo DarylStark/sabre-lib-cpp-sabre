@@ -34,7 +34,7 @@
         },
         {
             "type": "shell",
-            "label": "Docs / Build Dogxygen",
+            "label": "Docs / Build Doxygen",
             "command": "doxygen",
             "options": {
                 "cwd": "${workspaceFolder}/docs/",
