@@ -2,6 +2,8 @@
 
 Sabre is a platform-independent framework for programming microcontrollers in a consistent way. The framework provides a set of abstract interfaces that MCU implementations can implement, enabling you to write application code once and deploy it across different hardware platforms with minimal changes.
 
+Documentation can be found on: [GitHub Pages](https://darylstark.github.io/sabre-lib-cpp-sabre/).
+
 ## Overview
 
 Sabre takes a modular approach to embedded development:
