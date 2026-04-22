@@ -1,4 +1,4 @@
-#include "rgb_led_strip.hpp"
+#include "rgb_pixel_strip.hpp"
 #include "../core/exceptions.hpp"
 
 namespace sabre

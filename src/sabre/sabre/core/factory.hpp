@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../devices/rgb_led_strip.hpp"
+#include "../devices/rgb_pixel_strip.hpp"
 #include "../hal/input_gpio.hpp"
 #include "../hal/output_gpio.hpp"
 #include "../hal/serial.hpp"
