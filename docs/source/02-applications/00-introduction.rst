@@ -1,7 +1,7 @@
 Applications
 ============
 
-Applications are instances of a class that inherits from `sabre::runtime::App<ReturnType>`. The only method that should be overriden in this subclass, is a method called `run` with the following signature:
+Applications are instances of a class that inherits from `sabre::runtime::App<ReturnType>`. The only method that should be overridden in this subclass, is a method called `run` with the following signature:
 
 .. code-block:: cpp
 
