@@ -3,6 +3,8 @@
 #include <sabre_test_mocks/runtime.hpp>
 
 #include <sabre/runtime/run_app.hpp>
+#include <type_traits>
+#include <utility>
 
 using namespace sabre::impl::sabre_test_mocks;
 
@@ -34,4 +36,11 @@ TEST(RuntimeTest, TestAppWithReturnSmartPointer)
 
     ASSERT_EQ(retval->returnValue, 20);
     ASSERT_EQ(retval->returnString, "Sabre framework tests");
+}
+
+TEST(RuntimeTest, AppGetResourceManagerReturnsMutableReference)
+{
+    static_assert(std::is_same_v<
+                  decltype(std::declval<MyAppNoArgs &>().getResourceManager()),
+                  sabre::core::ResourceManager &>);
 }
