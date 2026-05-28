@@ -27,7 +27,7 @@ namespace sabre::runtime
          */
         virtual ~App() noexcept = default;
 
-        sabre::core::ResourceManager &getResourceManager() const noexcept
+        sabre::core::ResourceManager &getResourceManager() noexcept
         {
             return _resourceManager;
         }
