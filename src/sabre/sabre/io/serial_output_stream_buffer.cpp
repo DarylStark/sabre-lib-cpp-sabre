@@ -41,6 +41,7 @@ namespace sabre::io
 
         for (size_t i = 0; i < len; ++i)
             _serialPtr->writeByte(pbase()[i]);
+        _serialPtr->flush();
         _resetPutBuffer();
         return 0;
     }

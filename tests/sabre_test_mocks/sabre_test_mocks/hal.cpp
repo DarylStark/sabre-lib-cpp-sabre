@@ -43,10 +43,7 @@ namespace sabre::impl::sabre_test_mocks
         return result;
     }
 
-    void TestUART::flush()
-    {
-        _buf.clear();
-    }
+    void TestUART::flush() {}
 
     void TestUART::deinitialize() {}
 } // namespace sabre::impl::sabre_test_mocks

@@ -25,5 +25,5 @@ TEST(SerialStreamBuf, OverflowBuffer)
     std::cout << std::flush;
     std::cout << "Testtext123456" << std::flush;
     std::cout.rdbuf(oldbuf);
-    ASSERT_EQ(u._buf, "3456");
+    ASSERT_EQ(u._buf, "Testtext123456");
 }
