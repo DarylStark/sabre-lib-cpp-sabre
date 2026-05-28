@@ -45,7 +45,6 @@ namespace sabre::impl::sabre_test_mocks
 
     void TestUART::flush()
     {
-        _buf.clear();
     }
 
     void TestUART::deinitialize() {}
