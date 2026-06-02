@@ -1,6 +1,8 @@
 file(GLOB SOURCES CONFIGURE_DEPENDS sabre/*.cpp sabre/**/*.cpp)
 add_library(sabre STATIC ${SOURCES})
 
+set_target_properties(sabre PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 if(SABRE_BUILD_TESTS STREQUAL "ON")
     target_compile_options(sabre PRIVATE --coverage)
     target_link_options(sabre PRIVATE --coverage)
